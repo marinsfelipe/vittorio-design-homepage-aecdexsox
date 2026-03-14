@@ -30,6 +30,7 @@ export default function Layout() {
 
   const navLinks = [
     { name: 'Home', path: '/' },
+    { name: 'A Vittorio', path: '/sobre' },
     { name: 'Loja', path: '/loja' },
     { name: 'Catálogo', path: '/catalogo' },
     { name: 'Galeria', path: '/galeria' },
@@ -53,13 +54,13 @@ export default function Layout() {
             VITTORIO <span className="text-primary font-normal text-xl">Design</span>
           </Link>
 
-          <nav className="hidden md:flex gap-8 items-center">
+          <nav className="hidden md:flex gap-6 lg:gap-8 items-center">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 to={link.path}
                 className={cn(
-                  'text-sm font-medium uppercase tracking-widest nav-link-hover pb-1 transition-colors',
+                  'text-sm font-medium uppercase tracking-widest nav-link-hover pb-1 transition-colors whitespace-nowrap',
                   location.pathname === link.path
                     ? 'text-primary'
                     : 'text-foreground hover:text-white',
@@ -71,7 +72,7 @@ export default function Layout() {
             <Link
               to="/carrinho"
               className={cn(
-                'text-sm font-medium uppercase tracking-widest nav-link-hover pb-1 transition-colors flex items-center gap-2',
+                'text-sm font-medium uppercase tracking-widest nav-link-hover pb-1 transition-colors flex items-center gap-2 ml-2',
                 location.pathname === '/carrinho'
                   ? 'text-primary'
                   : 'text-foreground hover:text-white',
@@ -91,19 +92,19 @@ export default function Layout() {
             </SheetTrigger>
             <SheetContent
               side="right"
-              className="bg-background border-l-border/50 flex flex-col pt-16 z-50"
+              className="bg-background border-l-border/50 flex flex-col pt-16 z-50 w-4/5 sm:w-80"
             >
               <SheetTitle className="sr-only">Menu de Navegação</SheetTitle>
               <SheetDescription className="sr-only">
                 Acesse as páginas da Vittorio Design
               </SheetDescription>
-              <nav className="flex flex-col gap-6 mt-8">
+              <nav className="flex flex-col gap-6 mt-8 overflow-y-auto pr-2 pb-8">
                 {navLinks.map((link) => (
                   <Link
                     key={link.name}
                     to={link.path}
                     className={cn(
-                      'text-2xl font-serif tracking-wide transition-colors',
+                      'text-xl font-serif tracking-wide transition-colors',
                       location.pathname === link.path
                         ? 'text-primary'
                         : 'text-foreground hover:text-white',
@@ -115,16 +116,16 @@ export default function Layout() {
                 <Link
                   to="/carrinho"
                   className={cn(
-                    'text-2xl font-serif tracking-wide transition-colors flex items-center gap-3',
+                    'text-xl font-serif tracking-wide transition-colors flex items-center gap-3',
                     location.pathname === '/carrinho'
                       ? 'text-primary'
                       : 'text-foreground hover:text-white',
                   )}
                 >
-                  <ShoppingCart className="w-6 h-6" /> Carrinho
+                  <ShoppingCart className="w-5 h-5" /> Carrinho
                 </Link>
               </nav>
-              <div className="mt-auto pb-8 flex gap-4">
+              <div className="mt-auto pb-8 flex gap-4 pt-4 border-t border-white/5">
                 <a
                   href="https://instagram.com"
                   target="_blank"
@@ -156,10 +157,11 @@ export default function Layout() {
         <div className="container grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
           <div>
             <h3 className="text-2xl font-serif text-white mb-4">VITTORIO</h3>
-            <p className="text-muted-foreground leading-relaxed text-sm max-w-xs">
+            <p className="text-muted-foreground leading-relaxed text-sm max-w-xs mb-4">
               Mobiliário exclusivo e design de interiores sofisticado. Transformamos ambientes
               através da excelência do inox e acabamentos premium.
             </p>
+            <p className="text-xs text-muted-foreground/70 font-mono">CNPJ: 24.810.002/0001-04</p>
           </div>
           <div>
             <h4 className="text-lg font-serif text-white mb-4 uppercase tracking-wider">

@@ -4,6 +4,7 @@ import { Toaster } from '@/components/ui/toaster'
 import { Toaster as Sonner } from '@/components/ui/sonner'
 import { TooltipProvider } from '@/components/ui/tooltip'
 import Index from './pages/Index'
+import Sobre from './pages/Sobre'
 import Catalogo from './pages/Catalogo'
 import Loja from './pages/Loja'
 import Carrinho from './pages/Carrinho'
@@ -38,6 +39,7 @@ const App = () => (
       <Routes>
         <Route element={<Layout />}>
           <Route path="/" element={<Index />} />
+          <Route path="/sobre" element={<Sobre />} />
           <Route path="/loja" element={<Loja />} />
           <Route path="/carrinho" element={<Carrinho />} />
           <Route path="/checkout" element={<Checkout />} />
