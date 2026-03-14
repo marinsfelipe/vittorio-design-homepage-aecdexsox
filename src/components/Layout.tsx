@@ -36,6 +36,7 @@ export default function Layout() {
     { name: 'Galeria', path: '/galeria' },
     { name: 'Orçamento', path: '/orcamento' },
     { name: 'Docs', path: '/documentacao' },
+    { name: 'Blog', path: '/blog' },
     { name: 'Rastreio', path: '/rastreio' },
     { name: 'Contato', path: '/contato' },
   ]
@@ -66,7 +67,8 @@ export default function Layout() {
                 to={link.path}
                 className={cn(
                   'text-xs 2xl:text-sm font-medium uppercase tracking-widest nav-link-hover pb-1 transition-colors whitespace-nowrap',
-                  location.pathname === link.path
+                  location.pathname === link.path ||
+                    (link.path === '/blog' && location.pathname.startsWith('/blog/'))
                     ? 'text-primary'
                     : 'text-foreground hover:text-white',
                 )}
@@ -110,7 +112,8 @@ export default function Layout() {
                     to={link.path}
                     className={cn(
                       'text-xl font-serif tracking-wide transition-colors',
-                      location.pathname === link.path
+                      location.pathname === link.path ||
+                        (link.path === '/blog' && location.pathname.startsWith('/blog/'))
                         ? 'text-primary'
                         : 'text-foreground hover:text-white',
                     )}

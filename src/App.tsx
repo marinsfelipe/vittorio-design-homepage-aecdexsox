@@ -16,6 +16,8 @@ import Rastreio from './pages/Rastreio'
 import Galeria from './pages/Galeria'
 import Documentacao from './pages/Documentacao'
 import Orcamento from './pages/Orcamento'
+import Blog from './pages/Blog'
+import BlogPost from './pages/BlogPost'
 import NotFound from './pages/NotFound'
 import Layout from './components/Layout'
 import { initGA, trackPageView } from './lib/analytics'
@@ -53,6 +55,8 @@ const App = () => (
           <Route path="/contato" element={<Contato />} />
           <Route path="/documentacao" element={<Documentacao />} />
           <Route path="/orcamento" element={<Orcamento />} />
+          <Route path="/blog" element={<Blog />} />
+          <Route path="/blog/:id" element={<BlogPost />} />
         </Route>
         <Route path="*" element={<NotFound />} />
       </Routes>
