@@ -12,6 +12,7 @@ import Success from './pages/Success'
 import Produto from './pages/Produto'
 import Contato from './pages/Contato'
 import Rastreio from './pages/Rastreio'
+import Galeria from './pages/Galeria'
 import NotFound from './pages/NotFound'
 import Layout from './components/Layout'
 import { initGA, trackPageView } from './lib/analytics'
@@ -43,6 +44,7 @@ const App = () => (
           <Route path="/success" element={<Success />} />
           <Route path="/catalogo" element={<Catalogo />} />
           <Route path="/produto/:id" element={<Produto />} />
+          <Route path="/galeria" element={<Galeria />} />
           <Route path="/rastreio" element={<Rastreio />} />
           <Route path="/contato" element={<Contato />} />
         </Route>
