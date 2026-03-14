@@ -36,6 +36,7 @@ export default function Layout() {
     { name: 'Galeria', path: '/galeria' },
     { name: 'Orçamento', path: '/orcamento' },
     { name: 'Docs', path: '/documentacao' },
+    { name: 'FAQ', path: '/faq' },
     { name: 'Blog', path: '/blog' },
     { name: 'Rastreio', path: '/rastreio' },
     { name: 'Contato', path: '/contato' },

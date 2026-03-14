@@ -18,6 +18,7 @@ import Documentacao from './pages/Documentacao'
 import Orcamento from './pages/Orcamento'
 import Blog from './pages/Blog'
 import BlogPost from './pages/BlogPost'
+import FAQ from './pages/FAQ'
 import NotFound from './pages/NotFound'
 import Layout from './components/Layout'
 import { initGA, trackPageView } from './lib/analytics'
@@ -55,6 +56,7 @@ const App = () => (
           <Route path="/contato" element={<Contato />} />
           <Route path="/documentacao" element={<Documentacao />} />
           <Route path="/orcamento" element={<Orcamento />} />
+          <Route path="/faq" element={<FAQ />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:id" element={<BlogPost />} />
         </Route>
