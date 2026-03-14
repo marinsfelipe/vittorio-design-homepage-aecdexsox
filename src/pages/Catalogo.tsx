@@ -6,6 +6,7 @@ import { useToast } from '@/hooks/use-toast'
 import { SEO } from '@/components/SEO'
 import { trackEvent } from '@/lib/analytics'
 import { PrintableCatalog } from '@/components/PrintableCatalog'
+import { CatalogProducts } from '@/components/CatalogProducts'
 import { supabase } from '@/lib/supabase'
 
 export default function Catalogo() {
@@ -54,16 +55,7 @@ export default function Catalogo() {
           .join('\n')
       }
 
-      const messageContent = `Olá! Gostaria de solicitar informações e orçamento sobre o catálogo Vittorio Design.
-
-Linhas Comerciais:
-- Strongest
-- Speciale
-- Aprezzo
-- Fredda
-
-Produtos em destaque:
-${produtosText}`
+      const messageContent = `Olá! Gostaria de solicitar informações e orçamento sobre o catálogo Vittorio Design.\n\nProdutos em destaque:\n${produtosText}`
 
       await new Promise((resolve) => setTimeout(resolve, 1500))
 
@@ -94,8 +86,7 @@ ${produtosText}`
       toast({
         variant: 'destructive',
         title: 'Erro no envio',
-        description:
-          'Não foi possível enviar as informações no momento. Tente novamente mais tarde.',
+        description: 'Não foi possível enviar as informações no momento.',
       })
     } finally {
       setIsSending(false)
@@ -107,10 +98,6 @@ ${produtosText}`
     { id: 2, title: '2. Apresentação', desc: 'História, fundadores e dados legais.' },
     { id: 3, title: '3. Balcões', desc: 'Soluções em atendimento e exposição neutra.' },
     { id: 4, title: '4. Vitrines', desc: 'Conservação refrigerada, aquecida e neutra.' },
-    { id: 5, title: '5. Expositores', desc: 'Armazenamento vertical de alta performance.' },
-    { id: 6, title: '6. Especificações', desc: 'Gases, refrigeração e conformidade técnica.' },
-    { id: 7, title: '7. Linhas Comerciais', desc: 'Comparativo de itens de série e opcionais.' },
-    { id: 8, title: '8. Contatos', desc: 'Informações de atendimento e showroom.' },
   ]
 
   return (
@@ -118,15 +105,15 @@ ${produtosText}`
       <div className="print:hidden w-full pt-32 pb-24 bg-background min-h-screen">
         <SEO
           title="Catálogo Oficial | Vittorio Design"
-          description="Baixe o catálogo completo da Vittorio Design em PDF. Tenha acesso a todas as informações técnicas e linhas comerciais."
+          description="Baixe o catálogo completo da Vittorio Design em PDF. Tenha acesso a todas as informações técnicas."
         />
         <div className="container max-w-5xl">
           <div className="mb-12 text-center opacity-0 animate-fade-in-up">
             <h1 className="text-4xl md:text-5xl font-serif text-white mb-6">Catálogo Oficial</h1>
             <div className="h-px w-24 bg-primary mx-auto mb-6"></div>
             <p className="text-lg text-muted-foreground font-light max-w-2xl mx-auto">
-              Consulte offline todas as informações técnicas, linhas comerciais e detalhes
-              institucionais da Vittorio Design em um documento completo de 8 páginas.
+              Consulte offline todas as informações técnicas e detalhes institucionais da Vittorio
+              Design em um documento completo.
             </p>
           </div>
 
@@ -193,6 +180,8 @@ ${produtosText}`
               ))}
             </div>
           </div>
+
+          <CatalogProducts />
         </div>
       </div>
       <PrintableCatalog />
