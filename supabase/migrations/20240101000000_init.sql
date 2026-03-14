@@ -22,6 +22,15 @@ CREATE TABLE produtos (
     criado_em TIMESTAMP WITH TIME ZONE DEFAULT NOW()
 );
 
+CREATE TABLE produto_imagens (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    produto_id UUID REFERENCES produtos(id) ON DELETE CASCADE,
+    imagem_url TEXT NOT NULL,
+    tipo_imagem TEXT NOT NULL,
+    ordem INTEGER DEFAULT 0,
+    criado_em TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
 CREATE TABLE contatos (
     id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
     nome TEXT NOT NULL,
@@ -74,3 +83,28 @@ INSERT INTO produtos (id, nome, codigo, familia_id, dimensoes_l, dimensoes_p, di
 ('p4000000-0000-0000-0000-000000000004', 'Balcão Curvo Elegance', 'VD.EX.BAL.002', 'f1000000-0000-0000-0000-000000000001', 180, 70, 90, '{"refrigeracao": "Refrigeração Estática Opcional", "temperatura": "+4°C a +10°C", "consumo": "0.30 kWh"}', '["Design curvo ergonômico", "Tampo em mármore sintético", "Estrutura Inox 304"]', '["Módulo refrigerado integrado", "Acabamento em ripas de madeira"]', 'https://img.usecurling.com/p/800/1000?q=curved%20reception%20counter&color=black', NULL, false, false),
 ('p5000000-0000-0000-0000-000000000005', 'Vitrine Panorâmica', 'VD.EX.VTR.002', 'f2000000-0000-0000-0000-000000000002', 120, 40, 180, '{"refrigeracao": "Ar Forçado", "temperatura": "+0°C a +5°C", "consumo": "0.60 kWh"}', '["Visão 360 graus", "Portas deslizantes em vidro", "3 níveis de prateleiras ajustáveis"]', '["Cortina noturna", "Prateleiras espelhadas"]', 'https://img.usecurling.com/p/800/1000?q=large%20display%20case&color=black', 18500.00, true, true),
 ('p6000000-0000-0000-0000-000000000006', 'Expositor Parede Slim', 'VD.EX.EXP.002', 'f3000000-0000-0000-0000-000000000003', 120, 30, 200, '{"refrigeracao": "Não aplicável", "temperatura": "Ambiente", "consumo": "N/A"}', '["Perfil ultra-fino", "Fixação invisível", "Prateleiras em vidro 6mm"]', '["Fitas de LED RGBW", "Fundo em espelho bronze"]', 'https://img.usecurling.com/p/800/1000?q=wall%20shelving%20display&color=black', 4200.00, true, true);
+
+-- Seed data for produto_imagens (integrated storage URLs mapping)
+INSERT INTO produto_imagens (produto_id, imagem_url, tipo_imagem, ordem) VALUES
+('p1000000-0000-0000-0000-000000000001', 'https://placeholder.supabase.co/storage/v1/object/public/Baldes/Arquivos/Baldes/Imagens%20Vittorio%20Design/Balcões%20Refrigerados/balcao_premium_principal.webp', 'principal', 1),
+('p1000000-0000-0000-0000-000000000001', 'https://placeholder.supabase.co/storage/v1/object/public/Baldes/Arquivos/Baldes/Imagens%20Vittorio%20Design/Balcões%20Refrigerados/balcao_premium_galeria.webp', 'galeria', 2),
+('p1000000-0000-0000-0000-000000000001', 'https://placeholder.supabase.co/storage/v1/object/public/Baldes/Arquivos/Baldes/Imagens%20Vittorio%20Design/Balcões%20Refrigerados/balcao_premium_3d.webp', 'render 3D', 3),
+('p1000000-0000-0000-0000-000000000001', 'https://placeholder.supabase.co/storage/v1/object/public/Baldes/Arquivos/Baldes/Imagens%20Vittorio%20Design/Balcões%20Refrigerados/balcao_premium_ambiente.webp', 'ambiente', 4),
+
+('p2000000-0000-0000-0000-000000000002', 'https://placeholder.supabase.co/storage/v1/object/public/Baldes/Arquivos/Baldes/Imagens%20Vittorio%20Design/Vitrines%20Refrigeradas/vitrine_torre_principal.webp', 'principal', 1),
+('p2000000-0000-0000-0000-000000000002', 'https://placeholder.supabase.co/storage/v1/object/public/Baldes/Arquivos/Baldes/Imagens%20Vittorio%20Design/Vitrines%20Refrigeradas/vitrine_torre_galeria.webp', 'galeria', 2),
+('p2000000-0000-0000-0000-000000000002', 'https://placeholder.supabase.co/storage/v1/object/public/Baldes/Arquivos/Baldes/Imagens%20Vittorio%20Design/Vitrines%20Refrigeradas/vitrine_torre_3d.webp', 'render 3D', 3),
+('p2000000-0000-0000-0000-000000000002', 'https://placeholder.supabase.co/storage/v1/object/public/Baldes/Arquivos/Baldes/Imagens%20Vittorio%20Design/Vitrines%20Refrigeradas/vitrine_torre_ambiente.webp', 'ambiente', 4),
+
+('p3000000-0000-0000-0000-000000000003', 'https://placeholder.supabase.co/storage/v1/object/public/Baldes/Arquivos/Baldes/Imagens%20Vittorio%20Design/Expositores%20Refrigerados/expositor_prisma_principal.webp', 'principal', 1),
+('p3000000-0000-0000-0000-000000000003', 'https://placeholder.supabase.co/storage/v1/object/public/Baldes/Arquivos/Baldes/Imagens%20Vittorio%20Design/Expositores%20Refrigerados/expositor_prisma_galeria.webp', 'galeria', 2),
+('p3000000-0000-0000-0000-000000000003', 'https://placeholder.supabase.co/storage/v1/object/public/Baldes/Arquivos/Baldes/Imagens%20Vittorio%20Design/Expositores%20Refrigerados/expositor_prisma_ambiente.webp', 'ambiente', 3),
+
+('p4000000-0000-0000-0000-000000000004', 'https://placeholder.supabase.co/storage/v1/object/public/Baldes/Arquivos/Baldes/Imagens%20Vittorio%20Design/Balcões%20Refrigerados/balcao_curvo_principal.webp', 'principal', 1),
+('p4000000-0000-0000-0000-000000000004', 'https://placeholder.supabase.co/storage/v1/object/public/Baldes/Arquivos/Baldes/Imagens%20Vittorio%20Design/Balcões%20Refrigerados/balcao_curvo_3d.webp', 'render 3D', 2),
+
+('p5000000-0000-0000-0000-000000000005', 'https://placeholder.supabase.co/storage/v1/object/public/Baldes/Arquivos/Baldes/Imagens%20Vittorio%20Design/Vitrines%20Refrigeradas/vitrine_panoramica_principal.webp', 'principal', 1),
+('p5000000-0000-0000-0000-000000000005', 'https://placeholder.supabase.co/storage/v1/object/public/Baldes/Arquivos/Baldes/Imagens%20Vittorio%20Design/Vitrines%20Refrigeradas/vitrine_panoramica_galeria.webp', 'galeria', 2),
+
+('p6000000-0000-0000-0000-000000000006', 'https://placeholder.supabase.co/storage/v1/object/public/Baldes/Arquivos/Baldes/Imagens%20Vittorio%20Design/Expositores%20Refrigerados/expositor_parede_principal.webp', 'principal', 1),
+('p6000000-0000-0000-0000-000000000006', 'https://placeholder.supabase.co/storage/v1/object/public/Baldes/Arquivos/Baldes/Imagens%20Vittorio%20Design/Expositores%20Refrigerados/expositor_parede_ambiente.webp', 'ambiente', 2);
