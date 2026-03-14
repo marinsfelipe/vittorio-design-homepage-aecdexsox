@@ -10,11 +10,13 @@ import {
   Share2,
   Snowflake,
   Loader2,
+  ShoppingCart,
 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { supabase } from '@/lib/supabase'
 import { useToast } from '@/hooks/use-toast'
+import { useCart } from '@/hooks/useCart'
 
 const fallbackProductDetails = {
   id: 'p1000000-0000-0000-0000-000000000002',
@@ -44,11 +46,14 @@ const fallbackProductDetails = {
   ],
   imagem_url:
     'https://img.usecurling.com/p/1200/1600?q=luxury%20glass%20display%20cabinet&color=black',
+  preco: 12500,
+  disponivel_ecommerce: true,
 }
 
 export default function Produto() {
   const { id } = useParams()
   const { toast } = useToast()
+  const { addToCart, isAdding } = useCart()
   const [product, setProduct] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)
   const [isRequesting, setIsRequesting] = useState(false)
@@ -194,6 +199,20 @@ export default function Produto() {
               <h1 className="text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 leading-tight">
                 {product.nome}
               </h1>
+
+              {product.disponivel_ecommerce && product.preco != null && (
+                <div className="mb-8">
+                  <p className="text-3xl lg:text-4xl font-serif text-white">
+                    {new Intl.NumberFormat('pt-BR', {
+                      style: 'currency',
+                      currency: 'BRL',
+                    }).format(product.preco)}
+                  </p>
+                  <p className="text-sm text-muted-foreground mt-2 font-light">
+                    Em até 12x sem juros no cartão de crédito
+                  </p>
+                </div>
+              )}
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
@@ -277,17 +296,34 @@ export default function Produto() {
             </div>
 
             <div className="flex flex-col sm:flex-row gap-4 pt-8">
-              <Button
-                onClick={handleQuoteRequest}
-                disabled={isRequesting}
-                className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90 rounded-none h-14 text-sm tracking-widest uppercase transition-all duration-300 active:scale-[0.98]"
-              >
-                {isRequesting ? (
-                  <Loader2 className="w-5 h-5 animate-spin" />
-                ) : (
-                  'Solicitar Orçamento'
-                )}
-              </Button>
+              {product.disponivel_ecommerce ? (
+                <Button
+                  onClick={() => addToCart(product.id)}
+                  disabled={isAdding === product.id}
+                  className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90 rounded-none h-14 text-sm tracking-widest uppercase transition-all duration-300 active:scale-[0.98]"
+                >
+                  {isAdding === product.id ? (
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                  ) : (
+                    <>
+                      <ShoppingCart className="w-5 h-5 mr-2" />
+                      Adicionar ao Carrinho
+                    </>
+                  )}
+                </Button>
+              ) : (
+                <Button
+                  onClick={handleQuoteRequest}
+                  disabled={isRequesting}
+                  className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90 rounded-none h-14 text-sm tracking-widest uppercase transition-all duration-300 active:scale-[0.98]"
+                >
+                  {isRequesting ? (
+                    <Loader2 className="w-5 h-5 animate-spin" />
+                  ) : (
+                    'Solicitar Orçamento'
+                  )}
+                </Button>
+              )}
               <Button
                 onClick={handleWhatsAppShare}
                 variant="outline"

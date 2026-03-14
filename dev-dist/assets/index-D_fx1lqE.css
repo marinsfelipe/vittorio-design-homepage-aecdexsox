@@ -4073,6 +4073,11 @@ section[aria-label='Notifications alt+T'] {
     padding: 2rem;
   }
 
+  .lg\:text-4xl{
+    font-size: 2.25rem;
+    line-height: 2.5rem;
+  }
+
   .lg\:text-6xl{
     font-size: 3.75rem;
     line-height: 1;

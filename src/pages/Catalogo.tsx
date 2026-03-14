@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
-import { ArrowRight, Expand, Loader2 } from 'lucide-react'
+import { ArrowRight, Expand, Loader2, ShoppingCart } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import {
   Select,
@@ -15,6 +15,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { cn } from '@/lib/utils'
 import { supabase } from '@/lib/supabase'
 import { useToast } from '@/hooks/use-toast'
+import { useCart } from '@/hooks/useCart'
 
 type Familia = {
   id: string
@@ -31,11 +32,14 @@ type Produto = {
   dimensoes_a: number
   imagem_url: string
   familias?: Familia
+  preco?: number
+  disponivel_ecommerce?: boolean
 }
 
 export default function Catalogo() {
   const navigate = useNavigate()
   const { toast } = useToast()
+  const { addToCart, isAdding } = useCart()
   const [familias, setFamilias] = useState<Familia[]>([])
   const [produtos, setProdutos] = useState<Produto[]>([])
   const [selectedFamilyId, setSelectedFamilyId] = useState<string>('All')
@@ -239,21 +243,53 @@ export default function Catalogo() {
                       <Expand className="w-4 h-4 text-primary/70" />
                       {product.dimensoes_l}cm x {product.dimensoes_p}cm x {product.dimensoes_a}cm
                     </p>
+
+                    {product.disponivel_ecommerce && product.preco != null && (
+                      <p className="text-xl text-white font-serif mt-4">
+                        {new Intl.NumberFormat('pt-BR', {
+                          style: 'currency',
+                          currency: 'BRL',
+                        }).format(product.preco)}
+                      </p>
+                    )}
+
                     <div className="mt-6 flex flex-col gap-4 relative z-10">
                       <div className="flex items-center text-xs font-medium text-primary uppercase tracking-widest group-hover:translate-x-2 transition-transform duration-300">
                         Ver Detalhes <ArrowRight className="ml-2 h-4 w-4" />
                       </div>
-                      <Button
-                        onClick={(e) => handleQuoteRequest(e, product)}
-                        disabled={requestingId === product.id}
-                        className="w-full bg-transparent border border-white/10 text-white hover:bg-primary hover:border-primary hover:text-primary-foreground rounded-none text-xs tracking-widest uppercase transition-all duration-300"
-                      >
-                        {requestingId === product.id ? (
-                          <Loader2 className="w-4 h-4 animate-spin" />
-                        ) : (
-                          'Solicitar Orçamento'
-                        )}
-                      </Button>
+
+                      {product.disponivel_ecommerce ? (
+                        <Button
+                          onClick={(e) => {
+                            e.preventDefault()
+                            e.stopPropagation()
+                            addToCart(product.id)
+                          }}
+                          disabled={isAdding === product.id}
+                          className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-none text-xs tracking-widest uppercase transition-all duration-300"
+                        >
+                          {isAdding === product.id ? (
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                          ) : (
+                            <>
+                              <ShoppingCart className="w-4 h-4 mr-2" />
+                              Adicionar ao Carrinho
+                            </>
+                          )}
+                        </Button>
+                      ) : (
+                        <Button
+                          onClick={(e) => handleQuoteRequest(e, product)}
+                          disabled={requestingId === product.id}
+                          className="w-full bg-transparent border border-white/10 text-white hover:bg-primary hover:border-primary hover:text-primary-foreground rounded-none text-xs tracking-widest uppercase transition-all duration-300"
+                        >
+                          {requestingId === product.id ? (
+                            <Loader2 className="w-4 h-4 animate-spin" />
+                          ) : (
+                            'Solicitar Orçamento'
+                          )}
+                        </Button>
+                      )}
                     </div>
                   </CardContent>
                 </Card>

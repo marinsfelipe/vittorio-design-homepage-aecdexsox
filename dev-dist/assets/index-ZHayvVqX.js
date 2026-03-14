@@ -19235,6 +19235,24 @@ var Share2 = createLucideIcon("share-2", [
 		key: "1n3mei"
 	}]
 ]);
+var ShoppingCart = createLucideIcon("shopping-cart", [
+	["circle", {
+		cx: "8",
+		cy: "21",
+		r: "1",
+		key: "jimo8o"
+	}],
+	["circle", {
+		cx: "19",
+		cy: "21",
+		r: "1",
+		key: "13723u"
+	}],
+	["path", {
+		d: "M2.05 2.05h2l2.66 12.42a2 2 0 0 0 2 1.58h9.78a2 2 0 0 0 1.95-1.57l1.65-7.43H5.12",
+		key: "9zh506"
+	}]
+]);
 var Snowflake = createLucideIcon("snowflake", [
 	["path", {
 		d: "m10 20-1.25-2.5L6 18",
@@ -40605,10 +40623,61 @@ function Badge({ className, variant, ...props }) {
 	});
 }
 //#endregion
+//#region src/hooks/useCart.ts
+function getSessionId() {
+	let sessionId = localStorage.getItem("vittorio_session_id");
+	if (!sessionId) {
+		if (typeof crypto !== "undefined" && crypto.randomUUID) sessionId = crypto.randomUUID();
+		else sessionId = Math.random().toString(36).substring(2, 15) + Math.random().toString(36).substring(2, 15);
+		localStorage.setItem("vittorio_session_id", sessionId);
+	}
+	return sessionId;
+}
+function useCart() {
+	const [isAdding, setIsAdding] = (0, import_react.useState)(null);
+	const { toast } = useToast();
+	const addToCart = async (produtoId) => {
+		setIsAdding(produtoId);
+		try {
+			const sessionId = getSessionId();
+			const { data: existing } = await supabase.from("carrinho").select("id, quantidade").eq("sessao_id", sessionId).eq("produto_id", produtoId).single();
+			if (existing) {
+				const { error } = await supabase.from("carrinho").update({ quantidade: existing.quantidade + 1 }).eq("id", existing.id);
+				if (error) throw error;
+			} else {
+				const { error } = await supabase.from("carrinho").insert({
+					sessao_id: sessionId,
+					produto_id: produtoId,
+					quantidade: 1
+				});
+				if (error) throw error;
+			}
+			toast({
+				title: "Adicionado ao carrinho",
+				description: "O produto foi adicionado ao seu carrinho com sucesso."
+			});
+		} catch (err) {
+			console.error(err);
+			toast({
+				variant: "destructive",
+				title: "Erro ao adicionar",
+				description: "Não foi possível adicionar o produto ao carrinho."
+			});
+		} finally {
+			setIsAdding(null);
+		}
+	};
+	return {
+		addToCart,
+		isAdding
+	};
+}
+//#endregion
 //#region src/pages/Catalogo.tsx
 function Catalogo() {
 	const navigate = useNavigate();
 	const { toast } = useToast();
+	const { addToCart, isAdding } = useCart();
 	const [familias, setFamilias] = (0, import_react.useState)([]);
 	const [produtos, setProdutos] = (0, import_react.useState)([]);
 	const [selectedFamilyId, setSelectedFamilyId] = (0, import_react.useState)("All");
@@ -40681,32 +40750,32 @@ function Catalogo() {
 		}
 	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-		"data-uid": "src/pages/Catalogo.tsx:120:5",
+		"data-uid": "src/pages/Catalogo.tsx:124:5",
 		"data-prohibitions": "[editContent]",
 		className: "w-full pt-32 pb-24 bg-background min-h-screen",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			"data-uid": "src/pages/Catalogo.tsx:121:7",
+			"data-uid": "src/pages/Catalogo.tsx:125:7",
 			"data-prohibitions": "[editContent]",
 			className: "container",
 			children: [
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/pages/Catalogo.tsx:122:9",
+					"data-uid": "src/pages/Catalogo.tsx:126:9",
 					"data-prohibitions": "[]",
 					className: "mb-12 max-w-2xl opacity-0 animate-fade-in-up",
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-							"data-uid": "src/pages/Catalogo.tsx:123:11",
+							"data-uid": "src/pages/Catalogo.tsx:127:11",
 							"data-prohibitions": "[]",
 							className: "text-4xl md:text-6xl font-serif text-white mb-6",
 							children: "Nosso Catálogo"
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							"data-uid": "src/pages/Catalogo.tsx:124:11",
+							"data-uid": "src/pages/Catalogo.tsx:128:11",
 							"data-prohibitions": "[]",
 							className: "h-px w-24 bg-primary mb-6"
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							"data-uid": "src/pages/Catalogo.tsx:125:11",
+							"data-uid": "src/pages/Catalogo.tsx:129:11",
 							"data-prohibitions": "[]",
 							className: "text-lg text-muted-foreground font-light",
 							children: "Explore nossa coleção de peças exclusivas. Balcões, Vitrines e Expositores desenvolvidos com a precisão do inox e detalhes em ouro para transformar seu ambiente."
@@ -40714,27 +40783,27 @@ function Catalogo() {
 					]
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/pages/Catalogo.tsx:131:9",
+					"data-uid": "src/pages/Catalogo.tsx:135:9",
 					"data-prohibitions": "[editContent]",
 					className: "flex flex-col lg:flex-row justify-between items-start lg:items-center mb-10 gap-6 opacity-0 animate-fade-in-up",
 					style: { animationDelay: "0.2s" },
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						"data-uid": "src/pages/Catalogo.tsx:135:11",
+						"data-uid": "src/pages/Catalogo.tsx:139:11",
 						"data-prohibitions": "[editContent]",
 						className: "flex flex-wrap gap-3",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-							"data-uid": "src/pages/Catalogo.tsx:136:13",
+							"data-uid": "src/pages/Catalogo.tsx:140:13",
 							"data-prohibitions": "[editContent]",
 							variant: selectedFamilyId === "All" ? "default" : "outline",
 							onClick: () => setSelectedFamilyId("All"),
 							className: cn$1("rounded-none uppercase tracking-widest text-xs px-6 py-5 transition-all duration-300", selectedFamilyId === "All" ? "bg-primary text-primary-foreground hover:bg-primary/90 border-transparent" : "border-white/20 text-white hover:bg-white/10 hover:border-white/40"),
 							children: "Todos os Produtos"
 						}), isLoading ? Array.from({ length: 3 }).map((_, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Skeleton, {
-							"data-uid": "src/pages/Catalogo.tsx:150:19",
+							"data-uid": "src/pages/Catalogo.tsx:154:19",
 							"data-prohibitions": "[editContent]",
 							className: "h-[42px] w-[120px] rounded-none bg-white/10"
 						}, i)) : familias.map((fam) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-							"data-uid": "src/pages/Catalogo.tsx:153:19",
+							"data-uid": "src/pages/Catalogo.tsx:157:19",
 							"data-prohibitions": "[editContent]",
 							variant: selectedFamilyId === fam.id ? "default" : "outline",
 							onClick: () => setSelectedFamilyId(fam.id),
@@ -40742,48 +40811,48 @@ function Catalogo() {
 							children: fam.nome
 						}, fam.id))]
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						"data-uid": "src/pages/Catalogo.tsx:168:11",
+						"data-uid": "src/pages/Catalogo.tsx:172:11",
 						"data-prohibitions": "[]",
 						className: "w-full lg:w-72",
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
-							"data-uid": "src/pages/Catalogo.tsx:169:13",
+							"data-uid": "src/pages/Catalogo.tsx:173:13",
 							"data-prohibitions": "[]",
 							value: sortBy,
 							onValueChange: setSortBy,
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectTrigger, {
-								"data-uid": "src/pages/Catalogo.tsx:170:15",
+								"data-uid": "src/pages/Catalogo.tsx:174:15",
 								"data-prohibitions": "[]",
 								className: "rounded-none border-white/20 text-white bg-transparent focus:ring-primary focus:ring-offset-0 h-12",
 								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectValue, {
-									"data-uid": "src/pages/Catalogo.tsx:171:17",
+									"data-uid": "src/pages/Catalogo.tsx:175:17",
 									"data-prohibitions": "[editContent]",
 									placeholder: "Ordenar por..."
 								})
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SelectContent, {
-								"data-uid": "src/pages/Catalogo.tsx:173:15",
+								"data-uid": "src/pages/Catalogo.tsx:177:15",
 								"data-prohibitions": "[]",
 								className: "rounded-none bg-[#111] border-white/10 text-white",
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
-										"data-uid": "src/pages/Catalogo.tsx:174:17",
+										"data-uid": "src/pages/Catalogo.tsx:178:17",
 										"data-prohibitions": "[]",
 										value: "name-asc",
 										children: "Nome (A-Z)"
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
-										"data-uid": "src/pages/Catalogo.tsx:175:17",
+										"data-uid": "src/pages/Catalogo.tsx:179:17",
 										"data-prohibitions": "[]",
 										value: "name-desc",
 										children: "Nome (Z-A)"
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
-										"data-uid": "src/pages/Catalogo.tsx:176:17",
+										"data-uid": "src/pages/Catalogo.tsx:180:17",
 										"data-prohibitions": "[]",
 										value: "size-asc",
 										children: "Tamanho (Menor - Maior)"
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
-										"data-uid": "src/pages/Catalogo.tsx:177:17",
+										"data-uid": "src/pages/Catalogo.tsx:181:17",
 										"data-prohibitions": "[]",
 										value: "size-desc",
 										children: "Tamanho (Maior - Menor)"
@@ -40794,34 +40863,34 @@ function Catalogo() {
 					})]
 				}),
 				isLoading ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					"data-uid": "src/pages/Catalogo.tsx:184:11",
+					"data-uid": "src/pages/Catalogo.tsx:188:11",
 					"data-prohibitions": "[editContent]",
 					className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8",
 					children: Array.from({ length: 8 }).map((_, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, {
-						"data-uid": "src/pages/Catalogo.tsx:186:15",
+						"data-uid": "src/pages/Catalogo.tsx:190:15",
 						"data-prohibitions": "[]",
 						className: "h-full bg-card border-white/5 overflow-hidden rounded-none flex flex-col",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Skeleton, {
-							"data-uid": "src/pages/Catalogo.tsx:190:17",
+							"data-uid": "src/pages/Catalogo.tsx:194:17",
 							"data-prohibitions": "[editContent]",
 							className: "relative aspect-[4/5] bg-white/10 rounded-none"
 						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
-							"data-uid": "src/pages/Catalogo.tsx:191:17",
+							"data-uid": "src/pages/Catalogo.tsx:195:17",
 							"data-prohibitions": "[]",
 							className: "p-6 flex flex-col gap-3",
 							children: [
 								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Skeleton, {
-									"data-uid": "src/pages/Catalogo.tsx:192:19",
+									"data-uid": "src/pages/Catalogo.tsx:196:19",
 									"data-prohibitions": "[editContent]",
 									className: "h-6 w-3/4 bg-white/10"
 								}),
 								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Skeleton, {
-									"data-uid": "src/pages/Catalogo.tsx:193:19",
+									"data-uid": "src/pages/Catalogo.tsx:197:19",
 									"data-prohibitions": "[editContent]",
 									className: "h-4 w-1/2 bg-white/10"
 								}),
 								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Skeleton, {
-									"data-uid": "src/pages/Catalogo.tsx:194:19",
+									"data-uid": "src/pages/Catalogo.tsx:198:19",
 									"data-prohibitions": "[editContent]",
 									className: "h-4 w-2/3 bg-white/10 mt-auto"
 								})
@@ -40829,35 +40898,35 @@ function Catalogo() {
 						})]
 					}, i))
 				}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/pages/Catalogo.tsx:200:11",
+					"data-uid": "src/pages/Catalogo.tsx:204:11",
 					"data-prohibitions": "[editContent]",
 					className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 opacity-0 animate-fade-in-up",
 					style: { animationDelay: "0.3s" },
 					children: [sortedAndFiltered.map((product) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						"data-uid": "src/pages/Catalogo.tsx:205:15",
+						"data-uid": "src/pages/Catalogo.tsx:209:15",
 						"data-prohibitions": "[editContent]",
 						onClick: () => navigate(`/produto/${product.id}`),
 						className: "group block h-full cursor-pointer",
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, {
-							"data-uid": "src/pages/Catalogo.tsx:210:17",
+							"data-uid": "src/pages/Catalogo.tsx:214:17",
 							"data-prohibitions": "[editContent]",
 							className: "h-full bg-card border-white/5 overflow-hidden group-hover:border-primary/50 transition-colors duration-500 rounded-none flex flex-col",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/Catalogo.tsx:211:19",
+								"data-uid": "src/pages/Catalogo.tsx:215:19",
 								"data-prohibitions": "[editContent]",
 								className: "relative aspect-[4/5] overflow-hidden bg-muted/20",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-									"data-uid": "src/pages/Catalogo.tsx:212:21",
+									"data-uid": "src/pages/Catalogo.tsx:216:21",
 									"data-prohibitions": "[editContent]",
 									src: product.imagem_url || "https://img.usecurling.com/p/800/1000?q=product&color=black",
 									alt: product.nome,
 									className: "w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
 								}), product.familias && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-									"data-uid": "src/pages/Catalogo.tsx:221:23",
+									"data-uid": "src/pages/Catalogo.tsx:225:23",
 									"data-prohibitions": "[editContent]",
 									className: "absolute top-4 left-4",
 									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Badge, {
-										"data-uid": "src/pages/Catalogo.tsx:222:25",
+										"data-uid": "src/pages/Catalogo.tsx:226:25",
 										"data-prohibitions": "[editContent]",
 										variant: "outline",
 										className: "bg-black/80 text-primary border-primary/50 uppercase tracking-widest text-[10px] rounded-none px-3 py-1 backdrop-blur-md",
@@ -40865,29 +40934,29 @@ function Catalogo() {
 									})
 								})]
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
-								"data-uid": "src/pages/Catalogo.tsx:231:19",
+								"data-uid": "src/pages/Catalogo.tsx:235:19",
 								"data-prohibitions": "[editContent]",
 								className: "p-6 relative flex-1 flex flex-col",
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-										"data-uid": "src/pages/Catalogo.tsx:232:21",
+										"data-uid": "src/pages/Catalogo.tsx:236:21",
 										"data-prohibitions": "[editContent]",
 										className: "text-xl font-serif text-white mb-1 group-hover:text-primary transition-colors",
 										children: product.nome
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-										"data-uid": "src/pages/Catalogo.tsx:235:21",
+										"data-uid": "src/pages/Catalogo.tsx:239:21",
 										"data-prohibitions": "[editContent]",
 										className: "text-xs text-muted-foreground font-mono mb-3 uppercase tracking-wider",
 										children: product.codigo
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-										"data-uid": "src/pages/Catalogo.tsx:238:21",
+										"data-uid": "src/pages/Catalogo.tsx:242:21",
 										"data-prohibitions": "[editContent]",
 										className: "text-sm text-muted-foreground flex items-center gap-2 font-light mt-auto",
 										children: [
 											/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Expand, {
-												"data-uid": "src/pages/Catalogo.tsx:239:23",
+												"data-uid": "src/pages/Catalogo.tsx:243:23",
 												"data-prohibitions": "[editContent]",
 												className: "w-4 h-4 text-primary/70"
 											}),
@@ -40899,27 +40968,55 @@ function Catalogo() {
 											"cm"
 										]
 									}),
+									product.disponivel_ecommerce && product.preco != null && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										"data-uid": "src/pages/Catalogo.tsx:248:23",
+										"data-prohibitions": "[editContent]",
+										className: "text-xl text-white font-serif mt-4",
+										children: new Intl.NumberFormat("pt-BR", {
+											style: "currency",
+											currency: "BRL"
+										}).format(product.preco)
+									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										"data-uid": "src/pages/Catalogo.tsx:242:21",
+										"data-uid": "src/pages/Catalogo.tsx:256:21",
 										"data-prohibitions": "[editContent]",
 										className: "mt-6 flex flex-col gap-4 relative z-10",
 										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-											"data-uid": "src/pages/Catalogo.tsx:243:23",
+											"data-uid": "src/pages/Catalogo.tsx:257:23",
 											"data-prohibitions": "[]",
 											className: "flex items-center text-xs font-medium text-primary uppercase tracking-widest group-hover:translate-x-2 transition-transform duration-300",
 											children: ["Ver Detalhes ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowRight, {
-												"data-uid": "src/pages/Catalogo.tsx:244:38",
+												"data-uid": "src/pages/Catalogo.tsx:258:38",
 												"data-prohibitions": "[editContent]",
 												className: "ml-2 h-4 w-4"
 											})]
-										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-											"data-uid": "src/pages/Catalogo.tsx:246:23",
+										}), product.disponivel_ecommerce ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+											"data-uid": "src/pages/Catalogo.tsx:262:25",
+											"data-prohibitions": "[editContent]",
+											onClick: (e) => {
+												e.preventDefault();
+												e.stopPropagation();
+												addToCart(product.id);
+											},
+											disabled: isAdding === product.id,
+											className: "w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-none text-xs tracking-widest uppercase transition-all duration-300",
+											children: isAdding === product.id ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LoaderCircle, {
+												"data-uid": "src/pages/Catalogo.tsx:272:29",
+												"data-prohibitions": "[editContent]",
+												className: "w-4 h-4 animate-spin"
+											}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ShoppingCart, {
+												"data-uid": "src/pages/Catalogo.tsx:275:31",
+												"data-prohibitions": "[editContent]",
+												className: "w-4 h-4 mr-2"
+											}), "Adicionar ao Carrinho"] })
+										}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+											"data-uid": "src/pages/Catalogo.tsx:281:25",
 											"data-prohibitions": "[editContent]",
 											onClick: (e) => handleQuoteRequest(e, product),
 											disabled: requestingId === product.id,
 											className: "w-full bg-transparent border border-white/10 text-white hover:bg-primary hover:border-primary hover:text-primary-foreground rounded-none text-xs tracking-widest uppercase transition-all duration-300",
 											children: requestingId === product.id ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LoaderCircle, {
-												"data-uid": "src/pages/Catalogo.tsx:252:27",
+												"data-uid": "src/pages/Catalogo.tsx:287:29",
 												"data-prohibitions": "[editContent]",
 												className: "w-4 h-4 animate-spin"
 											}) : "Solicitar Orçamento"
@@ -40929,7 +41026,7 @@ function Catalogo() {
 							})]
 						})
 					}, product.id)), sortedAndFiltered.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						"data-uid": "src/pages/Catalogo.tsx:263:15",
+						"data-uid": "src/pages/Catalogo.tsx:299:15",
 						"data-prohibitions": "[]",
 						className: "col-span-full text-center py-20 text-muted-foreground",
 						children: "Nenhum produto encontrado."
@@ -40967,11 +41064,14 @@ var fallbackProductDetails = {
 		"Fechadura magnética invisível",
 		"Sistema de umidificação ativa"
 	],
-	imagem_url: "https://img.usecurling.com/p/1200/1600?q=luxury%20glass%20display%20cabinet&color=black"
+	imagem_url: "https://img.usecurling.com/p/1200/1600?q=luxury%20glass%20display%20cabinet&color=black",
+	preco: 12500,
+	disponivel_ecommerce: true
 };
 function Produto() {
 	const { id } = useParams();
 	const { toast } = useToast();
+	const { addToCart, isAdding } = useCart();
 	const [product, setProduct] = (0, import_react.useState)(null);
 	const [isLoading, setIsLoading] = (0, import_react.useState)(true);
 	const [isRequesting, setIsRequesting] = (0, import_react.useState)(false);
@@ -40995,30 +41095,30 @@ function Produto() {
 		fetchProduct();
 	}, [id]);
 	if (isLoading) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-		"data-uid": "src/pages/Produto.tsx:80:7",
+		"data-uid": "src/pages/Produto.tsx:85:7",
 		"data-prohibitions": "[]",
 		className: "w-full pt-32 pb-24 bg-background min-h-screen flex items-center justify-center",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LoaderCircle, {
-			"data-uid": "src/pages/Produto.tsx:81:9",
+			"data-uid": "src/pages/Produto.tsx:86:9",
 			"data-prohibitions": "[editContent]",
 			className: "w-8 h-8 animate-spin text-primary"
 		})
 	});
 	if (!product) return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		"data-uid": "src/pages/Produto.tsx:88:7",
+		"data-uid": "src/pages/Produto.tsx:93:7",
 		"data-prohibitions": "[]",
 		className: "w-full pt-32 pb-24 bg-background min-h-screen flex flex-col items-center justify-center",
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
-			"data-uid": "src/pages/Produto.tsx:89:9",
+			"data-uid": "src/pages/Produto.tsx:94:9",
 			"data-prohibitions": "[]",
 			className: "text-2xl font-serif text-white mb-4",
 			children: "Produto não encontrado"
 		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
-			"data-uid": "src/pages/Produto.tsx:90:9",
+			"data-uid": "src/pages/Produto.tsx:95:9",
 			"data-prohibitions": "[]",
 			to: "/catalogo",
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-				"data-uid": "src/pages/Produto.tsx:91:11",
+				"data-uid": "src/pages/Produto.tsx:96:11",
 				"data-prohibitions": "[]",
 				variant: "outline",
 				className: "border-white/20 text-white",
@@ -41063,46 +41163,46 @@ function Produto() {
 	const items = Array.isArray(product.itens_serie_json) ? product.itens_serie_json : [];
 	const options = Array.isArray(product.opcionais_json) ? product.opcionais_json : [];
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-		"data-uid": "src/pages/Produto.tsx:147:5",
+		"data-uid": "src/pages/Produto.tsx:152:5",
 		"data-prohibitions": "[editContent]",
 		className: "w-full pt-32 pb-24 bg-background min-h-screen",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			"data-uid": "src/pages/Produto.tsx:148:7",
+			"data-uid": "src/pages/Produto.tsx:153:7",
 			"data-prohibitions": "[editContent]",
 			className: "container",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
-				"data-uid": "src/pages/Produto.tsx:149:9",
+				"data-uid": "src/pages/Produto.tsx:154:9",
 				"data-prohibitions": "[]",
 				to: "/catalogo",
 				className: "inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-8 transition-colors uppercase tracking-widest opacity-0 animate-fade-in-up",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowLeft, {
-					"data-uid": "src/pages/Produto.tsx:153:11",
+					"data-uid": "src/pages/Produto.tsx:158:11",
 					"data-prohibitions": "[editContent]",
 					className: "mr-2 h-4 w-4"
 				}), " Voltar ao Catálogo"]
 			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				"data-uid": "src/pages/Produto.tsx:156:9",
+				"data-uid": "src/pages/Produto.tsx:161:9",
 				"data-prohibitions": "[editContent]",
 				className: "grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					"data-uid": "src/pages/Produto.tsx:157:11",
+					"data-uid": "src/pages/Produto.tsx:162:11",
 					"data-prohibitions": "[]",
 					className: "lg:col-span-5 relative opacity-0 animate-fade-in-up",
 					style: { animationDelay: "0.1s" },
 					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						"data-uid": "src/pages/Produto.tsx:161:13",
+						"data-uid": "src/pages/Produto.tsx:166:13",
 						"data-prohibitions": "[]",
 						className: "sticky top-32",
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							"data-uid": "src/pages/Produto.tsx:162:15",
+							"data-uid": "src/pages/Produto.tsx:167:15",
 							"data-prohibitions": "[]",
 							className: "relative aspect-[4/5] overflow-hidden bg-muted/20 border border-white/5 p-4 lg:p-8",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								"data-uid": "src/pages/Produto.tsx:163:17",
+								"data-uid": "src/pages/Produto.tsx:168:17",
 								"data-prohibitions": "[]",
 								className: "absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-transparent z-10"
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-								"data-uid": "src/pages/Produto.tsx:164:17",
+								"data-uid": "src/pages/Produto.tsx:169:17",
 								"data-prohibitions": "[editContent]",
 								src: product.imagem_url || "https://img.usecurling.com/p/1200/1600?q=product&color=black",
 								alt: product.nome,
@@ -41111,59 +41211,81 @@ function Produto() {
 						})
 					})
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/pages/Produto.tsx:176:11",
+					"data-uid": "src/pages/Produto.tsx:181:11",
 					"data-prohibitions": "[editContent]",
 					className: "lg:col-span-7 space-y-12 opacity-0 animate-fade-in-up",
 					style: { animationDelay: "0.2s" },
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							"data-uid": "src/pages/Produto.tsx:180:13",
+							"data-uid": "src/pages/Produto.tsx:185:13",
 							"data-prohibitions": "[editContent]",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/Produto.tsx:181:15",
-								"data-prohibitions": "[editContent]",
-								className: "flex items-center gap-4 mb-4",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Badge, {
-									"data-uid": "src/pages/Produto.tsx:182:17",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									"data-uid": "src/pages/Produto.tsx:186:15",
 									"data-prohibitions": "[editContent]",
-									variant: "outline",
-									className: "text-primary border-primary/30 tracking-widest uppercase rounded-none px-3 py-1 bg-primary/5",
-									children: product.codigo
-								}), product.familias && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									"data-uid": "src/pages/Produto.tsx:189:19",
+									className: "flex items-center gap-4 mb-4",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Badge, {
+										"data-uid": "src/pages/Produto.tsx:187:17",
+										"data-prohibitions": "[editContent]",
+										variant: "outline",
+										className: "text-primary border-primary/30 tracking-widest uppercase rounded-none px-3 py-1 bg-primary/5",
+										children: product.codigo
+									}), product.familias && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										"data-uid": "src/pages/Produto.tsx:194:19",
+										"data-prohibitions": "[editContent]",
+										className: "text-xs uppercase tracking-widest text-muted-foreground",
+										children: product.familias.nome
+									})]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+									"data-uid": "src/pages/Produto.tsx:199:15",
 									"data-prohibitions": "[editContent]",
-									className: "text-xs uppercase tracking-widest text-muted-foreground",
-									children: product.familias.nome
-								})]
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-								"data-uid": "src/pages/Produto.tsx:194:15",
-								"data-prohibitions": "[editContent]",
-								className: "text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 leading-tight",
-								children: product.nome
-							})]
+									className: "text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 leading-tight",
+									children: product.nome
+								}),
+								product.disponivel_ecommerce && product.preco != null && /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									"data-uid": "src/pages/Produto.tsx:204:17",
+									"data-prohibitions": "[editContent]",
+									className: "mb-8",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										"data-uid": "src/pages/Produto.tsx:205:19",
+										"data-prohibitions": "[editContent]",
+										className: "text-3xl lg:text-4xl font-serif text-white",
+										children: new Intl.NumberFormat("pt-BR", {
+											style: "currency",
+											currency: "BRL"
+										}).format(product.preco)
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										"data-uid": "src/pages/Produto.tsx:211:19",
+										"data-prohibitions": "[]",
+										className: "text-sm text-muted-foreground mt-2 font-light",
+										children: "Em até 12x sem juros no cartão de crédito"
+									})]
+								})
+							]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							"data-uid": "src/pages/Produto.tsx:199:13",
+							"data-uid": "src/pages/Produto.tsx:218:13",
 							"data-prohibitions": "[editContent]",
 							className: "grid grid-cols-1 md:grid-cols-2 gap-6",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/Produto.tsx:200:15",
+								"data-uid": "src/pages/Produto.tsx:219:15",
 								"data-prohibitions": "[editContent]",
 								className: "bg-card p-6 border border-white/5 flex items-start gap-4",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Ruler, {
-									"data-uid": "src/pages/Produto.tsx:201:17",
+									"data-uid": "src/pages/Produto.tsx:220:17",
 									"data-prohibitions": "[editContent]",
 									className: "w-6 h-6 text-primary shrink-0 mt-1"
 								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									"data-uid": "src/pages/Produto.tsx:202:17",
+									"data-uid": "src/pages/Produto.tsx:221:17",
 									"data-prohibitions": "[editContent]",
 									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										"data-uid": "src/pages/Produto.tsx:203:19",
+										"data-uid": "src/pages/Produto.tsx:222:19",
 										"data-prohibitions": "[]",
 										className: "block text-xs uppercase tracking-widest text-muted-foreground mb-1",
 										children: "Dimensões (L×P×A)"
 									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-										"data-uid": "src/pages/Produto.tsx:206:19",
+										"data-uid": "src/pages/Produto.tsx:225:19",
 										"data-prohibitions": "[editContent]",
 										className: "text-lg text-white font-medium",
 										children: [
@@ -41177,74 +41299,74 @@ function Produto() {
 									})]
 								})]
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/Produto.tsx:212:15",
+								"data-uid": "src/pages/Produto.tsx:231:15",
 								"data-prohibitions": "[editContent]",
 								className: "bg-card p-6 border border-white/5 space-y-4",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									"data-uid": "src/pages/Produto.tsx:213:17",
+									"data-uid": "src/pages/Produto.tsx:232:17",
 									"data-prohibitions": "[]",
 									className: "block text-xs uppercase tracking-widest text-muted-foreground mb-3",
 									children: "Especificações Técnicas"
 								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									"data-uid": "src/pages/Produto.tsx:216:17",
+									"data-uid": "src/pages/Produto.tsx:235:17",
 									"data-prohibitions": "[editContent]",
 									className: "space-y-3",
 									children: [
 										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-											"data-uid": "src/pages/Produto.tsx:217:19",
+											"data-uid": "src/pages/Produto.tsx:236:19",
 											"data-prohibitions": "[editContent]",
 											className: "flex justify-between items-center border-b border-white/5 pb-2",
 											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-												"data-uid": "src/pages/Produto.tsx:218:21",
+												"data-uid": "src/pages/Produto.tsx:237:21",
 												"data-prohibitions": "[]",
 												className: "text-sm text-muted-foreground flex items-center gap-2",
 												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Snowflake, {
-													"data-uid": "src/pages/Produto.tsx:219:23",
+													"data-uid": "src/pages/Produto.tsx:238:23",
 													"data-prohibitions": "[editContent]",
 													className: "w-4 h-4"
 												}), " Refrigeração"]
 											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-												"data-uid": "src/pages/Produto.tsx:221:21",
+												"data-uid": "src/pages/Produto.tsx:240:21",
 												"data-prohibitions": "[editContent]",
 												className: "text-sm text-white",
 												children: specs.refrigeracao || "N/A"
 											})]
 										}),
 										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-											"data-uid": "src/pages/Produto.tsx:223:19",
+											"data-uid": "src/pages/Produto.tsx:242:19",
 											"data-prohibitions": "[editContent]",
 											className: "flex justify-between items-center border-b border-white/5 pb-2",
 											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-												"data-uid": "src/pages/Produto.tsx:224:21",
+												"data-uid": "src/pages/Produto.tsx:243:21",
 												"data-prohibitions": "[]",
 												className: "text-sm text-muted-foreground flex items-center gap-2",
 												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Thermometer, {
-													"data-uid": "src/pages/Produto.tsx:225:23",
+													"data-uid": "src/pages/Produto.tsx:244:23",
 													"data-prohibitions": "[editContent]",
 													className: "w-4 h-4"
 												}), " Temperatura"]
 											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-												"data-uid": "src/pages/Produto.tsx:227:21",
+												"data-uid": "src/pages/Produto.tsx:246:21",
 												"data-prohibitions": "[editContent]",
 												className: "text-sm text-white",
 												children: specs.temperatura || "N/A"
 											})]
 										}),
 										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-											"data-uid": "src/pages/Produto.tsx:229:19",
+											"data-uid": "src/pages/Produto.tsx:248:19",
 											"data-prohibitions": "[editContent]",
 											className: "flex justify-between items-center",
 											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-												"data-uid": "src/pages/Produto.tsx:230:21",
+												"data-uid": "src/pages/Produto.tsx:249:21",
 												"data-prohibitions": "[]",
 												className: "text-sm text-muted-foreground flex items-center gap-2",
 												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Zap, {
-													"data-uid": "src/pages/Produto.tsx:231:23",
+													"data-uid": "src/pages/Produto.tsx:250:23",
 													"data-prohibitions": "[editContent]",
 													className: "w-4 h-4"
 												}), " Consumo"]
 											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-												"data-uid": "src/pages/Produto.tsx:233:21",
+												"data-uid": "src/pages/Produto.tsx:252:21",
 												"data-prohibitions": "[editContent]",
 												className: "text-sm text-white",
 												children: specs.consumo || "N/A"
@@ -41255,70 +41377,70 @@ function Produto() {
 							})]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							"data-uid": "src/pages/Produto.tsx:239:13",
+							"data-uid": "src/pages/Produto.tsx:258:13",
 							"data-prohibitions": "[editContent]",
 							className: "grid grid-cols-1 md:grid-cols-2 gap-10 pt-4",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/Produto.tsx:240:15",
-								"data-prohibitions": "[editContent]",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-									"data-uid": "src/pages/Produto.tsx:241:17",
-									"data-prohibitions": "[]",
-									className: "text-lg font-serif text-white uppercase tracking-wider mb-6 border-b border-primary/20 pb-3",
-									children: "Itens de Série"
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("ul", {
-									"data-uid": "src/pages/Produto.tsx:244:17",
-									"data-prohibitions": "[editContent]",
-									className: "space-y-4",
-									children: [items.map((item, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
-										"data-uid": "src/pages/Produto.tsx:246:21",
-										"data-prohibitions": "[editContent]",
-										className: "flex items-start gap-3 text-muted-foreground",
-										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleCheck, {
-											"data-uid": "src/pages/Produto.tsx:247:23",
-											"data-prohibitions": "[editContent]",
-											className: "w-5 h-5 text-primary shrink-0"
-										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-											"data-uid": "src/pages/Produto.tsx:248:23",
-											"data-prohibitions": "[editContent]",
-											className: "text-sm font-light leading-snug",
-											children: item
-										})]
-									}, idx)), items.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", {
-										"data-uid": "src/pages/Produto.tsx:252:21",
-										"data-prohibitions": "[]",
-										className: "text-sm text-muted-foreground font-light",
-										children: "Nenhum item informado."
-									})]
-								})]
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
 								"data-uid": "src/pages/Produto.tsx:259:15",
 								"data-prohibitions": "[editContent]",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
 									"data-uid": "src/pages/Produto.tsx:260:17",
 									"data-prohibitions": "[]",
-									className: "text-lg font-serif text-white uppercase tracking-wider mb-6 border-b border-white/10 pb-3",
-									children: "Opcionais Disponíveis"
+									className: "text-lg font-serif text-white uppercase tracking-wider mb-6 border-b border-primary/20 pb-3",
+									children: "Itens de Série"
 								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("ul", {
 									"data-uid": "src/pages/Produto.tsx:263:17",
 									"data-prohibitions": "[editContent]",
 									className: "space-y-4",
-									children: [options.map((item, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
+									children: [items.map((item, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
 										"data-uid": "src/pages/Produto.tsx:265:21",
 										"data-prohibitions": "[editContent]",
 										className: "flex items-start gap-3 text-muted-foreground",
-										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CirclePlus, {
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleCheck, {
 											"data-uid": "src/pages/Produto.tsx:266:23",
 											"data-prohibitions": "[editContent]",
-											className: "w-5 h-5 text-muted-foreground shrink-0"
+											className: "w-5 h-5 text-primary shrink-0"
 										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
 											"data-uid": "src/pages/Produto.tsx:267:23",
 											"data-prohibitions": "[editContent]",
 											className: "text-sm font-light leading-snug",
 											children: item
 										})]
-									}, idx)), options.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", {
+									}, idx)), items.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", {
 										"data-uid": "src/pages/Produto.tsx:271:21",
+										"data-prohibitions": "[]",
+										className: "text-sm text-muted-foreground font-light",
+										children: "Nenhum item informado."
+									})]
+								})]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								"data-uid": "src/pages/Produto.tsx:278:15",
+								"data-prohibitions": "[editContent]",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+									"data-uid": "src/pages/Produto.tsx:279:17",
+									"data-prohibitions": "[]",
+									className: "text-lg font-serif text-white uppercase tracking-wider mb-6 border-b border-white/10 pb-3",
+									children: "Opcionais Disponíveis"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("ul", {
+									"data-uid": "src/pages/Produto.tsx:282:17",
+									"data-prohibitions": "[editContent]",
+									className: "space-y-4",
+									children: [options.map((item, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
+										"data-uid": "src/pages/Produto.tsx:284:21",
+										"data-prohibitions": "[editContent]",
+										className: "flex items-start gap-3 text-muted-foreground",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CirclePlus, {
+											"data-uid": "src/pages/Produto.tsx:285:23",
+											"data-prohibitions": "[editContent]",
+											className: "w-5 h-5 text-muted-foreground shrink-0"
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											"data-uid": "src/pages/Produto.tsx:286:23",
+											"data-prohibitions": "[editContent]",
+											className: "text-sm font-light leading-snug",
+											children: item
+										})]
+									}, idx)), options.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", {
+										"data-uid": "src/pages/Produto.tsx:290:21",
 										"data-prohibitions": "[]",
 										className: "text-sm text-muted-foreground font-light",
 										children: "Nenhum item informado."
@@ -41327,28 +41449,43 @@ function Produto() {
 							})]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							"data-uid": "src/pages/Produto.tsx:279:13",
+							"data-uid": "src/pages/Produto.tsx:298:13",
 							"data-prohibitions": "[editContent]",
 							className: "flex flex-col sm:flex-row gap-4 pt-8",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-								"data-uid": "src/pages/Produto.tsx:280:15",
+							children: [product.disponivel_ecommerce ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+								"data-uid": "src/pages/Produto.tsx:300:17",
+								"data-prohibitions": "[editContent]",
+								onClick: () => addToCart(product.id),
+								disabled: isAdding === product.id,
+								className: "flex-1 bg-primary text-primary-foreground hover:bg-primary/90 rounded-none h-14 text-sm tracking-widest uppercase transition-all duration-300 active:scale-[0.98]",
+								children: isAdding === product.id ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LoaderCircle, {
+									"data-uid": "src/pages/Produto.tsx:306:21",
+									"data-prohibitions": "[editContent]",
+									className: "w-5 h-5 animate-spin"
+								}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ShoppingCart, {
+									"data-uid": "src/pages/Produto.tsx:309:23",
+									"data-prohibitions": "[editContent]",
+									className: "w-5 h-5 mr-2"
+								}), "Adicionar ao Carrinho"] })
+							}) : /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+								"data-uid": "src/pages/Produto.tsx:315:17",
 								"data-prohibitions": "[editContent]",
 								onClick: handleQuoteRequest,
 								disabled: isRequesting,
 								className: "flex-1 bg-primary text-primary-foreground hover:bg-primary/90 rounded-none h-14 text-sm tracking-widest uppercase transition-all duration-300 active:scale-[0.98]",
 								children: isRequesting ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LoaderCircle, {
-									"data-uid": "src/pages/Produto.tsx:286:19",
+									"data-uid": "src/pages/Produto.tsx:321:21",
 									"data-prohibitions": "[editContent]",
 									className: "w-5 h-5 animate-spin"
 								}) : "Solicitar Orçamento"
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
-								"data-uid": "src/pages/Produto.tsx:291:15",
+								"data-uid": "src/pages/Produto.tsx:327:15",
 								"data-prohibitions": "[]",
 								onClick: handleWhatsAppShare,
 								variant: "outline",
 								className: "flex-1 border-white/20 text-white bg-transparent hover:bg-white/5 rounded-none h-14 text-sm tracking-widest uppercase transition-all duration-300",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Share2, {
-									"data-uid": "src/pages/Produto.tsx:296:17",
+									"data-uid": "src/pages/Produto.tsx:332:17",
 									"data-prohibitions": "[editContent]",
 									className: "w-4 h-4 mr-2"
 								}), " Compartilhar no WhatsApp"]
@@ -48189,4 +48326,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 }));
 //#endregion
 
-//# sourceMappingURL=index-BBvrVoKo.js.map
+//# sourceMappingURL=index-ZHayvVqX.js.map
