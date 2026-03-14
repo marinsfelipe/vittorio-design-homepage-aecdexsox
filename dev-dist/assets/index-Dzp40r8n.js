@@ -106187,7 +106187,7 @@ var detectReferenceElementsDomain = function detectReferenceElementsDomain(
     }, finalDomain)
   return finalDomain
 }
-var eventCenter = new (/* @__PURE__ */ __toESM(
+var eventCenter = new /* @__PURE__ */ (__toESM(
   /* @__PURE__ */ __commonJSMin((exports, module) => {
     var has = Object.prototype.hasOwnProperty,
       prefix = '~'
