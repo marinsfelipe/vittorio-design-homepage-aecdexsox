@@ -34,6 +34,7 @@ export default function Layout() {
     { name: 'Loja', path: '/loja' },
     { name: 'Catálogo', path: '/catalogo' },
     { name: 'Galeria', path: '/galeria' },
+    { name: 'Orçamento', path: '/orcamento' },
     { name: 'Docs', path: '/documentacao' },
     { name: 'Rastreio', path: '/rastreio' },
     { name: 'Contato', path: '/contato' },
@@ -51,17 +52,20 @@ export default function Layout() {
         )}
       >
         <div className="container flex items-center justify-between">
-          <Link to="/" className="text-2xl font-serif font-bold text-white tracking-wider">
-            VITTORIO <span className="text-primary font-normal text-xl">Design</span>
+          <Link
+            to="/"
+            className="text-xl md:text-2xl font-serif font-bold text-white tracking-wider"
+          >
+            VITTORIO <span className="text-primary font-normal text-lg md:text-xl">Design</span>
           </Link>
 
-          <nav className="hidden md:flex gap-4 lg:gap-6 items-center">
+          <nav className="hidden xl:flex gap-4 2xl:gap-6 items-center">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
                 to={link.path}
                 className={cn(
-                  'text-sm font-medium uppercase tracking-widest nav-link-hover pb-1 transition-colors whitespace-nowrap',
+                  'text-xs 2xl:text-sm font-medium uppercase tracking-widest nav-link-hover pb-1 transition-colors whitespace-nowrap',
                   location.pathname === link.path
                     ? 'text-primary'
                     : 'text-foreground hover:text-white',
@@ -85,7 +89,7 @@ export default function Layout() {
           </nav>
 
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild className="md:hidden">
+            <SheetTrigger asChild className="xl:hidden">
               <Button variant="ghost" size="icon" className="text-white hover:text-primary">
                 <Menu className="h-6 w-6" />
                 <span className="sr-only">Menu</span>
