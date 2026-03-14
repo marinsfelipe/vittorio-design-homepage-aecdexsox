@@ -1,330 +1,108 @@
-import { useState, useEffect, useMemo } from 'react'
-import { ArrowRight, Expand, Loader2, ShoppingCart } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
+import { useState } from 'react'
+import { FileText, FileDown, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Skeleton } from '@/components/ui/skeleton'
-import { cn } from '@/lib/utils'
-import { supabase } from '@/lib/supabase'
 import { useToast } from '@/hooks/use-toast'
-import { useCart } from '@/hooks/useCart'
 import { SEO } from '@/components/SEO'
 import { trackEvent } from '@/lib/analytics'
-
-type Familia = {
-  id: string
-  nome: string
-}
-
-type Produto = {
-  id: string
-  nome: string
-  codigo: string
-  familia_id: string
-  dimensoes_l: number
-  dimensoes_p: number
-  dimensoes_a: number
-  imagem_url: string
-  familias?: Familia
-  preco?: number
-  disponivel_ecommerce?: boolean
-}
+import { PrintableCatalog } from '@/components/PrintableCatalog'
 
 export default function Catalogo() {
-  const navigate = useNavigate()
   const { toast } = useToast()
-  const { addToCart, isAdding } = useCart()
-  const [familias, setFamilias] = useState<Familia[]>([])
-  const [produtos, setProdutos] = useState<Produto[]>([])
-  const [selectedFamilyId, setSelectedFamilyId] = useState<string>('All')
-  const [sortBy, setSortBy] = useState<string>('name-asc')
-  const [isLoading, setIsLoading] = useState(true)
-  const [requestingId, setRequestingId] = useState<string | null>(null)
+  const [isDownloading, setIsDownloading] = useState(false)
 
-  useEffect(() => {
-    async function fetchData() {
-      setIsLoading(true)
-      try {
-        const [familiasRes, produtosRes] = await Promise.all([
-          supabase.from('familias').select('id, nome').order('nome'),
-          supabase.from('produtos').select('*, familias(id, nome)'),
-        ])
-        if (familiasRes.data) setFamilias(familiasRes.data)
-        if (produtosRes.data) setProdutos(produtosRes.data)
-      } catch (err) {
-        console.error('Error fetching catalog data:', err)
-      } finally {
-        setIsLoading(false)
-      }
-    }
-    fetchData()
-  }, [])
+  const handleDownload = () => {
+    setIsDownloading(true)
+    trackEvent('download_catalog', { method: 'print_pdf' })
 
-  const sortedAndFiltered = useMemo(() => {
-    let result = [...produtos]
-    if (selectedFamilyId !== 'All') result = result.filter((p) => p.familia_id === selectedFamilyId)
-    result.sort((a, b) => {
-      const volA = (a.dimensoes_l || 0) * (a.dimensoes_p || 0) * (a.dimensoes_a || 0)
-      const volB = (b.dimensoes_l || 0) * (b.dimensoes_p || 0) * (b.dimensoes_a || 0)
-      switch (sortBy) {
-        case 'name-asc':
-          return a.nome.localeCompare(b.nome)
-        case 'name-desc':
-          return b.nome.localeCompare(a.nome)
-        case 'size-asc':
-          return volA - volB
-        case 'size-desc':
-          return volB - volA
-        default:
-          return 0
-      }
+    toast({
+      title: 'Gerando PDF',
+      description: 'Preparando o catálogo para impressão ou salvamento.',
     })
-    return result
-  }, [produtos, selectedFamilyId, sortBy])
 
-  useEffect(() => {
-    if (!isLoading && sortedAndFiltered.length > 0) {
-      trackEvent('view_item_list', {
-        item_list_id: 'catalogo',
-        item_list_name: 'Catálogo de Produtos',
-        items: sortedAndFiltered.map((p) => ({
-          item_id: p.id,
-          item_name: p.nome,
-          price: p.preco || 0,
-          item_category: p.familias?.nome || '',
-        })),
-      })
-    }
-  }, [isLoading, sortedAndFiltered])
-
-  const handleQuoteRequest = async (e: React.MouseEvent, product: Produto) => {
-    e.preventDefault()
-    e.stopPropagation()
-    const l = product.dimensoes_l || 0
-    const p = product.dimensoes_p || 0
-    const a = product.dimensoes_a || 0
-    const dimensoesStr = `${l}x${p}x${a}mm`
-    setRequestingId(product.id)
-    try {
-      const { error } = await supabase.functions.invoke('request-quote', {
-        body: {
-          product: { nome: product.nome, codigo: product.codigo, dimensoes: dimensoesStr },
-          target_phone: '+5521990451568',
-          message: `Olá! Gostaria de um orçamento para o produto: ${product.nome} (Código: ${product.codigo}). Dimensões: ${dimensoesStr}.`,
-        },
-      })
-      if (error) throw error
-      toast({
-        title: 'Solicitação enviada!',
-        description: 'Sua solicitação de orçamento foi enviada com sucesso.',
-      })
-    } catch (err) {
-      toast({
-        variant: 'destructive',
-        title: 'Erro ao enviar',
-        description: 'Ocorreu um erro ao enviar sua solicitação. Por favor, tente novamente.',
-      })
-    } finally {
-      setRequestingId(null)
-    }
+    setTimeout(() => {
+      setIsDownloading(false)
+      window.print()
+    }, 1500)
   }
 
+  const previewCards = [
+    { id: 1, title: '1. Capa', desc: 'Missão e essência da marca.' },
+    { id: 2, title: '2. Apresentação', desc: 'História, fundadores e dados legais.' },
+    { id: 3, title: '3. Balcões', desc: 'Soluções em atendimento e exposição neutra.' },
+    { id: 4, title: '4. Vitrines', desc: 'Conservação refrigerada, aquecida e neutra.' },
+    { id: 5, title: '5. Expositores', desc: 'Armazenamento vertical de alta performance.' },
+    { id: 6, title: '6. Especificações', desc: 'Gases, refrigeração e conformidade técnica.' },
+    { id: 7, title: '7. Linhas Comerciais', desc: 'Comparativo de itens de série e opcionais.' },
+    { id: 8, title: '8. Contatos', desc: 'Informações de atendimento e showroom.' },
+  ]
+
   return (
-    <div className="w-full pt-32 pb-24 bg-background min-h-screen">
-      <SEO
-        title="Catálogo de Produtos | Vittorio Design"
-        description="Explore nossa coleção de peças exclusivas. Balcões, Vitrines e Expositores desenvolvidos com a precisão do inox e detalhes em ouro para transformar seu ambiente."
-      />
-      <div className="container">
-        <div className="mb-12 max-w-2xl opacity-0 animate-fade-in-up">
-          <h1 className="text-4xl md:text-6xl font-serif text-white mb-6">Nosso Catálogo</h1>
-          <div className="h-px w-24 bg-primary mb-6"></div>
-          <p className="text-lg text-muted-foreground font-light">
-            Explore nossa coleção de peças exclusivas. Balcões, Vitrines e Expositores desenvolvidos
-            com a precisão do inox e detalhes em ouro para transformar seu ambiente.
-          </p>
-        </div>
+    <>
+      <div className="print:hidden w-full pt-32 pb-24 bg-background min-h-screen">
+        <SEO
+          title="Catálogo Oficial | Vittorio Design"
+          description="Baixe o catálogo completo da Vittorio Design em PDF. Tenha acesso a todas as informações técnicas e linhas comerciais."
+        />
+        <div className="container max-w-5xl">
+          <div className="mb-12 text-center opacity-0 animate-fade-in-up">
+            <h1 className="text-4xl md:text-5xl font-serif text-white mb-6">Catálogo Oficial</h1>
+            <div className="h-px w-24 bg-primary mx-auto mb-6"></div>
+            <p className="text-lg text-muted-foreground font-light max-w-2xl mx-auto">
+              Consulte offline todas as informações técnicas, linhas comerciais e detalhes
+              institucionais da Vittorio Design em um documento completo de 8 páginas.
+            </p>
+          </div>
 
-        <div
-          className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-10 gap-6 opacity-0 animate-fade-in-up"
-          style={{ animationDelay: '0.2s' }}
-        >
-          <div className="flex flex-wrap gap-3">
-            <Button
-              variant={selectedFamilyId === 'All' ? 'default' : 'outline'}
-              onClick={() => setSelectedFamilyId('All')}
-              className={cn(
-                'rounded-none uppercase tracking-widest text-xs px-6 py-5 transition-all duration-300',
-                selectedFamilyId === 'All'
-                  ? 'bg-primary text-primary-foreground hover:bg-primary/90 border-transparent'
-                  : 'border-white/20 text-white hover:bg-white/10 hover:border-white/40',
-              )}
-            >
-              Todos os Produtos
-            </Button>
-            {isLoading
-              ? Array.from({ length: 3 }).map((_, i) => (
-                  <Skeleton key={i} className="h-[42px] w-[120px] rounded-none bg-white/10" />
-                ))
-              : familias.map((fam) => (
-                  <Button
-                    key={fam.id}
-                    variant={selectedFamilyId === fam.id ? 'default' : 'outline'}
-                    onClick={() => setSelectedFamilyId(fam.id)}
-                    className={cn(
-                      'rounded-none uppercase tracking-widest text-xs px-6 py-5 transition-all duration-300',
-                      selectedFamilyId === fam.id
-                        ? 'bg-primary text-primary-foreground hover:bg-primary/90 border-transparent'
-                        : 'border-white/20 text-white hover:bg-white/10 hover:border-white/40',
-                    )}
-                  >
-                    {fam.nome}
-                  </Button>
-                ))}
-          </div>
-          <div className="w-full lg:w-72">
-            <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="rounded-none border-white/20 text-white bg-transparent focus:ring-primary focus:ring-offset-0 h-12">
-                <SelectValue placeholder="Ordenar por..." />
-              </SelectTrigger>
-              <SelectContent className="rounded-none bg-[#111] border-white/10 text-white">
-                <SelectItem value="name-asc">Nome (A-Z)</SelectItem>
-                <SelectItem value="name-desc">Nome (Z-A)</SelectItem>
-                <SelectItem value="size-asc">Tamanho (Menor - Maior)</SelectItem>
-                <SelectItem value="size-desc">Tamanho (Maior - Menor)</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-
-        {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {Array.from({ length: 8 }).map((_, i) => (
-              <Card
-                key={i}
-                className="h-full bg-card border-white/5 overflow-hidden rounded-none flex flex-col"
-              >
-                <Skeleton className="relative aspect-[4/5] bg-white/10 rounded-none" />
-                <CardContent className="p-6 flex flex-col gap-3">
-                  <Skeleton className="h-6 w-3/4 bg-white/10" />
-                  <Skeleton className="h-4 w-1/2 bg-white/10" />
-                  <Skeleton className="h-4 w-2/3 bg-white/10 mt-auto" />
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        ) : (
           <div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 opacity-0 animate-fade-in-up"
-            style={{ animationDelay: '0.3s' }}
+            className="flex justify-center mb-16 opacity-0 animate-fade-in-up"
+            style={{ animationDelay: '0.1s' }}
           >
-            {sortedAndFiltered.map((product) => (
-              <div
-                key={product.id}
-                onClick={() => navigate(`/produto/${product.id}`)}
-                className="group block h-full cursor-pointer"
-              >
-                <Card className="h-full bg-card border-white/5 overflow-hidden group-hover:border-primary/50 transition-colors duration-500 rounded-none flex flex-col">
-                  <div className="relative aspect-[4/5] overflow-hidden bg-muted/20">
-                    <img
-                      src={
-                        product.imagem_url ||
-                        'https://img.usecurling.com/p/800/1000?q=product&color=black'
-                      }
-                      alt={product.nome}
-                      loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
-                    />
-                    {product.familias && (
-                      <div className="absolute top-4 left-4">
-                        <Badge
-                          variant="outline"
-                          className="bg-black/80 text-primary border-primary/50 uppercase tracking-widest text-[10px] rounded-none px-3 py-1 backdrop-blur-md"
-                        >
-                          {product.familias.nome}
-                        </Badge>
-                      </div>
-                    )}
-                  </div>
-                  <CardContent className="p-6 relative flex-1 flex flex-col">
-                    <h3 className="text-xl font-serif text-white mb-1 group-hover:text-primary transition-colors">
-                      {product.nome}
-                    </h3>
-                    <p className="text-xs text-muted-foreground font-mono mb-3 uppercase tracking-wider">
-                      {product.codigo}
+            <Button
+              size="lg"
+              onClick={handleDownload}
+              disabled={isDownloading}
+              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none px-10 h-16 text-sm tracking-widest uppercase transition-all duration-300 shadow-[0_0_30px_rgba(201,162,107,0.2)]"
+            >
+              {isDownloading ? (
+                <>
+                  <Loader2 className="w-5 h-5 mr-3 animate-spin" /> Gerando Documento...
+                </>
+              ) : (
+                <>
+                  <FileDown className="w-5 h-5 mr-3" /> Baixar Catálogo em PDF
+                </>
+              )}
+            </Button>
+          </div>
+
+          <div className="opacity-0 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
+            <div className="flex items-center gap-3 mb-8 border-b border-white/10 pb-4">
+              <FileText className="w-5 h-5 text-primary" />
+              <h2 className="text-xl font-serif text-white uppercase tracking-wider">
+                Conteúdo do Documento
+              </h2>
+            </div>
+
+            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+              {previewCards.map((card) => (
+                <Card
+                  key={card.id}
+                  className="bg-card border-white/5 hover:border-primary/30 transition-colors duration-500 rounded-none h-full"
+                >
+                  <CardContent className="p-6">
+                    <h3 className="text-lg font-serif text-white mb-3">{card.title}</h3>
+                    <p className="text-sm text-muted-foreground font-light leading-relaxed">
+                      {card.desc}
                     </p>
-                    <p className="text-sm text-muted-foreground flex items-center gap-2 font-light mt-auto">
-                      <Expand className="w-4 h-4 text-primary/70" />
-                      {product.dimensoes_l}cm x {product.dimensoes_p}cm x {product.dimensoes_a}cm
-                    </p>
-
-                    {product.disponivel_ecommerce && product.preco != null && (
-                      <p className="text-xl text-white font-serif mt-4">
-                        {new Intl.NumberFormat('pt-BR', {
-                          style: 'currency',
-                          currency: 'BRL',
-                        }).format(product.preco)}
-                      </p>
-                    )}
-
-                    <div className="mt-6 flex flex-col gap-4 relative z-10">
-                      <div className="flex items-center text-xs font-medium text-primary uppercase tracking-widest group-hover:translate-x-2 transition-transform duration-300">
-                        Ver Detalhes <ArrowRight className="ml-2 h-4 w-4" />
-                      </div>
-
-                      {product.disponivel_ecommerce ? (
-                        <Button
-                          onClick={(e) => {
-                            e.preventDefault()
-                            e.stopPropagation()
-                            addToCart(product.id)
-                          }}
-                          disabled={isAdding === product.id}
-                          className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-none text-xs tracking-widest uppercase transition-all duration-300"
-                        >
-                          {isAdding === product.id ? (
-                            <Loader2 className="w-4 h-4 animate-spin" />
-                          ) : (
-                            <>
-                              <ShoppingCart className="w-4 h-4 mr-2" />
-                              Adicionar ao Carrinho
-                            </>
-                          )}
-                        </Button>
-                      ) : (
-                        <Button
-                          onClick={(e) => handleQuoteRequest(e, product)}
-                          disabled={requestingId === product.id}
-                          className="w-full bg-transparent border border-white/10 text-white hover:bg-primary hover:border-primary hover:text-primary-foreground rounded-none text-xs tracking-widest uppercase transition-all duration-300"
-                        >
-                          {requestingId === product.id ? (
-                            <Loader2 className="w-4 h-4 animate-spin" />
-                          ) : (
-                            'Solicitar Orçamento'
-                          )}
-                        </Button>
-                      )}
-                    </div>
                   </CardContent>
                 </Card>
-              </div>
-            ))}
-            {sortedAndFiltered.length === 0 && (
-              <div className="col-span-full text-center py-20 text-muted-foreground">
-                Nenhum produto encontrado.
-              </div>
-            )}
+              ))}
+            </div>
           </div>
-        )}
+        </div>
       </div>
-    </div>
+      <PrintableCatalog />
+    </>
   )
 }
