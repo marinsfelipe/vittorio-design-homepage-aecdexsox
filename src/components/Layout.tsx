@@ -34,6 +34,7 @@ export default function Layout() {
     { name: 'Loja', path: '/loja' },
     { name: 'Catálogo', path: '/catalogo' },
     { name: 'Galeria', path: '/galeria' },
+    { name: 'Clientes', path: '/clientes' },
     { name: 'Orçamento', path: '/orcamento' },
     { name: 'Docs', path: '/documentacao' },
     { name: 'FAQ', path: '/faq' },
@@ -67,7 +68,7 @@ export default function Layout() {
                 key={link.name}
                 to={link.path}
                 className={cn(
-                  'text-xs 2xl:text-sm font-medium uppercase tracking-widest nav-link-hover pb-1 transition-colors whitespace-nowrap',
+                  'text-[11px] 2xl:text-xs font-medium uppercase tracking-widest nav-link-hover pb-1 transition-colors whitespace-nowrap',
                   location.pathname === link.path ||
                     (link.path === '/blog' && location.pathname.startsWith('/blog/'))
                     ? 'text-primary'
@@ -176,7 +177,7 @@ export default function Layout() {
             <h4 className="text-lg font-serif text-white mb-4 uppercase tracking-wider">
               Links Rápidos
             </h4>
-            <ul className="space-y-3">
+            <ul className="space-y-3 grid grid-cols-2 gap-x-4">
               {navLinks.map((link) => (
                 <li key={link.name}>
                   <Link
