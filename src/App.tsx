@@ -21,6 +21,8 @@ import AssistenciaTecnica from './pages/AssistenciaTecnica'
 import Blog from './pages/Blog'
 import BlogPost from './pages/BlogPost'
 import FAQ from './pages/FAQ'
+import PoliticaPrivacidade from './pages/PoliticaPrivacidade'
+import TermosServico from './pages/TermosServico'
 import NotFound from './pages/NotFound'
 import Layout from './components/Layout'
 import AdminLayout from './components/admin/AdminLayout'
@@ -66,6 +68,8 @@ const App = () => (
           <Route path="/faq" element={<FAQ />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:id" element={<BlogPost />} />
+          <Route path="/politica-de-privacidade" element={<PoliticaPrivacidade />} />
+          <Route path="/termos-de-servico" element={<TermosServico />} />
         </Route>
 
         {/* Admin Routes */}

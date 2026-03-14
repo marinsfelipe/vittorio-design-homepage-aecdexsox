@@ -222,9 +222,27 @@ export default function Layout() {
             </ul>
           </div>
         </div>
-        <div className="container pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between text-xs text-muted-foreground">
-          <p>&copy; {new Date().getFullYear()} Vittorio Design. Todos os direitos reservados.</p>
-          <div className="flex gap-6 mt-4 md:mt-0">
+
+        <div className="container pt-8 border-t border-white/5 flex flex-col lg:flex-row items-center justify-between text-xs text-muted-foreground gap-6">
+          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6 text-center md:text-left">
+            <p>&copy; {new Date().getFullYear()} Vittorio Design. Todos os direitos reservados.</p>
+            <div className="hidden md:block w-px h-3 bg-white/20"></div>
+            <div className="flex flex-wrap justify-center items-center gap-4">
+              <Link
+                to="/politica-de-privacidade"
+                className="hover:text-primary transition-colors underline-offset-4 hover:underline"
+              >
+                Política de Privacidade
+              </Link>
+              <Link
+                to="/termos-de-servico"
+                className="hover:text-primary transition-colors underline-offset-4 hover:underline"
+              >
+                Termos de Serviço
+              </Link>
+            </div>
+          </div>
+          <div className="flex gap-6">
             <a
               href="https://instagram.com"
               target="_blank"
