@@ -37,6 +37,7 @@ export default function Layout() {
     { name: 'Clientes', path: '/clientes' },
     { name: 'Orçamento', path: '/orcamento' },
     { name: 'Docs', path: '/documentacao' },
+    { name: 'Assistência', path: '/assistencia-tecnica' },
     { name: 'FAQ', path: '/faq' },
     { name: 'Blog', path: '/blog' },
     { name: 'Rastreio', path: '/rastreio' },

@@ -17,6 +17,7 @@ import Galeria from './pages/Galeria'
 import Clientes from './pages/Clientes'
 import Documentacao from './pages/Documentacao'
 import Orcamento from './pages/Orcamento'
+import AssistenciaTecnica from './pages/AssistenciaTecnica'
 import Blog from './pages/Blog'
 import BlogPost from './pages/BlogPost'
 import FAQ from './pages/FAQ'
@@ -58,6 +59,7 @@ const App = () => (
           <Route path="/contato" element={<Contato />} />
           <Route path="/documentacao" element={<Documentacao />} />
           <Route path="/orcamento" element={<Orcamento />} />
+          <Route path="/assistencia-tecnica" element={<AssistenciaTecnica />} />
           <Route path="/faq" element={<FAQ />} />
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:id" element={<BlogPost />} />
