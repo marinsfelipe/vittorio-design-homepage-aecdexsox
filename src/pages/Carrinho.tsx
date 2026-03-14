@@ -1,5 +1,5 @@
 import { useState, useEffect } from 'react'
-import { Link, useNavigate } from 'react-router-dom'
+import { Link } from 'react-router-dom'
 import { Trash2, Plus, Minus, ArrowLeft, Loader2, ShoppingBag } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { getSessionId } from '@/hooks/useCart'
@@ -27,7 +27,6 @@ export default function Carrinho() {
   const [loading, setLoading] = useState(true)
   const [updatingId, setUpdatingId] = useState<string | null>(null)
   const { toast } = useToast()
-  const navigate = useNavigate()
 
   useEffect(() => {
     fetchCart()
@@ -103,24 +102,6 @@ export default function Carrinho() {
       })
     } finally {
       setUpdatingId(null)
-    }
-  }
-
-  const handleCheckout = async () => {
-    try {
-      await supabase.from('carrinho').delete().eq('sessao_id', getSessionId())
-      setItems([])
-      toast({
-        title: 'Compra Finalizada!',
-        description: 'Seu pedido foi processado com sucesso. Entraremos em contato em breve.',
-      })
-      navigate('/loja')
-    } catch (error) {
-      toast({
-        variant: 'destructive',
-        title: 'Erro',
-        description: 'Ocorreu um erro ao finalizar a compra.',
-      })
     }
   }
 
@@ -265,13 +246,22 @@ export default function Carrinho() {
                 <span className="text-white uppercase tracking-widest text-sm">Total</span>
                 <span className="text-3xl font-serif text-primary">{formatPrice(total)}</span>
               </div>
-              <Button
-                onClick={handleCheckout}
-                disabled={items.length === 0}
-                className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-none h-14 text-sm tracking-widest uppercase transition-all duration-300"
-              >
-                Finalizar Compra
-              </Button>
+
+              {items.length === 0 ? (
+                <Button
+                  disabled
+                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-none h-14 text-sm tracking-widest uppercase transition-all duration-300"
+                >
+                  Finalizar Compra
+                </Button>
+              ) : (
+                <Button
+                  asChild
+                  className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-none h-14 text-sm tracking-widest uppercase transition-all duration-300"
+                >
+                  <Link to="/checkout">Finalizar Compra</Link>
+                </Button>
+              )}
             </div>
           </div>
         )}

@@ -39,6 +39,17 @@ CREATE TABLE carrinho (
     UNIQUE(sessao_id, produto_id)
 );
 
+CREATE TABLE pedidos (
+    id UUID PRIMARY KEY DEFAULT gen_random_uuid(),
+    cliente_nome TEXT NOT NULL,
+    cliente_email TEXT NOT NULL,
+    cliente_telefone TEXT NOT NULL,
+    itens_json JSONB NOT NULL,
+    total NUMERIC(10, 2) NOT NULL,
+    status_pagamento TEXT NOT NULL DEFAULT 'pending',
+    criado_em TIMESTAMP WITH TIME ZONE DEFAULT NOW()
+);
+
 -- Seed Data
 INSERT INTO familias (id, nome, descricao) VALUES
 ('f1000000-0000-0000-0000-000000000001', 'Balcões', 'Balcões premium para atendimento'),
