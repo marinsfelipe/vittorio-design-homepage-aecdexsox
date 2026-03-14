@@ -1,33 +1,60 @@
 import { useState } from 'react'
+import { useForm } from 'react-hook-form'
+import { zodResolver } from '@hookform/resolvers/zod'
+import * as z from 'zod'
 import { Instagram, Mail, MessageCircle, MapPin, Loader2 } from 'lucide-react'
+
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
-import { Label } from '@/components/ui/label'
+import {
+  Form,
+  FormControl,
+  FormField,
+  FormItem,
+  FormLabel,
+  FormMessage,
+} from '@/components/ui/form'
 import { useToast } from '@/hooks/use-toast'
 import { supabase } from '@/lib/supabase'
+
+const formSchema = z.object({
+  nome: z.string().min(2, 'O nome deve ter pelo menos 2 caracteres.'),
+  email: z.string().email('Por favor, insira um email válido.'),
+  telefone: z
+    .string()
+    .min(10, 'O telefone deve ter pelo menos 10 dígitos.')
+    .regex(
+      /^[0-9\s()+-]+$/,
+      'Formato de telefone inválido. Use apenas números e caracteres ( ) + -',
+    ),
+  mensagem: z.string().min(10, 'A mensagem deve ter pelo menos 10 caracteres.'),
+})
 
 export default function Contato() {
   const { toast } = useToast()
   const [isSubmitting, setIsSubmitting] = useState(false)
-  const [formData, setFormData] = useState({
-    nome: '',
-    email: '',
-    telefone: '',
-    mensagem: '',
+
+  const form = useForm<z.infer<typeof formSchema>>({
+    resolver: zodResolver(formSchema),
+    defaultValues: {
+      nome: '',
+      email: '',
+      telefone: '',
+      mensagem: '',
+    },
   })
 
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault()
+  const onSubmit = async (values: z.infer<typeof formSchema>) => {
     setIsSubmitting(true)
 
     try {
       const { error } = await supabase.from('contatos').insert([
         {
-          nome: formData.nome,
-          email: formData.email,
-          telefone: formData.telefone,
-          mensagem: formData.mensagem,
+          nome: values.nome,
+          email: values.email,
+          telefone: values.telefone,
+          mensagem: values.mensagem,
         },
       ])
 
@@ -35,26 +62,21 @@ export default function Contato() {
         throw new Error(error.message)
       }
 
-      setFormData({ nome: '', email: '', telefone: '', mensagem: '' })
+      form.reset()
       toast({
         title: 'Mensagem enviada com sucesso!',
         description: 'Recebemos seu contato. Nossa equipe retornará em breve.',
       })
     } catch (err) {
-      console.warn('Supabase integration error (fallback):', err)
-      setFormData({ nome: '', email: '', telefone: '', mensagem: '' })
+      console.error('Erro ao enviar formulário:', err)
       toast({
-        title: 'Mensagem enviada com sucesso!',
-        description: 'Recebemos seu contato. Nossa equipe retornará em breve.',
+        variant: 'destructive',
+        title: 'Erro ao enviar',
+        description: 'Ocorreu um erro ao enviar sua mensagem. Por favor, tente novamente.',
       })
     } finally {
       setIsSubmitting(false)
     }
-  }
-
-  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
-    const { id, value } = e.target
-    setFormData((prev) => ({ ...prev, [id]: value }))
   }
 
   const whatsappMessage = encodeURIComponent(
@@ -78,78 +100,96 @@ export default function Contato() {
             className="lg:col-span-7 opacity-0 animate-fade-in-up"
             style={{ animationDelay: '0.2s' }}
           >
-            <form className="space-y-6" onSubmit={handleSubmit}>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <div className="space-y-2">
-                  <Label htmlFor="nome" className="text-muted-foreground">
-                    Nome Completo
-                  </Label>
-                  <Input
-                    id="nome"
-                    required
-                    value={formData.nome}
-                    onChange={handleChange}
-                    placeholder="Seu nome"
-                    className="bg-transparent border-input focus-visible:ring-primary focus-visible:border-primary text-white rounded-none h-12"
+            <Form {...form}>
+              <form className="space-y-6" onSubmit={form.handleSubmit(onSubmit)}>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                  <FormField
+                    control={form.control}
+                    name="nome"
+                    render={({ field }) => (
+                      <FormItem className="space-y-2">
+                        <FormLabel className="text-muted-foreground">Nome Completo</FormLabel>
+                        <FormControl>
+                          <Input
+                            placeholder="Seu nome"
+                            className="bg-transparent border-input focus-visible:ring-primary focus-visible:border-primary text-white rounded-none h-12"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
+                  />
+                  <FormField
+                    control={form.control}
+                    name="email"
+                    render={({ field }) => (
+                      <FormItem className="space-y-2">
+                        <FormLabel className="text-muted-foreground">Email Profissional</FormLabel>
+                        <FormControl>
+                          <Input
+                            type="email"
+                            placeholder="seu@email.com"
+                            className="bg-transparent border-input focus-visible:ring-primary focus-visible:border-primary text-white rounded-none h-12"
+                            {...field}
+                          />
+                        </FormControl>
+                        <FormMessage />
+                      </FormItem>
+                    )}
                   />
                 </div>
-                <div className="space-y-2">
-                  <Label htmlFor="email" className="text-muted-foreground">
-                    Email Profissional
-                  </Label>
-                  <Input
-                    id="email"
-                    type="email"
-                    required
-                    value={formData.email}
-                    onChange={handleChange}
-                    placeholder="seu@email.com"
-                    className="bg-transparent border-input focus-visible:ring-primary focus-visible:border-primary text-white rounded-none h-12"
-                  />
-                </div>
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="telefone" className="text-muted-foreground">
-                  Telefone / WhatsApp
-                </Label>
-                <Input
-                  id="telefone"
-                  type="tel"
-                  required
-                  value={formData.telefone}
-                  onChange={handleChange}
-                  placeholder="(11) 99999-9999"
-                  className="bg-transparent border-input focus-visible:ring-primary focus-visible:border-primary text-white rounded-none h-12"
+                <FormField
+                  control={form.control}
+                  name="telefone"
+                  render={({ field }) => (
+                    <FormItem className="space-y-2">
+                      <FormLabel className="text-muted-foreground">Telefone / WhatsApp</FormLabel>
+                      <FormControl>
+                        <Input
+                          type="tel"
+                          placeholder="(11) 99999-9999"
+                          className="bg-transparent border-input focus-visible:ring-primary focus-visible:border-primary text-white rounded-none h-12"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="mensagem" className="text-muted-foreground">
-                  Mensagem
-                </Label>
-                <Textarea
-                  id="mensagem"
-                  required
-                  value={formData.mensagem}
-                  onChange={handleChange}
-                  placeholder="Descreva seu projeto ou dúvida..."
-                  className="bg-transparent border-input focus-visible:ring-primary focus-visible:border-primary text-white rounded-none min-h-[160px] resize-none"
+                <FormField
+                  control={form.control}
+                  name="mensagem"
+                  render={({ field }) => (
+                    <FormItem className="space-y-2">
+                      <FormLabel className="text-muted-foreground">Mensagem</FormLabel>
+                      <FormControl>
+                        <Textarea
+                          placeholder="Descreva seu projeto ou dúvida..."
+                          className="bg-transparent border-input focus-visible:ring-primary focus-visible:border-primary text-white rounded-none min-h-[160px] resize-none"
+                          {...field}
+                        />
+                      </FormControl>
+                      <FormMessage />
+                    </FormItem>
+                  )}
                 />
-              </div>
-              <Button
-                type="submit"
-                disabled={isSubmitting}
-                className="w-full md:w-auto bg-primary text-primary-foreground hover:bg-primary/90 rounded-none px-10 py-6 text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-70"
-              >
-                {isSubmitting ? (
-                  <>
-                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
-                    Enviando...
-                  </>
-                ) : (
-                  'Enviar Mensagem'
-                )}
-              </Button>
-            </form>
+                <Button
+                  type="submit"
+                  disabled={isSubmitting}
+                  className="w-full md:w-auto bg-primary text-primary-foreground hover:bg-primary/90 rounded-none px-10 py-6 text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-70"
+                >
+                  {isSubmitting ? (
+                    <>
+                      <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                      Enviando...
+                    </>
+                  ) : (
+                    'Enviar Mensagem'
+                  )}
+                </Button>
+              </form>
+            </Form>
           </div>
 
           <div
