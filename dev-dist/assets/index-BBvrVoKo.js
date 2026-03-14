@@ -24377,8 +24377,8 @@ var Button = import_react.forwardRef(({ className, variant, size, asChild = fals
 });
 Button.displayName = "Button";
 //#endregion
-//#region src/pages/Index.tsx
-function Index() {
+//#region src/components/FeaturedPreview.tsx
+function FeaturedPreview() {
 	const featuredItems = [
 		{
 			id: 1,
@@ -24399,584 +24399,88 @@ function Index() {
 			img: "https://img.usecurling.com/p/600/600?q=modern%20chandelier&color=black"
 		}
 	];
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		"data-uid": "src/pages/Index.tsx:28:5",
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
+		"data-uid": "src/components/FeaturedPreview.tsx:27:5",
 		"data-prohibitions": "[editContent]",
-		className: "w-full",
-		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
-				"data-uid": "src/pages/Index.tsx:30:7",
+		className: "py-24 bg-card border-t border-white/5",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			"data-uid": "src/components/FeaturedPreview.tsx:28:7",
+			"data-prohibitions": "[editContent]",
+			className: "container",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				"data-uid": "src/components/FeaturedPreview.tsx:29:9",
 				"data-prohibitions": "[]",
-				className: "relative h-screen flex items-center justify-center overflow-hidden",
+				className: "flex flex-col md:flex-row justify-between items-end mb-16 gap-6",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/pages/Index.tsx:31:9",
+					"data-uid": "src/components/FeaturedPreview.tsx:30:11",
 					"data-prohibitions": "[]",
-					className: "absolute inset-0 z-0",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-						"data-uid": "src/pages/Index.tsx:32:11",
-						"data-prohibitions": "[editContent]",
-						src: "https://img.usecurling.com/p/1920/1080?q=luxury%20minimalist%20interior&color=black",
-						alt: "Vittorio Design Interior",
-						className: "w-full h-full object-cover object-center"
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						"data-uid": "src/pages/Index.tsx:37:11",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+						"data-uid": "src/components/FeaturedPreview.tsx:31:13",
 						"data-prohibitions": "[]",
-						className: "absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-background"
+						className: "text-primary tracking-[0.2em] uppercase text-xs mb-3 block",
+						children: "Preview"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+						"data-uid": "src/components/FeaturedPreview.tsx:34:13",
+						"data-prohibitions": "[]",
+						className: "text-3xl md:text-4xl font-serif text-white",
+						children: "Coleção Destaque"
 					})]
-				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					"data-uid": "src/pages/Index.tsx:40:9",
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
+					"data-uid": "src/components/FeaturedPreview.tsx:36:11",
 					"data-prohibitions": "[]",
-					className: "container relative z-10 text-center px-4 pt-20",
-					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						"data-uid": "src/pages/Index.tsx:41:11",
-						"data-prohibitions": "[]",
-						className: "max-w-3xl mx-auto opacity-0 animate-fade-in-up",
-						children: [
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								"data-uid": "src/pages/Index.tsx:42:13",
-								"data-prohibitions": "[]",
-								className: "text-primary font-medium tracking-[0.2em] uppercase text-sm mb-6 block",
-								children: "Exclusividade & Elegância"
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", {
-								"data-uid": "src/pages/Index.tsx:45:13",
-								"data-prohibitions": "[]",
-								className: "text-5xl md:text-7xl font-serif text-white mb-6 leading-tight",
-								children: [
-									"Design que ",
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {
-										"data-uid": "src/pages/Index.tsx:46:26",
-										"data-prohibitions": "[editContent]"
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										"data-uid": "src/pages/Index.tsx:47:15",
-										"data-prohibitions": "[]",
-										className: "italic text-primary/90",
-										children: "Transforma"
-									})
-								]
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-								"data-uid": "src/pages/Index.tsx:49:13",
-								"data-prohibitions": "[]",
-								className: "text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto font-light leading-relaxed",
-								children: "Peças autorais criadas com maestria. A perfeita harmonia entre o rigor do inox e a sofisticação contemporânea."
-							}),
-							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-								"data-uid": "src/pages/Index.tsx:53:13",
-								"data-prohibitions": "[]",
-								asChild: true,
-								size: "lg",
-								className: "bg-transparent border border-primary text-primary hover:bg-primary hover:text-primary-foreground rounded-none px-8 py-6 text-sm tracking-widest uppercase transition-all duration-300 active:scale-95",
-								children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
-									"data-uid": "src/pages/Index.tsx:58:15",
-									"data-prohibitions": "[]",
-									to: "/catalogo",
-									children: ["Explorar Catálogo ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowRight, {
-										"data-uid": "src/pages/Index.tsx:59:35",
-										"data-prohibitions": "[editContent]",
-										className: "ml-3 h-4 w-4"
-									})]
-								})
-							})
-						]
-					})
-				})]
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
-				"data-uid": "src/pages/Index.tsx:67:7",
-				"data-prohibitions": "[]",
-				className: "py-24 md:py-32 bg-background relative",
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					"data-uid": "src/pages/Index.tsx:68:9",
-					"data-prohibitions": "[]",
-					className: "container",
-					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						"data-uid": "src/pages/Index.tsx:69:11",
-						"data-prohibitions": "[]",
-						className: "grid grid-cols-1 lg:grid-cols-2 gap-16 items-center",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							"data-uid": "src/pages/Index.tsx:70:13",
-							"data-prohibitions": "[]",
-							className: "relative group",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								"data-uid": "src/pages/Index.tsx:71:15",
-								"data-prohibitions": "[]",
-								className: "absolute -inset-4 border border-primary/20 translate-x-4 translate-y-4 -z-10 transition-transform duration-500 group-hover:translate-x-2 group-hover:translate-y-2"
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-								"data-uid": "src/pages/Index.tsx:72:15",
-								"data-prohibitions": "[editContent]",
-								src: "https://img.usecurling.com/p/800/1000?q=stainless%20steel%20texture&color=black",
-								alt: "Detalhe de Material",
-								className: "w-full aspect-[4/5] object-cover grayscale opacity-90 transition-all duration-700 group-hover:grayscale-0 group-hover:opacity-100"
-							})]
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							"data-uid": "src/pages/Index.tsx:79:13",
-							"data-prohibitions": "[]",
-							className: "opacity-0 animate-fade-in-up",
-							style: { animationDelay: "0.2s" },
-							children: [
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
-									"data-uid": "src/pages/Index.tsx:80:15",
-									"data-prohibitions": "[]",
-									className: "text-4xl md:text-5xl font-serif text-white mb-8",
-									children: "Nossa Essência"
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-									"data-uid": "src/pages/Index.tsx:81:15",
-									"data-prohibitions": "[]",
-									className: "h-px w-24 bg-primary mb-8"
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									"data-uid": "src/pages/Index.tsx:82:15",
-									"data-prohibitions": "[]",
-									className: "space-y-6 text-muted-foreground font-light leading-relaxed text-lg",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-										"data-uid": "src/pages/Index.tsx:83:17",
-										"data-prohibitions": "[]",
-										children: "A Vittorio Design nasceu da paixão por formas puras e materiais nobres. Cada peça é um manifesto de luxo silencioso, projetada para transcender tendências e estabelecer-se como atemporal."
-									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-										"data-uid": "src/pages/Index.tsx:88:17",
-										"data-prohibitions": "[]",
-										children: "Nossos artesãos dominam a arte de moldar o inox, combinando precisão industrial com acabamento manual minucioso, resultando em móveis que são verdadeiras esculturas habitáveis."
-									})]
-								})
-							]
-						})]
-					})
-				})
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
-				"data-uid": "src/pages/Index.tsx:100:7",
-				"data-prohibitions": "[editContent]",
-				className: "py-24 bg-card border-t border-white/5",
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/pages/Index.tsx:101:9",
-					"data-prohibitions": "[editContent]",
-					className: "container",
-					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						"data-uid": "src/pages/Index.tsx:102:11",
-						"data-prohibitions": "[]",
-						className: "flex flex-col md:flex-row justify-between items-end mb-16 gap-6",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							"data-uid": "src/pages/Index.tsx:103:13",
-							"data-prohibitions": "[]",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								"data-uid": "src/pages/Index.tsx:104:15",
-								"data-prohibitions": "[]",
-								className: "text-primary tracking-[0.2em] uppercase text-xs mb-3 block",
-								children: "Preview"
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
-								"data-uid": "src/pages/Index.tsx:107:15",
-								"data-prohibitions": "[]",
-								className: "text-3xl md:text-4xl font-serif text-white",
-								children: "Coleção Destaque"
-							})]
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
-							"data-uid": "src/pages/Index.tsx:109:13",
-							"data-prohibitions": "[]",
-							to: "/catalogo",
-							className: "text-sm uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors flex items-center group",
-							children: [
-								"Ver Coleção Completa",
-								" ",
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowRight, {
-									"data-uid": "src/pages/Index.tsx:114:15",
-									"data-prohibitions": "[editContent]",
-									className: "ml-2 h-4 w-4 transition-transform group-hover:translate-x-1"
-								})
-							]
-						})]
-					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						"data-uid": "src/pages/Index.tsx:118:11",
-						"data-prohibitions": "[editContent]",
-						className: "grid grid-cols-1 md:grid-cols-3 gap-8",
-						children: featuredItems.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
-							"data-uid": "src/pages/Index.tsx:120:15",
+					to: "/catalogo",
+					className: "text-sm uppercase tracking-widest text-muted-foreground hover:text-primary transition-colors flex items-center group",
+					children: [
+						"Ver Coleção Completa",
+						" ",
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowRight, {
+							"data-uid": "src/components/FeaturedPreview.tsx:41:13",
 							"data-prohibitions": "[editContent]",
-							to: "/catalogo",
-							className: "group block relative overflow-hidden",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								"data-uid": "src/pages/Index.tsx:121:17",
-								"data-prohibitions": "[]",
-								className: "aspect-[3/4] overflow-hidden bg-muted",
-								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-									"data-uid": "src/pages/Index.tsx:122:19",
-									"data-prohibitions": "[editContent]",
-									src: item.img,
-									alt: item.name,
-									className: "w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
-								})
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/Index.tsx:128:17",
-								"data-prohibitions": "[editContent]",
-								className: "absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8 border-b-4 border-transparent group-hover:border-primary",
-								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									"data-uid": "src/pages/Index.tsx:129:19",
-									"data-prohibitions": "[editContent]",
-									className: "text-primary text-xs tracking-widest uppercase mb-2 block transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 delay-100",
-									children: item.category
-								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-									"data-uid": "src/pages/Index.tsx:132:19",
-									"data-prohibitions": "[editContent]",
-									className: "text-xl font-serif text-white transform translate-y-4 opacity-0 group-hover:translate-y-0 group-hover:opacity-100 transition-all duration-300 delay-150",
-									children: item.name
-								})]
-							})]
-						}, item.id))
+							className: "ml-2 h-4 w-4 transition-transform group-hover:translate-x-1"
+						})
+					]
+				})]
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				"data-uid": "src/components/FeaturedPreview.tsx:45:9",
+				"data-prohibitions": "[editContent]",
+				className: "grid grid-cols-1 md:grid-cols-3 gap-8",
+				children: featuredItems.map((item) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
+					"data-uid": "src/components/FeaturedPreview.tsx:47:13",
+					"data-prohibitions": "[editContent]",
+					to: "/catalogo",
+					className: "group block relative overflow-hidden",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						"data-uid": "src/components/FeaturedPreview.tsx:48:15",
+						"data-prohibitions": "[]",
+						className: "aspect-[3/4] overflow-hidden bg-muted",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+							"data-uid": "src/components/FeaturedPreview.tsx:49:17",
+							"data-prohibitions": "[editContent]",
+							src: item.img,
+							alt: item.name,
+							className: "w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
+						})
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						"data-uid": "src/components/FeaturedPreview.tsx:55:15",
+						"data-prohibitions": "[editContent]",
+						className: "absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 flex flex-col justify-end p-8 border-b-4 border-transparent group-hover:border-primary",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+							"data-uid": "src/components/FeaturedPreview.tsx:56:17",
+							"data-prohibitions": "[editContent]",
+							className: "text-primary text-xs tracking-widest uppercase mb-2 block transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-100",
+							children: item.category
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+							"data-uid": "src/components/FeaturedPreview.tsx:59:17",
+							"data-prohibitions": "[editContent]",
+							className: "text-xl font-serif text-white transform translate-y-4 group-hover:translate-y-0 transition-transform duration-300 delay-150",
+							children: item.name
+						})]
 					})]
-				})
-			})
-		]
+				}, item.id))
+			})]
+		})
 	});
 }
-//#endregion
-//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/@radix-ui+number@1.1.1/node_modules/@radix-ui/number/dist/index.mjs
-function clamp(value, [min, max]) {
-	return Math.min(max, Math.max(min, value));
-}
-//#endregion
-//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/@radix-ui+react-direction@1.1.1_@types+react@19.2.14_react@19.2.4/node_modules/@radix-ui/react-direction/dist/index.mjs
-var DirectionContext = import_react.createContext(void 0);
-function useDirection(localDir) {
-	const globalDir = import_react.useContext(DirectionContext);
-	return localDir || globalDir || "ltr";
-}
-//#endregion
-//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/@radix-ui+react-focus-guards@1.1.3_@types+react@19.2.14_react@19.2.4/node_modules/@radix-ui/react-focus-guards/dist/index.mjs
-var count = 0;
-function useFocusGuards() {
-	import_react.useEffect(() => {
-		const edgeGuards = document.querySelectorAll("[data-radix-focus-guard]");
-		document.body.insertAdjacentElement("afterbegin", edgeGuards[0] ?? createFocusGuard());
-		document.body.insertAdjacentElement("beforeend", edgeGuards[1] ?? createFocusGuard());
-		count++;
-		return () => {
-			if (count === 1) document.querySelectorAll("[data-radix-focus-guard]").forEach((node) => node.remove());
-			count--;
-		};
-	}, []);
-}
-function createFocusGuard() {
-	const element = document.createElement("span");
-	element.setAttribute("data-radix-focus-guard", "");
-	element.tabIndex = 0;
-	element.style.outline = "none";
-	element.style.opacity = "0";
-	element.style.position = "fixed";
-	element.style.pointerEvents = "none";
-	return element;
-}
-//#endregion
-//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/@radix-ui+react-focus-scope@1.1.7_@types+react-dom@19.2.3_@types+react@19.2.14__@types+_f62f3af4ca2ba305a7aecf04c8534604/node_modules/@radix-ui/react-focus-scope/dist/index.mjs
-var AUTOFOCUS_ON_MOUNT = "focusScope.autoFocusOnMount";
-var AUTOFOCUS_ON_UNMOUNT = "focusScope.autoFocusOnUnmount";
-var EVENT_OPTIONS = {
-	bubbles: false,
-	cancelable: true
-};
-var FOCUS_SCOPE_NAME = "FocusScope";
-var FocusScope = import_react.forwardRef((props, forwardedRef) => {
-	const { loop = false, trapped = false, onMountAutoFocus: onMountAutoFocusProp, onUnmountAutoFocus: onUnmountAutoFocusProp, ...scopeProps } = props;
-	const [container, setContainer] = import_react.useState(null);
-	const onMountAutoFocus = useCallbackRef$1(onMountAutoFocusProp);
-	const onUnmountAutoFocus = useCallbackRef$1(onUnmountAutoFocusProp);
-	const lastFocusedElementRef = import_react.useRef(null);
-	const composedRefs = useComposedRefs(forwardedRef, (node) => setContainer(node));
-	const focusScope = import_react.useRef({
-		paused: false,
-		pause() {
-			this.paused = true;
-		},
-		resume() {
-			this.paused = false;
-		}
-	}).current;
-	import_react.useEffect(() => {
-		if (trapped) {
-			let handleFocusIn2 = function(event) {
-				if (focusScope.paused || !container) return;
-				const target = event.target;
-				if (container.contains(target)) lastFocusedElementRef.current = target;
-				else focus(lastFocusedElementRef.current, { select: true });
-			}, handleFocusOut2 = function(event) {
-				if (focusScope.paused || !container) return;
-				const relatedTarget = event.relatedTarget;
-				if (relatedTarget === null) return;
-				if (!container.contains(relatedTarget)) focus(lastFocusedElementRef.current, { select: true });
-			}, handleMutations2 = function(mutations) {
-				if (document.activeElement !== document.body) return;
-				for (const mutation of mutations) if (mutation.removedNodes.length > 0) focus(container);
-			};
-			document.addEventListener("focusin", handleFocusIn2);
-			document.addEventListener("focusout", handleFocusOut2);
-			const mutationObserver = new MutationObserver(handleMutations2);
-			if (container) mutationObserver.observe(container, {
-				childList: true,
-				subtree: true
-			});
-			return () => {
-				document.removeEventListener("focusin", handleFocusIn2);
-				document.removeEventListener("focusout", handleFocusOut2);
-				mutationObserver.disconnect();
-			};
-		}
-	}, [
-		trapped,
-		container,
-		focusScope.paused
-	]);
-	import_react.useEffect(() => {
-		if (container) {
-			focusScopesStack.add(focusScope);
-			const previouslyFocusedElement = document.activeElement;
-			if (!container.contains(previouslyFocusedElement)) {
-				const mountEvent = new CustomEvent(AUTOFOCUS_ON_MOUNT, EVENT_OPTIONS);
-				container.addEventListener(AUTOFOCUS_ON_MOUNT, onMountAutoFocus);
-				container.dispatchEvent(mountEvent);
-				if (!mountEvent.defaultPrevented) {
-					focusFirst(removeLinks(getTabbableCandidates(container)), { select: true });
-					if (document.activeElement === previouslyFocusedElement) focus(container);
-				}
-			}
-			return () => {
-				container.removeEventListener(AUTOFOCUS_ON_MOUNT, onMountAutoFocus);
-				setTimeout(() => {
-					const unmountEvent = new CustomEvent(AUTOFOCUS_ON_UNMOUNT, EVENT_OPTIONS);
-					container.addEventListener(AUTOFOCUS_ON_UNMOUNT, onUnmountAutoFocus);
-					container.dispatchEvent(unmountEvent);
-					if (!unmountEvent.defaultPrevented) focus(previouslyFocusedElement ?? document.body, { select: true });
-					container.removeEventListener(AUTOFOCUS_ON_UNMOUNT, onUnmountAutoFocus);
-					focusScopesStack.remove(focusScope);
-				}, 0);
-			};
-		}
-	}, [
-		container,
-		onMountAutoFocus,
-		onUnmountAutoFocus,
-		focusScope
-	]);
-	const handleKeyDown = import_react.useCallback((event) => {
-		if (!loop && !trapped) return;
-		if (focusScope.paused) return;
-		const isTabKey = event.key === "Tab" && !event.altKey && !event.ctrlKey && !event.metaKey;
-		const focusedElement = document.activeElement;
-		if (isTabKey && focusedElement) {
-			const container2 = event.currentTarget;
-			const [first, last] = getTabbableEdges(container2);
-			if (!(first && last)) {
-				if (focusedElement === container2) event.preventDefault();
-			} else if (!event.shiftKey && focusedElement === last) {
-				event.preventDefault();
-				if (loop) focus(first, { select: true });
-			} else if (event.shiftKey && focusedElement === first) {
-				event.preventDefault();
-				if (loop) focus(last, { select: true });
-			}
-		}
-	}, [
-		loop,
-		trapped,
-		focusScope.paused
-	]);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
-		tabIndex: -1,
-		...scopeProps,
-		ref: composedRefs,
-		onKeyDown: handleKeyDown
-	});
-});
-FocusScope.displayName = FOCUS_SCOPE_NAME;
-function focusFirst(candidates, { select = false } = {}) {
-	const previouslyFocusedElement = document.activeElement;
-	for (const candidate of candidates) {
-		focus(candidate, { select });
-		if (document.activeElement !== previouslyFocusedElement) return;
-	}
-}
-function getTabbableEdges(container) {
-	const candidates = getTabbableCandidates(container);
-	return [findVisible(candidates, container), findVisible(candidates.reverse(), container)];
-}
-function getTabbableCandidates(container) {
-	const nodes = [];
-	const walker = document.createTreeWalker(container, NodeFilter.SHOW_ELEMENT, { acceptNode: (node) => {
-		const isHiddenInput = node.tagName === "INPUT" && node.type === "hidden";
-		if (node.disabled || node.hidden || isHiddenInput) return NodeFilter.FILTER_SKIP;
-		return node.tabIndex >= 0 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
-	} });
-	while (walker.nextNode()) nodes.push(walker.currentNode);
-	return nodes;
-}
-function findVisible(elements, container) {
-	for (const element of elements) if (!isHidden(element, { upTo: container })) return element;
-}
-function isHidden(node, { upTo }) {
-	if (getComputedStyle(node).visibility === "hidden") return true;
-	while (node) {
-		if (upTo !== void 0 && node === upTo) return false;
-		if (getComputedStyle(node).display === "none") return true;
-		node = node.parentElement;
-	}
-	return false;
-}
-function isSelectableInput(element) {
-	return element instanceof HTMLInputElement && "select" in element;
-}
-function focus(element, { select = false } = {}) {
-	if (element && element.focus) {
-		const previouslyFocusedElement = document.activeElement;
-		element.focus({ preventScroll: true });
-		if (element !== previouslyFocusedElement && isSelectableInput(element) && select) element.select();
-	}
-}
-var focusScopesStack = createFocusScopesStack();
-function createFocusScopesStack() {
-	let stack = [];
-	return {
-		add(focusScope) {
-			const activeFocusScope = stack[0];
-			if (focusScope !== activeFocusScope) activeFocusScope?.pause();
-			stack = arrayRemove(stack, focusScope);
-			stack.unshift(focusScope);
-		},
-		remove(focusScope) {
-			stack = arrayRemove(stack, focusScope);
-			stack[0]?.resume();
-		}
-	};
-}
-function arrayRemove(array, item) {
-	const updatedArray = [...array];
-	const index = updatedArray.indexOf(item);
-	if (index !== -1) updatedArray.splice(index, 1);
-	return updatedArray;
-}
-function removeLinks(items) {
-	return items.filter((item) => item.tagName !== "A");
-}
-//#endregion
-//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/@radix-ui+react-use-previous@1.1.1_@types+react@19.2.14_react@19.2.4/node_modules/@radix-ui/react-use-previous/dist/index.mjs
-function usePrevious(value) {
-	const ref = import_react.useRef({
-		value,
-		previous: value
-	});
-	return import_react.useMemo(() => {
-		if (ref.current.value !== value) {
-			ref.current.previous = ref.current.value;
-			ref.current.value = value;
-		}
-		return ref.current.previous;
-	}, [value]);
-}
-//#endregion
-//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/aria-hidden@1.2.6/node_modules/aria-hidden/dist/es2015/index.js
-var getDefaultParent = function(originalTarget) {
-	if (typeof document === "undefined") return null;
-	return (Array.isArray(originalTarget) ? originalTarget[0] : originalTarget).ownerDocument.body;
-};
-var counterMap = /* @__PURE__ */ new WeakMap();
-var uncontrolledNodes = /* @__PURE__ */ new WeakMap();
-var markerMap = {};
-var lockCount = 0;
-var unwrapHost = function(node) {
-	return node && (node.host || unwrapHost(node.parentNode));
-};
-var correctTargets = function(parent, targets) {
-	return targets.map(function(target) {
-		if (parent.contains(target)) return target;
-		var correctedTarget = unwrapHost(target);
-		if (correctedTarget && parent.contains(correctedTarget)) return correctedTarget;
-		console.error("aria-hidden", target, "in not contained inside", parent, ". Doing nothing");
-		return null;
-	}).filter(function(x) {
-		return Boolean(x);
-	});
-};
-/**
-* Marks everything except given node(or nodes) as aria-hidden
-* @param {Element | Element[]} originalTarget - elements to keep on the page
-* @param [parentNode] - top element, defaults to document.body
-* @param {String} [markerName] - a special attribute to mark every node
-* @param {String} [controlAttribute] - html Attribute to control
-* @return {Undo} undo command
-*/
-var applyAttributeToOthers = function(originalTarget, parentNode, markerName, controlAttribute) {
-	var targets = correctTargets(parentNode, Array.isArray(originalTarget) ? originalTarget : [originalTarget]);
-	if (!markerMap[markerName]) markerMap[markerName] = /* @__PURE__ */ new WeakMap();
-	var markerCounter = markerMap[markerName];
-	var hiddenNodes = [];
-	var elementsToKeep = /* @__PURE__ */ new Set();
-	var elementsToStop = new Set(targets);
-	var keep = function(el) {
-		if (!el || elementsToKeep.has(el)) return;
-		elementsToKeep.add(el);
-		keep(el.parentNode);
-	};
-	targets.forEach(keep);
-	var deep = function(parent) {
-		if (!parent || elementsToStop.has(parent)) return;
-		Array.prototype.forEach.call(parent.children, function(node) {
-			if (elementsToKeep.has(node)) deep(node);
-			else try {
-				var attr = node.getAttribute(controlAttribute);
-				var alreadyHidden = attr !== null && attr !== "false";
-				var counterValue = (counterMap.get(node) || 0) + 1;
-				var markerValue = (markerCounter.get(node) || 0) + 1;
-				counterMap.set(node, counterValue);
-				markerCounter.set(node, markerValue);
-				hiddenNodes.push(node);
-				if (counterValue === 1 && alreadyHidden) uncontrolledNodes.set(node, true);
-				if (markerValue === 1) node.setAttribute(markerName, "true");
-				if (!alreadyHidden) node.setAttribute(controlAttribute, "true");
-			} catch (e) {
-				console.error("aria-hidden: cannot operate on ", node, e);
-			}
-		});
-	};
-	deep(parentNode);
-	elementsToKeep.clear();
-	lockCount++;
-	return function() {
-		hiddenNodes.forEach(function(node) {
-			var counterValue = counterMap.get(node) - 1;
-			var markerValue = markerCounter.get(node) - 1;
-			counterMap.set(node, counterValue);
-			markerCounter.set(node, markerValue);
-			if (!counterValue) {
-				if (!uncontrolledNodes.has(node)) node.removeAttribute(controlAttribute);
-				uncontrolledNodes.delete(node);
-			}
-			if (!markerValue) node.removeAttribute(markerName);
-		});
-		lockCount--;
-		if (!lockCount) {
-			counterMap = /* @__PURE__ */ new WeakMap();
-			counterMap = /* @__PURE__ */ new WeakMap();
-			uncontrolledNodes = /* @__PURE__ */ new WeakMap();
-			markerMap = {};
-		}
-	};
-};
-/**
-* Marks everything except given node(or nodes) as aria-hidden
-* @param {Element | Element[]} originalTarget - elements to keep on the page
-* @param [parentNode] - top element, defaults to document.body
-* @param {String} [markerName] - a special attribute to mark every node
-* @return {Undo} undo command
-*/
-var hideOthers = function(originalTarget, parentNode, markerName) {
-	if (markerName === void 0) markerName = "data-aria-hidden";
-	var targets = Array.from(Array.isArray(originalTarget) ? originalTarget : [originalTarget]);
-	var activeParentNode = parentNode || getDefaultParent(originalTarget);
-	if (!activeParentNode) return function() {
-		return null;
-	};
-	targets.push.apply(targets, Array.from(activeParentNode.querySelectorAll("[aria-live], script")));
-	return applyAttributeToOthers(targets, activeParentNode, markerName, "aria-hidden");
-};
 //#endregion
 //#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/tslib@2.8.1/node_modules/tslib/tslib.es6.mjs
 var __assign = function() {
@@ -25032,1839 +24536,6 @@ function __spreadArray(to, from, pack) {
 		}
 	}
 	return to.concat(ar || Array.prototype.slice.call(from));
-}
-//#endregion
-//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/react-remove-scroll-bar@2.3.8_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll-bar/dist/es2015/constants.js
-var zeroRightClassName = "right-scroll-bar-position";
-var fullWidthClassName = "width-before-scroll-bar";
-var noScrollbarsClassName = "with-scroll-bars-hidden";
-/**
-* Name of a CSS variable containing the amount of "hidden" scrollbar
-* ! might be undefined ! use will fallback!
-*/
-var removedBarSizeVariable = "--removed-body-scroll-bar-size";
-//#endregion
-//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/use-callback-ref@1.3.3_@types+react@19.2.14_react@19.2.4/node_modules/use-callback-ref/dist/es2015/assignRef.js
-/**
-* Assigns a value for a given ref, no matter of the ref format
-* @param {RefObject} ref - a callback function or ref object
-* @param value - a new value
-*
-* @see https://github.com/theKashey/use-callback-ref#assignref
-* @example
-* const refObject = useRef();
-* const refFn = (ref) => {....}
-*
-* assignRef(refObject, "refValue");
-* assignRef(refFn, "refValue");
-*/
-function assignRef(ref, value) {
-	if (typeof ref === "function") ref(value);
-	else if (ref) ref.current = value;
-	return ref;
-}
-//#endregion
-//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/use-callback-ref@1.3.3_@types+react@19.2.14_react@19.2.4/node_modules/use-callback-ref/dist/es2015/useRef.js
-/**
-* creates a MutableRef with ref change callback
-* @param initialValue - initial ref value
-* @param {Function} callback - a callback to run when value changes
-*
-* @example
-* const ref = useCallbackRef(0, (newValue, oldValue) => console.log(oldValue, '->', newValue);
-* ref.current = 1;
-* // prints 0 -> 1
-*
-* @see https://reactjs.org/docs/hooks-reference.html#useref
-* @see https://github.com/theKashey/use-callback-ref#usecallbackref---to-replace-reactuseref
-* @returns {MutableRefObject}
-*/
-function useCallbackRef(initialValue, callback) {
-	var ref = (0, import_react.useState)(function() {
-		return {
-			value: initialValue,
-			callback,
-			facade: {
-				get current() {
-					return ref.value;
-				},
-				set current(value) {
-					var last = ref.value;
-					if (last !== value) {
-						ref.value = value;
-						ref.callback(value, last);
-					}
-				}
-			}
-		};
-	})[0];
-	ref.callback = callback;
-	return ref.facade;
-}
-//#endregion
-//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/use-callback-ref@1.3.3_@types+react@19.2.14_react@19.2.4/node_modules/use-callback-ref/dist/es2015/useMergeRef.js
-var useIsomorphicLayoutEffect$1 = typeof window !== "undefined" ? import_react.useLayoutEffect : import_react.useEffect;
-var currentValues = /* @__PURE__ */ new WeakMap();
-/**
-* Merges two or more refs together providing a single interface to set their value
-* @param {RefObject|Ref} refs
-* @returns {MutableRefObject} - a new ref, which translates all changes to {refs}
-*
-* @see {@link mergeRefs} a version without buit-in memoization
-* @see https://github.com/theKashey/use-callback-ref#usemergerefs
-* @example
-* const Component = React.forwardRef((props, ref) => {
-*   const ownRef = useRef();
-*   const domRef = useMergeRefs([ref, ownRef]); // 👈 merge together
-*   return <div ref={domRef}>...</div>
-* }
-*/
-function useMergeRefs(refs, defaultValue) {
-	var callbackRef = useCallbackRef(defaultValue || null, function(newValue) {
-		return refs.forEach(function(ref) {
-			return assignRef(ref, newValue);
-		});
-	});
-	useIsomorphicLayoutEffect$1(function() {
-		var oldValue = currentValues.get(callbackRef);
-		if (oldValue) {
-			var prevRefs_1 = new Set(oldValue);
-			var nextRefs_1 = new Set(refs);
-			var current_1 = callbackRef.current;
-			prevRefs_1.forEach(function(ref) {
-				if (!nextRefs_1.has(ref)) assignRef(ref, null);
-			});
-			nextRefs_1.forEach(function(ref) {
-				if (!prevRefs_1.has(ref)) assignRef(ref, current_1);
-			});
-		}
-		currentValues.set(callbackRef, refs);
-	}, [refs]);
-	return callbackRef;
-}
-//#endregion
-//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/use-sidecar@1.1.3_@types+react@19.2.14_react@19.2.4/node_modules/use-sidecar/dist/es2015/medium.js
-function ItoI(a) {
-	return a;
-}
-function innerCreateMedium(defaults, middleware) {
-	if (middleware === void 0) middleware = ItoI;
-	var buffer = [];
-	var assigned = false;
-	return {
-		read: function() {
-			if (assigned) throw new Error("Sidecar: could not `read` from an `assigned` medium. `read` could be used only with `useMedium`.");
-			if (buffer.length) return buffer[buffer.length - 1];
-			return defaults;
-		},
-		useMedium: function(data) {
-			var item = middleware(data, assigned);
-			buffer.push(item);
-			return function() {
-				buffer = buffer.filter(function(x) {
-					return x !== item;
-				});
-			};
-		},
-		assignSyncMedium: function(cb) {
-			assigned = true;
-			while (buffer.length) {
-				var cbs = buffer;
-				buffer = [];
-				cbs.forEach(cb);
-			}
-			buffer = {
-				push: function(x) {
-					return cb(x);
-				},
-				filter: function() {
-					return buffer;
-				}
-			};
-		},
-		assignMedium: function(cb) {
-			assigned = true;
-			var pendingQueue = [];
-			if (buffer.length) {
-				var cbs = buffer;
-				buffer = [];
-				cbs.forEach(cb);
-				pendingQueue = buffer;
-			}
-			var executeQueue = function() {
-				var cbs = pendingQueue;
-				pendingQueue = [];
-				cbs.forEach(cb);
-			};
-			var cycle = function() {
-				return Promise.resolve().then(executeQueue);
-			};
-			cycle();
-			buffer = {
-				push: function(x) {
-					pendingQueue.push(x);
-					cycle();
-				},
-				filter: function(filter) {
-					pendingQueue = pendingQueue.filter(filter);
-					return buffer;
-				}
-			};
-		}
-	};
-}
-function createSidecarMedium(options) {
-	if (options === void 0) options = {};
-	var medium = innerCreateMedium(null);
-	medium.options = __assign({
-		async: true,
-		ssr: false
-	}, options);
-	return medium;
-}
-//#endregion
-//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/use-sidecar@1.1.3_@types+react@19.2.14_react@19.2.4/node_modules/use-sidecar/dist/es2015/exports.js
-var SideCar = function(_a) {
-	var sideCar = _a.sideCar, rest = __rest(_a, ["sideCar"]);
-	if (!sideCar) throw new Error("Sidecar: please provide `sideCar` property to import the right car");
-	var Target = sideCar.read();
-	if (!Target) throw new Error("Sidecar medium not found");
-	return import_react.createElement(Target, __assign({}, rest));
-};
-SideCar.isSideCarExport = true;
-function exportSidecar(medium, exported) {
-	medium.useMedium(exported);
-	return SideCar;
-}
-//#endregion
-//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/react-remove-scroll@2.7.2_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll/dist/es2015/medium.js
-var effectCar = createSidecarMedium();
-//#endregion
-//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/react-remove-scroll@2.7.2_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll/dist/es2015/UI.js
-var nothing = function() {};
-/**
-* Removes scrollbar from the page and contain the scroll within the Lock
-*/
-var RemoveScroll = import_react.forwardRef(function(props, parentRef) {
-	var ref = import_react.useRef(null);
-	var _a = import_react.useState({
-		onScrollCapture: nothing,
-		onWheelCapture: nothing,
-		onTouchMoveCapture: nothing
-	}), callbacks = _a[0], setCallbacks = _a[1];
-	var forwardProps = props.forwardProps, children = props.children, className = props.className, removeScrollBar = props.removeScrollBar, enabled = props.enabled, shards = props.shards, sideCar = props.sideCar, noRelative = props.noRelative, noIsolation = props.noIsolation, inert = props.inert, allowPinchZoom = props.allowPinchZoom, _b = props.as, Container = _b === void 0 ? "div" : _b, gapMode = props.gapMode, rest = __rest(props, [
-		"forwardProps",
-		"children",
-		"className",
-		"removeScrollBar",
-		"enabled",
-		"shards",
-		"sideCar",
-		"noRelative",
-		"noIsolation",
-		"inert",
-		"allowPinchZoom",
-		"as",
-		"gapMode"
-	]);
-	var SideCar = sideCar;
-	var containerRef = useMergeRefs([ref, parentRef]);
-	var containerProps = __assign(__assign({}, rest), callbacks);
-	return import_react.createElement(import_react.Fragment, null, enabled && import_react.createElement(SideCar, {
-		sideCar: effectCar,
-		removeScrollBar,
-		shards,
-		noRelative,
-		noIsolation,
-		inert,
-		setCallbacks,
-		allowPinchZoom: !!allowPinchZoom,
-		lockRef: ref,
-		gapMode
-	}), forwardProps ? import_react.cloneElement(import_react.Children.only(children), __assign(__assign({}, containerProps), { ref: containerRef })) : import_react.createElement(Container, __assign({}, containerProps, {
-		className,
-		ref: containerRef
-	}), children));
-});
-RemoveScroll.defaultProps = {
-	enabled: true,
-	removeScrollBar: true,
-	inert: false
-};
-RemoveScroll.classNames = {
-	fullWidth: fullWidthClassName,
-	zeroRight: zeroRightClassName
-};
-//#endregion
-//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/get-nonce@1.0.1/node_modules/get-nonce/dist/es2015/index.js
-var currentNonce;
-var getNonce = function() {
-	if (currentNonce) return currentNonce;
-	if (typeof __webpack_nonce__ !== "undefined") return __webpack_nonce__;
-};
-//#endregion
-//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/react-style-singleton@2.2.3_@types+react@19.2.14_react@19.2.4/node_modules/react-style-singleton/dist/es2015/singleton.js
-function makeStyleTag() {
-	if (!document) return null;
-	var tag = document.createElement("style");
-	tag.type = "text/css";
-	var nonce = getNonce();
-	if (nonce) tag.setAttribute("nonce", nonce);
-	return tag;
-}
-function injectStyles(tag, css) {
-	if (tag.styleSheet) tag.styleSheet.cssText = css;
-	else tag.appendChild(document.createTextNode(css));
-}
-function insertStyleTag(tag) {
-	(document.head || document.getElementsByTagName("head")[0]).appendChild(tag);
-}
-var stylesheetSingleton = function() {
-	var counter = 0;
-	var stylesheet = null;
-	return {
-		add: function(style) {
-			if (counter == 0) {
-				if (stylesheet = makeStyleTag()) {
-					injectStyles(stylesheet, style);
-					insertStyleTag(stylesheet);
-				}
-			}
-			counter++;
-		},
-		remove: function() {
-			counter--;
-			if (!counter && stylesheet) {
-				stylesheet.parentNode && stylesheet.parentNode.removeChild(stylesheet);
-				stylesheet = null;
-			}
-		}
-	};
-};
-//#endregion
-//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/react-style-singleton@2.2.3_@types+react@19.2.14_react@19.2.4/node_modules/react-style-singleton/dist/es2015/hook.js
-/**
-* creates a hook to control style singleton
-* @see {@link styleSingleton} for a safer component version
-* @example
-* ```tsx
-* const useStyle = styleHookSingleton();
-* ///
-* useStyle('body { overflow: hidden}');
-*/
-var styleHookSingleton = function() {
-	var sheet = stylesheetSingleton();
-	return function(styles, isDynamic) {
-		import_react.useEffect(function() {
-			sheet.add(styles);
-			return function() {
-				sheet.remove();
-			};
-		}, [styles && isDynamic]);
-	};
-};
-//#endregion
-//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/react-style-singleton@2.2.3_@types+react@19.2.14_react@19.2.4/node_modules/react-style-singleton/dist/es2015/component.js
-/**
-* create a Component to add styles on demand
-* - styles are added when first instance is mounted
-* - styles are removed when the last instance is unmounted
-* - changing styles in runtime does nothing unless dynamic is set. But with multiple components that can lead to the undefined behavior
-*/
-var styleSingleton = function() {
-	var useStyle = styleHookSingleton();
-	var Sheet = function(_a) {
-		var styles = _a.styles, dynamic = _a.dynamic;
-		useStyle(styles, dynamic);
-		return null;
-	};
-	return Sheet;
-};
-//#endregion
-//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/react-remove-scroll-bar@2.3.8_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll-bar/dist/es2015/utils.js
-var zeroGap = {
-	left: 0,
-	top: 0,
-	right: 0,
-	gap: 0
-};
-var parse$2 = function(x) {
-	return parseInt(x || "", 10) || 0;
-};
-var getOffset = function(gapMode) {
-	var cs = window.getComputedStyle(document.body);
-	var left = cs[gapMode === "padding" ? "paddingLeft" : "marginLeft"];
-	var top = cs[gapMode === "padding" ? "paddingTop" : "marginTop"];
-	var right = cs[gapMode === "padding" ? "paddingRight" : "marginRight"];
-	return [
-		parse$2(left),
-		parse$2(top),
-		parse$2(right)
-	];
-};
-var getGapWidth = function(gapMode) {
-	if (gapMode === void 0) gapMode = "margin";
-	if (typeof window === "undefined") return zeroGap;
-	var offsets = getOffset(gapMode);
-	var documentWidth = document.documentElement.clientWidth;
-	var windowWidth = window.innerWidth;
-	return {
-		left: offsets[0],
-		top: offsets[1],
-		right: offsets[2],
-		gap: Math.max(0, windowWidth - documentWidth + offsets[2] - offsets[0])
-	};
-};
-//#endregion
-//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/react-remove-scroll-bar@2.3.8_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll-bar/dist/es2015/component.js
-var Style = styleSingleton();
-var lockAttribute = "data-scroll-locked";
-var getStyles = function(_a, allowRelative, gapMode, important) {
-	var left = _a.left, top = _a.top, right = _a.right, gap = _a.gap;
-	if (gapMode === void 0) gapMode = "margin";
-	return "\n  .".concat(noScrollbarsClassName, " {\n   overflow: hidden ").concat(important, ";\n   padding-right: ").concat(gap, "px ").concat(important, ";\n  }\n  body[").concat(lockAttribute, "] {\n    overflow: hidden ").concat(important, ";\n    overscroll-behavior: contain;\n    ").concat([
-		allowRelative && "position: relative ".concat(important, ";"),
-		gapMode === "margin" && "\n    padding-left: ".concat(left, "px;\n    padding-top: ").concat(top, "px;\n    padding-right: ").concat(right, "px;\n    margin-left:0;\n    margin-top:0;\n    margin-right: ").concat(gap, "px ").concat(important, ";\n    "),
-		gapMode === "padding" && "padding-right: ".concat(gap, "px ").concat(important, ";")
-	].filter(Boolean).join(""), "\n  }\n  \n  .").concat(zeroRightClassName, " {\n    right: ").concat(gap, "px ").concat(important, ";\n  }\n  \n  .").concat(fullWidthClassName, " {\n    margin-right: ").concat(gap, "px ").concat(important, ";\n  }\n  \n  .").concat(zeroRightClassName, " .").concat(zeroRightClassName, " {\n    right: 0 ").concat(important, ";\n  }\n  \n  .").concat(fullWidthClassName, " .").concat(fullWidthClassName, " {\n    margin-right: 0 ").concat(important, ";\n  }\n  \n  body[").concat(lockAttribute, "] {\n    ").concat(removedBarSizeVariable, ": ").concat(gap, "px;\n  }\n");
-};
-var getCurrentUseCounter = function() {
-	var counter = parseInt(document.body.getAttribute("data-scroll-locked") || "0", 10);
-	return isFinite(counter) ? counter : 0;
-};
-var useLockAttribute = function() {
-	import_react.useEffect(function() {
-		document.body.setAttribute(lockAttribute, (getCurrentUseCounter() + 1).toString());
-		return function() {
-			var newCounter = getCurrentUseCounter() - 1;
-			if (newCounter <= 0) document.body.removeAttribute(lockAttribute);
-			else document.body.setAttribute(lockAttribute, newCounter.toString());
-		};
-	}, []);
-};
-/**
-* Removes page scrollbar and blocks page scroll when mounted
-*/
-var RemoveScrollBar = function(_a) {
-	var noRelative = _a.noRelative, noImportant = _a.noImportant, _b = _a.gapMode, gapMode = _b === void 0 ? "margin" : _b;
-	useLockAttribute();
-	var gap = import_react.useMemo(function() {
-		return getGapWidth(gapMode);
-	}, [gapMode]);
-	return import_react.createElement(Style, { styles: getStyles(gap, !noRelative, gapMode, !noImportant ? "!important" : "") });
-};
-//#endregion
-//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/react-remove-scroll@2.7.2_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll/dist/es2015/aggresiveCapture.js
-var passiveSupported = false;
-if (typeof window !== "undefined") try {
-	var options = Object.defineProperty({}, "passive", { get: function() {
-		passiveSupported = true;
-		return true;
-	} });
-	window.addEventListener("test", options, options);
-	window.removeEventListener("test", options, options);
-} catch (err) {
-	passiveSupported = false;
-}
-var nonPassive = passiveSupported ? { passive: false } : false;
-//#endregion
-//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/react-remove-scroll@2.7.2_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll/dist/es2015/handleScroll.js
-var alwaysContainsScroll = function(node) {
-	return node.tagName === "TEXTAREA";
-};
-var elementCanBeScrolled = function(node, overflow) {
-	if (!(node instanceof Element)) return false;
-	var styles = window.getComputedStyle(node);
-	return styles[overflow] !== "hidden" && !(styles.overflowY === styles.overflowX && !alwaysContainsScroll(node) && styles[overflow] === "visible");
-};
-var elementCouldBeVScrolled = function(node) {
-	return elementCanBeScrolled(node, "overflowY");
-};
-var elementCouldBeHScrolled = function(node) {
-	return elementCanBeScrolled(node, "overflowX");
-};
-var locationCouldBeScrolled = function(axis, node) {
-	var ownerDocument = node.ownerDocument;
-	var current = node;
-	do {
-		if (typeof ShadowRoot !== "undefined" && current instanceof ShadowRoot) current = current.host;
-		if (elementCouldBeScrolled(axis, current)) {
-			var _a = getScrollVariables(axis, current);
-			if (_a[1] > _a[2]) return true;
-		}
-		current = current.parentNode;
-	} while (current && current !== ownerDocument.body);
-	return false;
-};
-var getVScrollVariables = function(_a) {
-	return [
-		_a.scrollTop,
-		_a.scrollHeight,
-		_a.clientHeight
-	];
-};
-var getHScrollVariables = function(_a) {
-	return [
-		_a.scrollLeft,
-		_a.scrollWidth,
-		_a.clientWidth
-	];
-};
-var elementCouldBeScrolled = function(axis, node) {
-	return axis === "v" ? elementCouldBeVScrolled(node) : elementCouldBeHScrolled(node);
-};
-var getScrollVariables = function(axis, node) {
-	return axis === "v" ? getVScrollVariables(node) : getHScrollVariables(node);
-};
-var getDirectionFactor = function(axis, direction) {
-	/**
-	* If the element's direction is rtl (right-to-left), then scrollLeft is 0 when the scrollbar is at its rightmost position,
-	* and then increasingly negative as you scroll towards the end of the content.
-	* @see https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollLeft
-	*/
-	return axis === "h" && direction === "rtl" ? -1 : 1;
-};
-var handleScroll = function(axis, endTarget, event, sourceDelta, noOverscroll) {
-	var directionFactor = getDirectionFactor(axis, window.getComputedStyle(endTarget).direction);
-	var delta = directionFactor * sourceDelta;
-	var target = event.target;
-	var targetInLock = endTarget.contains(target);
-	var shouldCancelScroll = false;
-	var isDeltaPositive = delta > 0;
-	var availableScroll = 0;
-	var availableScrollTop = 0;
-	do {
-		if (!target) break;
-		var _a = getScrollVariables(axis, target), position = _a[0];
-		var elementScroll = _a[1] - _a[2] - directionFactor * position;
-		if (position || elementScroll) {
-			if (elementCouldBeScrolled(axis, target)) {
-				availableScroll += elementScroll;
-				availableScrollTop += position;
-			}
-		}
-		var parent_1 = target.parentNode;
-		target = parent_1 && parent_1.nodeType === Node.DOCUMENT_FRAGMENT_NODE ? parent_1.host : parent_1;
-	} while (!targetInLock && target !== document.body || targetInLock && (endTarget.contains(target) || endTarget === target));
-	if (isDeltaPositive && (noOverscroll && Math.abs(availableScroll) < 1 || !noOverscroll && delta > availableScroll)) shouldCancelScroll = true;
-	else if (!isDeltaPositive && (noOverscroll && Math.abs(availableScrollTop) < 1 || !noOverscroll && -delta > availableScrollTop)) shouldCancelScroll = true;
-	return shouldCancelScroll;
-};
-//#endregion
-//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/react-remove-scroll@2.7.2_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll/dist/es2015/SideEffect.js
-var getTouchXY = function(event) {
-	return "changedTouches" in event ? [event.changedTouches[0].clientX, event.changedTouches[0].clientY] : [0, 0];
-};
-var getDeltaXY = function(event) {
-	return [event.deltaX, event.deltaY];
-};
-var extractRef = function(ref) {
-	return ref && "current" in ref ? ref.current : ref;
-};
-var deltaCompare = function(x, y) {
-	return x[0] === y[0] && x[1] === y[1];
-};
-var generateStyle = function(id) {
-	return "\n  .block-interactivity-".concat(id, " {pointer-events: none;}\n  .allow-interactivity-").concat(id, " {pointer-events: all;}\n");
-};
-var idCounter = 0;
-var lockStack = [];
-function RemoveScrollSideCar(props) {
-	var shouldPreventQueue = import_react.useRef([]);
-	var touchStartRef = import_react.useRef([0, 0]);
-	var activeAxis = import_react.useRef();
-	var id = import_react.useState(idCounter++)[0];
-	var Style = import_react.useState(styleSingleton)[0];
-	var lastProps = import_react.useRef(props);
-	import_react.useEffect(function() {
-		lastProps.current = props;
-	}, [props]);
-	import_react.useEffect(function() {
-		if (props.inert) {
-			document.body.classList.add("block-interactivity-".concat(id));
-			var allow_1 = __spreadArray([props.lockRef.current], (props.shards || []).map(extractRef), true).filter(Boolean);
-			allow_1.forEach(function(el) {
-				return el.classList.add("allow-interactivity-".concat(id));
-			});
-			return function() {
-				document.body.classList.remove("block-interactivity-".concat(id));
-				allow_1.forEach(function(el) {
-					return el.classList.remove("allow-interactivity-".concat(id));
-				});
-			};
-		}
-	}, [
-		props.inert,
-		props.lockRef.current,
-		props.shards
-	]);
-	var shouldCancelEvent = import_react.useCallback(function(event, parent) {
-		if ("touches" in event && event.touches.length === 2 || event.type === "wheel" && event.ctrlKey) return !lastProps.current.allowPinchZoom;
-		var touch = getTouchXY(event);
-		var touchStart = touchStartRef.current;
-		var deltaX = "deltaX" in event ? event.deltaX : touchStart[0] - touch[0];
-		var deltaY = "deltaY" in event ? event.deltaY : touchStart[1] - touch[1];
-		var currentAxis;
-		var target = event.target;
-		var moveDirection = Math.abs(deltaX) > Math.abs(deltaY) ? "h" : "v";
-		if ("touches" in event && moveDirection === "h" && target.type === "range") return false;
-		var selection = window.getSelection();
-		var anchorNode = selection && selection.anchorNode;
-		if (anchorNode ? anchorNode === target || anchorNode.contains(target) : false) return false;
-		var canBeScrolledInMainDirection = locationCouldBeScrolled(moveDirection, target);
-		if (!canBeScrolledInMainDirection) return true;
-		if (canBeScrolledInMainDirection) currentAxis = moveDirection;
-		else {
-			currentAxis = moveDirection === "v" ? "h" : "v";
-			canBeScrolledInMainDirection = locationCouldBeScrolled(moveDirection, target);
-		}
-		if (!canBeScrolledInMainDirection) return false;
-		if (!activeAxis.current && "changedTouches" in event && (deltaX || deltaY)) activeAxis.current = currentAxis;
-		if (!currentAxis) return true;
-		var cancelingAxis = activeAxis.current || currentAxis;
-		return handleScroll(cancelingAxis, parent, event, cancelingAxis === "h" ? deltaX : deltaY, true);
-	}, []);
-	var shouldPrevent = import_react.useCallback(function(_event) {
-		var event = _event;
-		if (!lockStack.length || lockStack[lockStack.length - 1] !== Style) return;
-		var delta = "deltaY" in event ? getDeltaXY(event) : getTouchXY(event);
-		var sourceEvent = shouldPreventQueue.current.filter(function(e) {
-			return e.name === event.type && (e.target === event.target || event.target === e.shadowParent) && deltaCompare(e.delta, delta);
-		})[0];
-		if (sourceEvent && sourceEvent.should) {
-			if (event.cancelable) event.preventDefault();
-			return;
-		}
-		if (!sourceEvent) {
-			var shardNodes = (lastProps.current.shards || []).map(extractRef).filter(Boolean).filter(function(node) {
-				return node.contains(event.target);
-			});
-			if (shardNodes.length > 0 ? shouldCancelEvent(event, shardNodes[0]) : !lastProps.current.noIsolation) {
-				if (event.cancelable) event.preventDefault();
-			}
-		}
-	}, []);
-	var shouldCancel = import_react.useCallback(function(name, delta, target, should) {
-		var event = {
-			name,
-			delta,
-			target,
-			should,
-			shadowParent: getOutermostShadowParent(target)
-		};
-		shouldPreventQueue.current.push(event);
-		setTimeout(function() {
-			shouldPreventQueue.current = shouldPreventQueue.current.filter(function(e) {
-				return e !== event;
-			});
-		}, 1);
-	}, []);
-	var scrollTouchStart = import_react.useCallback(function(event) {
-		touchStartRef.current = getTouchXY(event);
-		activeAxis.current = void 0;
-	}, []);
-	var scrollWheel = import_react.useCallback(function(event) {
-		shouldCancel(event.type, getDeltaXY(event), event.target, shouldCancelEvent(event, props.lockRef.current));
-	}, []);
-	var scrollTouchMove = import_react.useCallback(function(event) {
-		shouldCancel(event.type, getTouchXY(event), event.target, shouldCancelEvent(event, props.lockRef.current));
-	}, []);
-	import_react.useEffect(function() {
-		lockStack.push(Style);
-		props.setCallbacks({
-			onScrollCapture: scrollWheel,
-			onWheelCapture: scrollWheel,
-			onTouchMoveCapture: scrollTouchMove
-		});
-		document.addEventListener("wheel", shouldPrevent, nonPassive);
-		document.addEventListener("touchmove", shouldPrevent, nonPassive);
-		document.addEventListener("touchstart", scrollTouchStart, nonPassive);
-		return function() {
-			lockStack = lockStack.filter(function(inst) {
-				return inst !== Style;
-			});
-			document.removeEventListener("wheel", shouldPrevent, nonPassive);
-			document.removeEventListener("touchmove", shouldPrevent, nonPassive);
-			document.removeEventListener("touchstart", scrollTouchStart, nonPassive);
-		};
-	}, []);
-	var removeScrollBar = props.removeScrollBar, inert = props.inert;
-	return import_react.createElement(import_react.Fragment, null, inert ? import_react.createElement(Style, { styles: generateStyle(id) }) : null, removeScrollBar ? import_react.createElement(RemoveScrollBar, {
-		noRelative: props.noRelative,
-		gapMode: props.gapMode
-	}) : null);
-}
-function getOutermostShadowParent(node) {
-	var shadowParent = null;
-	while (node !== null) {
-		if (node instanceof ShadowRoot) {
-			shadowParent = node.host;
-			node = node.host;
-		}
-		node = node.parentNode;
-	}
-	return shadowParent;
-}
-//#endregion
-//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/react-remove-scroll@2.7.2_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll/dist/es2015/sidecar.js
-var sidecar_default = exportSidecar(effectCar, RemoveScrollSideCar);
-//#endregion
-//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/react-remove-scroll@2.7.2_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll/dist/es2015/Combination.js
-var ReactRemoveScroll = import_react.forwardRef(function(props, ref) {
-	return import_react.createElement(RemoveScroll, __assign({}, props, {
-		ref,
-		sideCar: sidecar_default
-	}));
-});
-ReactRemoveScroll.classNames = RemoveScroll.classNames;
-//#endregion
-//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/@radix-ui+react-select@2.2.6_@types+react-dom@19.2.3_@types+react@19.2.14__@types+react_53894a32562cb9eeb6aef8b357a4f4e3/node_modules/@radix-ui/react-select/dist/index.mjs
-var OPEN_KEYS = [
-	" ",
-	"Enter",
-	"ArrowUp",
-	"ArrowDown"
-];
-var SELECTION_KEYS = [" ", "Enter"];
-var SELECT_NAME = "Select";
-var [Collection, useCollection, createCollectionScope] = createCollection(SELECT_NAME);
-var [createSelectContext, createSelectScope] = createContextScope(SELECT_NAME, [createCollectionScope, createPopperScope]);
-var usePopperScope = createPopperScope();
-var [SelectProvider, useSelectContext] = createSelectContext(SELECT_NAME);
-var [SelectNativeOptionsProvider, useSelectNativeOptionsContext] = createSelectContext(SELECT_NAME);
-var Select$1 = (props) => {
-	const { __scopeSelect, children, open: openProp, defaultOpen, onOpenChange, value: valueProp, defaultValue, onValueChange, dir, name, autoComplete, disabled, required, form } = props;
-	const popperScope = usePopperScope(__scopeSelect);
-	const [trigger, setTrigger] = import_react.useState(null);
-	const [valueNode, setValueNode] = import_react.useState(null);
-	const [valueNodeHasChildren, setValueNodeHasChildren] = import_react.useState(false);
-	const direction = useDirection(dir);
-	const [open, setOpen] = useControllableState({
-		prop: openProp,
-		defaultProp: defaultOpen ?? false,
-		onChange: onOpenChange,
-		caller: SELECT_NAME
-	});
-	const [value, setValue] = useControllableState({
-		prop: valueProp,
-		defaultProp: defaultValue,
-		onChange: onValueChange,
-		caller: SELECT_NAME
-	});
-	const triggerPointerDownPosRef = import_react.useRef(null);
-	const isFormControl = trigger ? form || !!trigger.closest("form") : true;
-	const [nativeOptionsSet, setNativeOptionsSet] = import_react.useState(/* @__PURE__ */ new Set());
-	const nativeSelectKey = Array.from(nativeOptionsSet).map((option) => option.props.value).join(";");
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root2$1, {
-		...popperScope,
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SelectProvider, {
-			required,
-			scope: __scopeSelect,
-			trigger,
-			onTriggerChange: setTrigger,
-			valueNode,
-			onValueNodeChange: setValueNode,
-			valueNodeHasChildren,
-			onValueNodeHasChildrenChange: setValueNodeHasChildren,
-			contentId: useId(),
-			value,
-			onValueChange: setValue,
-			open,
-			onOpenChange: setOpen,
-			dir: direction,
-			triggerPointerDownPosRef,
-			disabled,
-			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Collection.Provider, {
-				scope: __scopeSelect,
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectNativeOptionsProvider, {
-					scope: props.__scopeSelect,
-					onNativeOptionAdd: import_react.useCallback((option) => {
-						setNativeOptionsSet((prev) => new Set(prev).add(option));
-					}, []),
-					onNativeOptionRemove: import_react.useCallback((option) => {
-						setNativeOptionsSet((prev) => {
-							const optionsSet = new Set(prev);
-							optionsSet.delete(option);
-							return optionsSet;
-						});
-					}, []),
-					children
-				})
-			}), isFormControl ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SelectBubbleInput, {
-				"aria-hidden": true,
-				required,
-				tabIndex: -1,
-				name,
-				autoComplete,
-				value,
-				onChange: (event) => setValue(event.target.value),
-				disabled,
-				form,
-				children: [value === void 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", { value: "" }) : null, Array.from(nativeOptionsSet)]
-			}, nativeSelectKey) : null]
-		})
-	});
-};
-Select$1.displayName = SELECT_NAME;
-var TRIGGER_NAME$1 = "SelectTrigger";
-var SelectTrigger$1 = import_react.forwardRef((props, forwardedRef) => {
-	const { __scopeSelect, disabled = false, ...triggerProps } = props;
-	const popperScope = usePopperScope(__scopeSelect);
-	const context = useSelectContext(TRIGGER_NAME$1, __scopeSelect);
-	const isDisabled = context.disabled || disabled;
-	const composedRefs = useComposedRefs(forwardedRef, context.onTriggerChange);
-	const getItems = useCollection(__scopeSelect);
-	const pointerTypeRef = import_react.useRef("touch");
-	const [searchRef, handleTypeaheadSearch, resetTypeahead] = useTypeaheadSearch((search) => {
-		const enabledItems = getItems().filter((item) => !item.disabled);
-		const nextItem = findNextItem(enabledItems, search, enabledItems.find((item) => item.value === context.value));
-		if (nextItem !== void 0) context.onValueChange(nextItem.value);
-	});
-	const handleOpen = (pointerEvent) => {
-		if (!isDisabled) {
-			context.onOpenChange(true);
-			resetTypeahead();
-		}
-		if (pointerEvent) context.triggerPointerDownPosRef.current = {
-			x: Math.round(pointerEvent.pageX),
-			y: Math.round(pointerEvent.pageY)
-		};
-	};
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Anchor, {
-		asChild: true,
-		...popperScope,
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.button, {
-			type: "button",
-			role: "combobox",
-			"aria-controls": context.contentId,
-			"aria-expanded": context.open,
-			"aria-required": context.required,
-			"aria-autocomplete": "none",
-			dir: context.dir,
-			"data-state": context.open ? "open" : "closed",
-			disabled: isDisabled,
-			"data-disabled": isDisabled ? "" : void 0,
-			"data-placeholder": shouldShowPlaceholder(context.value) ? "" : void 0,
-			...triggerProps,
-			ref: composedRefs,
-			onClick: composeEventHandlers(triggerProps.onClick, (event) => {
-				event.currentTarget.focus();
-				if (pointerTypeRef.current !== "mouse") handleOpen(event);
-			}),
-			onPointerDown: composeEventHandlers(triggerProps.onPointerDown, (event) => {
-				pointerTypeRef.current = event.pointerType;
-				const target = event.target;
-				if (target.hasPointerCapture(event.pointerId)) target.releasePointerCapture(event.pointerId);
-				if (event.button === 0 && event.ctrlKey === false && event.pointerType === "mouse") {
-					handleOpen(event);
-					event.preventDefault();
-				}
-			}),
-			onKeyDown: composeEventHandlers(triggerProps.onKeyDown, (event) => {
-				const isTypingAhead = searchRef.current !== "";
-				if (!(event.ctrlKey || event.altKey || event.metaKey) && event.key.length === 1) handleTypeaheadSearch(event.key);
-				if (isTypingAhead && event.key === " ") return;
-				if (OPEN_KEYS.includes(event.key)) {
-					handleOpen();
-					event.preventDefault();
-				}
-			})
-		})
-	});
-});
-SelectTrigger$1.displayName = TRIGGER_NAME$1;
-var VALUE_NAME = "SelectValue";
-var SelectValue$1 = import_react.forwardRef((props, forwardedRef) => {
-	const { __scopeSelect, className, style, children, placeholder = "", ...valueProps } = props;
-	const context = useSelectContext(VALUE_NAME, __scopeSelect);
-	const { onValueNodeHasChildrenChange } = context;
-	const hasChildren = children !== void 0;
-	const composedRefs = useComposedRefs(forwardedRef, context.onValueNodeChange);
-	useLayoutEffect2(() => {
-		onValueNodeHasChildrenChange(hasChildren);
-	}, [onValueNodeHasChildrenChange, hasChildren]);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.span, {
-		...valueProps,
-		ref: composedRefs,
-		style: { pointerEvents: "none" },
-		children: shouldShowPlaceholder(context.value) ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: placeholder }) : children
-	});
-});
-SelectValue$1.displayName = VALUE_NAME;
-var ICON_NAME = "SelectIcon";
-var SelectIcon = import_react.forwardRef((props, forwardedRef) => {
-	const { __scopeSelect, children, ...iconProps } = props;
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.span, {
-		"aria-hidden": true,
-		...iconProps,
-		ref: forwardedRef,
-		children: children || "▼"
-	});
-});
-SelectIcon.displayName = ICON_NAME;
-var PORTAL_NAME$1 = "SelectPortal";
-var SelectPortal = (props) => {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Portal$2, {
-		asChild: true,
-		...props
-	});
-};
-SelectPortal.displayName = PORTAL_NAME$1;
-var CONTENT_NAME$1 = "SelectContent";
-var SelectContent$1 = import_react.forwardRef((props, forwardedRef) => {
-	const context = useSelectContext(CONTENT_NAME$1, props.__scopeSelect);
-	const [fragment, setFragment] = import_react.useState();
-	useLayoutEffect2(() => {
-		setFragment(new DocumentFragment());
-	}, []);
-	if (!context.open) {
-		const frag = fragment;
-		return frag ? import_react_dom.createPortal(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectContentProvider, {
-			scope: props.__scopeSelect,
-			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Collection.Slot, {
-				scope: props.__scopeSelect,
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: props.children })
-			})
-		}), frag) : null;
-	}
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectContentImpl, {
-		...props,
-		ref: forwardedRef
-	});
-});
-SelectContent$1.displayName = CONTENT_NAME$1;
-var CONTENT_MARGIN = 10;
-var [SelectContentProvider, useSelectContentContext] = createSelectContext(CONTENT_NAME$1);
-var CONTENT_IMPL_NAME = "SelectContentImpl";
-var Slot$1 = /* @__PURE__ */ createSlot$1("SelectContent.RemoveScroll");
-var SelectContentImpl = import_react.forwardRef((props, forwardedRef) => {
-	const { __scopeSelect, position = "item-aligned", onCloseAutoFocus, onEscapeKeyDown, onPointerDownOutside, side, sideOffset, align, alignOffset, arrowPadding, collisionBoundary, collisionPadding, sticky, hideWhenDetached, avoidCollisions, ...contentProps } = props;
-	const context = useSelectContext(CONTENT_NAME$1, __scopeSelect);
-	const [content, setContent] = import_react.useState(null);
-	const [viewport, setViewport] = import_react.useState(null);
-	const composedRefs = useComposedRefs(forwardedRef, (node) => setContent(node));
-	const [selectedItem, setSelectedItem] = import_react.useState(null);
-	const [selectedItemText, setSelectedItemText] = import_react.useState(null);
-	const getItems = useCollection(__scopeSelect);
-	const [isPositioned, setIsPositioned] = import_react.useState(false);
-	const firstValidItemFoundRef = import_react.useRef(false);
-	import_react.useEffect(() => {
-		if (content) return hideOthers(content);
-	}, [content]);
-	useFocusGuards();
-	const focusFirst = import_react.useCallback((candidates) => {
-		const [firstItem, ...restItems] = getItems().map((item) => item.ref.current);
-		const [lastItem] = restItems.slice(-1);
-		const PREVIOUSLY_FOCUSED_ELEMENT = document.activeElement;
-		for (const candidate of candidates) {
-			if (candidate === PREVIOUSLY_FOCUSED_ELEMENT) return;
-			candidate?.scrollIntoView({ block: "nearest" });
-			if (candidate === firstItem && viewport) viewport.scrollTop = 0;
-			if (candidate === lastItem && viewport) viewport.scrollTop = viewport.scrollHeight;
-			candidate?.focus();
-			if (document.activeElement !== PREVIOUSLY_FOCUSED_ELEMENT) return;
-		}
-	}, [getItems, viewport]);
-	const focusSelectedItem = import_react.useCallback(() => focusFirst([selectedItem, content]), [
-		focusFirst,
-		selectedItem,
-		content
-	]);
-	import_react.useEffect(() => {
-		if (isPositioned) focusSelectedItem();
-	}, [isPositioned, focusSelectedItem]);
-	const { onOpenChange, triggerPointerDownPosRef } = context;
-	import_react.useEffect(() => {
-		if (content) {
-			let pointerMoveDelta = {
-				x: 0,
-				y: 0
-			};
-			const handlePointerMove = (event) => {
-				pointerMoveDelta = {
-					x: Math.abs(Math.round(event.pageX) - (triggerPointerDownPosRef.current?.x ?? 0)),
-					y: Math.abs(Math.round(event.pageY) - (triggerPointerDownPosRef.current?.y ?? 0))
-				};
-			};
-			const handlePointerUp = (event) => {
-				if (pointerMoveDelta.x <= 10 && pointerMoveDelta.y <= 10) event.preventDefault();
-				else if (!content.contains(event.target)) onOpenChange(false);
-				document.removeEventListener("pointermove", handlePointerMove);
-				triggerPointerDownPosRef.current = null;
-			};
-			if (triggerPointerDownPosRef.current !== null) {
-				document.addEventListener("pointermove", handlePointerMove);
-				document.addEventListener("pointerup", handlePointerUp, {
-					capture: true,
-					once: true
-				});
-			}
-			return () => {
-				document.removeEventListener("pointermove", handlePointerMove);
-				document.removeEventListener("pointerup", handlePointerUp, { capture: true });
-			};
-		}
-	}, [
-		content,
-		onOpenChange,
-		triggerPointerDownPosRef
-	]);
-	import_react.useEffect(() => {
-		const close = () => onOpenChange(false);
-		window.addEventListener("blur", close);
-		window.addEventListener("resize", close);
-		return () => {
-			window.removeEventListener("blur", close);
-			window.removeEventListener("resize", close);
-		};
-	}, [onOpenChange]);
-	const [searchRef, handleTypeaheadSearch] = useTypeaheadSearch((search) => {
-		const enabledItems = getItems().filter((item) => !item.disabled);
-		const nextItem = findNextItem(enabledItems, search, enabledItems.find((item) => item.ref.current === document.activeElement));
-		if (nextItem) setTimeout(() => nextItem.ref.current.focus());
-	});
-	const itemRefCallback = import_react.useCallback((node, value, disabled) => {
-		const isFirstValidItem = !firstValidItemFoundRef.current && !disabled;
-		if (context.value !== void 0 && context.value === value || isFirstValidItem) {
-			setSelectedItem(node);
-			if (isFirstValidItem) firstValidItemFoundRef.current = true;
-		}
-	}, [context.value]);
-	const handleItemLeave = import_react.useCallback(() => content?.focus(), [content]);
-	const itemTextRefCallback = import_react.useCallback((node, value, disabled) => {
-		const isFirstValidItem = !firstValidItemFoundRef.current && !disabled;
-		if (context.value !== void 0 && context.value === value || isFirstValidItem) setSelectedItemText(node);
-	}, [context.value]);
-	const SelectPosition = position === "popper" ? SelectPopperPosition : SelectItemAlignedPosition;
-	const popperContentProps = SelectPosition === SelectPopperPosition ? {
-		side,
-		sideOffset,
-		align,
-		alignOffset,
-		arrowPadding,
-		collisionBoundary,
-		collisionPadding,
-		sticky,
-		hideWhenDetached,
-		avoidCollisions
-	} : {};
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectContentProvider, {
-		scope: __scopeSelect,
-		content,
-		viewport,
-		onViewportChange: setViewport,
-		itemRefCallback,
-		selectedItem,
-		onItemLeave: handleItemLeave,
-		itemTextRefCallback,
-		focusSelectedItem,
-		selectedItemText,
-		position,
-		isPositioned,
-		searchRef,
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ReactRemoveScroll, {
-			as: Slot$1,
-			allowPinchZoom: true,
-			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(FocusScope, {
-				asChild: true,
-				trapped: context.open,
-				onMountAutoFocus: (event) => {
-					event.preventDefault();
-				},
-				onUnmountAutoFocus: composeEventHandlers(onCloseAutoFocus, (event) => {
-					context.trigger?.focus({ preventScroll: true });
-					event.preventDefault();
-				}),
-				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DismissableLayer, {
-					asChild: true,
-					disableOutsidePointerEvents: true,
-					onEscapeKeyDown,
-					onPointerDownOutside,
-					onFocusOutside: (event) => event.preventDefault(),
-					onDismiss: () => context.onOpenChange(false),
-					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectPosition, {
-						role: "listbox",
-						id: context.contentId,
-						"data-state": context.open ? "open" : "closed",
-						dir: context.dir,
-						onContextMenu: (event) => event.preventDefault(),
-						...contentProps,
-						...popperContentProps,
-						onPlaced: () => setIsPositioned(true),
-						ref: composedRefs,
-						style: {
-							display: "flex",
-							flexDirection: "column",
-							outline: "none",
-							...contentProps.style
-						},
-						onKeyDown: composeEventHandlers(contentProps.onKeyDown, (event) => {
-							const isModifierKey = event.ctrlKey || event.altKey || event.metaKey;
-							if (event.key === "Tab") event.preventDefault();
-							if (!isModifierKey && event.key.length === 1) handleTypeaheadSearch(event.key);
-							if ([
-								"ArrowUp",
-								"ArrowDown",
-								"Home",
-								"End"
-							].includes(event.key)) {
-								let candidateNodes = getItems().filter((item) => !item.disabled).map((item) => item.ref.current);
-								if (["ArrowUp", "End"].includes(event.key)) candidateNodes = candidateNodes.slice().reverse();
-								if (["ArrowUp", "ArrowDown"].includes(event.key)) {
-									const currentElement = event.target;
-									const currentIndex = candidateNodes.indexOf(currentElement);
-									candidateNodes = candidateNodes.slice(currentIndex + 1);
-								}
-								setTimeout(() => focusFirst(candidateNodes));
-								event.preventDefault();
-							}
-						})
-					})
-				})
-			})
-		})
-	});
-});
-SelectContentImpl.displayName = CONTENT_IMPL_NAME;
-var ITEM_ALIGNED_POSITION_NAME = "SelectItemAlignedPosition";
-var SelectItemAlignedPosition = import_react.forwardRef((props, forwardedRef) => {
-	const { __scopeSelect, onPlaced, ...popperProps } = props;
-	const context = useSelectContext(CONTENT_NAME$1, __scopeSelect);
-	const contentContext = useSelectContentContext(CONTENT_NAME$1, __scopeSelect);
-	const [contentWrapper, setContentWrapper] = import_react.useState(null);
-	const [content, setContent] = import_react.useState(null);
-	const composedRefs = useComposedRefs(forwardedRef, (node) => setContent(node));
-	const getItems = useCollection(__scopeSelect);
-	const shouldExpandOnScrollRef = import_react.useRef(false);
-	const shouldRepositionRef = import_react.useRef(true);
-	const { viewport, selectedItem, selectedItemText, focusSelectedItem } = contentContext;
-	const position = import_react.useCallback(() => {
-		if (context.trigger && context.valueNode && contentWrapper && content && viewport && selectedItem && selectedItemText) {
-			const triggerRect = context.trigger.getBoundingClientRect();
-			const contentRect = content.getBoundingClientRect();
-			const valueNodeRect = context.valueNode.getBoundingClientRect();
-			const itemTextRect = selectedItemText.getBoundingClientRect();
-			if (context.dir !== "rtl") {
-				const itemTextOffset = itemTextRect.left - contentRect.left;
-				const left = valueNodeRect.left - itemTextOffset;
-				const leftDelta = triggerRect.left - left;
-				const minContentWidth = triggerRect.width + leftDelta;
-				const contentWidth = Math.max(minContentWidth, contentRect.width);
-				const rightEdge = window.innerWidth - CONTENT_MARGIN;
-				const clampedLeft = clamp(left, [CONTENT_MARGIN, Math.max(CONTENT_MARGIN, rightEdge - contentWidth)]);
-				contentWrapper.style.minWidth = minContentWidth + "px";
-				contentWrapper.style.left = clampedLeft + "px";
-			} else {
-				const itemTextOffset = contentRect.right - itemTextRect.right;
-				const right = window.innerWidth - valueNodeRect.right - itemTextOffset;
-				const rightDelta = window.innerWidth - triggerRect.right - right;
-				const minContentWidth = triggerRect.width + rightDelta;
-				const contentWidth = Math.max(minContentWidth, contentRect.width);
-				const leftEdge = window.innerWidth - CONTENT_MARGIN;
-				const clampedRight = clamp(right, [CONTENT_MARGIN, Math.max(CONTENT_MARGIN, leftEdge - contentWidth)]);
-				contentWrapper.style.minWidth = minContentWidth + "px";
-				contentWrapper.style.right = clampedRight + "px";
-			}
-			const items = getItems();
-			const availableHeight = window.innerHeight - CONTENT_MARGIN * 2;
-			const itemsHeight = viewport.scrollHeight;
-			const contentStyles = window.getComputedStyle(content);
-			const contentBorderTopWidth = parseInt(contentStyles.borderTopWidth, 10);
-			const contentPaddingTop = parseInt(contentStyles.paddingTop, 10);
-			const contentBorderBottomWidth = parseInt(contentStyles.borderBottomWidth, 10);
-			const contentPaddingBottom = parseInt(contentStyles.paddingBottom, 10);
-			const fullContentHeight = contentBorderTopWidth + contentPaddingTop + itemsHeight + contentPaddingBottom + contentBorderBottomWidth;
-			const minContentHeight = Math.min(selectedItem.offsetHeight * 5, fullContentHeight);
-			const viewportStyles = window.getComputedStyle(viewport);
-			const viewportPaddingTop = parseInt(viewportStyles.paddingTop, 10);
-			const viewportPaddingBottom = parseInt(viewportStyles.paddingBottom, 10);
-			const topEdgeToTriggerMiddle = triggerRect.top + triggerRect.height / 2 - CONTENT_MARGIN;
-			const triggerMiddleToBottomEdge = availableHeight - topEdgeToTriggerMiddle;
-			const selectedItemHalfHeight = selectedItem.offsetHeight / 2;
-			const itemOffsetMiddle = selectedItem.offsetTop + selectedItemHalfHeight;
-			const contentTopToItemMiddle = contentBorderTopWidth + contentPaddingTop + itemOffsetMiddle;
-			const itemMiddleToContentBottom = fullContentHeight - contentTopToItemMiddle;
-			if (contentTopToItemMiddle <= topEdgeToTriggerMiddle) {
-				const isLastItem = items.length > 0 && selectedItem === items[items.length - 1].ref.current;
-				contentWrapper.style.bottom = "0px";
-				const viewportOffsetBottom = content.clientHeight - viewport.offsetTop - viewport.offsetHeight;
-				const height = contentTopToItemMiddle + Math.max(triggerMiddleToBottomEdge, selectedItemHalfHeight + (isLastItem ? viewportPaddingBottom : 0) + viewportOffsetBottom + contentBorderBottomWidth);
-				contentWrapper.style.height = height + "px";
-			} else {
-				const isFirstItem = items.length > 0 && selectedItem === items[0].ref.current;
-				contentWrapper.style.top = "0px";
-				const height = Math.max(topEdgeToTriggerMiddle, contentBorderTopWidth + viewport.offsetTop + (isFirstItem ? viewportPaddingTop : 0) + selectedItemHalfHeight) + itemMiddleToContentBottom;
-				contentWrapper.style.height = height + "px";
-				viewport.scrollTop = contentTopToItemMiddle - topEdgeToTriggerMiddle + viewport.offsetTop;
-			}
-			contentWrapper.style.margin = `${CONTENT_MARGIN}px 0`;
-			contentWrapper.style.minHeight = minContentHeight + "px";
-			contentWrapper.style.maxHeight = availableHeight + "px";
-			onPlaced?.();
-			requestAnimationFrame(() => shouldExpandOnScrollRef.current = true);
-		}
-	}, [
-		getItems,
-		context.trigger,
-		context.valueNode,
-		contentWrapper,
-		content,
-		viewport,
-		selectedItem,
-		selectedItemText,
-		context.dir,
-		onPlaced
-	]);
-	useLayoutEffect2(() => position(), [position]);
-	const [contentZIndex, setContentZIndex] = import_react.useState();
-	useLayoutEffect2(() => {
-		if (content) setContentZIndex(window.getComputedStyle(content).zIndex);
-	}, [content]);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectViewportProvider, {
-		scope: __scopeSelect,
-		contentWrapper,
-		shouldExpandOnScrollRef,
-		onScrollButtonChange: import_react.useCallback((node) => {
-			if (node && shouldRepositionRef.current === true) {
-				position();
-				focusSelectedItem?.();
-				shouldRepositionRef.current = false;
-			}
-		}, [position, focusSelectedItem]),
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-			ref: setContentWrapper,
-			style: {
-				display: "flex",
-				flexDirection: "column",
-				position: "fixed",
-				zIndex: contentZIndex
-			},
-			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
-				...popperProps,
-				ref: composedRefs,
-				style: {
-					boxSizing: "border-box",
-					maxHeight: "100%",
-					...popperProps.style
-				}
-			})
-		})
-	});
-});
-SelectItemAlignedPosition.displayName = ITEM_ALIGNED_POSITION_NAME;
-var POPPER_POSITION_NAME = "SelectPopperPosition";
-var SelectPopperPosition = import_react.forwardRef((props, forwardedRef) => {
-	const { __scopeSelect, align = "start", collisionPadding = CONTENT_MARGIN, ...popperProps } = props;
-	const popperScope = usePopperScope(__scopeSelect);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Content$1, {
-		...popperScope,
-		...popperProps,
-		ref: forwardedRef,
-		align,
-		collisionPadding,
-		style: {
-			boxSizing: "border-box",
-			...popperProps.style,
-			"--radix-select-content-transform-origin": "var(--radix-popper-transform-origin)",
-			"--radix-select-content-available-width": "var(--radix-popper-available-width)",
-			"--radix-select-content-available-height": "var(--radix-popper-available-height)",
-			"--radix-select-trigger-width": "var(--radix-popper-anchor-width)",
-			"--radix-select-trigger-height": "var(--radix-popper-anchor-height)"
-		}
-	});
-});
-SelectPopperPosition.displayName = POPPER_POSITION_NAME;
-var [SelectViewportProvider, useSelectViewportContext] = createSelectContext(CONTENT_NAME$1, {});
-var VIEWPORT_NAME = "SelectViewport";
-var SelectViewport = import_react.forwardRef((props, forwardedRef) => {
-	const { __scopeSelect, nonce, ...viewportProps } = props;
-	const contentContext = useSelectContentContext(VIEWPORT_NAME, __scopeSelect);
-	const viewportContext = useSelectViewportContext(VIEWPORT_NAME, __scopeSelect);
-	const composedRefs = useComposedRefs(forwardedRef, contentContext.onViewportChange);
-	const prevScrollTopRef = import_react.useRef(0);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("style", {
-		dangerouslySetInnerHTML: { __html: `[data-radix-select-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-radix-select-viewport]::-webkit-scrollbar{display:none}` },
-		nonce
-	}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Collection.Slot, {
-		scope: __scopeSelect,
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
-			"data-radix-select-viewport": "",
-			role: "presentation",
-			...viewportProps,
-			ref: composedRefs,
-			style: {
-				position: "relative",
-				flex: 1,
-				overflow: "hidden auto",
-				...viewportProps.style
-			},
-			onScroll: composeEventHandlers(viewportProps.onScroll, (event) => {
-				const viewport = event.currentTarget;
-				const { contentWrapper, shouldExpandOnScrollRef } = viewportContext;
-				if (shouldExpandOnScrollRef?.current && contentWrapper) {
-					const scrolledBy = Math.abs(prevScrollTopRef.current - viewport.scrollTop);
-					if (scrolledBy > 0) {
-						const availableHeight = window.innerHeight - CONTENT_MARGIN * 2;
-						const cssMinHeight = parseFloat(contentWrapper.style.minHeight);
-						const cssHeight = parseFloat(contentWrapper.style.height);
-						const prevHeight = Math.max(cssMinHeight, cssHeight);
-						if (prevHeight < availableHeight) {
-							const nextHeight = prevHeight + scrolledBy;
-							const clampedNextHeight = Math.min(availableHeight, nextHeight);
-							const heightDiff = nextHeight - clampedNextHeight;
-							contentWrapper.style.height = clampedNextHeight + "px";
-							if (contentWrapper.style.bottom === "0px") {
-								viewport.scrollTop = heightDiff > 0 ? heightDiff : 0;
-								contentWrapper.style.justifyContent = "flex-end";
-							}
-						}
-					}
-				}
-				prevScrollTopRef.current = viewport.scrollTop;
-			})
-		})
-	})] });
-});
-SelectViewport.displayName = VIEWPORT_NAME;
-var GROUP_NAME = "SelectGroup";
-var [SelectGroupContextProvider, useSelectGroupContext] = createSelectContext(GROUP_NAME);
-var SelectGroup$1 = import_react.forwardRef((props, forwardedRef) => {
-	const { __scopeSelect, ...groupProps } = props;
-	const groupId = useId();
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectGroupContextProvider, {
-		scope: __scopeSelect,
-		id: groupId,
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
-			role: "group",
-			"aria-labelledby": groupId,
-			...groupProps,
-			ref: forwardedRef
-		})
-	});
-});
-SelectGroup$1.displayName = GROUP_NAME;
-var LABEL_NAME = "SelectLabel";
-var SelectLabel$1 = import_react.forwardRef((props, forwardedRef) => {
-	const { __scopeSelect, ...labelProps } = props;
-	const groupContext = useSelectGroupContext(LABEL_NAME, __scopeSelect);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
-		id: groupContext.id,
-		...labelProps,
-		ref: forwardedRef
-	});
-});
-SelectLabel$1.displayName = LABEL_NAME;
-var ITEM_NAME = "SelectItem";
-var [SelectItemContextProvider, useSelectItemContext] = createSelectContext(ITEM_NAME);
-var SelectItem$1 = import_react.forwardRef((props, forwardedRef) => {
-	const { __scopeSelect, value, disabled = false, textValue: textValueProp, ...itemProps } = props;
-	const context = useSelectContext(ITEM_NAME, __scopeSelect);
-	const contentContext = useSelectContentContext(ITEM_NAME, __scopeSelect);
-	const isSelected = context.value === value;
-	const [textValue, setTextValue] = import_react.useState(textValueProp ?? "");
-	const [isFocused, setIsFocused] = import_react.useState(false);
-	const composedRefs = useComposedRefs(forwardedRef, (node) => contentContext.itemRefCallback?.(node, value, disabled));
-	const textId = useId();
-	const pointerTypeRef = import_react.useRef("touch");
-	const handleSelect = () => {
-		if (!disabled) {
-			context.onValueChange(value);
-			context.onOpenChange(false);
-		}
-	};
-	if (value === "") throw new Error("A <Select.Item /> must have a value prop that is not an empty string. This is because the Select value can be set to an empty string to clear the selection and show the placeholder.");
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItemContextProvider, {
-		scope: __scopeSelect,
-		value,
-		disabled,
-		textId,
-		isSelected,
-		onItemTextChange: import_react.useCallback((node) => {
-			setTextValue((prevTextValue) => prevTextValue || (node?.textContent ?? "").trim());
-		}, []),
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Collection.ItemSlot, {
-			scope: __scopeSelect,
-			value,
-			disabled,
-			textValue,
-			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
-				role: "option",
-				"aria-labelledby": textId,
-				"data-highlighted": isFocused ? "" : void 0,
-				"aria-selected": isSelected && isFocused,
-				"data-state": isSelected ? "checked" : "unchecked",
-				"aria-disabled": disabled || void 0,
-				"data-disabled": disabled ? "" : void 0,
-				tabIndex: disabled ? void 0 : -1,
-				...itemProps,
-				ref: composedRefs,
-				onFocus: composeEventHandlers(itemProps.onFocus, () => setIsFocused(true)),
-				onBlur: composeEventHandlers(itemProps.onBlur, () => setIsFocused(false)),
-				onClick: composeEventHandlers(itemProps.onClick, () => {
-					if (pointerTypeRef.current !== "mouse") handleSelect();
-				}),
-				onPointerUp: composeEventHandlers(itemProps.onPointerUp, () => {
-					if (pointerTypeRef.current === "mouse") handleSelect();
-				}),
-				onPointerDown: composeEventHandlers(itemProps.onPointerDown, (event) => {
-					pointerTypeRef.current = event.pointerType;
-				}),
-				onPointerMove: composeEventHandlers(itemProps.onPointerMove, (event) => {
-					pointerTypeRef.current = event.pointerType;
-					if (disabled) contentContext.onItemLeave?.();
-					else if (pointerTypeRef.current === "mouse") event.currentTarget.focus({ preventScroll: true });
-				}),
-				onPointerLeave: composeEventHandlers(itemProps.onPointerLeave, (event) => {
-					if (event.currentTarget === document.activeElement) contentContext.onItemLeave?.();
-				}),
-				onKeyDown: composeEventHandlers(itemProps.onKeyDown, (event) => {
-					if (contentContext.searchRef?.current !== "" && event.key === " ") return;
-					if (SELECTION_KEYS.includes(event.key)) handleSelect();
-					if (event.key === " ") event.preventDefault();
-				})
-			})
-		})
-	});
-});
-SelectItem$1.displayName = ITEM_NAME;
-var ITEM_TEXT_NAME = "SelectItemText";
-var SelectItemText = import_react.forwardRef((props, forwardedRef) => {
-	const { __scopeSelect, className, style, ...itemTextProps } = props;
-	const context = useSelectContext(ITEM_TEXT_NAME, __scopeSelect);
-	const contentContext = useSelectContentContext(ITEM_TEXT_NAME, __scopeSelect);
-	const itemContext = useSelectItemContext(ITEM_TEXT_NAME, __scopeSelect);
-	const nativeOptionsContext = useSelectNativeOptionsContext(ITEM_TEXT_NAME, __scopeSelect);
-	const [itemTextNode, setItemTextNode] = import_react.useState(null);
-	const composedRefs = useComposedRefs(forwardedRef, (node) => setItemTextNode(node), itemContext.onItemTextChange, (node) => contentContext.itemTextRefCallback?.(node, itemContext.value, itemContext.disabled));
-	const textContent = itemTextNode?.textContent;
-	const nativeOption = import_react.useMemo(() => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
-		value: itemContext.value,
-		disabled: itemContext.disabled,
-		children: textContent
-	}, itemContext.value), [
-		itemContext.disabled,
-		itemContext.value,
-		textContent
-	]);
-	const { onNativeOptionAdd, onNativeOptionRemove } = nativeOptionsContext;
-	useLayoutEffect2(() => {
-		onNativeOptionAdd(nativeOption);
-		return () => onNativeOptionRemove(nativeOption);
-	}, [
-		onNativeOptionAdd,
-		onNativeOptionRemove,
-		nativeOption
-	]);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.span, {
-		id: itemContext.textId,
-		...itemTextProps,
-		ref: composedRefs
-	}), itemContext.isSelected && context.valueNode && !context.valueNodeHasChildren ? import_react_dom.createPortal(itemTextProps.children, context.valueNode) : null] });
-});
-SelectItemText.displayName = ITEM_TEXT_NAME;
-var ITEM_INDICATOR_NAME = "SelectItemIndicator";
-var SelectItemIndicator = import_react.forwardRef((props, forwardedRef) => {
-	const { __scopeSelect, ...itemIndicatorProps } = props;
-	return useSelectItemContext(ITEM_INDICATOR_NAME, __scopeSelect).isSelected ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.span, {
-		"aria-hidden": true,
-		...itemIndicatorProps,
-		ref: forwardedRef
-	}) : null;
-});
-SelectItemIndicator.displayName = ITEM_INDICATOR_NAME;
-var SCROLL_UP_BUTTON_NAME = "SelectScrollUpButton";
-var SelectScrollUpButton$1 = import_react.forwardRef((props, forwardedRef) => {
-	const contentContext = useSelectContentContext(SCROLL_UP_BUTTON_NAME, props.__scopeSelect);
-	const viewportContext = useSelectViewportContext(SCROLL_UP_BUTTON_NAME, props.__scopeSelect);
-	const [canScrollUp, setCanScrollUp] = import_react.useState(false);
-	const composedRefs = useComposedRefs(forwardedRef, viewportContext.onScrollButtonChange);
-	useLayoutEffect2(() => {
-		if (contentContext.viewport && contentContext.isPositioned) {
-			let handleScroll2 = function() {
-				setCanScrollUp(viewport.scrollTop > 0);
-			};
-			const viewport = contentContext.viewport;
-			handleScroll2();
-			viewport.addEventListener("scroll", handleScroll2);
-			return () => viewport.removeEventListener("scroll", handleScroll2);
-		}
-	}, [contentContext.viewport, contentContext.isPositioned]);
-	return canScrollUp ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectScrollButtonImpl, {
-		...props,
-		ref: composedRefs,
-		onAutoScroll: () => {
-			const { viewport, selectedItem } = contentContext;
-			if (viewport && selectedItem) viewport.scrollTop = viewport.scrollTop - selectedItem.offsetHeight;
-		}
-	}) : null;
-});
-SelectScrollUpButton$1.displayName = SCROLL_UP_BUTTON_NAME;
-var SCROLL_DOWN_BUTTON_NAME = "SelectScrollDownButton";
-var SelectScrollDownButton$1 = import_react.forwardRef((props, forwardedRef) => {
-	const contentContext = useSelectContentContext(SCROLL_DOWN_BUTTON_NAME, props.__scopeSelect);
-	const viewportContext = useSelectViewportContext(SCROLL_DOWN_BUTTON_NAME, props.__scopeSelect);
-	const [canScrollDown, setCanScrollDown] = import_react.useState(false);
-	const composedRefs = useComposedRefs(forwardedRef, viewportContext.onScrollButtonChange);
-	useLayoutEffect2(() => {
-		if (contentContext.viewport && contentContext.isPositioned) {
-			let handleScroll2 = function() {
-				const maxScroll = viewport.scrollHeight - viewport.clientHeight;
-				setCanScrollDown(Math.ceil(viewport.scrollTop) < maxScroll);
-			};
-			const viewport = contentContext.viewport;
-			handleScroll2();
-			viewport.addEventListener("scroll", handleScroll2);
-			return () => viewport.removeEventListener("scroll", handleScroll2);
-		}
-	}, [contentContext.viewport, contentContext.isPositioned]);
-	return canScrollDown ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectScrollButtonImpl, {
-		...props,
-		ref: composedRefs,
-		onAutoScroll: () => {
-			const { viewport, selectedItem } = contentContext;
-			if (viewport && selectedItem) viewport.scrollTop = viewport.scrollTop + selectedItem.offsetHeight;
-		}
-	}) : null;
-});
-SelectScrollDownButton$1.displayName = SCROLL_DOWN_BUTTON_NAME;
-var SelectScrollButtonImpl = import_react.forwardRef((props, forwardedRef) => {
-	const { __scopeSelect, onAutoScroll, ...scrollIndicatorProps } = props;
-	const contentContext = useSelectContentContext("SelectScrollButton", __scopeSelect);
-	const autoScrollTimerRef = import_react.useRef(null);
-	const getItems = useCollection(__scopeSelect);
-	const clearAutoScrollTimer = import_react.useCallback(() => {
-		if (autoScrollTimerRef.current !== null) {
-			window.clearInterval(autoScrollTimerRef.current);
-			autoScrollTimerRef.current = null;
-		}
-	}, []);
-	import_react.useEffect(() => {
-		return () => clearAutoScrollTimer();
-	}, [clearAutoScrollTimer]);
-	useLayoutEffect2(() => {
-		getItems().find((item) => item.ref.current === document.activeElement)?.ref.current?.scrollIntoView({ block: "nearest" });
-	}, [getItems]);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
-		"aria-hidden": true,
-		...scrollIndicatorProps,
-		ref: forwardedRef,
-		style: {
-			flexShrink: 0,
-			...scrollIndicatorProps.style
-		},
-		onPointerDown: composeEventHandlers(scrollIndicatorProps.onPointerDown, () => {
-			if (autoScrollTimerRef.current === null) autoScrollTimerRef.current = window.setInterval(onAutoScroll, 50);
-		}),
-		onPointerMove: composeEventHandlers(scrollIndicatorProps.onPointerMove, () => {
-			contentContext.onItemLeave?.();
-			if (autoScrollTimerRef.current === null) autoScrollTimerRef.current = window.setInterval(onAutoScroll, 50);
-		}),
-		onPointerLeave: composeEventHandlers(scrollIndicatorProps.onPointerLeave, () => {
-			clearAutoScrollTimer();
-		})
-	});
-});
-var SEPARATOR_NAME = "SelectSeparator";
-var SelectSeparator$1 = import_react.forwardRef((props, forwardedRef) => {
-	const { __scopeSelect, ...separatorProps } = props;
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
-		"aria-hidden": true,
-		...separatorProps,
-		ref: forwardedRef
-	});
-});
-SelectSeparator$1.displayName = SEPARATOR_NAME;
-var ARROW_NAME = "SelectArrow";
-var SelectArrow = import_react.forwardRef((props, forwardedRef) => {
-	const { __scopeSelect, ...arrowProps } = props;
-	const popperScope = usePopperScope(__scopeSelect);
-	const context = useSelectContext(ARROW_NAME, __scopeSelect);
-	const contentContext = useSelectContentContext(ARROW_NAME, __scopeSelect);
-	return context.open && contentContext.position === "popper" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Arrow, {
-		...popperScope,
-		...arrowProps,
-		ref: forwardedRef
-	}) : null;
-});
-SelectArrow.displayName = ARROW_NAME;
-var BUBBLE_INPUT_NAME = "SelectBubbleInput";
-var SelectBubbleInput = import_react.forwardRef(({ __scopeSelect, value, ...props }, forwardedRef) => {
-	const ref = import_react.useRef(null);
-	const composedRefs = useComposedRefs(forwardedRef, ref);
-	const prevValue = usePrevious(value);
-	import_react.useEffect(() => {
-		const select = ref.current;
-		if (!select) return;
-		const selectProto = window.HTMLSelectElement.prototype;
-		const setValue = Object.getOwnPropertyDescriptor(selectProto, "value").set;
-		if (prevValue !== value && setValue) {
-			const event = new Event("change", { bubbles: true });
-			setValue.call(select, value);
-			select.dispatchEvent(event);
-		}
-	}, [prevValue, value]);
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.select, {
-		...props,
-		style: {
-			...VISUALLY_HIDDEN_STYLES,
-			...props.style
-		},
-		ref: composedRefs,
-		defaultValue: value
-	});
-});
-SelectBubbleInput.displayName = BUBBLE_INPUT_NAME;
-function shouldShowPlaceholder(value) {
-	return value === "" || value === void 0;
-}
-function useTypeaheadSearch(onSearchChange) {
-	const handleSearchChange = useCallbackRef$1(onSearchChange);
-	const searchRef = import_react.useRef("");
-	const timerRef = import_react.useRef(0);
-	const handleTypeaheadSearch = import_react.useCallback((key) => {
-		const search = searchRef.current + key;
-		handleSearchChange(search);
-		(function updateSearch(value) {
-			searchRef.current = value;
-			window.clearTimeout(timerRef.current);
-			if (value !== "") timerRef.current = window.setTimeout(() => updateSearch(""), 1e3);
-		})(search);
-	}, [handleSearchChange]);
-	const resetTypeahead = import_react.useCallback(() => {
-		searchRef.current = "";
-		window.clearTimeout(timerRef.current);
-	}, []);
-	import_react.useEffect(() => {
-		return () => window.clearTimeout(timerRef.current);
-	}, []);
-	return [
-		searchRef,
-		handleTypeaheadSearch,
-		resetTypeahead
-	];
-}
-function findNextItem(items, search, currentItem) {
-	const normalizedSearch = search.length > 1 && Array.from(search).every((char) => char === search[0]) ? search[0] : search;
-	const currentItemIndex = currentItem ? items.indexOf(currentItem) : -1;
-	let wrappedItems = wrapArray(items, Math.max(currentItemIndex, 0));
-	if (normalizedSearch.length === 1) wrappedItems = wrappedItems.filter((v) => v !== currentItem);
-	const nextItem = wrappedItems.find((item) => item.textValue.toLowerCase().startsWith(normalizedSearch.toLowerCase()));
-	return nextItem !== currentItem ? nextItem : void 0;
-}
-function wrapArray(array, startIndex) {
-	return array.map((_, index) => array[(startIndex + index) % array.length]);
-}
-var Root2 = Select$1;
-var Trigger$1 = SelectTrigger$1;
-var Value = SelectValue$1;
-var Icon = SelectIcon;
-var Portal$1 = SelectPortal;
-var Content2 = SelectContent$1;
-var Viewport = SelectViewport;
-var Label$2 = SelectLabel$1;
-var Item = SelectItem$1;
-var ItemText = SelectItemText;
-var ItemIndicator = SelectItemIndicator;
-var ScrollUpButton = SelectScrollUpButton$1;
-var ScrollDownButton = SelectScrollDownButton$1;
-var Separator = SelectSeparator$1;
-//#endregion
-//#region src/components/ui/select.tsx
-var Select = Root2;
-var SelectValue = Value;
-var SelectTrigger = import_react.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Trigger$1, {
-	"data-uid": "src/components/ui/select.tsx:18:3",
-	"data-prohibitions": "[editContent]",
-	ref,
-	className: cn$1("flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background data-[placeholder]:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1", className),
-	...props,
-	children: [children, /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Icon, {
-		"data-uid": "src/components/ui/select.tsx:27:5",
-		"data-prohibitions": "[]",
-		asChild: true,
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronDown, {
-			"data-uid": "src/components/ui/select.tsx:28:7",
-			"data-prohibitions": "[editContent]",
-			className: "h-4 w-4 opacity-50"
-		})
-	})]
-}));
-SelectTrigger.displayName = Trigger$1.displayName;
-var SelectScrollUpButton = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ScrollUpButton, {
-	"data-uid": "src/components/ui/select.tsx:38:3",
-	"data-prohibitions": "[editContent]",
-	ref,
-	className: cn$1("flex cursor-default items-center justify-center py-1", className),
-	...props,
-	children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronUp, {
-		"data-uid": "src/components/ui/select.tsx:43:5",
-		"data-prohibitions": "[editContent]",
-		className: "h-4 w-4"
-	})
-}));
-SelectScrollUpButton.displayName = ScrollUpButton.displayName;
-var SelectScrollDownButton = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ScrollDownButton, {
-	"data-uid": "src/components/ui/select.tsx:52:3",
-	"data-prohibitions": "[editContent]",
-	ref,
-	className: cn$1("flex cursor-default items-center justify-center py-1", className),
-	...props,
-	children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronDown, {
-		"data-uid": "src/components/ui/select.tsx:57:5",
-		"data-prohibitions": "[editContent]",
-		className: "h-4 w-4"
-	})
-}));
-SelectScrollDownButton.displayName = ScrollDownButton.displayName;
-var SelectContent = import_react.forwardRef(({ className, children, position = "popper", ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Portal$1, {
-	"data-uid": "src/components/ui/select.tsx:66:3",
-	"data-prohibitions": "[editContent]",
-	children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Content2, {
-		"data-uid": "src/components/ui/select.tsx:67:5",
-		"data-prohibitions": "[editContent]",
-		ref,
-		className: cn$1("relative z-50 max-h-[--radix-select-content-available-height] min-w-[8rem] overflow-y-auto overflow-x-hidden rounded-md border bg-popover text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 origin-[--radix-select-content-transform-origin]", position === "popper" && "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1", className),
-		position,
-		...props,
-		children: [
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectScrollUpButton, {
-				"data-uid": "src/components/ui/select.tsx:78:7",
-				"data-prohibitions": "[editContent]"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Viewport, {
-				"data-uid": "src/components/ui/select.tsx:79:7",
-				"data-prohibitions": "[editContent]",
-				className: cn$1("p-1", position === "popper" && "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]"),
-				children
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectScrollDownButton, {
-				"data-uid": "src/components/ui/select.tsx:88:7",
-				"data-prohibitions": "[editContent]"
-			})
-		]
-	})
-}));
-SelectContent.displayName = Content2.displayName;
-var SelectLabel = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label$2, {
-	"data-uid": "src/components/ui/select.tsx:98:3",
-	"data-prohibitions": "[editContent]",
-	ref,
-	className: cn$1("py-1.5 pl-8 pr-2 text-sm font-semibold", className),
-	...props
-}));
-SelectLabel.displayName = Label$2.displayName;
-var SelectItem = import_react.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Item, {
-	"data-uid": "src/components/ui/select.tsx:110:3",
-	"data-prohibitions": "[editContent]",
-	ref,
-	className: cn$1("relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50", className),
-	...props,
-	children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-		"data-uid": "src/components/ui/select.tsx:118:5",
-		"data-prohibitions": "[]",
-		className: "absolute left-2 flex h-3.5 w-3.5 items-center justify-center",
-		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ItemIndicator, {
-			"data-uid": "src/components/ui/select.tsx:119:7",
-			"data-prohibitions": "[]",
-			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, {
-				"data-uid": "src/components/ui/select.tsx:120:9",
-				"data-prohibitions": "[editContent]",
-				className: "h-4 w-4"
-			})
-		})
-	}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ItemText, {
-		"data-uid": "src/components/ui/select.tsx:124:5",
-		"data-prohibitions": "[editContent]",
-		children
-	})]
-}));
-SelectItem.displayName = Item.displayName;
-var SelectSeparator = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Separator, {
-	"data-uid": "src/components/ui/select.tsx:133:3",
-	"data-prohibitions": "[editContent]",
-	ref,
-	className: cn$1("-mx-1 my-1 h-px bg-muted", className),
-	...props
-}));
-SelectSeparator.displayName = Separator.displayName;
-//#endregion
-//#region src/components/ui/card.tsx
-var Card = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-	"data-uid": "src/components/ui/card.tsx:8:5",
-	"data-prohibitions": "[editContent]",
-	ref,
-	className: cn$1("rounded-lg border bg-card text-card-foreground shadow-sm", className),
-	...props
-}));
-Card.displayName = "Card";
-var CardHeader = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-	"data-uid": "src/components/ui/card.tsx:19:5",
-	"data-prohibitions": "[editContent]",
-	ref,
-	className: cn$1("flex flex-col space-y-1.5 p-6", className),
-	...props
-}));
-CardHeader.displayName = "CardHeader";
-var CardTitle = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-	"data-uid": "src/components/ui/card.tsx:26:5",
-	"data-prohibitions": "[editContent]",
-	ref,
-	className: cn$1("text-2xl font-semibold leading-none tracking-tight", className),
-	...props
-}));
-CardTitle.displayName = "CardTitle";
-var CardDescription = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-	"data-uid": "src/components/ui/card.tsx:37:5",
-	"data-prohibitions": "[editContent]",
-	ref,
-	className: cn$1("text-sm text-muted-foreground", className),
-	...props
-}));
-CardDescription.displayName = "CardDescription";
-var CardContent = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-	"data-uid": "src/components/ui/card.tsx:44:5",
-	"data-prohibitions": "[editContent]",
-	ref,
-	className: cn$1("p-6 pt-0", className),
-	...props
-}));
-CardContent.displayName = "CardContent";
-var CardFooter = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-	"data-uid": "src/components/ui/card.tsx:51:5",
-	"data-prohibitions": "[editContent]",
-	ref,
-	className: cn$1("flex items-center p-6 pt-0", className),
-	...props
-}));
-CardFooter.displayName = "CardFooter";
-//#endregion
-//#region src/components/ui/badge.tsx
-var badgeVariants = cva("inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2", {
-	variants: { variant: {
-		default: "border-transparent bg-primary text-primary-foreground hover:bg-primary/80",
-		secondary: "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
-		destructive: "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
-		outline: "text-foreground"
-	} },
-	defaultVariants: { variant: "default" }
-});
-function Badge({ className, variant, ...props }) {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-		"data-uid": "src/components/ui/badge.tsx:30:10",
-		"data-prohibitions": "[editContent]",
-		className: cn$1(badgeVariants({ variant }), className),
-		...props
-	});
-}
-//#endregion
-//#region src/components/ui/skeleton.tsx
-function Skeleton({ className, ...props }) {
-	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-		"data-uid": "src/components/ui/skeleton.tsx:5:10",
-		"data-prohibitions": "[editContent]",
-		className: cn$1("animate-pulse rounded-md bg-muted", className),
-		...props
-	});
 }
 //#endregion
 //#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/@supabase+functions-js@2.99.1/node_modules/@supabase/functions-js/dist/module/helper.js
@@ -40473,6 +38144,2467 @@ function shouldShowDeprecationWarning() {
 if (shouldShowDeprecationWarning()) console.warn("⚠️  Node.js 18 and below are deprecated and will no longer be supported in future versions of @supabase/supabase-js. Please upgrade to Node.js 20 or later. For more information, visit: https://github.com/orgs/supabase/discussions/37217");
 var supabase = createClient("https://placeholder-url.supabase.co", "placeholder-key");
 //#endregion
+//#region src/components/ui/skeleton.tsx
+function Skeleton({ className, ...props }) {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		"data-uid": "src/components/ui/skeleton.tsx:5:10",
+		"data-prohibitions": "[editContent]",
+		className: cn$1("animate-pulse rounded-md bg-muted", className),
+		...props
+	});
+}
+//#endregion
+//#region src/components/InstagramFeed.tsx
+function InstagramFeed() {
+	const [posts, setPosts] = (0, import_react.useState)([]);
+	const [loading, setLoading] = (0, import_react.useState)(true);
+	const [error, setError] = (0, import_react.useState)(false);
+	(0, import_react.useEffect)(() => {
+		async function fetchInstagramFeed() {
+			try {
+				const { data, error: functionError } = await supabase.functions.invoke("instagram-feed");
+				if (functionError) throw new Error(functionError.message);
+				if (data?.data) setPosts(data.data.slice(0, 8));
+				else throw new Error("Invalid data format");
+			} catch (err) {
+				console.error("Failed to fetch Instagram feed:", err);
+				setError(true);
+			} finally {
+				setLoading(false);
+			}
+		}
+		fetchInstagramFeed();
+	}, []);
+	if (error) return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		"data-uid": "src/components/InstagramFeed.tsx:44:7",
+		"data-prohibitions": "[]",
+		className: "flex flex-col items-center justify-center py-12 text-center animate-fade-in-up",
+		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+			"data-uid": "src/components/InstagramFeed.tsx:45:9",
+			"data-prohibitions": "[]",
+			className: "text-muted-foreground mb-6 font-light",
+			children: "Não foi possível carregar o feed do Instagram no momento."
+		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+			"data-uid": "src/components/InstagramFeed.tsx:48:9",
+			"data-prohibitions": "[]",
+			asChild: true,
+			variant: "outline",
+			className: "gap-2 border-primary/50 text-primary hover:bg-primary hover:text-primary-foreground rounded-none px-6 py-6 uppercase tracking-widest text-xs",
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
+				"data-uid": "src/components/InstagramFeed.tsx:53:11",
+				"data-prohibitions": "[]",
+				href: "https://instagram.com/VittorioDesignOficial",
+				target: "_blank",
+				rel: "noopener noreferrer",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Instagram, {
+					"data-uid": "src/components/InstagramFeed.tsx:58:13",
+					"data-prohibitions": "[editContent]",
+					className: "h-4 w-4"
+				}), "Ver perfil no Instagram"]
+			})
+		})]
+	});
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		"data-uid": "src/components/InstagramFeed.tsx:67:5",
+		"data-prohibitions": "[editContent]",
+		className: "grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-1 md:gap-4",
+		children: loading ? Array.from({ length: 8 }).map((_, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Skeleton, {
+			"data-uid": "src/components/InstagramFeed.tsx:70:13",
+			"data-prohibitions": "[editContent]",
+			className: "aspect-square w-full rounded-none bg-white/5"
+		}, i)) : posts.map((post) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
+			"data-uid": "src/components/InstagramFeed.tsx:73:13",
+			"data-prohibitions": "[]",
+			href: post.permalink,
+			target: "_blank",
+			rel: "noopener noreferrer",
+			className: "group relative aspect-square overflow-hidden block bg-muted animate-fade-in",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+				"data-uid": "src/components/InstagramFeed.tsx:80:15",
+				"data-prohibitions": "[editContent]",
+				src: post.media_type === "VIDEO" && post.thumbnail_url ? post.thumbnail_url : post.media_url,
+				alt: "Instagram post",
+				className: "w-full h-full object-cover transition-transform duration-700 group-hover:scale-110"
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+				"data-uid": "src/components/InstagramFeed.tsx:89:15",
+				"data-prohibitions": "[]",
+				className: "absolute inset-0 bg-black/0 group-hover:bg-black/50 transition-colors duration-500 flex items-center justify-center",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Instagram, {
+					"data-uid": "src/components/InstagramFeed.tsx:90:17",
+					"data-prohibitions": "[editContent]",
+					className: "text-white opacity-0 group-hover:opacity-100 transition-opacity duration-500 transform translate-y-4 group-hover:translate-y-0 h-8 w-8"
+				})
+			})]
+		}, post.id))
+	});
+}
+//#endregion
+//#region src/pages/Index.tsx
+function Index() {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+		"data-uid": "src/pages/Index.tsx:9:5",
+		"data-prohibitions": "[editContent]",
+		className: "w-full",
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("section", {
+				"data-uid": "src/pages/Index.tsx:11:7",
+				"data-prohibitions": "[]",
+				className: "relative h-screen flex items-center justify-center overflow-hidden",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					"data-uid": "src/pages/Index.tsx:12:9",
+					"data-prohibitions": "[]",
+					className: "absolute inset-0 z-0",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+						"data-uid": "src/pages/Index.tsx:13:11",
+						"data-prohibitions": "[editContent]",
+						src: "https://img.usecurling.com/p/1920/1080?q=luxury%20minimalist%20interior&color=black",
+						alt: "Vittorio Design Interior",
+						className: "w-full h-full object-cover object-center"
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						"data-uid": "src/pages/Index.tsx:18:11",
+						"data-prohibitions": "[]",
+						className: "absolute inset-0 bg-gradient-to-b from-black/80 via-black/50 to-background"
+					})]
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					"data-uid": "src/pages/Index.tsx:21:9",
+					"data-prohibitions": "[]",
+					className: "container relative z-10 text-center px-4 pt-20",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						"data-uid": "src/pages/Index.tsx:22:11",
+						"data-prohibitions": "[]",
+						className: "max-w-3xl mx-auto animate-fade-in-up",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								"data-uid": "src/pages/Index.tsx:23:13",
+								"data-prohibitions": "[]",
+								className: "text-primary font-medium tracking-[0.2em] uppercase text-sm mb-6 block",
+								children: "Exclusividade & Elegância"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("h1", {
+								"data-uid": "src/pages/Index.tsx:26:13",
+								"data-prohibitions": "[]",
+								className: "text-5xl md:text-7xl font-serif text-white mb-6 leading-tight",
+								children: [
+									"Design que ",
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {
+										"data-uid": "src/pages/Index.tsx:27:26",
+										"data-prohibitions": "[editContent]"
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										"data-uid": "src/pages/Index.tsx:28:15",
+										"data-prohibitions": "[]",
+										className: "italic text-primary/90",
+										children: "Transforma"
+									})
+								]
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+								"data-uid": "src/pages/Index.tsx:30:13",
+								"data-prohibitions": "[]",
+								className: "text-lg md:text-xl text-gray-300 mb-10 max-w-2xl mx-auto font-light leading-relaxed",
+								children: "Peças autorais criadas com maestria. A perfeita harmonia entre o rigor do inox e a sofisticação contemporânea."
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+								"data-uid": "src/pages/Index.tsx:34:13",
+								"data-prohibitions": "[]",
+								asChild: true,
+								size: "lg",
+								className: "bg-transparent border border-primary text-primary hover:bg-primary hover:text-primary-foreground rounded-none px-8 py-6 text-sm tracking-widest uppercase transition-all duration-300 active:scale-95",
+								children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
+									"data-uid": "src/pages/Index.tsx:39:15",
+									"data-prohibitions": "[]",
+									to: "/catalogo",
+									children: ["Explorar Catálogo ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowRight, {
+										"data-uid": "src/pages/Index.tsx:40:35",
+										"data-prohibitions": "[editContent]",
+										className: "ml-3 h-4 w-4"
+									})]
+								})
+							})
+						]
+					})
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
+				"data-uid": "src/pages/Index.tsx:48:7",
+				"data-prohibitions": "[]",
+				className: "py-24 md:py-32 bg-background relative",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					"data-uid": "src/pages/Index.tsx:49:9",
+					"data-prohibitions": "[]",
+					className: "container",
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						"data-uid": "src/pages/Index.tsx:50:11",
+						"data-prohibitions": "[]",
+						className: "grid grid-cols-1 lg:grid-cols-2 gap-16 items-center",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							"data-uid": "src/pages/Index.tsx:51:13",
+							"data-prohibitions": "[]",
+							className: "relative group",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								"data-uid": "src/pages/Index.tsx:52:15",
+								"data-prohibitions": "[]",
+								className: "absolute -inset-4 border border-primary/20 translate-x-4 translate-y-4 -z-10 transition-transform duration-500 group-hover:translate-x-2 group-hover:translate-y-2"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+								"data-uid": "src/pages/Index.tsx:53:15",
+								"data-prohibitions": "[editContent]",
+								src: "https://img.usecurling.com/p/800/1000?q=stainless%20steel%20texture&color=black",
+								alt: "Detalhe de Material",
+								className: "w-full aspect-[4/5] object-cover grayscale opacity-90 transition-all duration-700 group-hover:grayscale-0 group-hover:opacity-100"
+							})]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							"data-uid": "src/pages/Index.tsx:60:13",
+							"data-prohibitions": "[]",
+							className: "animate-fade-in-up",
+							style: { animationDelay: "0.2s" },
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+									"data-uid": "src/pages/Index.tsx:61:15",
+									"data-prohibitions": "[]",
+									className: "text-4xl md:text-5xl font-serif text-white mb-8",
+									children: "Nossa Essência"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									"data-uid": "src/pages/Index.tsx:62:15",
+									"data-prohibitions": "[]",
+									className: "h-px w-24 bg-primary mb-8"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									"data-uid": "src/pages/Index.tsx:63:15",
+									"data-prohibitions": "[]",
+									className: "space-y-6 text-muted-foreground font-light leading-relaxed text-lg",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										"data-uid": "src/pages/Index.tsx:64:17",
+										"data-prohibitions": "[]",
+										children: "A Vittorio Design nasceu da paixão por formas puras e materiais nobres. Cada peça é um manifesto de luxo silencioso, projetada para transcender tendências e estabelecer-se como atemporal."
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										"data-uid": "src/pages/Index.tsx:69:17",
+										"data-prohibitions": "[]",
+										children: "Nossos artesãos dominam a arte de moldar o inox, combinando precisão industrial com acabamento manual minucioso, resultando em móveis que são verdadeiras esculturas habitáveis."
+									})]
+								})
+							]
+						})]
+					})
+				})
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FeaturedPreview, {
+				"data-uid": "src/pages/Index.tsx:81:7",
+				"data-prohibitions": "[editContent]"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("section", {
+				"data-uid": "src/pages/Index.tsx:84:7",
+				"data-prohibitions": "[]",
+				className: "py-24 bg-background",
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					"data-uid": "src/pages/Index.tsx:85:9",
+					"data-prohibitions": "[]",
+					className: "container",
+					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+						"data-uid": "src/pages/Index.tsx:86:11",
+						"data-prohibitions": "[]",
+						className: "text-center mb-16",
+						children: [
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+								"data-uid": "src/pages/Index.tsx:87:13",
+								"data-prohibitions": "[]",
+								className: "text-primary tracking-[0.2em] uppercase text-xs mb-3 block animate-fade-in-up",
+								children: "Siga-nos no Instagram"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
+								"data-uid": "src/pages/Index.tsx:90:13",
+								"data-prohibitions": "[]",
+								className: "text-3xl md:text-4xl font-serif text-white mb-6 animate-fade-in-up",
+								style: { animationDelay: "0.1s" },
+								children: "@VittorioDesignOficial"
+							}),
+							/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								"data-uid": "src/pages/Index.tsx:96:13",
+								"data-prohibitions": "[]",
+								className: "h-px w-24 bg-primary mx-auto animate-fade-in-up",
+								style: { animationDelay: "0.2s" }
+							})
+						]
+					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(InstagramFeed, {
+						"data-uid": "src/pages/Index.tsx:102:11",
+						"data-prohibitions": "[editContent]"
+					})]
+				})
+			})
+		]
+	});
+}
+//#endregion
+//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/@radix-ui+number@1.1.1/node_modules/@radix-ui/number/dist/index.mjs
+function clamp(value, [min, max]) {
+	return Math.min(max, Math.max(min, value));
+}
+//#endregion
+//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/@radix-ui+react-direction@1.1.1_@types+react@19.2.14_react@19.2.4/node_modules/@radix-ui/react-direction/dist/index.mjs
+var DirectionContext = import_react.createContext(void 0);
+function useDirection(localDir) {
+	const globalDir = import_react.useContext(DirectionContext);
+	return localDir || globalDir || "ltr";
+}
+//#endregion
+//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/@radix-ui+react-focus-guards@1.1.3_@types+react@19.2.14_react@19.2.4/node_modules/@radix-ui/react-focus-guards/dist/index.mjs
+var count = 0;
+function useFocusGuards() {
+	import_react.useEffect(() => {
+		const edgeGuards = document.querySelectorAll("[data-radix-focus-guard]");
+		document.body.insertAdjacentElement("afterbegin", edgeGuards[0] ?? createFocusGuard());
+		document.body.insertAdjacentElement("beforeend", edgeGuards[1] ?? createFocusGuard());
+		count++;
+		return () => {
+			if (count === 1) document.querySelectorAll("[data-radix-focus-guard]").forEach((node) => node.remove());
+			count--;
+		};
+	}, []);
+}
+function createFocusGuard() {
+	const element = document.createElement("span");
+	element.setAttribute("data-radix-focus-guard", "");
+	element.tabIndex = 0;
+	element.style.outline = "none";
+	element.style.opacity = "0";
+	element.style.position = "fixed";
+	element.style.pointerEvents = "none";
+	return element;
+}
+//#endregion
+//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/@radix-ui+react-focus-scope@1.1.7_@types+react-dom@19.2.3_@types+react@19.2.14__@types+_f62f3af4ca2ba305a7aecf04c8534604/node_modules/@radix-ui/react-focus-scope/dist/index.mjs
+var AUTOFOCUS_ON_MOUNT = "focusScope.autoFocusOnMount";
+var AUTOFOCUS_ON_UNMOUNT = "focusScope.autoFocusOnUnmount";
+var EVENT_OPTIONS = {
+	bubbles: false,
+	cancelable: true
+};
+var FOCUS_SCOPE_NAME = "FocusScope";
+var FocusScope = import_react.forwardRef((props, forwardedRef) => {
+	const { loop = false, trapped = false, onMountAutoFocus: onMountAutoFocusProp, onUnmountAutoFocus: onUnmountAutoFocusProp, ...scopeProps } = props;
+	const [container, setContainer] = import_react.useState(null);
+	const onMountAutoFocus = useCallbackRef$1(onMountAutoFocusProp);
+	const onUnmountAutoFocus = useCallbackRef$1(onUnmountAutoFocusProp);
+	const lastFocusedElementRef = import_react.useRef(null);
+	const composedRefs = useComposedRefs(forwardedRef, (node) => setContainer(node));
+	const focusScope = import_react.useRef({
+		paused: false,
+		pause() {
+			this.paused = true;
+		},
+		resume() {
+			this.paused = false;
+		}
+	}).current;
+	import_react.useEffect(() => {
+		if (trapped) {
+			let handleFocusIn2 = function(event) {
+				if (focusScope.paused || !container) return;
+				const target = event.target;
+				if (container.contains(target)) lastFocusedElementRef.current = target;
+				else focus(lastFocusedElementRef.current, { select: true });
+			}, handleFocusOut2 = function(event) {
+				if (focusScope.paused || !container) return;
+				const relatedTarget = event.relatedTarget;
+				if (relatedTarget === null) return;
+				if (!container.contains(relatedTarget)) focus(lastFocusedElementRef.current, { select: true });
+			}, handleMutations2 = function(mutations) {
+				if (document.activeElement !== document.body) return;
+				for (const mutation of mutations) if (mutation.removedNodes.length > 0) focus(container);
+			};
+			document.addEventListener("focusin", handleFocusIn2);
+			document.addEventListener("focusout", handleFocusOut2);
+			const mutationObserver = new MutationObserver(handleMutations2);
+			if (container) mutationObserver.observe(container, {
+				childList: true,
+				subtree: true
+			});
+			return () => {
+				document.removeEventListener("focusin", handleFocusIn2);
+				document.removeEventListener("focusout", handleFocusOut2);
+				mutationObserver.disconnect();
+			};
+		}
+	}, [
+		trapped,
+		container,
+		focusScope.paused
+	]);
+	import_react.useEffect(() => {
+		if (container) {
+			focusScopesStack.add(focusScope);
+			const previouslyFocusedElement = document.activeElement;
+			if (!container.contains(previouslyFocusedElement)) {
+				const mountEvent = new CustomEvent(AUTOFOCUS_ON_MOUNT, EVENT_OPTIONS);
+				container.addEventListener(AUTOFOCUS_ON_MOUNT, onMountAutoFocus);
+				container.dispatchEvent(mountEvent);
+				if (!mountEvent.defaultPrevented) {
+					focusFirst(removeLinks(getTabbableCandidates(container)), { select: true });
+					if (document.activeElement === previouslyFocusedElement) focus(container);
+				}
+			}
+			return () => {
+				container.removeEventListener(AUTOFOCUS_ON_MOUNT, onMountAutoFocus);
+				setTimeout(() => {
+					const unmountEvent = new CustomEvent(AUTOFOCUS_ON_UNMOUNT, EVENT_OPTIONS);
+					container.addEventListener(AUTOFOCUS_ON_UNMOUNT, onUnmountAutoFocus);
+					container.dispatchEvent(unmountEvent);
+					if (!unmountEvent.defaultPrevented) focus(previouslyFocusedElement ?? document.body, { select: true });
+					container.removeEventListener(AUTOFOCUS_ON_UNMOUNT, onUnmountAutoFocus);
+					focusScopesStack.remove(focusScope);
+				}, 0);
+			};
+		}
+	}, [
+		container,
+		onMountAutoFocus,
+		onUnmountAutoFocus,
+		focusScope
+	]);
+	const handleKeyDown = import_react.useCallback((event) => {
+		if (!loop && !trapped) return;
+		if (focusScope.paused) return;
+		const isTabKey = event.key === "Tab" && !event.altKey && !event.ctrlKey && !event.metaKey;
+		const focusedElement = document.activeElement;
+		if (isTabKey && focusedElement) {
+			const container2 = event.currentTarget;
+			const [first, last] = getTabbableEdges(container2);
+			if (!(first && last)) {
+				if (focusedElement === container2) event.preventDefault();
+			} else if (!event.shiftKey && focusedElement === last) {
+				event.preventDefault();
+				if (loop) focus(first, { select: true });
+			} else if (event.shiftKey && focusedElement === first) {
+				event.preventDefault();
+				if (loop) focus(last, { select: true });
+			}
+		}
+	}, [
+		loop,
+		trapped,
+		focusScope.paused
+	]);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+		tabIndex: -1,
+		...scopeProps,
+		ref: composedRefs,
+		onKeyDown: handleKeyDown
+	});
+});
+FocusScope.displayName = FOCUS_SCOPE_NAME;
+function focusFirst(candidates, { select = false } = {}) {
+	const previouslyFocusedElement = document.activeElement;
+	for (const candidate of candidates) {
+		focus(candidate, { select });
+		if (document.activeElement !== previouslyFocusedElement) return;
+	}
+}
+function getTabbableEdges(container) {
+	const candidates = getTabbableCandidates(container);
+	return [findVisible(candidates, container), findVisible(candidates.reverse(), container)];
+}
+function getTabbableCandidates(container) {
+	const nodes = [];
+	const walker = document.createTreeWalker(container, NodeFilter.SHOW_ELEMENT, { acceptNode: (node) => {
+		const isHiddenInput = node.tagName === "INPUT" && node.type === "hidden";
+		if (node.disabled || node.hidden || isHiddenInput) return NodeFilter.FILTER_SKIP;
+		return node.tabIndex >= 0 ? NodeFilter.FILTER_ACCEPT : NodeFilter.FILTER_SKIP;
+	} });
+	while (walker.nextNode()) nodes.push(walker.currentNode);
+	return nodes;
+}
+function findVisible(elements, container) {
+	for (const element of elements) if (!isHidden(element, { upTo: container })) return element;
+}
+function isHidden(node, { upTo }) {
+	if (getComputedStyle(node).visibility === "hidden") return true;
+	while (node) {
+		if (upTo !== void 0 && node === upTo) return false;
+		if (getComputedStyle(node).display === "none") return true;
+		node = node.parentElement;
+	}
+	return false;
+}
+function isSelectableInput(element) {
+	return element instanceof HTMLInputElement && "select" in element;
+}
+function focus(element, { select = false } = {}) {
+	if (element && element.focus) {
+		const previouslyFocusedElement = document.activeElement;
+		element.focus({ preventScroll: true });
+		if (element !== previouslyFocusedElement && isSelectableInput(element) && select) element.select();
+	}
+}
+var focusScopesStack = createFocusScopesStack();
+function createFocusScopesStack() {
+	let stack = [];
+	return {
+		add(focusScope) {
+			const activeFocusScope = stack[0];
+			if (focusScope !== activeFocusScope) activeFocusScope?.pause();
+			stack = arrayRemove(stack, focusScope);
+			stack.unshift(focusScope);
+		},
+		remove(focusScope) {
+			stack = arrayRemove(stack, focusScope);
+			stack[0]?.resume();
+		}
+	};
+}
+function arrayRemove(array, item) {
+	const updatedArray = [...array];
+	const index = updatedArray.indexOf(item);
+	if (index !== -1) updatedArray.splice(index, 1);
+	return updatedArray;
+}
+function removeLinks(items) {
+	return items.filter((item) => item.tagName !== "A");
+}
+//#endregion
+//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/@radix-ui+react-use-previous@1.1.1_@types+react@19.2.14_react@19.2.4/node_modules/@radix-ui/react-use-previous/dist/index.mjs
+function usePrevious(value) {
+	const ref = import_react.useRef({
+		value,
+		previous: value
+	});
+	return import_react.useMemo(() => {
+		if (ref.current.value !== value) {
+			ref.current.previous = ref.current.value;
+			ref.current.value = value;
+		}
+		return ref.current.previous;
+	}, [value]);
+}
+//#endregion
+//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/aria-hidden@1.2.6/node_modules/aria-hidden/dist/es2015/index.js
+var getDefaultParent = function(originalTarget) {
+	if (typeof document === "undefined") return null;
+	return (Array.isArray(originalTarget) ? originalTarget[0] : originalTarget).ownerDocument.body;
+};
+var counterMap = /* @__PURE__ */ new WeakMap();
+var uncontrolledNodes = /* @__PURE__ */ new WeakMap();
+var markerMap = {};
+var lockCount = 0;
+var unwrapHost = function(node) {
+	return node && (node.host || unwrapHost(node.parentNode));
+};
+var correctTargets = function(parent, targets) {
+	return targets.map(function(target) {
+		if (parent.contains(target)) return target;
+		var correctedTarget = unwrapHost(target);
+		if (correctedTarget && parent.contains(correctedTarget)) return correctedTarget;
+		console.error("aria-hidden", target, "in not contained inside", parent, ". Doing nothing");
+		return null;
+	}).filter(function(x) {
+		return Boolean(x);
+	});
+};
+/**
+* Marks everything except given node(or nodes) as aria-hidden
+* @param {Element | Element[]} originalTarget - elements to keep on the page
+* @param [parentNode] - top element, defaults to document.body
+* @param {String} [markerName] - a special attribute to mark every node
+* @param {String} [controlAttribute] - html Attribute to control
+* @return {Undo} undo command
+*/
+var applyAttributeToOthers = function(originalTarget, parentNode, markerName, controlAttribute) {
+	var targets = correctTargets(parentNode, Array.isArray(originalTarget) ? originalTarget : [originalTarget]);
+	if (!markerMap[markerName]) markerMap[markerName] = /* @__PURE__ */ new WeakMap();
+	var markerCounter = markerMap[markerName];
+	var hiddenNodes = [];
+	var elementsToKeep = /* @__PURE__ */ new Set();
+	var elementsToStop = new Set(targets);
+	var keep = function(el) {
+		if (!el || elementsToKeep.has(el)) return;
+		elementsToKeep.add(el);
+		keep(el.parentNode);
+	};
+	targets.forEach(keep);
+	var deep = function(parent) {
+		if (!parent || elementsToStop.has(parent)) return;
+		Array.prototype.forEach.call(parent.children, function(node) {
+			if (elementsToKeep.has(node)) deep(node);
+			else try {
+				var attr = node.getAttribute(controlAttribute);
+				var alreadyHidden = attr !== null && attr !== "false";
+				var counterValue = (counterMap.get(node) || 0) + 1;
+				var markerValue = (markerCounter.get(node) || 0) + 1;
+				counterMap.set(node, counterValue);
+				markerCounter.set(node, markerValue);
+				hiddenNodes.push(node);
+				if (counterValue === 1 && alreadyHidden) uncontrolledNodes.set(node, true);
+				if (markerValue === 1) node.setAttribute(markerName, "true");
+				if (!alreadyHidden) node.setAttribute(controlAttribute, "true");
+			} catch (e) {
+				console.error("aria-hidden: cannot operate on ", node, e);
+			}
+		});
+	};
+	deep(parentNode);
+	elementsToKeep.clear();
+	lockCount++;
+	return function() {
+		hiddenNodes.forEach(function(node) {
+			var counterValue = counterMap.get(node) - 1;
+			var markerValue = markerCounter.get(node) - 1;
+			counterMap.set(node, counterValue);
+			markerCounter.set(node, markerValue);
+			if (!counterValue) {
+				if (!uncontrolledNodes.has(node)) node.removeAttribute(controlAttribute);
+				uncontrolledNodes.delete(node);
+			}
+			if (!markerValue) node.removeAttribute(markerName);
+		});
+		lockCount--;
+		if (!lockCount) {
+			counterMap = /* @__PURE__ */ new WeakMap();
+			counterMap = /* @__PURE__ */ new WeakMap();
+			uncontrolledNodes = /* @__PURE__ */ new WeakMap();
+			markerMap = {};
+		}
+	};
+};
+/**
+* Marks everything except given node(or nodes) as aria-hidden
+* @param {Element | Element[]} originalTarget - elements to keep on the page
+* @param [parentNode] - top element, defaults to document.body
+* @param {String} [markerName] - a special attribute to mark every node
+* @return {Undo} undo command
+*/
+var hideOthers = function(originalTarget, parentNode, markerName) {
+	if (markerName === void 0) markerName = "data-aria-hidden";
+	var targets = Array.from(Array.isArray(originalTarget) ? originalTarget : [originalTarget]);
+	var activeParentNode = parentNode || getDefaultParent(originalTarget);
+	if (!activeParentNode) return function() {
+		return null;
+	};
+	targets.push.apply(targets, Array.from(activeParentNode.querySelectorAll("[aria-live], script")));
+	return applyAttributeToOthers(targets, activeParentNode, markerName, "aria-hidden");
+};
+//#endregion
+//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/react-remove-scroll-bar@2.3.8_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll-bar/dist/es2015/constants.js
+var zeroRightClassName = "right-scroll-bar-position";
+var fullWidthClassName = "width-before-scroll-bar";
+var noScrollbarsClassName = "with-scroll-bars-hidden";
+/**
+* Name of a CSS variable containing the amount of "hidden" scrollbar
+* ! might be undefined ! use will fallback!
+*/
+var removedBarSizeVariable = "--removed-body-scroll-bar-size";
+//#endregion
+//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/use-callback-ref@1.3.3_@types+react@19.2.14_react@19.2.4/node_modules/use-callback-ref/dist/es2015/assignRef.js
+/**
+* Assigns a value for a given ref, no matter of the ref format
+* @param {RefObject} ref - a callback function or ref object
+* @param value - a new value
+*
+* @see https://github.com/theKashey/use-callback-ref#assignref
+* @example
+* const refObject = useRef();
+* const refFn = (ref) => {....}
+*
+* assignRef(refObject, "refValue");
+* assignRef(refFn, "refValue");
+*/
+function assignRef(ref, value) {
+	if (typeof ref === "function") ref(value);
+	else if (ref) ref.current = value;
+	return ref;
+}
+//#endregion
+//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/use-callback-ref@1.3.3_@types+react@19.2.14_react@19.2.4/node_modules/use-callback-ref/dist/es2015/useRef.js
+/**
+* creates a MutableRef with ref change callback
+* @param initialValue - initial ref value
+* @param {Function} callback - a callback to run when value changes
+*
+* @example
+* const ref = useCallbackRef(0, (newValue, oldValue) => console.log(oldValue, '->', newValue);
+* ref.current = 1;
+* // prints 0 -> 1
+*
+* @see https://reactjs.org/docs/hooks-reference.html#useref
+* @see https://github.com/theKashey/use-callback-ref#usecallbackref---to-replace-reactuseref
+* @returns {MutableRefObject}
+*/
+function useCallbackRef(initialValue, callback) {
+	var ref = (0, import_react.useState)(function() {
+		return {
+			value: initialValue,
+			callback,
+			facade: {
+				get current() {
+					return ref.value;
+				},
+				set current(value) {
+					var last = ref.value;
+					if (last !== value) {
+						ref.value = value;
+						ref.callback(value, last);
+					}
+				}
+			}
+		};
+	})[0];
+	ref.callback = callback;
+	return ref.facade;
+}
+//#endregion
+//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/use-callback-ref@1.3.3_@types+react@19.2.14_react@19.2.4/node_modules/use-callback-ref/dist/es2015/useMergeRef.js
+var useIsomorphicLayoutEffect$1 = typeof window !== "undefined" ? import_react.useLayoutEffect : import_react.useEffect;
+var currentValues = /* @__PURE__ */ new WeakMap();
+/**
+* Merges two or more refs together providing a single interface to set their value
+* @param {RefObject|Ref} refs
+* @returns {MutableRefObject} - a new ref, which translates all changes to {refs}
+*
+* @see {@link mergeRefs} a version without buit-in memoization
+* @see https://github.com/theKashey/use-callback-ref#usemergerefs
+* @example
+* const Component = React.forwardRef((props, ref) => {
+*   const ownRef = useRef();
+*   const domRef = useMergeRefs([ref, ownRef]); // 👈 merge together
+*   return <div ref={domRef}>...</div>
+* }
+*/
+function useMergeRefs(refs, defaultValue) {
+	var callbackRef = useCallbackRef(defaultValue || null, function(newValue) {
+		return refs.forEach(function(ref) {
+			return assignRef(ref, newValue);
+		});
+	});
+	useIsomorphicLayoutEffect$1(function() {
+		var oldValue = currentValues.get(callbackRef);
+		if (oldValue) {
+			var prevRefs_1 = new Set(oldValue);
+			var nextRefs_1 = new Set(refs);
+			var current_1 = callbackRef.current;
+			prevRefs_1.forEach(function(ref) {
+				if (!nextRefs_1.has(ref)) assignRef(ref, null);
+			});
+			nextRefs_1.forEach(function(ref) {
+				if (!prevRefs_1.has(ref)) assignRef(ref, current_1);
+			});
+		}
+		currentValues.set(callbackRef, refs);
+	}, [refs]);
+	return callbackRef;
+}
+//#endregion
+//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/use-sidecar@1.1.3_@types+react@19.2.14_react@19.2.4/node_modules/use-sidecar/dist/es2015/medium.js
+function ItoI(a) {
+	return a;
+}
+function innerCreateMedium(defaults, middleware) {
+	if (middleware === void 0) middleware = ItoI;
+	var buffer = [];
+	var assigned = false;
+	return {
+		read: function() {
+			if (assigned) throw new Error("Sidecar: could not `read` from an `assigned` medium. `read` could be used only with `useMedium`.");
+			if (buffer.length) return buffer[buffer.length - 1];
+			return defaults;
+		},
+		useMedium: function(data) {
+			var item = middleware(data, assigned);
+			buffer.push(item);
+			return function() {
+				buffer = buffer.filter(function(x) {
+					return x !== item;
+				});
+			};
+		},
+		assignSyncMedium: function(cb) {
+			assigned = true;
+			while (buffer.length) {
+				var cbs = buffer;
+				buffer = [];
+				cbs.forEach(cb);
+			}
+			buffer = {
+				push: function(x) {
+					return cb(x);
+				},
+				filter: function() {
+					return buffer;
+				}
+			};
+		},
+		assignMedium: function(cb) {
+			assigned = true;
+			var pendingQueue = [];
+			if (buffer.length) {
+				var cbs = buffer;
+				buffer = [];
+				cbs.forEach(cb);
+				pendingQueue = buffer;
+			}
+			var executeQueue = function() {
+				var cbs = pendingQueue;
+				pendingQueue = [];
+				cbs.forEach(cb);
+			};
+			var cycle = function() {
+				return Promise.resolve().then(executeQueue);
+			};
+			cycle();
+			buffer = {
+				push: function(x) {
+					pendingQueue.push(x);
+					cycle();
+				},
+				filter: function(filter) {
+					pendingQueue = pendingQueue.filter(filter);
+					return buffer;
+				}
+			};
+		}
+	};
+}
+function createSidecarMedium(options) {
+	if (options === void 0) options = {};
+	var medium = innerCreateMedium(null);
+	medium.options = __assign({
+		async: true,
+		ssr: false
+	}, options);
+	return medium;
+}
+//#endregion
+//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/use-sidecar@1.1.3_@types+react@19.2.14_react@19.2.4/node_modules/use-sidecar/dist/es2015/exports.js
+var SideCar = function(_a) {
+	var sideCar = _a.sideCar, rest = __rest(_a, ["sideCar"]);
+	if (!sideCar) throw new Error("Sidecar: please provide `sideCar` property to import the right car");
+	var Target = sideCar.read();
+	if (!Target) throw new Error("Sidecar medium not found");
+	return import_react.createElement(Target, __assign({}, rest));
+};
+SideCar.isSideCarExport = true;
+function exportSidecar(medium, exported) {
+	medium.useMedium(exported);
+	return SideCar;
+}
+//#endregion
+//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/react-remove-scroll@2.7.2_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll/dist/es2015/medium.js
+var effectCar = createSidecarMedium();
+//#endregion
+//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/react-remove-scroll@2.7.2_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll/dist/es2015/UI.js
+var nothing = function() {};
+/**
+* Removes scrollbar from the page and contain the scroll within the Lock
+*/
+var RemoveScroll = import_react.forwardRef(function(props, parentRef) {
+	var ref = import_react.useRef(null);
+	var _a = import_react.useState({
+		onScrollCapture: nothing,
+		onWheelCapture: nothing,
+		onTouchMoveCapture: nothing
+	}), callbacks = _a[0], setCallbacks = _a[1];
+	var forwardProps = props.forwardProps, children = props.children, className = props.className, removeScrollBar = props.removeScrollBar, enabled = props.enabled, shards = props.shards, sideCar = props.sideCar, noRelative = props.noRelative, noIsolation = props.noIsolation, inert = props.inert, allowPinchZoom = props.allowPinchZoom, _b = props.as, Container = _b === void 0 ? "div" : _b, gapMode = props.gapMode, rest = __rest(props, [
+		"forwardProps",
+		"children",
+		"className",
+		"removeScrollBar",
+		"enabled",
+		"shards",
+		"sideCar",
+		"noRelative",
+		"noIsolation",
+		"inert",
+		"allowPinchZoom",
+		"as",
+		"gapMode"
+	]);
+	var SideCar = sideCar;
+	var containerRef = useMergeRefs([ref, parentRef]);
+	var containerProps = __assign(__assign({}, rest), callbacks);
+	return import_react.createElement(import_react.Fragment, null, enabled && import_react.createElement(SideCar, {
+		sideCar: effectCar,
+		removeScrollBar,
+		shards,
+		noRelative,
+		noIsolation,
+		inert,
+		setCallbacks,
+		allowPinchZoom: !!allowPinchZoom,
+		lockRef: ref,
+		gapMode
+	}), forwardProps ? import_react.cloneElement(import_react.Children.only(children), __assign(__assign({}, containerProps), { ref: containerRef })) : import_react.createElement(Container, __assign({}, containerProps, {
+		className,
+		ref: containerRef
+	}), children));
+});
+RemoveScroll.defaultProps = {
+	enabled: true,
+	removeScrollBar: true,
+	inert: false
+};
+RemoveScroll.classNames = {
+	fullWidth: fullWidthClassName,
+	zeroRight: zeroRightClassName
+};
+//#endregion
+//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/get-nonce@1.0.1/node_modules/get-nonce/dist/es2015/index.js
+var currentNonce;
+var getNonce = function() {
+	if (currentNonce) return currentNonce;
+	if (typeof __webpack_nonce__ !== "undefined") return __webpack_nonce__;
+};
+//#endregion
+//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/react-style-singleton@2.2.3_@types+react@19.2.14_react@19.2.4/node_modules/react-style-singleton/dist/es2015/singleton.js
+function makeStyleTag() {
+	if (!document) return null;
+	var tag = document.createElement("style");
+	tag.type = "text/css";
+	var nonce = getNonce();
+	if (nonce) tag.setAttribute("nonce", nonce);
+	return tag;
+}
+function injectStyles(tag, css) {
+	if (tag.styleSheet) tag.styleSheet.cssText = css;
+	else tag.appendChild(document.createTextNode(css));
+}
+function insertStyleTag(tag) {
+	(document.head || document.getElementsByTagName("head")[0]).appendChild(tag);
+}
+var stylesheetSingleton = function() {
+	var counter = 0;
+	var stylesheet = null;
+	return {
+		add: function(style) {
+			if (counter == 0) {
+				if (stylesheet = makeStyleTag()) {
+					injectStyles(stylesheet, style);
+					insertStyleTag(stylesheet);
+				}
+			}
+			counter++;
+		},
+		remove: function() {
+			counter--;
+			if (!counter && stylesheet) {
+				stylesheet.parentNode && stylesheet.parentNode.removeChild(stylesheet);
+				stylesheet = null;
+			}
+		}
+	};
+};
+//#endregion
+//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/react-style-singleton@2.2.3_@types+react@19.2.14_react@19.2.4/node_modules/react-style-singleton/dist/es2015/hook.js
+/**
+* creates a hook to control style singleton
+* @see {@link styleSingleton} for a safer component version
+* @example
+* ```tsx
+* const useStyle = styleHookSingleton();
+* ///
+* useStyle('body { overflow: hidden}');
+*/
+var styleHookSingleton = function() {
+	var sheet = stylesheetSingleton();
+	return function(styles, isDynamic) {
+		import_react.useEffect(function() {
+			sheet.add(styles);
+			return function() {
+				sheet.remove();
+			};
+		}, [styles && isDynamic]);
+	};
+};
+//#endregion
+//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/react-style-singleton@2.2.3_@types+react@19.2.14_react@19.2.4/node_modules/react-style-singleton/dist/es2015/component.js
+/**
+* create a Component to add styles on demand
+* - styles are added when first instance is mounted
+* - styles are removed when the last instance is unmounted
+* - changing styles in runtime does nothing unless dynamic is set. But with multiple components that can lead to the undefined behavior
+*/
+var styleSingleton = function() {
+	var useStyle = styleHookSingleton();
+	var Sheet = function(_a) {
+		var styles = _a.styles, dynamic = _a.dynamic;
+		useStyle(styles, dynamic);
+		return null;
+	};
+	return Sheet;
+};
+//#endregion
+//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/react-remove-scroll-bar@2.3.8_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll-bar/dist/es2015/utils.js
+var zeroGap = {
+	left: 0,
+	top: 0,
+	right: 0,
+	gap: 0
+};
+var parse$2 = function(x) {
+	return parseInt(x || "", 10) || 0;
+};
+var getOffset = function(gapMode) {
+	var cs = window.getComputedStyle(document.body);
+	var left = cs[gapMode === "padding" ? "paddingLeft" : "marginLeft"];
+	var top = cs[gapMode === "padding" ? "paddingTop" : "marginTop"];
+	var right = cs[gapMode === "padding" ? "paddingRight" : "marginRight"];
+	return [
+		parse$2(left),
+		parse$2(top),
+		parse$2(right)
+	];
+};
+var getGapWidth = function(gapMode) {
+	if (gapMode === void 0) gapMode = "margin";
+	if (typeof window === "undefined") return zeroGap;
+	var offsets = getOffset(gapMode);
+	var documentWidth = document.documentElement.clientWidth;
+	var windowWidth = window.innerWidth;
+	return {
+		left: offsets[0],
+		top: offsets[1],
+		right: offsets[2],
+		gap: Math.max(0, windowWidth - documentWidth + offsets[2] - offsets[0])
+	};
+};
+//#endregion
+//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/react-remove-scroll-bar@2.3.8_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll-bar/dist/es2015/component.js
+var Style = styleSingleton();
+var lockAttribute = "data-scroll-locked";
+var getStyles = function(_a, allowRelative, gapMode, important) {
+	var left = _a.left, top = _a.top, right = _a.right, gap = _a.gap;
+	if (gapMode === void 0) gapMode = "margin";
+	return "\n  .".concat(noScrollbarsClassName, " {\n   overflow: hidden ").concat(important, ";\n   padding-right: ").concat(gap, "px ").concat(important, ";\n  }\n  body[").concat(lockAttribute, "] {\n    overflow: hidden ").concat(important, ";\n    overscroll-behavior: contain;\n    ").concat([
+		allowRelative && "position: relative ".concat(important, ";"),
+		gapMode === "margin" && "\n    padding-left: ".concat(left, "px;\n    padding-top: ").concat(top, "px;\n    padding-right: ").concat(right, "px;\n    margin-left:0;\n    margin-top:0;\n    margin-right: ").concat(gap, "px ").concat(important, ";\n    "),
+		gapMode === "padding" && "padding-right: ".concat(gap, "px ").concat(important, ";")
+	].filter(Boolean).join(""), "\n  }\n  \n  .").concat(zeroRightClassName, " {\n    right: ").concat(gap, "px ").concat(important, ";\n  }\n  \n  .").concat(fullWidthClassName, " {\n    margin-right: ").concat(gap, "px ").concat(important, ";\n  }\n  \n  .").concat(zeroRightClassName, " .").concat(zeroRightClassName, " {\n    right: 0 ").concat(important, ";\n  }\n  \n  .").concat(fullWidthClassName, " .").concat(fullWidthClassName, " {\n    margin-right: 0 ").concat(important, ";\n  }\n  \n  body[").concat(lockAttribute, "] {\n    ").concat(removedBarSizeVariable, ": ").concat(gap, "px;\n  }\n");
+};
+var getCurrentUseCounter = function() {
+	var counter = parseInt(document.body.getAttribute("data-scroll-locked") || "0", 10);
+	return isFinite(counter) ? counter : 0;
+};
+var useLockAttribute = function() {
+	import_react.useEffect(function() {
+		document.body.setAttribute(lockAttribute, (getCurrentUseCounter() + 1).toString());
+		return function() {
+			var newCounter = getCurrentUseCounter() - 1;
+			if (newCounter <= 0) document.body.removeAttribute(lockAttribute);
+			else document.body.setAttribute(lockAttribute, newCounter.toString());
+		};
+	}, []);
+};
+/**
+* Removes page scrollbar and blocks page scroll when mounted
+*/
+var RemoveScrollBar = function(_a) {
+	var noRelative = _a.noRelative, noImportant = _a.noImportant, _b = _a.gapMode, gapMode = _b === void 0 ? "margin" : _b;
+	useLockAttribute();
+	var gap = import_react.useMemo(function() {
+		return getGapWidth(gapMode);
+	}, [gapMode]);
+	return import_react.createElement(Style, { styles: getStyles(gap, !noRelative, gapMode, !noImportant ? "!important" : "") });
+};
+//#endregion
+//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/react-remove-scroll@2.7.2_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll/dist/es2015/aggresiveCapture.js
+var passiveSupported = false;
+if (typeof window !== "undefined") try {
+	var options = Object.defineProperty({}, "passive", { get: function() {
+		passiveSupported = true;
+		return true;
+	} });
+	window.addEventListener("test", options, options);
+	window.removeEventListener("test", options, options);
+} catch (err) {
+	passiveSupported = false;
+}
+var nonPassive = passiveSupported ? { passive: false } : false;
+//#endregion
+//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/react-remove-scroll@2.7.2_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll/dist/es2015/handleScroll.js
+var alwaysContainsScroll = function(node) {
+	return node.tagName === "TEXTAREA";
+};
+var elementCanBeScrolled = function(node, overflow) {
+	if (!(node instanceof Element)) return false;
+	var styles = window.getComputedStyle(node);
+	return styles[overflow] !== "hidden" && !(styles.overflowY === styles.overflowX && !alwaysContainsScroll(node) && styles[overflow] === "visible");
+};
+var elementCouldBeVScrolled = function(node) {
+	return elementCanBeScrolled(node, "overflowY");
+};
+var elementCouldBeHScrolled = function(node) {
+	return elementCanBeScrolled(node, "overflowX");
+};
+var locationCouldBeScrolled = function(axis, node) {
+	var ownerDocument = node.ownerDocument;
+	var current = node;
+	do {
+		if (typeof ShadowRoot !== "undefined" && current instanceof ShadowRoot) current = current.host;
+		if (elementCouldBeScrolled(axis, current)) {
+			var _a = getScrollVariables(axis, current);
+			if (_a[1] > _a[2]) return true;
+		}
+		current = current.parentNode;
+	} while (current && current !== ownerDocument.body);
+	return false;
+};
+var getVScrollVariables = function(_a) {
+	return [
+		_a.scrollTop,
+		_a.scrollHeight,
+		_a.clientHeight
+	];
+};
+var getHScrollVariables = function(_a) {
+	return [
+		_a.scrollLeft,
+		_a.scrollWidth,
+		_a.clientWidth
+	];
+};
+var elementCouldBeScrolled = function(axis, node) {
+	return axis === "v" ? elementCouldBeVScrolled(node) : elementCouldBeHScrolled(node);
+};
+var getScrollVariables = function(axis, node) {
+	return axis === "v" ? getVScrollVariables(node) : getHScrollVariables(node);
+};
+var getDirectionFactor = function(axis, direction) {
+	/**
+	* If the element's direction is rtl (right-to-left), then scrollLeft is 0 when the scrollbar is at its rightmost position,
+	* and then increasingly negative as you scroll towards the end of the content.
+	* @see https://developer.mozilla.org/en-US/docs/Web/API/Element/scrollLeft
+	*/
+	return axis === "h" && direction === "rtl" ? -1 : 1;
+};
+var handleScroll = function(axis, endTarget, event, sourceDelta, noOverscroll) {
+	var directionFactor = getDirectionFactor(axis, window.getComputedStyle(endTarget).direction);
+	var delta = directionFactor * sourceDelta;
+	var target = event.target;
+	var targetInLock = endTarget.contains(target);
+	var shouldCancelScroll = false;
+	var isDeltaPositive = delta > 0;
+	var availableScroll = 0;
+	var availableScrollTop = 0;
+	do {
+		if (!target) break;
+		var _a = getScrollVariables(axis, target), position = _a[0];
+		var elementScroll = _a[1] - _a[2] - directionFactor * position;
+		if (position || elementScroll) {
+			if (elementCouldBeScrolled(axis, target)) {
+				availableScroll += elementScroll;
+				availableScrollTop += position;
+			}
+		}
+		var parent_1 = target.parentNode;
+		target = parent_1 && parent_1.nodeType === Node.DOCUMENT_FRAGMENT_NODE ? parent_1.host : parent_1;
+	} while (!targetInLock && target !== document.body || targetInLock && (endTarget.contains(target) || endTarget === target));
+	if (isDeltaPositive && (noOverscroll && Math.abs(availableScroll) < 1 || !noOverscroll && delta > availableScroll)) shouldCancelScroll = true;
+	else if (!isDeltaPositive && (noOverscroll && Math.abs(availableScrollTop) < 1 || !noOverscroll && -delta > availableScrollTop)) shouldCancelScroll = true;
+	return shouldCancelScroll;
+};
+//#endregion
+//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/react-remove-scroll@2.7.2_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll/dist/es2015/SideEffect.js
+var getTouchXY = function(event) {
+	return "changedTouches" in event ? [event.changedTouches[0].clientX, event.changedTouches[0].clientY] : [0, 0];
+};
+var getDeltaXY = function(event) {
+	return [event.deltaX, event.deltaY];
+};
+var extractRef = function(ref) {
+	return ref && "current" in ref ? ref.current : ref;
+};
+var deltaCompare = function(x, y) {
+	return x[0] === y[0] && x[1] === y[1];
+};
+var generateStyle = function(id) {
+	return "\n  .block-interactivity-".concat(id, " {pointer-events: none;}\n  .allow-interactivity-").concat(id, " {pointer-events: all;}\n");
+};
+var idCounter = 0;
+var lockStack = [];
+function RemoveScrollSideCar(props) {
+	var shouldPreventQueue = import_react.useRef([]);
+	var touchStartRef = import_react.useRef([0, 0]);
+	var activeAxis = import_react.useRef();
+	var id = import_react.useState(idCounter++)[0];
+	var Style = import_react.useState(styleSingleton)[0];
+	var lastProps = import_react.useRef(props);
+	import_react.useEffect(function() {
+		lastProps.current = props;
+	}, [props]);
+	import_react.useEffect(function() {
+		if (props.inert) {
+			document.body.classList.add("block-interactivity-".concat(id));
+			var allow_1 = __spreadArray([props.lockRef.current], (props.shards || []).map(extractRef), true).filter(Boolean);
+			allow_1.forEach(function(el) {
+				return el.classList.add("allow-interactivity-".concat(id));
+			});
+			return function() {
+				document.body.classList.remove("block-interactivity-".concat(id));
+				allow_1.forEach(function(el) {
+					return el.classList.remove("allow-interactivity-".concat(id));
+				});
+			};
+		}
+	}, [
+		props.inert,
+		props.lockRef.current,
+		props.shards
+	]);
+	var shouldCancelEvent = import_react.useCallback(function(event, parent) {
+		if ("touches" in event && event.touches.length === 2 || event.type === "wheel" && event.ctrlKey) return !lastProps.current.allowPinchZoom;
+		var touch = getTouchXY(event);
+		var touchStart = touchStartRef.current;
+		var deltaX = "deltaX" in event ? event.deltaX : touchStart[0] - touch[0];
+		var deltaY = "deltaY" in event ? event.deltaY : touchStart[1] - touch[1];
+		var currentAxis;
+		var target = event.target;
+		var moveDirection = Math.abs(deltaX) > Math.abs(deltaY) ? "h" : "v";
+		if ("touches" in event && moveDirection === "h" && target.type === "range") return false;
+		var selection = window.getSelection();
+		var anchorNode = selection && selection.anchorNode;
+		if (anchorNode ? anchorNode === target || anchorNode.contains(target) : false) return false;
+		var canBeScrolledInMainDirection = locationCouldBeScrolled(moveDirection, target);
+		if (!canBeScrolledInMainDirection) return true;
+		if (canBeScrolledInMainDirection) currentAxis = moveDirection;
+		else {
+			currentAxis = moveDirection === "v" ? "h" : "v";
+			canBeScrolledInMainDirection = locationCouldBeScrolled(moveDirection, target);
+		}
+		if (!canBeScrolledInMainDirection) return false;
+		if (!activeAxis.current && "changedTouches" in event && (deltaX || deltaY)) activeAxis.current = currentAxis;
+		if (!currentAxis) return true;
+		var cancelingAxis = activeAxis.current || currentAxis;
+		return handleScroll(cancelingAxis, parent, event, cancelingAxis === "h" ? deltaX : deltaY, true);
+	}, []);
+	var shouldPrevent = import_react.useCallback(function(_event) {
+		var event = _event;
+		if (!lockStack.length || lockStack[lockStack.length - 1] !== Style) return;
+		var delta = "deltaY" in event ? getDeltaXY(event) : getTouchXY(event);
+		var sourceEvent = shouldPreventQueue.current.filter(function(e) {
+			return e.name === event.type && (e.target === event.target || event.target === e.shadowParent) && deltaCompare(e.delta, delta);
+		})[0];
+		if (sourceEvent && sourceEvent.should) {
+			if (event.cancelable) event.preventDefault();
+			return;
+		}
+		if (!sourceEvent) {
+			var shardNodes = (lastProps.current.shards || []).map(extractRef).filter(Boolean).filter(function(node) {
+				return node.contains(event.target);
+			});
+			if (shardNodes.length > 0 ? shouldCancelEvent(event, shardNodes[0]) : !lastProps.current.noIsolation) {
+				if (event.cancelable) event.preventDefault();
+			}
+		}
+	}, []);
+	var shouldCancel = import_react.useCallback(function(name, delta, target, should) {
+		var event = {
+			name,
+			delta,
+			target,
+			should,
+			shadowParent: getOutermostShadowParent(target)
+		};
+		shouldPreventQueue.current.push(event);
+		setTimeout(function() {
+			shouldPreventQueue.current = shouldPreventQueue.current.filter(function(e) {
+				return e !== event;
+			});
+		}, 1);
+	}, []);
+	var scrollTouchStart = import_react.useCallback(function(event) {
+		touchStartRef.current = getTouchXY(event);
+		activeAxis.current = void 0;
+	}, []);
+	var scrollWheel = import_react.useCallback(function(event) {
+		shouldCancel(event.type, getDeltaXY(event), event.target, shouldCancelEvent(event, props.lockRef.current));
+	}, []);
+	var scrollTouchMove = import_react.useCallback(function(event) {
+		shouldCancel(event.type, getTouchXY(event), event.target, shouldCancelEvent(event, props.lockRef.current));
+	}, []);
+	import_react.useEffect(function() {
+		lockStack.push(Style);
+		props.setCallbacks({
+			onScrollCapture: scrollWheel,
+			onWheelCapture: scrollWheel,
+			onTouchMoveCapture: scrollTouchMove
+		});
+		document.addEventListener("wheel", shouldPrevent, nonPassive);
+		document.addEventListener("touchmove", shouldPrevent, nonPassive);
+		document.addEventListener("touchstart", scrollTouchStart, nonPassive);
+		return function() {
+			lockStack = lockStack.filter(function(inst) {
+				return inst !== Style;
+			});
+			document.removeEventListener("wheel", shouldPrevent, nonPassive);
+			document.removeEventListener("touchmove", shouldPrevent, nonPassive);
+			document.removeEventListener("touchstart", scrollTouchStart, nonPassive);
+		};
+	}, []);
+	var removeScrollBar = props.removeScrollBar, inert = props.inert;
+	return import_react.createElement(import_react.Fragment, null, inert ? import_react.createElement(Style, { styles: generateStyle(id) }) : null, removeScrollBar ? import_react.createElement(RemoveScrollBar, {
+		noRelative: props.noRelative,
+		gapMode: props.gapMode
+	}) : null);
+}
+function getOutermostShadowParent(node) {
+	var shadowParent = null;
+	while (node !== null) {
+		if (node instanceof ShadowRoot) {
+			shadowParent = node.host;
+			node = node.host;
+		}
+		node = node.parentNode;
+	}
+	return shadowParent;
+}
+//#endregion
+//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/react-remove-scroll@2.7.2_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll/dist/es2015/sidecar.js
+var sidecar_default = exportSidecar(effectCar, RemoveScrollSideCar);
+//#endregion
+//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/react-remove-scroll@2.7.2_@types+react@19.2.14_react@19.2.4/node_modules/react-remove-scroll/dist/es2015/Combination.js
+var ReactRemoveScroll = import_react.forwardRef(function(props, ref) {
+	return import_react.createElement(RemoveScroll, __assign({}, props, {
+		ref,
+		sideCar: sidecar_default
+	}));
+});
+ReactRemoveScroll.classNames = RemoveScroll.classNames;
+//#endregion
+//#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/@radix-ui+react-select@2.2.6_@types+react-dom@19.2.3_@types+react@19.2.14__@types+react_53894a32562cb9eeb6aef8b357a4f4e3/node_modules/@radix-ui/react-select/dist/index.mjs
+var OPEN_KEYS = [
+	" ",
+	"Enter",
+	"ArrowUp",
+	"ArrowDown"
+];
+var SELECTION_KEYS = [" ", "Enter"];
+var SELECT_NAME = "Select";
+var [Collection, useCollection, createCollectionScope] = createCollection(SELECT_NAME);
+var [createSelectContext, createSelectScope] = createContextScope(SELECT_NAME, [createCollectionScope, createPopperScope]);
+var usePopperScope = createPopperScope();
+var [SelectProvider, useSelectContext] = createSelectContext(SELECT_NAME);
+var [SelectNativeOptionsProvider, useSelectNativeOptionsContext] = createSelectContext(SELECT_NAME);
+var Select$1 = (props) => {
+	const { __scopeSelect, children, open: openProp, defaultOpen, onOpenChange, value: valueProp, defaultValue, onValueChange, dir, name, autoComplete, disabled, required, form } = props;
+	const popperScope = usePopperScope(__scopeSelect);
+	const [trigger, setTrigger] = import_react.useState(null);
+	const [valueNode, setValueNode] = import_react.useState(null);
+	const [valueNodeHasChildren, setValueNodeHasChildren] = import_react.useState(false);
+	const direction = useDirection(dir);
+	const [open, setOpen] = useControllableState({
+		prop: openProp,
+		defaultProp: defaultOpen ?? false,
+		onChange: onOpenChange,
+		caller: SELECT_NAME
+	});
+	const [value, setValue] = useControllableState({
+		prop: valueProp,
+		defaultProp: defaultValue,
+		onChange: onValueChange,
+		caller: SELECT_NAME
+	});
+	const triggerPointerDownPosRef = import_react.useRef(null);
+	const isFormControl = trigger ? form || !!trigger.closest("form") : true;
+	const [nativeOptionsSet, setNativeOptionsSet] = import_react.useState(/* @__PURE__ */ new Set());
+	const nativeSelectKey = Array.from(nativeOptionsSet).map((option) => option.props.value).join(";");
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Root2$1, {
+		...popperScope,
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SelectProvider, {
+			required,
+			scope: __scopeSelect,
+			trigger,
+			onTriggerChange: setTrigger,
+			valueNode,
+			onValueNodeChange: setValueNode,
+			valueNodeHasChildren,
+			onValueNodeHasChildrenChange: setValueNodeHasChildren,
+			contentId: useId(),
+			value,
+			onValueChange: setValue,
+			open,
+			onOpenChange: setOpen,
+			dir: direction,
+			triggerPointerDownPosRef,
+			disabled,
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Collection.Provider, {
+				scope: __scopeSelect,
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectNativeOptionsProvider, {
+					scope: props.__scopeSelect,
+					onNativeOptionAdd: import_react.useCallback((option) => {
+						setNativeOptionsSet((prev) => new Set(prev).add(option));
+					}, []),
+					onNativeOptionRemove: import_react.useCallback((option) => {
+						setNativeOptionsSet((prev) => {
+							const optionsSet = new Set(prev);
+							optionsSet.delete(option);
+							return optionsSet;
+						});
+					}, []),
+					children
+				})
+			}), isFormControl ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SelectBubbleInput, {
+				"aria-hidden": true,
+				required,
+				tabIndex: -1,
+				name,
+				autoComplete,
+				value,
+				onChange: (event) => setValue(event.target.value),
+				disabled,
+				form,
+				children: [value === void 0 ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", { value: "" }) : null, Array.from(nativeOptionsSet)]
+			}, nativeSelectKey) : null]
+		})
+	});
+};
+Select$1.displayName = SELECT_NAME;
+var TRIGGER_NAME$1 = "SelectTrigger";
+var SelectTrigger$1 = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeSelect, disabled = false, ...triggerProps } = props;
+	const popperScope = usePopperScope(__scopeSelect);
+	const context = useSelectContext(TRIGGER_NAME$1, __scopeSelect);
+	const isDisabled = context.disabled || disabled;
+	const composedRefs = useComposedRefs(forwardedRef, context.onTriggerChange);
+	const getItems = useCollection(__scopeSelect);
+	const pointerTypeRef = import_react.useRef("touch");
+	const [searchRef, handleTypeaheadSearch, resetTypeahead] = useTypeaheadSearch((search) => {
+		const enabledItems = getItems().filter((item) => !item.disabled);
+		const nextItem = findNextItem(enabledItems, search, enabledItems.find((item) => item.value === context.value));
+		if (nextItem !== void 0) context.onValueChange(nextItem.value);
+	});
+	const handleOpen = (pointerEvent) => {
+		if (!isDisabled) {
+			context.onOpenChange(true);
+			resetTypeahead();
+		}
+		if (pointerEvent) context.triggerPointerDownPosRef.current = {
+			x: Math.round(pointerEvent.pageX),
+			y: Math.round(pointerEvent.pageY)
+		};
+	};
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Anchor, {
+		asChild: true,
+		...popperScope,
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.button, {
+			type: "button",
+			role: "combobox",
+			"aria-controls": context.contentId,
+			"aria-expanded": context.open,
+			"aria-required": context.required,
+			"aria-autocomplete": "none",
+			dir: context.dir,
+			"data-state": context.open ? "open" : "closed",
+			disabled: isDisabled,
+			"data-disabled": isDisabled ? "" : void 0,
+			"data-placeholder": shouldShowPlaceholder(context.value) ? "" : void 0,
+			...triggerProps,
+			ref: composedRefs,
+			onClick: composeEventHandlers(triggerProps.onClick, (event) => {
+				event.currentTarget.focus();
+				if (pointerTypeRef.current !== "mouse") handleOpen(event);
+			}),
+			onPointerDown: composeEventHandlers(triggerProps.onPointerDown, (event) => {
+				pointerTypeRef.current = event.pointerType;
+				const target = event.target;
+				if (target.hasPointerCapture(event.pointerId)) target.releasePointerCapture(event.pointerId);
+				if (event.button === 0 && event.ctrlKey === false && event.pointerType === "mouse") {
+					handleOpen(event);
+					event.preventDefault();
+				}
+			}),
+			onKeyDown: composeEventHandlers(triggerProps.onKeyDown, (event) => {
+				const isTypingAhead = searchRef.current !== "";
+				if (!(event.ctrlKey || event.altKey || event.metaKey) && event.key.length === 1) handleTypeaheadSearch(event.key);
+				if (isTypingAhead && event.key === " ") return;
+				if (OPEN_KEYS.includes(event.key)) {
+					handleOpen();
+					event.preventDefault();
+				}
+			})
+		})
+	});
+});
+SelectTrigger$1.displayName = TRIGGER_NAME$1;
+var VALUE_NAME = "SelectValue";
+var SelectValue$1 = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeSelect, className, style, children, placeholder = "", ...valueProps } = props;
+	const context = useSelectContext(VALUE_NAME, __scopeSelect);
+	const { onValueNodeHasChildrenChange } = context;
+	const hasChildren = children !== void 0;
+	const composedRefs = useComposedRefs(forwardedRef, context.onValueNodeChange);
+	useLayoutEffect2(() => {
+		onValueNodeHasChildrenChange(hasChildren);
+	}, [onValueNodeHasChildrenChange, hasChildren]);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.span, {
+		...valueProps,
+		ref: composedRefs,
+		style: { pointerEvents: "none" },
+		children: shouldShowPlaceholder(context.value) ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(import_jsx_runtime.Fragment, { children: placeholder }) : children
+	});
+});
+SelectValue$1.displayName = VALUE_NAME;
+var ICON_NAME = "SelectIcon";
+var SelectIcon = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeSelect, children, ...iconProps } = props;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.span, {
+		"aria-hidden": true,
+		...iconProps,
+		ref: forwardedRef,
+		children: children || "▼"
+	});
+});
+SelectIcon.displayName = ICON_NAME;
+var PORTAL_NAME$1 = "SelectPortal";
+var SelectPortal = (props) => {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Portal$2, {
+		asChild: true,
+		...props
+	});
+};
+SelectPortal.displayName = PORTAL_NAME$1;
+var CONTENT_NAME$1 = "SelectContent";
+var SelectContent$1 = import_react.forwardRef((props, forwardedRef) => {
+	const context = useSelectContext(CONTENT_NAME$1, props.__scopeSelect);
+	const [fragment, setFragment] = import_react.useState();
+	useLayoutEffect2(() => {
+		setFragment(new DocumentFragment());
+	}, []);
+	if (!context.open) {
+		const frag = fragment;
+		return frag ? import_react_dom.createPortal(/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectContentProvider, {
+			scope: props.__scopeSelect,
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Collection.Slot, {
+				scope: props.__scopeSelect,
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", { children: props.children })
+			})
+		}), frag) : null;
+	}
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectContentImpl, {
+		...props,
+		ref: forwardedRef
+	});
+});
+SelectContent$1.displayName = CONTENT_NAME$1;
+var CONTENT_MARGIN = 10;
+var [SelectContentProvider, useSelectContentContext] = createSelectContext(CONTENT_NAME$1);
+var CONTENT_IMPL_NAME = "SelectContentImpl";
+var Slot$1 = /* @__PURE__ */ createSlot$1("SelectContent.RemoveScroll");
+var SelectContentImpl = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeSelect, position = "item-aligned", onCloseAutoFocus, onEscapeKeyDown, onPointerDownOutside, side, sideOffset, align, alignOffset, arrowPadding, collisionBoundary, collisionPadding, sticky, hideWhenDetached, avoidCollisions, ...contentProps } = props;
+	const context = useSelectContext(CONTENT_NAME$1, __scopeSelect);
+	const [content, setContent] = import_react.useState(null);
+	const [viewport, setViewport] = import_react.useState(null);
+	const composedRefs = useComposedRefs(forwardedRef, (node) => setContent(node));
+	const [selectedItem, setSelectedItem] = import_react.useState(null);
+	const [selectedItemText, setSelectedItemText] = import_react.useState(null);
+	const getItems = useCollection(__scopeSelect);
+	const [isPositioned, setIsPositioned] = import_react.useState(false);
+	const firstValidItemFoundRef = import_react.useRef(false);
+	import_react.useEffect(() => {
+		if (content) return hideOthers(content);
+	}, [content]);
+	useFocusGuards();
+	const focusFirst = import_react.useCallback((candidates) => {
+		const [firstItem, ...restItems] = getItems().map((item) => item.ref.current);
+		const [lastItem] = restItems.slice(-1);
+		const PREVIOUSLY_FOCUSED_ELEMENT = document.activeElement;
+		for (const candidate of candidates) {
+			if (candidate === PREVIOUSLY_FOCUSED_ELEMENT) return;
+			candidate?.scrollIntoView({ block: "nearest" });
+			if (candidate === firstItem && viewport) viewport.scrollTop = 0;
+			if (candidate === lastItem && viewport) viewport.scrollTop = viewport.scrollHeight;
+			candidate?.focus();
+			if (document.activeElement !== PREVIOUSLY_FOCUSED_ELEMENT) return;
+		}
+	}, [getItems, viewport]);
+	const focusSelectedItem = import_react.useCallback(() => focusFirst([selectedItem, content]), [
+		focusFirst,
+		selectedItem,
+		content
+	]);
+	import_react.useEffect(() => {
+		if (isPositioned) focusSelectedItem();
+	}, [isPositioned, focusSelectedItem]);
+	const { onOpenChange, triggerPointerDownPosRef } = context;
+	import_react.useEffect(() => {
+		if (content) {
+			let pointerMoveDelta = {
+				x: 0,
+				y: 0
+			};
+			const handlePointerMove = (event) => {
+				pointerMoveDelta = {
+					x: Math.abs(Math.round(event.pageX) - (triggerPointerDownPosRef.current?.x ?? 0)),
+					y: Math.abs(Math.round(event.pageY) - (triggerPointerDownPosRef.current?.y ?? 0))
+				};
+			};
+			const handlePointerUp = (event) => {
+				if (pointerMoveDelta.x <= 10 && pointerMoveDelta.y <= 10) event.preventDefault();
+				else if (!content.contains(event.target)) onOpenChange(false);
+				document.removeEventListener("pointermove", handlePointerMove);
+				triggerPointerDownPosRef.current = null;
+			};
+			if (triggerPointerDownPosRef.current !== null) {
+				document.addEventListener("pointermove", handlePointerMove);
+				document.addEventListener("pointerup", handlePointerUp, {
+					capture: true,
+					once: true
+				});
+			}
+			return () => {
+				document.removeEventListener("pointermove", handlePointerMove);
+				document.removeEventListener("pointerup", handlePointerUp, { capture: true });
+			};
+		}
+	}, [
+		content,
+		onOpenChange,
+		triggerPointerDownPosRef
+	]);
+	import_react.useEffect(() => {
+		const close = () => onOpenChange(false);
+		window.addEventListener("blur", close);
+		window.addEventListener("resize", close);
+		return () => {
+			window.removeEventListener("blur", close);
+			window.removeEventListener("resize", close);
+		};
+	}, [onOpenChange]);
+	const [searchRef, handleTypeaheadSearch] = useTypeaheadSearch((search) => {
+		const enabledItems = getItems().filter((item) => !item.disabled);
+		const nextItem = findNextItem(enabledItems, search, enabledItems.find((item) => item.ref.current === document.activeElement));
+		if (nextItem) setTimeout(() => nextItem.ref.current.focus());
+	});
+	const itemRefCallback = import_react.useCallback((node, value, disabled) => {
+		const isFirstValidItem = !firstValidItemFoundRef.current && !disabled;
+		if (context.value !== void 0 && context.value === value || isFirstValidItem) {
+			setSelectedItem(node);
+			if (isFirstValidItem) firstValidItemFoundRef.current = true;
+		}
+	}, [context.value]);
+	const handleItemLeave = import_react.useCallback(() => content?.focus(), [content]);
+	const itemTextRefCallback = import_react.useCallback((node, value, disabled) => {
+		const isFirstValidItem = !firstValidItemFoundRef.current && !disabled;
+		if (context.value !== void 0 && context.value === value || isFirstValidItem) setSelectedItemText(node);
+	}, [context.value]);
+	const SelectPosition = position === "popper" ? SelectPopperPosition : SelectItemAlignedPosition;
+	const popperContentProps = SelectPosition === SelectPopperPosition ? {
+		side,
+		sideOffset,
+		align,
+		alignOffset,
+		arrowPadding,
+		collisionBoundary,
+		collisionPadding,
+		sticky,
+		hideWhenDetached,
+		avoidCollisions
+	} : {};
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectContentProvider, {
+		scope: __scopeSelect,
+		content,
+		viewport,
+		onViewportChange: setViewport,
+		itemRefCallback,
+		selectedItem,
+		onItemLeave: handleItemLeave,
+		itemTextRefCallback,
+		focusSelectedItem,
+		selectedItemText,
+		position,
+		isPositioned,
+		searchRef,
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ReactRemoveScroll, {
+			as: Slot$1,
+			allowPinchZoom: true,
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(FocusScope, {
+				asChild: true,
+				trapped: context.open,
+				onMountAutoFocus: (event) => {
+					event.preventDefault();
+				},
+				onUnmountAutoFocus: composeEventHandlers(onCloseAutoFocus, (event) => {
+					context.trigger?.focus({ preventScroll: true });
+					event.preventDefault();
+				}),
+				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(DismissableLayer, {
+					asChild: true,
+					disableOutsidePointerEvents: true,
+					onEscapeKeyDown,
+					onPointerDownOutside,
+					onFocusOutside: (event) => event.preventDefault(),
+					onDismiss: () => context.onOpenChange(false),
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectPosition, {
+						role: "listbox",
+						id: context.contentId,
+						"data-state": context.open ? "open" : "closed",
+						dir: context.dir,
+						onContextMenu: (event) => event.preventDefault(),
+						...contentProps,
+						...popperContentProps,
+						onPlaced: () => setIsPositioned(true),
+						ref: composedRefs,
+						style: {
+							display: "flex",
+							flexDirection: "column",
+							outline: "none",
+							...contentProps.style
+						},
+						onKeyDown: composeEventHandlers(contentProps.onKeyDown, (event) => {
+							const isModifierKey = event.ctrlKey || event.altKey || event.metaKey;
+							if (event.key === "Tab") event.preventDefault();
+							if (!isModifierKey && event.key.length === 1) handleTypeaheadSearch(event.key);
+							if ([
+								"ArrowUp",
+								"ArrowDown",
+								"Home",
+								"End"
+							].includes(event.key)) {
+								let candidateNodes = getItems().filter((item) => !item.disabled).map((item) => item.ref.current);
+								if (["ArrowUp", "End"].includes(event.key)) candidateNodes = candidateNodes.slice().reverse();
+								if (["ArrowUp", "ArrowDown"].includes(event.key)) {
+									const currentElement = event.target;
+									const currentIndex = candidateNodes.indexOf(currentElement);
+									candidateNodes = candidateNodes.slice(currentIndex + 1);
+								}
+								setTimeout(() => focusFirst(candidateNodes));
+								event.preventDefault();
+							}
+						})
+					})
+				})
+			})
+		})
+	});
+});
+SelectContentImpl.displayName = CONTENT_IMPL_NAME;
+var ITEM_ALIGNED_POSITION_NAME = "SelectItemAlignedPosition";
+var SelectItemAlignedPosition = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeSelect, onPlaced, ...popperProps } = props;
+	const context = useSelectContext(CONTENT_NAME$1, __scopeSelect);
+	const contentContext = useSelectContentContext(CONTENT_NAME$1, __scopeSelect);
+	const [contentWrapper, setContentWrapper] = import_react.useState(null);
+	const [content, setContent] = import_react.useState(null);
+	const composedRefs = useComposedRefs(forwardedRef, (node) => setContent(node));
+	const getItems = useCollection(__scopeSelect);
+	const shouldExpandOnScrollRef = import_react.useRef(false);
+	const shouldRepositionRef = import_react.useRef(true);
+	const { viewport, selectedItem, selectedItemText, focusSelectedItem } = contentContext;
+	const position = import_react.useCallback(() => {
+		if (context.trigger && context.valueNode && contentWrapper && content && viewport && selectedItem && selectedItemText) {
+			const triggerRect = context.trigger.getBoundingClientRect();
+			const contentRect = content.getBoundingClientRect();
+			const valueNodeRect = context.valueNode.getBoundingClientRect();
+			const itemTextRect = selectedItemText.getBoundingClientRect();
+			if (context.dir !== "rtl") {
+				const itemTextOffset = itemTextRect.left - contentRect.left;
+				const left = valueNodeRect.left - itemTextOffset;
+				const leftDelta = triggerRect.left - left;
+				const minContentWidth = triggerRect.width + leftDelta;
+				const contentWidth = Math.max(minContentWidth, contentRect.width);
+				const rightEdge = window.innerWidth - CONTENT_MARGIN;
+				const clampedLeft = clamp(left, [CONTENT_MARGIN, Math.max(CONTENT_MARGIN, rightEdge - contentWidth)]);
+				contentWrapper.style.minWidth = minContentWidth + "px";
+				contentWrapper.style.left = clampedLeft + "px";
+			} else {
+				const itemTextOffset = contentRect.right - itemTextRect.right;
+				const right = window.innerWidth - valueNodeRect.right - itemTextOffset;
+				const rightDelta = window.innerWidth - triggerRect.right - right;
+				const minContentWidth = triggerRect.width + rightDelta;
+				const contentWidth = Math.max(minContentWidth, contentRect.width);
+				const leftEdge = window.innerWidth - CONTENT_MARGIN;
+				const clampedRight = clamp(right, [CONTENT_MARGIN, Math.max(CONTENT_MARGIN, leftEdge - contentWidth)]);
+				contentWrapper.style.minWidth = minContentWidth + "px";
+				contentWrapper.style.right = clampedRight + "px";
+			}
+			const items = getItems();
+			const availableHeight = window.innerHeight - CONTENT_MARGIN * 2;
+			const itemsHeight = viewport.scrollHeight;
+			const contentStyles = window.getComputedStyle(content);
+			const contentBorderTopWidth = parseInt(contentStyles.borderTopWidth, 10);
+			const contentPaddingTop = parseInt(contentStyles.paddingTop, 10);
+			const contentBorderBottomWidth = parseInt(contentStyles.borderBottomWidth, 10);
+			const contentPaddingBottom = parseInt(contentStyles.paddingBottom, 10);
+			const fullContentHeight = contentBorderTopWidth + contentPaddingTop + itemsHeight + contentPaddingBottom + contentBorderBottomWidth;
+			const minContentHeight = Math.min(selectedItem.offsetHeight * 5, fullContentHeight);
+			const viewportStyles = window.getComputedStyle(viewport);
+			const viewportPaddingTop = parseInt(viewportStyles.paddingTop, 10);
+			const viewportPaddingBottom = parseInt(viewportStyles.paddingBottom, 10);
+			const topEdgeToTriggerMiddle = triggerRect.top + triggerRect.height / 2 - CONTENT_MARGIN;
+			const triggerMiddleToBottomEdge = availableHeight - topEdgeToTriggerMiddle;
+			const selectedItemHalfHeight = selectedItem.offsetHeight / 2;
+			const itemOffsetMiddle = selectedItem.offsetTop + selectedItemHalfHeight;
+			const contentTopToItemMiddle = contentBorderTopWidth + contentPaddingTop + itemOffsetMiddle;
+			const itemMiddleToContentBottom = fullContentHeight - contentTopToItemMiddle;
+			if (contentTopToItemMiddle <= topEdgeToTriggerMiddle) {
+				const isLastItem = items.length > 0 && selectedItem === items[items.length - 1].ref.current;
+				contentWrapper.style.bottom = "0px";
+				const viewportOffsetBottom = content.clientHeight - viewport.offsetTop - viewport.offsetHeight;
+				const height = contentTopToItemMiddle + Math.max(triggerMiddleToBottomEdge, selectedItemHalfHeight + (isLastItem ? viewportPaddingBottom : 0) + viewportOffsetBottom + contentBorderBottomWidth);
+				contentWrapper.style.height = height + "px";
+			} else {
+				const isFirstItem = items.length > 0 && selectedItem === items[0].ref.current;
+				contentWrapper.style.top = "0px";
+				const height = Math.max(topEdgeToTriggerMiddle, contentBorderTopWidth + viewport.offsetTop + (isFirstItem ? viewportPaddingTop : 0) + selectedItemHalfHeight) + itemMiddleToContentBottom;
+				contentWrapper.style.height = height + "px";
+				viewport.scrollTop = contentTopToItemMiddle - topEdgeToTriggerMiddle + viewport.offsetTop;
+			}
+			contentWrapper.style.margin = `${CONTENT_MARGIN}px 0`;
+			contentWrapper.style.minHeight = minContentHeight + "px";
+			contentWrapper.style.maxHeight = availableHeight + "px";
+			onPlaced?.();
+			requestAnimationFrame(() => shouldExpandOnScrollRef.current = true);
+		}
+	}, [
+		getItems,
+		context.trigger,
+		context.valueNode,
+		contentWrapper,
+		content,
+		viewport,
+		selectedItem,
+		selectedItemText,
+		context.dir,
+		onPlaced
+	]);
+	useLayoutEffect2(() => position(), [position]);
+	const [contentZIndex, setContentZIndex] = import_react.useState();
+	useLayoutEffect2(() => {
+		if (content) setContentZIndex(window.getComputedStyle(content).zIndex);
+	}, [content]);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectViewportProvider, {
+		scope: __scopeSelect,
+		contentWrapper,
+		shouldExpandOnScrollRef,
+		onScrollButtonChange: import_react.useCallback((node) => {
+			if (node && shouldRepositionRef.current === true) {
+				position();
+				focusSelectedItem?.();
+				shouldRepositionRef.current = false;
+			}
+		}, [position, focusSelectedItem]),
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+			ref: setContentWrapper,
+			style: {
+				display: "flex",
+				flexDirection: "column",
+				position: "fixed",
+				zIndex: contentZIndex
+			},
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+				...popperProps,
+				ref: composedRefs,
+				style: {
+					boxSizing: "border-box",
+					maxHeight: "100%",
+					...popperProps.style
+				}
+			})
+		})
+	});
+});
+SelectItemAlignedPosition.displayName = ITEM_ALIGNED_POSITION_NAME;
+var POPPER_POSITION_NAME = "SelectPopperPosition";
+var SelectPopperPosition = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeSelect, align = "start", collisionPadding = CONTENT_MARGIN, ...popperProps } = props;
+	const popperScope = usePopperScope(__scopeSelect);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Content$1, {
+		...popperScope,
+		...popperProps,
+		ref: forwardedRef,
+		align,
+		collisionPadding,
+		style: {
+			boxSizing: "border-box",
+			...popperProps.style,
+			"--radix-select-content-transform-origin": "var(--radix-popper-transform-origin)",
+			"--radix-select-content-available-width": "var(--radix-popper-available-width)",
+			"--radix-select-content-available-height": "var(--radix-popper-available-height)",
+			"--radix-select-trigger-width": "var(--radix-popper-anchor-width)",
+			"--radix-select-trigger-height": "var(--radix-popper-anchor-height)"
+		}
+	});
+});
+SelectPopperPosition.displayName = POPPER_POSITION_NAME;
+var [SelectViewportProvider, useSelectViewportContext] = createSelectContext(CONTENT_NAME$1, {});
+var VIEWPORT_NAME = "SelectViewport";
+var SelectViewport = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeSelect, nonce, ...viewportProps } = props;
+	const contentContext = useSelectContentContext(VIEWPORT_NAME, __scopeSelect);
+	const viewportContext = useSelectViewportContext(VIEWPORT_NAME, __scopeSelect);
+	const composedRefs = useComposedRefs(forwardedRef, contentContext.onViewportChange);
+	const prevScrollTopRef = import_react.useRef(0);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("style", {
+		dangerouslySetInnerHTML: { __html: `[data-radix-select-viewport]{scrollbar-width:none;-ms-overflow-style:none;-webkit-overflow-scrolling:touch;}[data-radix-select-viewport]::-webkit-scrollbar{display:none}` },
+		nonce
+	}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Collection.Slot, {
+		scope: __scopeSelect,
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+			"data-radix-select-viewport": "",
+			role: "presentation",
+			...viewportProps,
+			ref: composedRefs,
+			style: {
+				position: "relative",
+				flex: 1,
+				overflow: "hidden auto",
+				...viewportProps.style
+			},
+			onScroll: composeEventHandlers(viewportProps.onScroll, (event) => {
+				const viewport = event.currentTarget;
+				const { contentWrapper, shouldExpandOnScrollRef } = viewportContext;
+				if (shouldExpandOnScrollRef?.current && contentWrapper) {
+					const scrolledBy = Math.abs(prevScrollTopRef.current - viewport.scrollTop);
+					if (scrolledBy > 0) {
+						const availableHeight = window.innerHeight - CONTENT_MARGIN * 2;
+						const cssMinHeight = parseFloat(contentWrapper.style.minHeight);
+						const cssHeight = parseFloat(contentWrapper.style.height);
+						const prevHeight = Math.max(cssMinHeight, cssHeight);
+						if (prevHeight < availableHeight) {
+							const nextHeight = prevHeight + scrolledBy;
+							const clampedNextHeight = Math.min(availableHeight, nextHeight);
+							const heightDiff = nextHeight - clampedNextHeight;
+							contentWrapper.style.height = clampedNextHeight + "px";
+							if (contentWrapper.style.bottom === "0px") {
+								viewport.scrollTop = heightDiff > 0 ? heightDiff : 0;
+								contentWrapper.style.justifyContent = "flex-end";
+							}
+						}
+					}
+				}
+				prevScrollTopRef.current = viewport.scrollTop;
+			})
+		})
+	})] });
+});
+SelectViewport.displayName = VIEWPORT_NAME;
+var GROUP_NAME = "SelectGroup";
+var [SelectGroupContextProvider, useSelectGroupContext] = createSelectContext(GROUP_NAME);
+var SelectGroup$1 = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeSelect, ...groupProps } = props;
+	const groupId = useId();
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectGroupContextProvider, {
+		scope: __scopeSelect,
+		id: groupId,
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+			role: "group",
+			"aria-labelledby": groupId,
+			...groupProps,
+			ref: forwardedRef
+		})
+	});
+});
+SelectGroup$1.displayName = GROUP_NAME;
+var LABEL_NAME = "SelectLabel";
+var SelectLabel$1 = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeSelect, ...labelProps } = props;
+	const groupContext = useSelectGroupContext(LABEL_NAME, __scopeSelect);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+		id: groupContext.id,
+		...labelProps,
+		ref: forwardedRef
+	});
+});
+SelectLabel$1.displayName = LABEL_NAME;
+var ITEM_NAME = "SelectItem";
+var [SelectItemContextProvider, useSelectItemContext] = createSelectContext(ITEM_NAME);
+var SelectItem$1 = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeSelect, value, disabled = false, textValue: textValueProp, ...itemProps } = props;
+	const context = useSelectContext(ITEM_NAME, __scopeSelect);
+	const contentContext = useSelectContentContext(ITEM_NAME, __scopeSelect);
+	const isSelected = context.value === value;
+	const [textValue, setTextValue] = import_react.useState(textValueProp ?? "");
+	const [isFocused, setIsFocused] = import_react.useState(false);
+	const composedRefs = useComposedRefs(forwardedRef, (node) => contentContext.itemRefCallback?.(node, value, disabled));
+	const textId = useId();
+	const pointerTypeRef = import_react.useRef("touch");
+	const handleSelect = () => {
+		if (!disabled) {
+			context.onValueChange(value);
+			context.onOpenChange(false);
+		}
+	};
+	if (value === "") throw new Error("A <Select.Item /> must have a value prop that is not an empty string. This is because the Select value can be set to an empty string to clear the selection and show the placeholder.");
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItemContextProvider, {
+		scope: __scopeSelect,
+		value,
+		disabled,
+		textId,
+		isSelected,
+		onItemTextChange: import_react.useCallback((node) => {
+			setTextValue((prevTextValue) => prevTextValue || (node?.textContent ?? "").trim());
+		}, []),
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Collection.ItemSlot, {
+			scope: __scopeSelect,
+			value,
+			disabled,
+			textValue,
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+				role: "option",
+				"aria-labelledby": textId,
+				"data-highlighted": isFocused ? "" : void 0,
+				"aria-selected": isSelected && isFocused,
+				"data-state": isSelected ? "checked" : "unchecked",
+				"aria-disabled": disabled || void 0,
+				"data-disabled": disabled ? "" : void 0,
+				tabIndex: disabled ? void 0 : -1,
+				...itemProps,
+				ref: composedRefs,
+				onFocus: composeEventHandlers(itemProps.onFocus, () => setIsFocused(true)),
+				onBlur: composeEventHandlers(itemProps.onBlur, () => setIsFocused(false)),
+				onClick: composeEventHandlers(itemProps.onClick, () => {
+					if (pointerTypeRef.current !== "mouse") handleSelect();
+				}),
+				onPointerUp: composeEventHandlers(itemProps.onPointerUp, () => {
+					if (pointerTypeRef.current === "mouse") handleSelect();
+				}),
+				onPointerDown: composeEventHandlers(itemProps.onPointerDown, (event) => {
+					pointerTypeRef.current = event.pointerType;
+				}),
+				onPointerMove: composeEventHandlers(itemProps.onPointerMove, (event) => {
+					pointerTypeRef.current = event.pointerType;
+					if (disabled) contentContext.onItemLeave?.();
+					else if (pointerTypeRef.current === "mouse") event.currentTarget.focus({ preventScroll: true });
+				}),
+				onPointerLeave: composeEventHandlers(itemProps.onPointerLeave, (event) => {
+					if (event.currentTarget === document.activeElement) contentContext.onItemLeave?.();
+				}),
+				onKeyDown: composeEventHandlers(itemProps.onKeyDown, (event) => {
+					if (contentContext.searchRef?.current !== "" && event.key === " ") return;
+					if (SELECTION_KEYS.includes(event.key)) handleSelect();
+					if (event.key === " ") event.preventDefault();
+				})
+			})
+		})
+	});
+});
+SelectItem$1.displayName = ITEM_NAME;
+var ITEM_TEXT_NAME = "SelectItemText";
+var SelectItemText = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeSelect, className, style, ...itemTextProps } = props;
+	const context = useSelectContext(ITEM_TEXT_NAME, __scopeSelect);
+	const contentContext = useSelectContentContext(ITEM_TEXT_NAME, __scopeSelect);
+	const itemContext = useSelectItemContext(ITEM_TEXT_NAME, __scopeSelect);
+	const nativeOptionsContext = useSelectNativeOptionsContext(ITEM_TEXT_NAME, __scopeSelect);
+	const [itemTextNode, setItemTextNode] = import_react.useState(null);
+	const composedRefs = useComposedRefs(forwardedRef, (node) => setItemTextNode(node), itemContext.onItemTextChange, (node) => contentContext.itemTextRefCallback?.(node, itemContext.value, itemContext.disabled));
+	const textContent = itemTextNode?.textContent;
+	const nativeOption = import_react.useMemo(() => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("option", {
+		value: itemContext.value,
+		disabled: itemContext.disabled,
+		children: textContent
+	}, itemContext.value), [
+		itemContext.disabled,
+		itemContext.value,
+		textContent
+	]);
+	const { onNativeOptionAdd, onNativeOptionRemove } = nativeOptionsContext;
+	useLayoutEffect2(() => {
+		onNativeOptionAdd(nativeOption);
+		return () => onNativeOptionRemove(nativeOption);
+	}, [
+		onNativeOptionAdd,
+		onNativeOptionRemove,
+		nativeOption
+	]);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.span, {
+		id: itemContext.textId,
+		...itemTextProps,
+		ref: composedRefs
+	}), itemContext.isSelected && context.valueNode && !context.valueNodeHasChildren ? import_react_dom.createPortal(itemTextProps.children, context.valueNode) : null] });
+});
+SelectItemText.displayName = ITEM_TEXT_NAME;
+var ITEM_INDICATOR_NAME = "SelectItemIndicator";
+var SelectItemIndicator = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeSelect, ...itemIndicatorProps } = props;
+	return useSelectItemContext(ITEM_INDICATOR_NAME, __scopeSelect).isSelected ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.span, {
+		"aria-hidden": true,
+		...itemIndicatorProps,
+		ref: forwardedRef
+	}) : null;
+});
+SelectItemIndicator.displayName = ITEM_INDICATOR_NAME;
+var SCROLL_UP_BUTTON_NAME = "SelectScrollUpButton";
+var SelectScrollUpButton$1 = import_react.forwardRef((props, forwardedRef) => {
+	const contentContext = useSelectContentContext(SCROLL_UP_BUTTON_NAME, props.__scopeSelect);
+	const viewportContext = useSelectViewportContext(SCROLL_UP_BUTTON_NAME, props.__scopeSelect);
+	const [canScrollUp, setCanScrollUp] = import_react.useState(false);
+	const composedRefs = useComposedRefs(forwardedRef, viewportContext.onScrollButtonChange);
+	useLayoutEffect2(() => {
+		if (contentContext.viewport && contentContext.isPositioned) {
+			let handleScroll2 = function() {
+				setCanScrollUp(viewport.scrollTop > 0);
+			};
+			const viewport = contentContext.viewport;
+			handleScroll2();
+			viewport.addEventListener("scroll", handleScroll2);
+			return () => viewport.removeEventListener("scroll", handleScroll2);
+		}
+	}, [contentContext.viewport, contentContext.isPositioned]);
+	return canScrollUp ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectScrollButtonImpl, {
+		...props,
+		ref: composedRefs,
+		onAutoScroll: () => {
+			const { viewport, selectedItem } = contentContext;
+			if (viewport && selectedItem) viewport.scrollTop = viewport.scrollTop - selectedItem.offsetHeight;
+		}
+	}) : null;
+});
+SelectScrollUpButton$1.displayName = SCROLL_UP_BUTTON_NAME;
+var SCROLL_DOWN_BUTTON_NAME = "SelectScrollDownButton";
+var SelectScrollDownButton$1 = import_react.forwardRef((props, forwardedRef) => {
+	const contentContext = useSelectContentContext(SCROLL_DOWN_BUTTON_NAME, props.__scopeSelect);
+	const viewportContext = useSelectViewportContext(SCROLL_DOWN_BUTTON_NAME, props.__scopeSelect);
+	const [canScrollDown, setCanScrollDown] = import_react.useState(false);
+	const composedRefs = useComposedRefs(forwardedRef, viewportContext.onScrollButtonChange);
+	useLayoutEffect2(() => {
+		if (contentContext.viewport && contentContext.isPositioned) {
+			let handleScroll2 = function() {
+				const maxScroll = viewport.scrollHeight - viewport.clientHeight;
+				setCanScrollDown(Math.ceil(viewport.scrollTop) < maxScroll);
+			};
+			const viewport = contentContext.viewport;
+			handleScroll2();
+			viewport.addEventListener("scroll", handleScroll2);
+			return () => viewport.removeEventListener("scroll", handleScroll2);
+		}
+	}, [contentContext.viewport, contentContext.isPositioned]);
+	return canScrollDown ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectScrollButtonImpl, {
+		...props,
+		ref: composedRefs,
+		onAutoScroll: () => {
+			const { viewport, selectedItem } = contentContext;
+			if (viewport && selectedItem) viewport.scrollTop = viewport.scrollTop + selectedItem.offsetHeight;
+		}
+	}) : null;
+});
+SelectScrollDownButton$1.displayName = SCROLL_DOWN_BUTTON_NAME;
+var SelectScrollButtonImpl = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeSelect, onAutoScroll, ...scrollIndicatorProps } = props;
+	const contentContext = useSelectContentContext("SelectScrollButton", __scopeSelect);
+	const autoScrollTimerRef = import_react.useRef(null);
+	const getItems = useCollection(__scopeSelect);
+	const clearAutoScrollTimer = import_react.useCallback(() => {
+		if (autoScrollTimerRef.current !== null) {
+			window.clearInterval(autoScrollTimerRef.current);
+			autoScrollTimerRef.current = null;
+		}
+	}, []);
+	import_react.useEffect(() => {
+		return () => clearAutoScrollTimer();
+	}, [clearAutoScrollTimer]);
+	useLayoutEffect2(() => {
+		getItems().find((item) => item.ref.current === document.activeElement)?.ref.current?.scrollIntoView({ block: "nearest" });
+	}, [getItems]);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+		"aria-hidden": true,
+		...scrollIndicatorProps,
+		ref: forwardedRef,
+		style: {
+			flexShrink: 0,
+			...scrollIndicatorProps.style
+		},
+		onPointerDown: composeEventHandlers(scrollIndicatorProps.onPointerDown, () => {
+			if (autoScrollTimerRef.current === null) autoScrollTimerRef.current = window.setInterval(onAutoScroll, 50);
+		}),
+		onPointerMove: composeEventHandlers(scrollIndicatorProps.onPointerMove, () => {
+			contentContext.onItemLeave?.();
+			if (autoScrollTimerRef.current === null) autoScrollTimerRef.current = window.setInterval(onAutoScroll, 50);
+		}),
+		onPointerLeave: composeEventHandlers(scrollIndicatorProps.onPointerLeave, () => {
+			clearAutoScrollTimer();
+		})
+	});
+});
+var SEPARATOR_NAME = "SelectSeparator";
+var SelectSeparator$1 = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeSelect, ...separatorProps } = props;
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.div, {
+		"aria-hidden": true,
+		...separatorProps,
+		ref: forwardedRef
+	});
+});
+SelectSeparator$1.displayName = SEPARATOR_NAME;
+var ARROW_NAME = "SelectArrow";
+var SelectArrow = import_react.forwardRef((props, forwardedRef) => {
+	const { __scopeSelect, ...arrowProps } = props;
+	const popperScope = usePopperScope(__scopeSelect);
+	const context = useSelectContext(ARROW_NAME, __scopeSelect);
+	const contentContext = useSelectContentContext(ARROW_NAME, __scopeSelect);
+	return context.open && contentContext.position === "popper" ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Arrow, {
+		...popperScope,
+		...arrowProps,
+		ref: forwardedRef
+	}) : null;
+});
+SelectArrow.displayName = ARROW_NAME;
+var BUBBLE_INPUT_NAME = "SelectBubbleInput";
+var SelectBubbleInput = import_react.forwardRef(({ __scopeSelect, value, ...props }, forwardedRef) => {
+	const ref = import_react.useRef(null);
+	const composedRefs = useComposedRefs(forwardedRef, ref);
+	const prevValue = usePrevious(value);
+	import_react.useEffect(() => {
+		const select = ref.current;
+		if (!select) return;
+		const selectProto = window.HTMLSelectElement.prototype;
+		const setValue = Object.getOwnPropertyDescriptor(selectProto, "value").set;
+		if (prevValue !== value && setValue) {
+			const event = new Event("change", { bubbles: true });
+			setValue.call(select, value);
+			select.dispatchEvent(event);
+		}
+	}, [prevValue, value]);
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Primitive$1.select, {
+		...props,
+		style: {
+			...VISUALLY_HIDDEN_STYLES,
+			...props.style
+		},
+		ref: composedRefs,
+		defaultValue: value
+	});
+});
+SelectBubbleInput.displayName = BUBBLE_INPUT_NAME;
+function shouldShowPlaceholder(value) {
+	return value === "" || value === void 0;
+}
+function useTypeaheadSearch(onSearchChange) {
+	const handleSearchChange = useCallbackRef$1(onSearchChange);
+	const searchRef = import_react.useRef("");
+	const timerRef = import_react.useRef(0);
+	const handleTypeaheadSearch = import_react.useCallback((key) => {
+		const search = searchRef.current + key;
+		handleSearchChange(search);
+		(function updateSearch(value) {
+			searchRef.current = value;
+			window.clearTimeout(timerRef.current);
+			if (value !== "") timerRef.current = window.setTimeout(() => updateSearch(""), 1e3);
+		})(search);
+	}, [handleSearchChange]);
+	const resetTypeahead = import_react.useCallback(() => {
+		searchRef.current = "";
+		window.clearTimeout(timerRef.current);
+	}, []);
+	import_react.useEffect(() => {
+		return () => window.clearTimeout(timerRef.current);
+	}, []);
+	return [
+		searchRef,
+		handleTypeaheadSearch,
+		resetTypeahead
+	];
+}
+function findNextItem(items, search, currentItem) {
+	const normalizedSearch = search.length > 1 && Array.from(search).every((char) => char === search[0]) ? search[0] : search;
+	const currentItemIndex = currentItem ? items.indexOf(currentItem) : -1;
+	let wrappedItems = wrapArray(items, Math.max(currentItemIndex, 0));
+	if (normalizedSearch.length === 1) wrappedItems = wrappedItems.filter((v) => v !== currentItem);
+	const nextItem = wrappedItems.find((item) => item.textValue.toLowerCase().startsWith(normalizedSearch.toLowerCase()));
+	return nextItem !== currentItem ? nextItem : void 0;
+}
+function wrapArray(array, startIndex) {
+	return array.map((_, index) => array[(startIndex + index) % array.length]);
+}
+var Root2 = Select$1;
+var Trigger$1 = SelectTrigger$1;
+var Value = SelectValue$1;
+var Icon = SelectIcon;
+var Portal$1 = SelectPortal;
+var Content2 = SelectContent$1;
+var Viewport = SelectViewport;
+var Label$2 = SelectLabel$1;
+var Item = SelectItem$1;
+var ItemText = SelectItemText;
+var ItemIndicator = SelectItemIndicator;
+var ScrollUpButton = SelectScrollUpButton$1;
+var ScrollDownButton = SelectScrollDownButton$1;
+var Separator = SelectSeparator$1;
+//#endregion
+//#region src/components/ui/select.tsx
+var Select = Root2;
+var SelectValue = Value;
+var SelectTrigger = import_react.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Trigger$1, {
+	"data-uid": "src/components/ui/select.tsx:18:3",
+	"data-prohibitions": "[editContent]",
+	ref,
+	className: cn$1("flex h-10 w-full items-center justify-between rounded-md border border-input bg-background px-3 py-2 text-sm ring-offset-background data-[placeholder]:text-muted-foreground focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2 disabled:cursor-not-allowed disabled:opacity-50 [&>span]:line-clamp-1", className),
+	...props,
+	children: [children, /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Icon, {
+		"data-uid": "src/components/ui/select.tsx:27:5",
+		"data-prohibitions": "[]",
+		asChild: true,
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronDown, {
+			"data-uid": "src/components/ui/select.tsx:28:7",
+			"data-prohibitions": "[editContent]",
+			className: "h-4 w-4 opacity-50"
+		})
+	})]
+}));
+SelectTrigger.displayName = Trigger$1.displayName;
+var SelectScrollUpButton = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ScrollUpButton, {
+	"data-uid": "src/components/ui/select.tsx:38:3",
+	"data-prohibitions": "[editContent]",
+	ref,
+	className: cn$1("flex cursor-default items-center justify-center py-1", className),
+	...props,
+	children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronUp, {
+		"data-uid": "src/components/ui/select.tsx:43:5",
+		"data-prohibitions": "[editContent]",
+		className: "h-4 w-4"
+	})
+}));
+SelectScrollUpButton.displayName = ScrollUpButton.displayName;
+var SelectScrollDownButton = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ScrollDownButton, {
+	"data-uid": "src/components/ui/select.tsx:52:3",
+	"data-prohibitions": "[editContent]",
+	ref,
+	className: cn$1("flex cursor-default items-center justify-center py-1", className),
+	...props,
+	children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ChevronDown, {
+		"data-uid": "src/components/ui/select.tsx:57:5",
+		"data-prohibitions": "[editContent]",
+		className: "h-4 w-4"
+	})
+}));
+SelectScrollDownButton.displayName = ScrollDownButton.displayName;
+var SelectContent = import_react.forwardRef(({ className, children, position = "popper", ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Portal$1, {
+	"data-uid": "src/components/ui/select.tsx:66:3",
+	"data-prohibitions": "[editContent]",
+	children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Content2, {
+		"data-uid": "src/components/ui/select.tsx:67:5",
+		"data-prohibitions": "[editContent]",
+		ref,
+		className: cn$1("relative z-50 max-h-[--radix-select-content-available-height] min-w-[8rem] overflow-y-auto overflow-x-hidden rounded-md border bg-popover text-popover-foreground shadow-md data-[state=open]:animate-in data-[state=closed]:animate-out data-[state=closed]:fade-out-0 data-[state=open]:fade-in-0 data-[state=closed]:zoom-out-95 data-[state=open]:zoom-in-95 data-[side=bottom]:slide-in-from-top-2 data-[side=left]:slide-in-from-right-2 data-[side=right]:slide-in-from-left-2 data-[side=top]:slide-in-from-bottom-2 origin-[--radix-select-content-transform-origin]", position === "popper" && "data-[side=bottom]:translate-y-1 data-[side=left]:-translate-x-1 data-[side=right]:translate-x-1 data-[side=top]:-translate-y-1", className),
+		position,
+		...props,
+		children: [
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectScrollUpButton, {
+				"data-uid": "src/components/ui/select.tsx:78:7",
+				"data-prohibitions": "[editContent]"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Viewport, {
+				"data-uid": "src/components/ui/select.tsx:79:7",
+				"data-prohibitions": "[editContent]",
+				className: cn$1("p-1", position === "popper" && "h-[var(--radix-select-trigger-height)] w-full min-w-[var(--radix-select-trigger-width)]"),
+				children
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectScrollDownButton, {
+				"data-uid": "src/components/ui/select.tsx:88:7",
+				"data-prohibitions": "[editContent]"
+			})
+		]
+	})
+}));
+SelectContent.displayName = Content2.displayName;
+var SelectLabel = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label$2, {
+	"data-uid": "src/components/ui/select.tsx:98:3",
+	"data-prohibitions": "[editContent]",
+	ref,
+	className: cn$1("py-1.5 pl-8 pr-2 text-sm font-semibold", className),
+	...props
+}));
+SelectLabel.displayName = Label$2.displayName;
+var SelectItem = import_react.forwardRef(({ className, children, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Item, {
+	"data-uid": "src/components/ui/select.tsx:110:3",
+	"data-prohibitions": "[editContent]",
+	ref,
+	className: cn$1("relative flex w-full cursor-default select-none items-center rounded-sm py-1.5 pl-8 pr-2 text-sm outline-none focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50", className),
+	...props,
+	children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+		"data-uid": "src/components/ui/select.tsx:118:5",
+		"data-prohibitions": "[]",
+		className: "absolute left-2 flex h-3.5 w-3.5 items-center justify-center",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ItemIndicator, {
+			"data-uid": "src/components/ui/select.tsx:119:7",
+			"data-prohibitions": "[]",
+			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Check, {
+				"data-uid": "src/components/ui/select.tsx:120:9",
+				"data-prohibitions": "[editContent]",
+				className: "h-4 w-4"
+			})
+		})
+	}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ItemText, {
+		"data-uid": "src/components/ui/select.tsx:124:5",
+		"data-prohibitions": "[editContent]",
+		children
+	})]
+}));
+SelectItem.displayName = Item.displayName;
+var SelectSeparator = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Separator, {
+	"data-uid": "src/components/ui/select.tsx:133:3",
+	"data-prohibitions": "[editContent]",
+	ref,
+	className: cn$1("-mx-1 my-1 h-px bg-muted", className),
+	...props
+}));
+SelectSeparator.displayName = Separator.displayName;
+//#endregion
+//#region src/components/ui/card.tsx
+var Card = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+	"data-uid": "src/components/ui/card.tsx:8:5",
+	"data-prohibitions": "[editContent]",
+	ref,
+	className: cn$1("rounded-lg border bg-card text-card-foreground shadow-sm", className),
+	...props
+}));
+Card.displayName = "Card";
+var CardHeader = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+	"data-uid": "src/components/ui/card.tsx:19:5",
+	"data-prohibitions": "[editContent]",
+	ref,
+	className: cn$1("flex flex-col space-y-1.5 p-6", className),
+	...props
+}));
+CardHeader.displayName = "CardHeader";
+var CardTitle = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+	"data-uid": "src/components/ui/card.tsx:26:5",
+	"data-prohibitions": "[editContent]",
+	ref,
+	className: cn$1("text-2xl font-semibold leading-none tracking-tight", className),
+	...props
+}));
+CardTitle.displayName = "CardTitle";
+var CardDescription = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+	"data-uid": "src/components/ui/card.tsx:37:5",
+	"data-prohibitions": "[editContent]",
+	ref,
+	className: cn$1("text-sm text-muted-foreground", className),
+	...props
+}));
+CardDescription.displayName = "CardDescription";
+var CardContent = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+	"data-uid": "src/components/ui/card.tsx:44:5",
+	"data-prohibitions": "[editContent]",
+	ref,
+	className: cn$1("p-6 pt-0", className),
+	...props
+}));
+CardContent.displayName = "CardContent";
+var CardFooter = import_react.forwardRef(({ className, ...props }, ref) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+	"data-uid": "src/components/ui/card.tsx:51:5",
+	"data-prohibitions": "[editContent]",
+	ref,
+	className: cn$1("flex items-center p-6 pt-0", className),
+	...props
+}));
+CardFooter.displayName = "CardFooter";
+//#endregion
+//#region src/components/ui/badge.tsx
+var badgeVariants = cva("inline-flex items-center rounded-full border px-2.5 py-0.5 text-xs font-semibold transition-colors focus:outline-none focus:ring-2 focus:ring-ring focus:ring-offset-2", {
+	variants: { variant: {
+		default: "border-transparent bg-primary text-primary-foreground hover:bg-primary/80",
+		secondary: "border-transparent bg-secondary text-secondary-foreground hover:bg-secondary/80",
+		destructive: "border-transparent bg-destructive text-destructive-foreground hover:bg-destructive/80",
+		outline: "text-foreground"
+	} },
+	defaultVariants: { variant: "default" }
+});
+function Badge({ className, variant, ...props }) {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		"data-uid": "src/components/ui/badge.tsx:30:10",
+		"data-prohibitions": "[editContent]",
+		className: cn$1(badgeVariants({ variant }), className),
+		...props
+	});
+}
+//#endregion
 //#region src/pages/Catalogo.tsx
 function Catalogo() {
 	const navigate = useNavigate();
@@ -48057,4 +48189,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 }));
 //#endregion
 
-//# sourceMappingURL=index-Dw_9_3PK.js.map
+//# sourceMappingURL=index-BBvrVoKo.js.map
