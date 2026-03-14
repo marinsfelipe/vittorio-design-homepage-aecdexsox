@@ -16027,6 +16027,11 @@ function useOutlet(context) {
 	let outlet = import_react.useContext(RouteContext).outlet;
 	return import_react.useMemo(() => outlet && /* @__PURE__ */ import_react.createElement(OutletContext.Provider, { value: context }, outlet), [outlet, context]);
 }
+function useParams() {
+	let { matches } = import_react.useContext(RouteContext);
+	let routeMatch = matches[matches.length - 1];
+	return routeMatch ? routeMatch.params : {};
+}
 function useResolvedPath(to, { relative } = {}) {
 	let { matches } = import_react.useContext(RouteContext);
 	let { pathname: locationPathname } = useLocation();
@@ -19021,6 +19026,13 @@ var createLucideIcon = (iconName, iconNode) => {
 	Component.displayName = toPascalCase(iconName);
 	return Component;
 };
+var ArrowLeft = createLucideIcon("arrow-left", [["path", {
+	d: "m12 19-7-7 7-7",
+	key: "1l729n"
+}], ["path", {
+	d: "M19 12H5",
+	key: "x3x0zl"
+}]]);
 var ArrowRight = createLucideIcon("arrow-right", [["path", {
 	d: "M5 12h14",
 	key: "1ays0h"
@@ -19040,6 +19052,31 @@ var ChevronUp = createLucideIcon("chevron-up", [["path", {
 	d: "m18 15-6-6-6 6",
 	key: "153udz"
 }]]);
+var CircleCheck = createLucideIcon("circle-check", [["circle", {
+	cx: "12",
+	cy: "12",
+	r: "10",
+	key: "1mglay"
+}], ["path", {
+	d: "m9 12 2 2 4-4",
+	key: "dzmm74"
+}]]);
+var CirclePlus = createLucideIcon("circle-plus", [
+	["circle", {
+		cx: "12",
+		cy: "12",
+		r: "10",
+		key: "1mglay"
+	}],
+	["path", {
+		d: "M8 12h8",
+		key: "1wcyev"
+	}],
+	["path", {
+		d: "M12 8v8",
+		key: "napkw2"
+	}]
+]);
 var Expand = createLucideIcon("expand", [
 	["path", {
 		d: "m15 15 6 6",
@@ -19138,12 +19175,126 @@ var Phone = createLucideIcon("phone", [["path", {
 	d: "M13.832 16.568a1 1 0 0 0 1.213-.303l.355-.465A2 2 0 0 1 17 15h3a2 2 0 0 1 2 2v3a2 2 0 0 1-2 2A18 18 0 0 1 2 4a2 2 0 0 1 2-2h3a2 2 0 0 1 2 2v3a2 2 0 0 1-.8 1.6l-.468.351a1 1 0 0 0-.292 1.233 14 14 0 0 0 6.392 6.384",
 	key: "9njp5v"
 }]]);
+var Ruler = createLucideIcon("ruler", [
+	["path", {
+		d: "M21.3 15.3a2.4 2.4 0 0 1 0 3.4l-2.6 2.6a2.4 2.4 0 0 1-3.4 0L2.7 8.7a2.41 2.41 0 0 1 0-3.4l2.6-2.6a2.41 2.41 0 0 1 3.4 0Z",
+		key: "icamh8"
+	}],
+	["path", {
+		d: "m14.5 12.5 2-2",
+		key: "inckbg"
+	}],
+	["path", {
+		d: "m11.5 9.5 2-2",
+		key: "fmmyf7"
+	}],
+	["path", {
+		d: "m8.5 6.5 2-2",
+		key: "vc6u1g"
+	}],
+	["path", {
+		d: "m17.5 15.5 2-2",
+		key: "wo5hmg"
+	}]
+]);
+var Share2 = createLucideIcon("share-2", [
+	["circle", {
+		cx: "18",
+		cy: "5",
+		r: "3",
+		key: "gq8acd"
+	}],
+	["circle", {
+		cx: "6",
+		cy: "12",
+		r: "3",
+		key: "w7nqdw"
+	}],
+	["circle", {
+		cx: "18",
+		cy: "19",
+		r: "3",
+		key: "1xt0gg"
+	}],
+	["line", {
+		x1: "8.59",
+		x2: "15.42",
+		y1: "13.51",
+		y2: "17.49",
+		key: "47mynk"
+	}],
+	["line", {
+		x1: "15.41",
+		x2: "8.59",
+		y1: "6.51",
+		y2: "10.49",
+		key: "1n3mei"
+	}]
+]);
+var Snowflake = createLucideIcon("snowflake", [
+	["path", {
+		d: "m10 20-1.25-2.5L6 18",
+		key: "18frcb"
+	}],
+	["path", {
+		d: "M10 4 8.75 6.5 6 6",
+		key: "7mghy3"
+	}],
+	["path", {
+		d: "m14 20 1.25-2.5L18 18",
+		key: "1chtki"
+	}],
+	["path", {
+		d: "m14 4 1.25 2.5L18 6",
+		key: "1b4wsy"
+	}],
+	["path", {
+		d: "m17 21-3-6h-4",
+		key: "15hhxa"
+	}],
+	["path", {
+		d: "m17 3-3 6 1.5 3",
+		key: "11697g"
+	}],
+	["path", {
+		d: "M2 12h6.5L10 9",
+		key: "kv9z4n"
+	}],
+	["path", {
+		d: "m20 10-1.5 2 1.5 2",
+		key: "1swlpi"
+	}],
+	["path", {
+		d: "M22 12h-6.5L14 15",
+		key: "1mxi28"
+	}],
+	["path", {
+		d: "m4 10 1.5 2L4 14",
+		key: "k9enpj"
+	}],
+	["path", {
+		d: "m7 21 3-6-1.5-3",
+		key: "j8hb9u"
+	}],
+	["path", {
+		d: "m7 3 3 6h4",
+		key: "1otusx"
+	}]
+]);
+var Thermometer = createLucideIcon("thermometer", [["path", {
+	d: "M14 4v10.54a4 4 0 1 1-4 0V4a2 2 0 0 1 4 0Z",
+	key: "17jzev"
+}]]);
 var X = createLucideIcon("x", [["path", {
 	d: "M18 6 6 18",
 	key: "1bl5f8"
 }], ["path", {
 	d: "m6 6 12 12",
 	key: "d8bk6v"
+}]]);
+var Zap = createLucideIcon("zap", [["path", {
+	d: "M4 14a1 1 0 0 1-.78-1.63l9.9-10.2a.5.5 0 0 1 .86.46l-1.92 6.02A1 1 0 0 0 13 10h7a1 1 0 0 1 .78 1.63l-9.9 10.2a.5.5 0 0 1-.86-.46l1.92-6.02A1 1 0 0 0 11 14z",
+	key: "1xq2db"
 }]]);
 //#endregion
 //#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/tailwind-merge@2.6.1/node_modules/tailwind-merge/dist/bundle-mjs.mjs
@@ -26792,32 +26943,32 @@ function Catalogo() {
 		return result;
 	}, [selectedFamily, sortBy]);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-		"data-uid": "src/pages/Catalogo.tsx:154:5",
+		"data-uid": "src/pages/Catalogo.tsx:155:5",
 		"data-prohibitions": "[editContent]",
 		className: "w-full pt-32 pb-24 bg-background min-h-screen",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			"data-uid": "src/pages/Catalogo.tsx:155:7",
+			"data-uid": "src/pages/Catalogo.tsx:156:7",
 			"data-prohibitions": "[editContent]",
 			className: "container",
 			children: [
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/pages/Catalogo.tsx:157:9",
+					"data-uid": "src/pages/Catalogo.tsx:158:9",
 					"data-prohibitions": "[]",
 					className: "mb-12 max-w-2xl opacity-0 animate-fade-in-up",
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-							"data-uid": "src/pages/Catalogo.tsx:158:11",
+							"data-uid": "src/pages/Catalogo.tsx:159:11",
 							"data-prohibitions": "[]",
 							className: "text-4xl md:text-6xl font-serif text-white mb-6",
 							children: "Nosso Catálogo"
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							"data-uid": "src/pages/Catalogo.tsx:159:11",
+							"data-uid": "src/pages/Catalogo.tsx:160:11",
 							"data-prohibitions": "[]",
 							className: "h-px w-24 bg-primary mb-6"
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							"data-uid": "src/pages/Catalogo.tsx:160:11",
+							"data-uid": "src/pages/Catalogo.tsx:161:11",
 							"data-prohibitions": "[]",
 							className: "text-lg text-muted-foreground font-light",
 							children: "Explore nossa coleção de peças exclusivas. Balcões, Vitrines e Expositores desenvolvidos com a precisão do inox e detalhes em ouro para transformar seu ambiente."
@@ -26825,12 +26976,12 @@ function Catalogo() {
 					]
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/pages/Catalogo.tsx:167:9",
+					"data-uid": "src/pages/Catalogo.tsx:168:9",
 					"data-prohibitions": "[editContent]",
 					className: "flex flex-col lg:flex-row justify-between items-start lg:items-center mb-10 gap-6 opacity-0 animate-fade-in-up",
 					style: { animationDelay: "0.2s" },
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						"data-uid": "src/pages/Catalogo.tsx:171:11",
+						"data-uid": "src/pages/Catalogo.tsx:172:11",
 						"data-prohibitions": "[editContent]",
 						className: "flex flex-wrap gap-3",
 						children: [
@@ -26839,7 +26990,7 @@ function Catalogo() {
 							"Vitrines",
 							"Expositores"
 						].map((fam) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-							"data-uid": "src/pages/Catalogo.tsx:173:15",
+							"data-uid": "src/pages/Catalogo.tsx:174:15",
 							"data-prohibitions": "[editContent]",
 							variant: selectedFamily === fam ? "default" : "outline",
 							onClick: () => setSelectedFamily(fam),
@@ -26847,48 +26998,48 @@ function Catalogo() {
 							children: fam === "All" ? "Todos os Produtos" : fam
 						}, fam))
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						"data-uid": "src/pages/Catalogo.tsx:189:11",
+						"data-uid": "src/pages/Catalogo.tsx:190:11",
 						"data-prohibitions": "[]",
 						className: "w-full lg:w-72",
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
-							"data-uid": "src/pages/Catalogo.tsx:190:13",
+							"data-uid": "src/pages/Catalogo.tsx:191:13",
 							"data-prohibitions": "[]",
 							value: sortBy,
 							onValueChange: setSortBy,
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectTrigger, {
-								"data-uid": "src/pages/Catalogo.tsx:191:15",
+								"data-uid": "src/pages/Catalogo.tsx:192:15",
 								"data-prohibitions": "[]",
 								className: "rounded-none border-white/20 text-white bg-transparent focus:ring-primary focus:ring-offset-0 h-12",
 								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectValue, {
-									"data-uid": "src/pages/Catalogo.tsx:192:17",
+									"data-uid": "src/pages/Catalogo.tsx:193:17",
 									"data-prohibitions": "[editContent]",
 									placeholder: "Ordenar por..."
 								})
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SelectContent, {
-								"data-uid": "src/pages/Catalogo.tsx:194:15",
+								"data-uid": "src/pages/Catalogo.tsx:195:15",
 								"data-prohibitions": "[]",
 								className: "rounded-none bg-[#111] border-white/10 text-white",
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
-										"data-uid": "src/pages/Catalogo.tsx:195:17",
+										"data-uid": "src/pages/Catalogo.tsx:196:17",
 										"data-prohibitions": "[]",
 										value: "name-asc",
 										children: "Nome (A-Z)"
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
-										"data-uid": "src/pages/Catalogo.tsx:196:17",
+										"data-uid": "src/pages/Catalogo.tsx:197:17",
 										"data-prohibitions": "[]",
 										value: "name-desc",
 										children: "Nome (Z-A)"
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
-										"data-uid": "src/pages/Catalogo.tsx:197:17",
+										"data-uid": "src/pages/Catalogo.tsx:198:17",
 										"data-prohibitions": "[]",
 										value: "size-asc",
 										children: "Tamanho (Menor - Maior)"
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
-										"data-uid": "src/pages/Catalogo.tsx:198:17",
+										"data-uid": "src/pages/Catalogo.tsx:199:17",
 										"data-prohibitions": "[]",
 										value: "size-desc",
 										children: "Tamanho (Maior - Menor)"
@@ -26899,69 +27050,75 @@ function Catalogo() {
 					})]
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					"data-uid": "src/pages/Catalogo.tsx:205:9",
+					"data-uid": "src/pages/Catalogo.tsx:206:9",
 					"data-prohibitions": "[editContent]",
 					className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 opacity-0 animate-fade-in-up",
 					style: { animationDelay: "0.3s" },
-					children: sortedAndFiltered.map((product) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, {
-						"data-uid": "src/pages/Catalogo.tsx:210:13",
+					children: sortedAndFiltered.map((product) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
+						"data-uid": "src/pages/Catalogo.tsx:211:13",
 						"data-prohibitions": "[editContent]",
-						className: "bg-card border-white/5 overflow-hidden group hover:border-primary/50 transition-colors duration-500 rounded-none cursor-pointer flex flex-col",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							"data-uid": "src/pages/Catalogo.tsx:214:15",
+						to: `/produto/${product.id}`,
+						className: "group block h-full",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, {
+							"data-uid": "src/pages/Catalogo.tsx:212:15",
 							"data-prohibitions": "[editContent]",
-							className: "relative aspect-[4/5] overflow-hidden bg-muted/20",
-							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-								"data-uid": "src/pages/Catalogo.tsx:215:17",
+							className: "h-full bg-card border-white/5 overflow-hidden group-hover:border-primary/50 transition-colors duration-500 rounded-none cursor-pointer flex flex-col",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								"data-uid": "src/pages/Catalogo.tsx:213:17",
 								"data-prohibitions": "[editContent]",
-								src: product.img,
-								alt: product.name,
-								className: "w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
-							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								"data-uid": "src/pages/Catalogo.tsx:220:17",
-								"data-prohibitions": "[editContent]",
-								className: "absolute top-4 left-4",
-								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Badge, {
-									"data-uid": "src/pages/Catalogo.tsx:221:19",
+								className: "relative aspect-[4/5] overflow-hidden bg-muted/20",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+									"data-uid": "src/pages/Catalogo.tsx:214:19",
 									"data-prohibitions": "[editContent]",
-									variant: "outline",
-									className: "bg-black/80 text-primary border-primary/50 uppercase tracking-widest text-[10px] rounded-none px-3 py-1 backdrop-blur-md",
-									children: product.family
-								})
+									src: product.img,
+									alt: product.name,
+									className: "w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+									"data-uid": "src/pages/Catalogo.tsx:219:19",
+									"data-prohibitions": "[editContent]",
+									className: "absolute top-4 left-4",
+									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Badge, {
+										"data-uid": "src/pages/Catalogo.tsx:220:21",
+										"data-prohibitions": "[editContent]",
+										variant: "outline",
+										className: "bg-black/80 text-primary border-primary/50 uppercase tracking-widest text-[10px] rounded-none px-3 py-1 backdrop-blur-md",
+										children: product.family
+									})
+								})]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
+								"data-uid": "src/pages/Catalogo.tsx:228:17",
+								"data-prohibitions": "[editContent]",
+								className: "p-6 relative flex-1 flex flex-col",
+								children: [
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+										"data-uid": "src/pages/Catalogo.tsx:229:19",
+										"data-prohibitions": "[editContent]",
+										className: "text-xl font-serif text-white mb-3 group-hover:text-primary transition-colors",
+										children: product.name
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
+										"data-uid": "src/pages/Catalogo.tsx:232:19",
+										"data-prohibitions": "[editContent]",
+										className: "text-sm text-muted-foreground flex items-center gap-2 font-light mt-auto",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Expand, {
+											"data-uid": "src/pages/Catalogo.tsx:233:21",
+											"data-prohibitions": "[editContent]",
+											className: "w-4 h-4 text-primary/70"
+										}), product.dimensions]
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+										"data-uid": "src/pages/Catalogo.tsx:237:19",
+										"data-prohibitions": "[]",
+										className: "mt-6 flex items-center text-xs font-medium text-primary uppercase tracking-widest group-hover:translate-x-2 transition-transform duration-300",
+										children: ["Ver Detalhes ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowRight, {
+											"data-uid": "src/pages/Catalogo.tsx:238:34",
+											"data-prohibitions": "[editContent]",
+											className: "ml-2 h-4 w-4"
+										})]
+									})
+								]
 							})]
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
-							"data-uid": "src/pages/Catalogo.tsx:229:15",
-							"data-prohibitions": "[editContent]",
-							className: "p-6 relative flex-1 flex flex-col",
-							children: [
-								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-									"data-uid": "src/pages/Catalogo.tsx:230:17",
-									"data-prohibitions": "[editContent]",
-									className: "text-xl font-serif text-white mb-3 group-hover:text-primary transition-colors",
-									children: product.name
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-									"data-uid": "src/pages/Catalogo.tsx:233:17",
-									"data-prohibitions": "[editContent]",
-									className: "text-sm text-muted-foreground flex items-center gap-2 font-light mt-auto",
-									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Expand, {
-										"data-uid": "src/pages/Catalogo.tsx:234:19",
-										"data-prohibitions": "[editContent]",
-										className: "w-4 h-4 text-primary/70"
-									}), product.dimensions]
-								}),
-								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									"data-uid": "src/pages/Catalogo.tsx:238:17",
-									"data-prohibitions": "[]",
-									className: "mt-6 flex items-center text-xs font-medium text-primary uppercase tracking-widest group-hover:translate-x-2 transition-transform duration-300",
-									children: ["Ver Detalhes ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowRight, {
-										"data-uid": "src/pages/Catalogo.tsx:239:32",
-										"data-prohibitions": "[editContent]",
-										className: "ml-2 h-4 w-4"
-									})]
-								})
-							]
-						})]
+						})
 					}, product.id))
 				}),
 				sortedAndFiltered.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
@@ -26972,6 +27129,335 @@ function Catalogo() {
 					children: "Nenhum produto encontrado para o filtro selecionado."
 				})
 			]
+		})
+	});
+}
+//#endregion
+//#region src/pages/Produto.tsx
+var mockProductDetails = {
+	id: "v1",
+	code: "VD.EX.VTR.001.00",
+	name: "Vitrine Torre Cristal",
+	category: "Vitrines",
+	description: "A quintessência da exposição de luxo. Desenvolvida com vidros extra-clear e estrutura robusta em aço inox escovado, esta vitrine maximiza a visibilidade dos seus produtos mantendo um rigoroso controle térmico e elegância incomparável.",
+	dimensions: "60cm × 60cm × 180cm",
+	specs: {
+		refrigeracao: "Ar Forçado Dinâmico",
+		temperatura: "+2°C a +8°C",
+		consumo: "0.45 kWh"
+	},
+	standardItems: [
+		"Iluminação LED 4000K em todos os níveis",
+		"Vidros duplos com gás argônio antivapor",
+		"Prateleiras em vidro temperado 8mm",
+		"Controlador digital touch-screen",
+		"Estrutura integral em aço inox 304"
+	],
+	optionalItems: [
+		"Acabamento premium em PVD Gold ou Black",
+		"Rodízios embutidos de alta resistência",
+		"Fechadura magnética invisível",
+		"Sistema de umidificação ativa"
+	],
+	image: "https://img.usecurling.com/p/1200/1600?q=luxury%20glass%20display%20cabinet&color=black"
+};
+function Produto() {
+	const { id } = useParams();
+	const product = {
+		...mockProductDetails,
+		id: id || mockProductDetails.id
+	};
+	const handleWhatsAppShare = () => {
+		const url = window.location.href;
+		const text = `Confira este produto incrível da Vittorio Design: ${product.name} - ${url}`;
+		window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank");
+	};
+	const handleQuoteRequest = () => {
+		const text = `Olá, gostaria de solicitar um orçamento para o produto: ${product.name} (Código: ${product.code}).`;
+		window.open(`https://wa.me/5511999999999?text=${encodeURIComponent(text)}`, "_blank");
+	};
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		"data-uid": "src/pages/Produto.tsx:62:5",
+		"data-prohibitions": "[editContent]",
+		className: "w-full pt-32 pb-24 bg-background min-h-screen",
+		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+			"data-uid": "src/pages/Produto.tsx:63:7",
+			"data-prohibitions": "[editContent]",
+			className: "container",
+			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
+				"data-uid": "src/pages/Produto.tsx:64:9",
+				"data-prohibitions": "[]",
+				to: "/catalogo",
+				className: "inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-8 transition-colors uppercase tracking-widest opacity-0 animate-fade-in-up",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowLeft, {
+					"data-uid": "src/pages/Produto.tsx:68:11",
+					"data-prohibitions": "[editContent]",
+					className: "mr-2 h-4 w-4"
+				}), " Voltar ao Catálogo"]
+			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+				"data-uid": "src/pages/Produto.tsx:71:9",
+				"data-prohibitions": "[editContent]",
+				className: "grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+					"data-uid": "src/pages/Produto.tsx:73:11",
+					"data-prohibitions": "[]",
+					className: "lg:col-span-5 relative opacity-0 animate-fade-in-up",
+					style: { animationDelay: "0.1s" },
+					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						"data-uid": "src/pages/Produto.tsx:77:13",
+						"data-prohibitions": "[]",
+						className: "sticky top-32",
+						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							"data-uid": "src/pages/Produto.tsx:78:15",
+							"data-prohibitions": "[]",
+							className: "relative aspect-[4/5] overflow-hidden bg-muted/20 border border-white/5 p-4 lg:p-8",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+								"data-uid": "src/pages/Produto.tsx:79:17",
+								"data-prohibitions": "[]",
+								className: "absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-transparent z-10"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
+								"data-uid": "src/pages/Produto.tsx:80:17",
+								"data-prohibitions": "[editContent]",
+								src: product.image,
+								alt: product.name,
+								className: "w-full h-full object-cover object-center shadow-2xl relative z-0"
+							})]
+						})
+					})
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					"data-uid": "src/pages/Produto.tsx:90:11",
+					"data-prohibitions": "[editContent]",
+					className: "lg:col-span-7 space-y-12 opacity-0 animate-fade-in-up",
+					style: { animationDelay: "0.2s" },
+					children: [
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							"data-uid": "src/pages/Produto.tsx:94:13",
+							"data-prohibitions": "[editContent]",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									"data-uid": "src/pages/Produto.tsx:95:15",
+									"data-prohibitions": "[editContent]",
+									className: "flex items-center gap-4 mb-4",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Badge, {
+										"data-uid": "src/pages/Produto.tsx:96:17",
+										"data-prohibitions": "[editContent]",
+										variant: "outline",
+										className: "text-primary border-primary/30 tracking-widest uppercase rounded-none px-3 py-1 bg-primary/5",
+										children: product.code
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										"data-uid": "src/pages/Produto.tsx:102:17",
+										"data-prohibitions": "[editContent]",
+										className: "text-xs uppercase tracking-widest text-muted-foreground",
+										children: product.category
+									})]
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
+									"data-uid": "src/pages/Produto.tsx:106:15",
+									"data-prohibitions": "[editContent]",
+									className: "text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 leading-tight",
+									children: product.name
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+									"data-uid": "src/pages/Produto.tsx:109:15",
+									"data-prohibitions": "[editContent]",
+									className: "text-lg text-muted-foreground font-light leading-relaxed",
+									children: product.description
+								})
+							]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							"data-uid": "src/pages/Produto.tsx:115:13",
+							"data-prohibitions": "[editContent]",
+							className: "grid grid-cols-1 md:grid-cols-2 gap-6",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								"data-uid": "src/pages/Produto.tsx:116:15",
+								"data-prohibitions": "[editContent]",
+								className: "bg-card p-6 border border-white/5 flex items-start gap-4",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Ruler, {
+									"data-uid": "src/pages/Produto.tsx:117:17",
+									"data-prohibitions": "[editContent]",
+									className: "w-6 h-6 text-primary shrink-0 mt-1"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									"data-uid": "src/pages/Produto.tsx:118:17",
+									"data-prohibitions": "[editContent]",
+									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										"data-uid": "src/pages/Produto.tsx:119:19",
+										"data-prohibitions": "[]",
+										className: "block text-xs uppercase tracking-widest text-muted-foreground mb-1",
+										children: "Dimensões (L×P×A)"
+									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+										"data-uid": "src/pages/Produto.tsx:122:19",
+										"data-prohibitions": "[editContent]",
+										className: "text-lg text-white font-medium",
+										children: product.dimensions
+									})]
+								})]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								"data-uid": "src/pages/Produto.tsx:126:15",
+								"data-prohibitions": "[editContent]",
+								className: "bg-card p-6 border border-white/5 space-y-4",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+									"data-uid": "src/pages/Produto.tsx:127:17",
+									"data-prohibitions": "[]",
+									className: "block text-xs uppercase tracking-widest text-muted-foreground mb-3",
+									children: "Especificações Técnicas"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+									"data-uid": "src/pages/Produto.tsx:130:17",
+									"data-prohibitions": "[editContent]",
+									className: "space-y-3",
+									children: [
+										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											"data-uid": "src/pages/Produto.tsx:131:19",
+											"data-prohibitions": "[editContent]",
+											className: "flex justify-between items-center border-b border-white/5 pb-2",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+												"data-uid": "src/pages/Produto.tsx:132:21",
+												"data-prohibitions": "[]",
+												className: "text-sm text-muted-foreground flex items-center gap-2",
+												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Snowflake, {
+													"data-uid": "src/pages/Produto.tsx:133:23",
+													"data-prohibitions": "[editContent]",
+													className: "w-4 h-4"
+												}), " Refrigeração"]
+											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+												"data-uid": "src/pages/Produto.tsx:135:21",
+												"data-prohibitions": "[editContent]",
+												className: "text-sm text-white",
+												children: product.specs.refrigeracao
+											})]
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											"data-uid": "src/pages/Produto.tsx:137:19",
+											"data-prohibitions": "[editContent]",
+											className: "flex justify-between items-center border-b border-white/5 pb-2",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+												"data-uid": "src/pages/Produto.tsx:138:21",
+												"data-prohibitions": "[]",
+												className: "text-sm text-muted-foreground flex items-center gap-2",
+												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Thermometer, {
+													"data-uid": "src/pages/Produto.tsx:139:23",
+													"data-prohibitions": "[editContent]",
+													className: "w-4 h-4"
+												}), " Temperatura"]
+											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+												"data-uid": "src/pages/Produto.tsx:141:21",
+												"data-prohibitions": "[editContent]",
+												className: "text-sm text-white",
+												children: product.specs.temperatura
+											})]
+										}),
+										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											"data-uid": "src/pages/Produto.tsx:143:19",
+											"data-prohibitions": "[editContent]",
+											className: "flex justify-between items-center",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
+												"data-uid": "src/pages/Produto.tsx:144:21",
+												"data-prohibitions": "[]",
+												className: "text-sm text-muted-foreground flex items-center gap-2",
+												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Zap, {
+													"data-uid": "src/pages/Produto.tsx:145:23",
+													"data-prohibitions": "[editContent]",
+													className: "w-4 h-4"
+												}), " Consumo"]
+											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+												"data-uid": "src/pages/Produto.tsx:147:21",
+												"data-prohibitions": "[editContent]",
+												className: "text-sm text-white",
+												children: product.specs.consumo
+											})]
+										})
+									]
+								})]
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							"data-uid": "src/pages/Produto.tsx:154:13",
+							"data-prohibitions": "[editContent]",
+							className: "grid grid-cols-1 md:grid-cols-2 gap-10 pt-4",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								"data-uid": "src/pages/Produto.tsx:155:15",
+								"data-prohibitions": "[editContent]",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+									"data-uid": "src/pages/Produto.tsx:156:17",
+									"data-prohibitions": "[]",
+									className: "text-lg font-serif text-white uppercase tracking-wider mb-6 border-b border-primary/20 pb-3",
+									children: "Itens de Série"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+									"data-uid": "src/pages/Produto.tsx:159:17",
+									"data-prohibitions": "[editContent]",
+									className: "space-y-4",
+									children: product.standardItems.map((item, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
+										"data-uid": "src/pages/Produto.tsx:161:21",
+										"data-prohibitions": "[editContent]",
+										className: "flex items-start gap-3 text-muted-foreground",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleCheck, {
+											"data-uid": "src/pages/Produto.tsx:162:23",
+											"data-prohibitions": "[editContent]",
+											className: "w-5 h-5 text-primary shrink-0"
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											"data-uid": "src/pages/Produto.tsx:163:23",
+											"data-prohibitions": "[editContent]",
+											className: "text-sm font-light leading-snug",
+											children: item
+										})]
+									}, idx))
+								})]
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+								"data-uid": "src/pages/Produto.tsx:169:15",
+								"data-prohibitions": "[editContent]",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
+									"data-uid": "src/pages/Produto.tsx:170:17",
+									"data-prohibitions": "[]",
+									className: "text-lg font-serif text-white uppercase tracking-wider mb-6 border-b border-white/10 pb-3",
+									children: "Opcionais Disponíveis"
+								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
+									"data-uid": "src/pages/Produto.tsx:173:17",
+									"data-prohibitions": "[editContent]",
+									className: "space-y-4",
+									children: product.optionalItems.map((item, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
+										"data-uid": "src/pages/Produto.tsx:175:21",
+										"data-prohibitions": "[editContent]",
+										className: "flex items-start gap-3 text-muted-foreground",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CirclePlus, {
+											"data-uid": "src/pages/Produto.tsx:176:23",
+											"data-prohibitions": "[editContent]",
+											className: "w-5 h-5 text-muted-foreground shrink-0"
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+											"data-uid": "src/pages/Produto.tsx:177:23",
+											"data-prohibitions": "[editContent]",
+											className: "text-sm font-light leading-snug",
+											children: item
+										})]
+									}, idx))
+								})]
+							})]
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+							"data-uid": "src/pages/Produto.tsx:185:13",
+							"data-prohibitions": "[]",
+							className: "flex flex-col sm:flex-row gap-4 pt-8",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+								"data-uid": "src/pages/Produto.tsx:186:15",
+								"data-prohibitions": "[]",
+								onClick: handleQuoteRequest,
+								className: "flex-1 bg-primary text-primary-foreground hover:bg-primary/90 rounded-none h-14 text-sm tracking-widest uppercase transition-all duration-300 active:scale-[0.98]",
+								children: "Solicitar Orçamento"
+							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
+								"data-uid": "src/pages/Produto.tsx:192:15",
+								"data-prohibitions": "[]",
+								onClick: handleWhatsAppShare,
+								variant: "outline",
+								className: "flex-1 border-white/20 text-white bg-transparent hover:bg-white/5 rounded-none h-14 text-sm tracking-widest uppercase transition-all duration-300",
+								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Share2, {
+									"data-uid": "src/pages/Produto.tsx:197:17",
+									"data-prohibitions": "[editContent]",
+									className: "w-4 h-4 mr-2"
+								}), " Compartilhar no WhatsApp"]
+							})]
+						})
+					]
+				})]
+			})]
 		})
 	});
 }
@@ -28096,69 +28582,78 @@ function Layout() {
 //#endregion
 //#region src/App.tsx
 var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
-	"data-uid": "src/App.tsx:12:3",
+	"data-uid": "src/App.tsx:13:3",
 	"data-prohibitions": "[]",
 	future: {
 		v7_startTransition: false,
 		v7_relativeSplatPath: false
 	},
 	children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(TooltipProvider, {
-		"data-uid": "src/App.tsx:13:5",
+		"data-uid": "src/App.tsx:14:5",
 		"data-prohibitions": "[]",
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toaster$2, {
-				"data-uid": "src/App.tsx:14:7",
-				"data-prohibitions": "[editContent]"
-			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toaster, {
 				"data-uid": "src/App.tsx:15:7",
 				"data-prohibitions": "[editContent]"
 			}),
-			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Routes, {
+			/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Toaster, {
 				"data-uid": "src/App.tsx:16:7",
+				"data-prohibitions": "[editContent]"
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Routes, {
+				"data-uid": "src/App.tsx:17:7",
 				"data-prohibitions": "[]",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Route, {
-					"data-uid": "src/App.tsx:17:9",
+					"data-uid": "src/App.tsx:18:9",
 					"data-prohibitions": "[]",
 					element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Layout, {
-						"data-uid": "src/App.tsx:17:25",
+						"data-uid": "src/App.tsx:18:25",
 						"data-prohibitions": "[editContent]"
 					}),
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
-							"data-uid": "src/App.tsx:18:11",
+							"data-uid": "src/App.tsx:19:11",
 							"data-prohibitions": "[editContent]",
 							path: "/",
 							element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Index, {
-								"data-uid": "src/App.tsx:18:36",
-								"data-prohibitions": "[editContent]"
-							})
-						}),
-						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
-							"data-uid": "src/App.tsx:19:11",
-							"data-prohibitions": "[editContent]",
-							path: "/catalogo",
-							element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Catalogo, {
-								"data-uid": "src/App.tsx:19:44",
+								"data-uid": "src/App.tsx:19:36",
 								"data-prohibitions": "[editContent]"
 							})
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
 							"data-uid": "src/App.tsx:20:11",
 							"data-prohibitions": "[editContent]",
+							path: "/catalogo",
+							element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Catalogo, {
+								"data-uid": "src/App.tsx:20:44",
+								"data-prohibitions": "[editContent]"
+							})
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
+							"data-uid": "src/App.tsx:21:11",
+							"data-prohibitions": "[editContent]",
+							path: "/produto/:id",
+							element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Produto, {
+								"data-uid": "src/App.tsx:21:47",
+								"data-prohibitions": "[editContent]"
+							})
+						}),
+						/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
+							"data-uid": "src/App.tsx:22:11",
+							"data-prohibitions": "[editContent]",
 							path: "/contato",
 							element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Contato, {
-								"data-uid": "src/App.tsx:20:43",
+								"data-uid": "src/App.tsx:22:43",
 								"data-prohibitions": "[editContent]"
 							})
 						})
 					]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Route, {
-					"data-uid": "src/App.tsx:22:9",
+					"data-uid": "src/App.tsx:24:9",
 					"data-prohibitions": "[editContent]",
 					path: "*",
 					element: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(NotFound, {
-						"data-uid": "src/App.tsx:22:34",
+						"data-uid": "src/App.tsx:24:34",
 						"data-prohibitions": "[editContent]"
 					})
 				})]
@@ -28174,4 +28669,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 }));
 //#endregion
 
-//# sourceMappingURL=index-CqNa_uoO.js.map
+//# sourceMappingURL=index-RntVCQsB.js.map

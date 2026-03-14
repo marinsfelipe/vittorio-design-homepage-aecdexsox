@@ -1,5 +1,6 @@
 import { useState, useMemo } from 'react'
 import { ArrowRight, Expand } from 'lucide-react'
+import { Link } from 'react-router-dom'
 import {
   Select,
   SelectContent,
@@ -207,39 +208,38 @@ export default function Catalogo() {
           style={{ animationDelay: '0.3s' }}
         >
           {sortedAndFiltered.map((product) => (
-            <Card
-              key={product.id}
-              className="bg-card border-white/5 overflow-hidden group hover:border-primary/50 transition-colors duration-500 rounded-none cursor-pointer flex flex-col"
-            >
-              <div className="relative aspect-[4/5] overflow-hidden bg-muted/20">
-                <img
-                  src={product.img}
-                  alt={product.name}
-                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
-                />
-                <div className="absolute top-4 left-4">
-                  <Badge
-                    variant="outline"
-                    className="bg-black/80 text-primary border-primary/50 uppercase tracking-widest text-[10px] rounded-none px-3 py-1 backdrop-blur-md"
-                  >
-                    {product.family}
-                  </Badge>
+            <Link key={product.id} to={`/produto/${product.id}`} className="group block h-full">
+              <Card className="h-full bg-card border-white/5 overflow-hidden group-hover:border-primary/50 transition-colors duration-500 rounded-none cursor-pointer flex flex-col">
+                <div className="relative aspect-[4/5] overflow-hidden bg-muted/20">
+                  <img
+                    src={product.img}
+                    alt={product.name}
+                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
+                  />
+                  <div className="absolute top-4 left-4">
+                    <Badge
+                      variant="outline"
+                      className="bg-black/80 text-primary border-primary/50 uppercase tracking-widest text-[10px] rounded-none px-3 py-1 backdrop-blur-md"
+                    >
+                      {product.family}
+                    </Badge>
+                  </div>
                 </div>
-              </div>
-              <CardContent className="p-6 relative flex-1 flex flex-col">
-                <h3 className="text-xl font-serif text-white mb-3 group-hover:text-primary transition-colors">
-                  {product.name}
-                </h3>
-                <p className="text-sm text-muted-foreground flex items-center gap-2 font-light mt-auto">
-                  <Expand className="w-4 h-4 text-primary/70" />
-                  {product.dimensions}
-                </p>
+                <CardContent className="p-6 relative flex-1 flex flex-col">
+                  <h3 className="text-xl font-serif text-white mb-3 group-hover:text-primary transition-colors">
+                    {product.name}
+                  </h3>
+                  <p className="text-sm text-muted-foreground flex items-center gap-2 font-light mt-auto">
+                    <Expand className="w-4 h-4 text-primary/70" />
+                    {product.dimensions}
+                  </p>
 
-                <div className="mt-6 flex items-center text-xs font-medium text-primary uppercase tracking-widest group-hover:translate-x-2 transition-transform duration-300">
-                  Ver Detalhes <ArrowRight className="ml-2 h-4 w-4" />
-                </div>
-              </CardContent>
-            </Card>
+                  <div className="mt-6 flex items-center text-xs font-medium text-primary uppercase tracking-widest group-hover:translate-x-2 transition-transform duration-300">
+                    Ver Detalhes <ArrowRight className="ml-2 h-4 w-4" />
+                  </div>
+                </CardContent>
+              </Card>
+            </Link>
           ))}
         </div>
 
