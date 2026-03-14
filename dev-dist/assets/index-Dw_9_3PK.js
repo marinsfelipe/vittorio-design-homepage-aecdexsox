@@ -40475,11 +40475,14 @@ var supabase = createClient("https://placeholder-url.supabase.co", "placeholder-
 //#endregion
 //#region src/pages/Catalogo.tsx
 function Catalogo() {
+	const navigate = useNavigate();
+	const { toast } = useToast();
 	const [familias, setFamilias] = (0, import_react.useState)([]);
 	const [produtos, setProdutos] = (0, import_react.useState)([]);
 	const [selectedFamilyId, setSelectedFamilyId] = (0, import_react.useState)("All");
 	const [sortBy, setSortBy] = (0, import_react.useState)("name-asc");
 	const [isLoading, setIsLoading] = (0, import_react.useState)(true);
+	const [requestingId, setRequestingId] = (0, import_react.useState)(null);
 	(0, import_react.useEffect)(() => {
 		async function fetchData() {
 			setIsLoading(true);
@@ -40515,33 +40518,63 @@ function Catalogo() {
 		selectedFamilyId,
 		sortBy
 	]);
+	const handleQuoteRequest = async (e, product) => {
+		e.preventDefault();
+		e.stopPropagation();
+		const dimensoesStr = `${product.dimensoes_l || 0}x${product.dimensoes_p || 0}x${product.dimensoes_a || 0}mm`;
+		setRequestingId(product.id);
+		try {
+			const { error } = await supabase.functions.invoke("request-quote", { body: {
+				product: {
+					nome: product.nome,
+					codigo: product.codigo,
+					dimensoes: dimensoesStr
+				},
+				target_phone: "+5521990451568",
+				message: `Olá! Gostaria de um orçamento para o produto: ${product.nome} (Código: ${product.codigo}). Dimensões: ${dimensoesStr}.`
+			} });
+			if (error) throw error;
+			toast({
+				title: "Solicitação enviada!",
+				description: "Sua solicitação de orçamento foi enviada com sucesso."
+			});
+		} catch (err) {
+			toast({
+				variant: "destructive",
+				title: "Erro ao enviar",
+				description: "Ocorreu um erro ao enviar sua solicitação. Por favor, tente novamente."
+			});
+		} finally {
+			setRequestingId(null);
+		}
+	};
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-		"data-uid": "src/pages/Catalogo.tsx:91:5",
+		"data-uid": "src/pages/Catalogo.tsx:120:5",
 		"data-prohibitions": "[editContent]",
 		className: "w-full pt-32 pb-24 bg-background min-h-screen",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			"data-uid": "src/pages/Catalogo.tsx:92:7",
+			"data-uid": "src/pages/Catalogo.tsx:121:7",
 			"data-prohibitions": "[editContent]",
 			className: "container",
 			children: [
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/pages/Catalogo.tsx:93:9",
+					"data-uid": "src/pages/Catalogo.tsx:122:9",
 					"data-prohibitions": "[]",
 					className: "mb-12 max-w-2xl opacity-0 animate-fade-in-up",
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-							"data-uid": "src/pages/Catalogo.tsx:94:11",
+							"data-uid": "src/pages/Catalogo.tsx:123:11",
 							"data-prohibitions": "[]",
 							className: "text-4xl md:text-6xl font-serif text-white mb-6",
 							children: "Nosso Catálogo"
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							"data-uid": "src/pages/Catalogo.tsx:95:11",
+							"data-uid": "src/pages/Catalogo.tsx:124:11",
 							"data-prohibitions": "[]",
 							className: "h-px w-24 bg-primary mb-6"
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							"data-uid": "src/pages/Catalogo.tsx:96:11",
+							"data-uid": "src/pages/Catalogo.tsx:125:11",
 							"data-prohibitions": "[]",
 							className: "text-lg text-muted-foreground font-light",
 							children: "Explore nossa coleção de peças exclusivas. Balcões, Vitrines e Expositores desenvolvidos com a precisão do inox e detalhes em ouro para transformar seu ambiente."
@@ -40549,27 +40582,27 @@ function Catalogo() {
 					]
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/pages/Catalogo.tsx:102:9",
+					"data-uid": "src/pages/Catalogo.tsx:131:9",
 					"data-prohibitions": "[editContent]",
 					className: "flex flex-col lg:flex-row justify-between items-start lg:items-center mb-10 gap-6 opacity-0 animate-fade-in-up",
 					style: { animationDelay: "0.2s" },
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						"data-uid": "src/pages/Catalogo.tsx:106:11",
+						"data-uid": "src/pages/Catalogo.tsx:135:11",
 						"data-prohibitions": "[editContent]",
 						className: "flex flex-wrap gap-3",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-							"data-uid": "src/pages/Catalogo.tsx:107:13",
+							"data-uid": "src/pages/Catalogo.tsx:136:13",
 							"data-prohibitions": "[editContent]",
 							variant: selectedFamilyId === "All" ? "default" : "outline",
 							onClick: () => setSelectedFamilyId("All"),
 							className: cn$1("rounded-none uppercase tracking-widest text-xs px-6 py-5 transition-all duration-300", selectedFamilyId === "All" ? "bg-primary text-primary-foreground hover:bg-primary/90 border-transparent" : "border-white/20 text-white hover:bg-white/10 hover:border-white/40"),
 							children: "Todos os Produtos"
 						}), isLoading ? Array.from({ length: 3 }).map((_, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Skeleton, {
-							"data-uid": "src/pages/Catalogo.tsx:121:19",
+							"data-uid": "src/pages/Catalogo.tsx:150:19",
 							"data-prohibitions": "[editContent]",
 							className: "h-[42px] w-[120px] rounded-none bg-white/10"
 						}, i)) : familias.map((fam) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-							"data-uid": "src/pages/Catalogo.tsx:124:19",
+							"data-uid": "src/pages/Catalogo.tsx:153:19",
 							"data-prohibitions": "[editContent]",
 							variant: selectedFamilyId === fam.id ? "default" : "outline",
 							onClick: () => setSelectedFamilyId(fam.id),
@@ -40577,48 +40610,48 @@ function Catalogo() {
 							children: fam.nome
 						}, fam.id))]
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						"data-uid": "src/pages/Catalogo.tsx:140:11",
+						"data-uid": "src/pages/Catalogo.tsx:168:11",
 						"data-prohibitions": "[]",
 						className: "w-full lg:w-72",
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
-							"data-uid": "src/pages/Catalogo.tsx:141:13",
+							"data-uid": "src/pages/Catalogo.tsx:169:13",
 							"data-prohibitions": "[]",
 							value: sortBy,
 							onValueChange: setSortBy,
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectTrigger, {
-								"data-uid": "src/pages/Catalogo.tsx:142:15",
+								"data-uid": "src/pages/Catalogo.tsx:170:15",
 								"data-prohibitions": "[]",
 								className: "rounded-none border-white/20 text-white bg-transparent focus:ring-primary focus:ring-offset-0 h-12",
 								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectValue, {
-									"data-uid": "src/pages/Catalogo.tsx:143:17",
+									"data-uid": "src/pages/Catalogo.tsx:171:17",
 									"data-prohibitions": "[editContent]",
 									placeholder: "Ordenar por..."
 								})
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SelectContent, {
-								"data-uid": "src/pages/Catalogo.tsx:145:15",
+								"data-uid": "src/pages/Catalogo.tsx:173:15",
 								"data-prohibitions": "[]",
 								className: "rounded-none bg-[#111] border-white/10 text-white",
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
-										"data-uid": "src/pages/Catalogo.tsx:146:17",
+										"data-uid": "src/pages/Catalogo.tsx:174:17",
 										"data-prohibitions": "[]",
 										value: "name-asc",
 										children: "Nome (A-Z)"
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
-										"data-uid": "src/pages/Catalogo.tsx:147:17",
+										"data-uid": "src/pages/Catalogo.tsx:175:17",
 										"data-prohibitions": "[]",
 										value: "name-desc",
 										children: "Nome (Z-A)"
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
-										"data-uid": "src/pages/Catalogo.tsx:148:17",
+										"data-uid": "src/pages/Catalogo.tsx:176:17",
 										"data-prohibitions": "[]",
 										value: "size-asc",
 										children: "Tamanho (Menor - Maior)"
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
-										"data-uid": "src/pages/Catalogo.tsx:149:17",
+										"data-uid": "src/pages/Catalogo.tsx:177:17",
 										"data-prohibitions": "[]",
 										value: "size-desc",
 										children: "Tamanho (Maior - Menor)"
@@ -40629,70 +40662,70 @@ function Catalogo() {
 					})]
 				}),
 				isLoading ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					"data-uid": "src/pages/Catalogo.tsx:156:11",
+					"data-uid": "src/pages/Catalogo.tsx:184:11",
 					"data-prohibitions": "[editContent]",
 					className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8",
 					children: Array.from({ length: 8 }).map((_, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, {
-						"data-uid": "src/pages/Catalogo.tsx:158:15",
+						"data-uid": "src/pages/Catalogo.tsx:186:15",
 						"data-prohibitions": "[]",
 						className: "h-full bg-card border-white/5 overflow-hidden rounded-none flex flex-col",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Skeleton, {
-							"data-uid": "src/pages/Catalogo.tsx:162:17",
+							"data-uid": "src/pages/Catalogo.tsx:190:17",
 							"data-prohibitions": "[editContent]",
 							className: "relative aspect-[4/5] bg-white/10 rounded-none"
 						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
-							"data-uid": "src/pages/Catalogo.tsx:163:17",
+							"data-uid": "src/pages/Catalogo.tsx:191:17",
 							"data-prohibitions": "[]",
 							className: "p-6 flex flex-col gap-3",
 							children: [
 								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Skeleton, {
-									"data-uid": "src/pages/Catalogo.tsx:164:19",
+									"data-uid": "src/pages/Catalogo.tsx:192:19",
 									"data-prohibitions": "[editContent]",
 									className: "h-6 w-3/4 bg-white/10"
 								}),
 								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Skeleton, {
-									"data-uid": "src/pages/Catalogo.tsx:165:19",
+									"data-uid": "src/pages/Catalogo.tsx:193:19",
 									"data-prohibitions": "[editContent]",
 									className: "h-4 w-1/2 bg-white/10"
 								}),
 								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Skeleton, {
-									"data-uid": "src/pages/Catalogo.tsx:166:19",
+									"data-uid": "src/pages/Catalogo.tsx:194:19",
 									"data-prohibitions": "[editContent]",
 									className: "h-4 w-2/3 bg-white/10 mt-auto"
 								})
 							]
 						})]
 					}, i))
-				}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					"data-uid": "src/pages/Catalogo.tsx:173:13",
+				}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+					"data-uid": "src/pages/Catalogo.tsx:200:11",
 					"data-prohibitions": "[editContent]",
 					className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 opacity-0 animate-fade-in-up",
 					style: { animationDelay: "0.3s" },
-					children: sortedAndFiltered.map((product) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
-						"data-uid": "src/pages/Catalogo.tsx:178:17",
+					children: [sortedAndFiltered.map((product) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						"data-uid": "src/pages/Catalogo.tsx:205:15",
 						"data-prohibitions": "[editContent]",
-						to: `/produto/${product.id}`,
-						className: "group block h-full",
+						onClick: () => navigate(`/produto/${product.id}`),
+						className: "group block h-full cursor-pointer",
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, {
-							"data-uid": "src/pages/Catalogo.tsx:179:19",
+							"data-uid": "src/pages/Catalogo.tsx:210:17",
 							"data-prohibitions": "[editContent]",
-							className: "h-full bg-card border-white/5 overflow-hidden group-hover:border-primary/50 transition-colors duration-500 rounded-none cursor-pointer flex flex-col",
+							className: "h-full bg-card border-white/5 overflow-hidden group-hover:border-primary/50 transition-colors duration-500 rounded-none flex flex-col",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/Catalogo.tsx:180:21",
+								"data-uid": "src/pages/Catalogo.tsx:211:19",
 								"data-prohibitions": "[editContent]",
 								className: "relative aspect-[4/5] overflow-hidden bg-muted/20",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-									"data-uid": "src/pages/Catalogo.tsx:181:23",
+									"data-uid": "src/pages/Catalogo.tsx:212:21",
 									"data-prohibitions": "[editContent]",
 									src: product.imagem_url || "https://img.usecurling.com/p/800/1000?q=product&color=black",
 									alt: product.nome,
 									className: "w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
 								}), product.familias && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-									"data-uid": "src/pages/Catalogo.tsx:190:25",
+									"data-uid": "src/pages/Catalogo.tsx:221:23",
 									"data-prohibitions": "[editContent]",
 									className: "absolute top-4 left-4",
 									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Badge, {
-										"data-uid": "src/pages/Catalogo.tsx:191:27",
+										"data-uid": "src/pages/Catalogo.tsx:222:25",
 										"data-prohibitions": "[editContent]",
 										variant: "outline",
 										className: "bg-black/80 text-primary border-primary/50 uppercase tracking-widest text-[10px] rounded-none px-3 py-1 backdrop-blur-md",
@@ -40700,29 +40733,29 @@ function Catalogo() {
 									})
 								})]
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
-								"data-uid": "src/pages/Catalogo.tsx:200:21",
+								"data-uid": "src/pages/Catalogo.tsx:231:19",
 								"data-prohibitions": "[editContent]",
 								className: "p-6 relative flex-1 flex flex-col",
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-										"data-uid": "src/pages/Catalogo.tsx:201:23",
+										"data-uid": "src/pages/Catalogo.tsx:232:21",
 										"data-prohibitions": "[editContent]",
 										className: "text-xl font-serif text-white mb-1 group-hover:text-primary transition-colors",
 										children: product.nome
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-										"data-uid": "src/pages/Catalogo.tsx:204:23",
+										"data-uid": "src/pages/Catalogo.tsx:235:21",
 										"data-prohibitions": "[editContent]",
 										className: "text-xs text-muted-foreground font-mono mb-3 uppercase tracking-wider",
 										children: product.codigo
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-										"data-uid": "src/pages/Catalogo.tsx:207:23",
+										"data-uid": "src/pages/Catalogo.tsx:238:21",
 										"data-prohibitions": "[editContent]",
 										className: "text-sm text-muted-foreground flex items-center gap-2 font-light mt-auto",
 										children: [
 											/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Expand, {
-												"data-uid": "src/pages/Catalogo.tsx:208:25",
+												"data-uid": "src/pages/Catalogo.tsx:239:23",
 												"data-prohibitions": "[editContent]",
 												className: "w-4 h-4 text-primary/70"
 											}),
@@ -40735,26 +40768,41 @@ function Catalogo() {
 										]
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										"data-uid": "src/pages/Catalogo.tsx:212:23",
-										"data-prohibitions": "[]",
-										className: "mt-6 flex items-center text-xs font-medium text-primary uppercase tracking-widest group-hover:translate-x-2 transition-transform duration-300",
-										children: ["Ver Detalhes ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowRight, {
-											"data-uid": "src/pages/Catalogo.tsx:213:38",
+										"data-uid": "src/pages/Catalogo.tsx:242:21",
+										"data-prohibitions": "[editContent]",
+										className: "mt-6 flex flex-col gap-4 relative z-10",
+										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
+											"data-uid": "src/pages/Catalogo.tsx:243:23",
+											"data-prohibitions": "[]",
+											className: "flex items-center text-xs font-medium text-primary uppercase tracking-widest group-hover:translate-x-2 transition-transform duration-300",
+											children: ["Ver Detalhes ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowRight, {
+												"data-uid": "src/pages/Catalogo.tsx:244:38",
+												"data-prohibitions": "[editContent]",
+												className: "ml-2 h-4 w-4"
+											})]
+										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+											"data-uid": "src/pages/Catalogo.tsx:246:23",
 											"data-prohibitions": "[editContent]",
-											className: "ml-2 h-4 w-4"
+											onClick: (e) => handleQuoteRequest(e, product),
+											disabled: requestingId === product.id,
+											className: "w-full bg-transparent border border-white/10 text-white hover:bg-primary hover:border-primary hover:text-primary-foreground rounded-none text-xs tracking-widest uppercase transition-all duration-300",
+											children: requestingId === product.id ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LoaderCircle, {
+												"data-uid": "src/pages/Catalogo.tsx:252:27",
+												"data-prohibitions": "[editContent]",
+												className: "w-4 h-4 animate-spin"
+											}) : "Solicitar Orçamento"
 										})]
 									})
 								]
 							})]
 						})
-					}, product.id))
-				}), sortedAndFiltered.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					"data-uid": "src/pages/Catalogo.tsx:222:15",
-					"data-prohibitions": "[]",
-					className: "text-center py-20 text-muted-foreground opacity-0 animate-fade-in-up",
-					style: { animationDelay: "0.3s" },
-					children: "Nenhum produto encontrado para o filtro selecionado."
-				})] })
+					}, product.id)), sortedAndFiltered.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+						"data-uid": "src/pages/Catalogo.tsx:263:15",
+						"data-prohibitions": "[]",
+						className: "col-span-full text-center py-20 text-muted-foreground",
+						children: "Nenhum produto encontrado."
+					})]
+				})
 			]
 		})
 	});
@@ -40791,8 +40839,10 @@ var fallbackProductDetails = {
 };
 function Produto() {
 	const { id } = useParams();
+	const { toast } = useToast();
 	const [product, setProduct] = (0, import_react.useState)(null);
 	const [isLoading, setIsLoading] = (0, import_react.useState)(true);
+	const [isRequesting, setIsRequesting] = (0, import_react.useState)(false);
 	(0, import_react.useEffect)(() => {
 		async function fetchProduct() {
 			if (!id) return;
@@ -40813,30 +40863,30 @@ function Produto() {
 		fetchProduct();
 	}, [id]);
 	if (isLoading) return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-		"data-uid": "src/pages/Produto.tsx:77:7",
+		"data-uid": "src/pages/Produto.tsx:80:7",
 		"data-prohibitions": "[]",
 		className: "w-full pt-32 pb-24 bg-background min-h-screen flex items-center justify-center",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LoaderCircle, {
-			"data-uid": "src/pages/Produto.tsx:78:9",
+			"data-uid": "src/pages/Produto.tsx:81:9",
 			"data-prohibitions": "[editContent]",
 			className: "w-8 h-8 animate-spin text-primary"
 		})
 	});
 	if (!product) return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		"data-uid": "src/pages/Produto.tsx:85:7",
+		"data-uid": "src/pages/Produto.tsx:88:7",
 		"data-prohibitions": "[]",
 		className: "w-full pt-32 pb-24 bg-background min-h-screen flex flex-col items-center justify-center",
 		children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h2", {
-			"data-uid": "src/pages/Produto.tsx:86:9",
+			"data-uid": "src/pages/Produto.tsx:89:9",
 			"data-prohibitions": "[]",
 			className: "text-2xl font-serif text-white mb-4",
 			children: "Produto não encontrado"
 		}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
-			"data-uid": "src/pages/Produto.tsx:87:9",
+			"data-uid": "src/pages/Produto.tsx:90:9",
 			"data-prohibitions": "[]",
 			to: "/catalogo",
 			children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-				"data-uid": "src/pages/Produto.tsx:88:11",
+				"data-uid": "src/pages/Produto.tsx:91:11",
 				"data-prohibitions": "[]",
 				variant: "outline",
 				className: "border-white/20 text-white",
@@ -40849,54 +40899,78 @@ function Produto() {
 		const text = `Confira este produto incrível da Vittorio Design: ${product.nome} - ${url}`;
 		window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, "_blank");
 	};
-	const handleQuoteRequest = () => {
-		const text = `Olá, gostaria de solicitar um orçamento para o produto: ${product.nome} (Código: ${product.codigo}).`;
-		window.open(`https://wa.me/5511999999999?text=${encodeURIComponent(text)}`, "_blank");
+	const handleQuoteRequest = async () => {
+		const dimensoesStr = `${product.dimensoes_l || 0}x${product.dimensoes_p || 0}x${product.dimensoes_a || 0}mm`;
+		setIsRequesting(true);
+		try {
+			const { error } = await supabase.functions.invoke("request-quote", { body: {
+				product: {
+					nome: product.nome,
+					codigo: product.codigo,
+					dimensoes: dimensoesStr
+				},
+				target_phone: "+5521990451568",
+				message: `Olá! Gostaria de um orçamento para o produto: ${product.nome} (Código: ${product.codigo}). Dimensões: ${dimensoesStr}.`
+			} });
+			if (error) throw error;
+			toast({
+				title: "Solicitação enviada!",
+				description: "Sua solicitação de orçamento foi enviada com sucesso."
+			});
+		} catch (err) {
+			toast({
+				variant: "destructive",
+				title: "Erro ao enviar",
+				description: "Ocorreu um erro ao enviar sua solicitação. Por favor, tente novamente."
+			});
+		} finally {
+			setIsRequesting(false);
+		}
 	};
 	const specs = product.especificacoes_json || {};
 	const items = Array.isArray(product.itens_serie_json) ? product.itens_serie_json : [];
 	const options = Array.isArray(product.opcionais_json) ? product.opcionais_json : [];
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-		"data-uid": "src/pages/Produto.tsx:112:5",
+		"data-uid": "src/pages/Produto.tsx:147:5",
 		"data-prohibitions": "[editContent]",
 		className: "w-full pt-32 pb-24 bg-background min-h-screen",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			"data-uid": "src/pages/Produto.tsx:113:7",
+			"data-uid": "src/pages/Produto.tsx:148:7",
 			"data-prohibitions": "[editContent]",
 			className: "container",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
-				"data-uid": "src/pages/Produto.tsx:114:9",
+				"data-uid": "src/pages/Produto.tsx:149:9",
 				"data-prohibitions": "[]",
 				to: "/catalogo",
 				className: "inline-flex items-center text-sm text-muted-foreground hover:text-primary mb-8 transition-colors uppercase tracking-widest opacity-0 animate-fade-in-up",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowLeft, {
-					"data-uid": "src/pages/Produto.tsx:118:11",
+					"data-uid": "src/pages/Produto.tsx:153:11",
 					"data-prohibitions": "[editContent]",
 					className: "mr-2 h-4 w-4"
 				}), " Voltar ao Catálogo"]
 			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				"data-uid": "src/pages/Produto.tsx:121:9",
+				"data-uid": "src/pages/Produto.tsx:156:9",
 				"data-prohibitions": "[editContent]",
 				className: "grid grid-cols-1 lg:grid-cols-12 gap-12 lg:gap-20 items-start",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					"data-uid": "src/pages/Produto.tsx:122:11",
+					"data-uid": "src/pages/Produto.tsx:157:11",
 					"data-prohibitions": "[]",
 					className: "lg:col-span-5 relative opacity-0 animate-fade-in-up",
 					style: { animationDelay: "0.1s" },
 					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						"data-uid": "src/pages/Produto.tsx:126:13",
+						"data-uid": "src/pages/Produto.tsx:161:13",
 						"data-prohibitions": "[]",
 						className: "sticky top-32",
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							"data-uid": "src/pages/Produto.tsx:127:15",
+							"data-uid": "src/pages/Produto.tsx:162:15",
 							"data-prohibitions": "[]",
 							className: "relative aspect-[4/5] overflow-hidden bg-muted/20 border border-white/5 p-4 lg:p-8",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								"data-uid": "src/pages/Produto.tsx:128:17",
+								"data-uid": "src/pages/Produto.tsx:163:17",
 								"data-prohibitions": "[]",
 								className: "absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-transparent z-10"
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-								"data-uid": "src/pages/Produto.tsx:129:17",
+								"data-uid": "src/pages/Produto.tsx:164:17",
 								"data-prohibitions": "[editContent]",
 								src: product.imagem_url || "https://img.usecurling.com/p/1200/1600?q=product&color=black",
 								alt: product.nome,
@@ -40905,59 +40979,59 @@ function Produto() {
 						})
 					})
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/pages/Produto.tsx:141:11",
+					"data-uid": "src/pages/Produto.tsx:176:11",
 					"data-prohibitions": "[editContent]",
 					className: "lg:col-span-7 space-y-12 opacity-0 animate-fade-in-up",
 					style: { animationDelay: "0.2s" },
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							"data-uid": "src/pages/Produto.tsx:145:13",
+							"data-uid": "src/pages/Produto.tsx:180:13",
 							"data-prohibitions": "[editContent]",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/Produto.tsx:146:15",
+								"data-uid": "src/pages/Produto.tsx:181:15",
 								"data-prohibitions": "[editContent]",
 								className: "flex items-center gap-4 mb-4",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Badge, {
-									"data-uid": "src/pages/Produto.tsx:147:17",
+									"data-uid": "src/pages/Produto.tsx:182:17",
 									"data-prohibitions": "[editContent]",
 									variant: "outline",
 									className: "text-primary border-primary/30 tracking-widest uppercase rounded-none px-3 py-1 bg-primary/5",
 									children: product.codigo
 								}), product.familias && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									"data-uid": "src/pages/Produto.tsx:154:19",
+									"data-uid": "src/pages/Produto.tsx:189:19",
 									"data-prohibitions": "[editContent]",
 									className: "text-xs uppercase tracking-widest text-muted-foreground",
 									children: product.familias.nome
 								})]
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-								"data-uid": "src/pages/Produto.tsx:159:15",
+								"data-uid": "src/pages/Produto.tsx:194:15",
 								"data-prohibitions": "[editContent]",
 								className: "text-4xl md:text-5xl lg:text-6xl font-serif text-white mb-6 leading-tight",
 								children: product.nome
 							})]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							"data-uid": "src/pages/Produto.tsx:164:13",
+							"data-uid": "src/pages/Produto.tsx:199:13",
 							"data-prohibitions": "[editContent]",
 							className: "grid grid-cols-1 md:grid-cols-2 gap-6",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/Produto.tsx:165:15",
+								"data-uid": "src/pages/Produto.tsx:200:15",
 								"data-prohibitions": "[editContent]",
 								className: "bg-card p-6 border border-white/5 flex items-start gap-4",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Ruler, {
-									"data-uid": "src/pages/Produto.tsx:166:17",
+									"data-uid": "src/pages/Produto.tsx:201:17",
 									"data-prohibitions": "[editContent]",
 									className: "w-6 h-6 text-primary shrink-0 mt-1"
 								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									"data-uid": "src/pages/Produto.tsx:167:17",
+									"data-uid": "src/pages/Produto.tsx:202:17",
 									"data-prohibitions": "[editContent]",
 									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										"data-uid": "src/pages/Produto.tsx:168:19",
+										"data-uid": "src/pages/Produto.tsx:203:19",
 										"data-prohibitions": "[]",
 										className: "block text-xs uppercase tracking-widest text-muted-foreground mb-1",
 										children: "Dimensões (L×P×A)"
 									}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-										"data-uid": "src/pages/Produto.tsx:171:19",
+										"data-uid": "src/pages/Produto.tsx:206:19",
 										"data-prohibitions": "[editContent]",
 										className: "text-lg text-white font-medium",
 										children: [
@@ -40971,74 +41045,74 @@ function Produto() {
 									})]
 								})]
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/Produto.tsx:177:15",
+								"data-uid": "src/pages/Produto.tsx:212:15",
 								"data-prohibitions": "[editContent]",
 								className: "bg-card p-6 border border-white/5 space-y-4",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-									"data-uid": "src/pages/Produto.tsx:178:17",
+									"data-uid": "src/pages/Produto.tsx:213:17",
 									"data-prohibitions": "[]",
 									className: "block text-xs uppercase tracking-widest text-muted-foreground mb-3",
 									children: "Especificações Técnicas"
 								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									"data-uid": "src/pages/Produto.tsx:181:17",
+									"data-uid": "src/pages/Produto.tsx:216:17",
 									"data-prohibitions": "[editContent]",
 									className: "space-y-3",
 									children: [
 										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-											"data-uid": "src/pages/Produto.tsx:182:19",
+											"data-uid": "src/pages/Produto.tsx:217:19",
 											"data-prohibitions": "[editContent]",
 											className: "flex justify-between items-center border-b border-white/5 pb-2",
 											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-												"data-uid": "src/pages/Produto.tsx:183:21",
+												"data-uid": "src/pages/Produto.tsx:218:21",
 												"data-prohibitions": "[]",
 												className: "text-sm text-muted-foreground flex items-center gap-2",
 												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Snowflake, {
-													"data-uid": "src/pages/Produto.tsx:184:23",
+													"data-uid": "src/pages/Produto.tsx:219:23",
 													"data-prohibitions": "[editContent]",
 													className: "w-4 h-4"
 												}), " Refrigeração"]
 											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-												"data-uid": "src/pages/Produto.tsx:186:21",
+												"data-uid": "src/pages/Produto.tsx:221:21",
 												"data-prohibitions": "[editContent]",
 												className: "text-sm text-white",
 												children: specs.refrigeracao || "N/A"
 											})]
 										}),
 										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-											"data-uid": "src/pages/Produto.tsx:188:19",
+											"data-uid": "src/pages/Produto.tsx:223:19",
 											"data-prohibitions": "[editContent]",
 											className: "flex justify-between items-center border-b border-white/5 pb-2",
 											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-												"data-uid": "src/pages/Produto.tsx:189:21",
+												"data-uid": "src/pages/Produto.tsx:224:21",
 												"data-prohibitions": "[]",
 												className: "text-sm text-muted-foreground flex items-center gap-2",
 												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Thermometer, {
-													"data-uid": "src/pages/Produto.tsx:190:23",
+													"data-uid": "src/pages/Produto.tsx:225:23",
 													"data-prohibitions": "[editContent]",
 													className: "w-4 h-4"
 												}), " Temperatura"]
 											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-												"data-uid": "src/pages/Produto.tsx:192:21",
+												"data-uid": "src/pages/Produto.tsx:227:21",
 												"data-prohibitions": "[editContent]",
 												className: "text-sm text-white",
 												children: specs.temperatura || "N/A"
 											})]
 										}),
 										/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-											"data-uid": "src/pages/Produto.tsx:194:19",
+											"data-uid": "src/pages/Produto.tsx:229:19",
 											"data-prohibitions": "[editContent]",
 											className: "flex justify-between items-center",
 											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("span", {
-												"data-uid": "src/pages/Produto.tsx:195:21",
+												"data-uid": "src/pages/Produto.tsx:230:21",
 												"data-prohibitions": "[]",
 												className: "text-sm text-muted-foreground flex items-center gap-2",
 												children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Zap, {
-													"data-uid": "src/pages/Produto.tsx:196:23",
+													"data-uid": "src/pages/Produto.tsx:231:23",
 													"data-prohibitions": "[editContent]",
 													className: "w-4 h-4"
 												}), " Consumo"]
 											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-												"data-uid": "src/pages/Produto.tsx:198:21",
+												"data-uid": "src/pages/Produto.tsx:233:21",
 												"data-prohibitions": "[editContent]",
 												className: "text-sm text-white",
 												children: specs.consumo || "N/A"
@@ -41049,70 +41123,70 @@ function Produto() {
 							})]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							"data-uid": "src/pages/Produto.tsx:204:13",
+							"data-uid": "src/pages/Produto.tsx:239:13",
 							"data-prohibitions": "[editContent]",
 							className: "grid grid-cols-1 md:grid-cols-2 gap-10 pt-4",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/Produto.tsx:205:15",
+								"data-uid": "src/pages/Produto.tsx:240:15",
 								"data-prohibitions": "[editContent]",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-									"data-uid": "src/pages/Produto.tsx:206:17",
+									"data-uid": "src/pages/Produto.tsx:241:17",
 									"data-prohibitions": "[]",
 									className: "text-lg font-serif text-white uppercase tracking-wider mb-6 border-b border-primary/20 pb-3",
 									children: "Itens de Série"
 								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("ul", {
-									"data-uid": "src/pages/Produto.tsx:209:17",
+									"data-uid": "src/pages/Produto.tsx:244:17",
 									"data-prohibitions": "[editContent]",
 									className: "space-y-4",
 									children: [items.map((item, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
-										"data-uid": "src/pages/Produto.tsx:211:21",
+										"data-uid": "src/pages/Produto.tsx:246:21",
 										"data-prohibitions": "[editContent]",
 										className: "flex items-start gap-3 text-muted-foreground",
 										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CircleCheck, {
-											"data-uid": "src/pages/Produto.tsx:212:23",
+											"data-uid": "src/pages/Produto.tsx:247:23",
 											"data-prohibitions": "[editContent]",
 											className: "w-5 h-5 text-primary shrink-0"
 										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-											"data-uid": "src/pages/Produto.tsx:213:23",
+											"data-uid": "src/pages/Produto.tsx:248:23",
 											"data-prohibitions": "[editContent]",
 											className: "text-sm font-light leading-snug",
 											children: item
 										})]
 									}, idx)), items.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", {
-										"data-uid": "src/pages/Produto.tsx:217:21",
+										"data-uid": "src/pages/Produto.tsx:252:21",
 										"data-prohibitions": "[]",
 										className: "text-sm text-muted-foreground font-light",
 										children: "Nenhum item informado."
 									})]
 								})]
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/Produto.tsx:224:15",
+								"data-uid": "src/pages/Produto.tsx:259:15",
 								"data-prohibitions": "[editContent]",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-									"data-uid": "src/pages/Produto.tsx:225:17",
+									"data-uid": "src/pages/Produto.tsx:260:17",
 									"data-prohibitions": "[]",
 									className: "text-lg font-serif text-white uppercase tracking-wider mb-6 border-b border-white/10 pb-3",
 									children: "Opcionais Disponíveis"
 								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("ul", {
-									"data-uid": "src/pages/Produto.tsx:228:17",
+									"data-uid": "src/pages/Produto.tsx:263:17",
 									"data-prohibitions": "[editContent]",
 									className: "space-y-4",
 									children: [options.map((item, idx) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
-										"data-uid": "src/pages/Produto.tsx:230:21",
+										"data-uid": "src/pages/Produto.tsx:265:21",
 										"data-prohibitions": "[editContent]",
 										className: "flex items-start gap-3 text-muted-foreground",
 										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(CirclePlus, {
-											"data-uid": "src/pages/Produto.tsx:231:23",
+											"data-uid": "src/pages/Produto.tsx:266:23",
 											"data-prohibitions": "[editContent]",
 											className: "w-5 h-5 text-muted-foreground shrink-0"
 										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-											"data-uid": "src/pages/Produto.tsx:232:23",
+											"data-uid": "src/pages/Produto.tsx:267:23",
 											"data-prohibitions": "[editContent]",
 											className: "text-sm font-light leading-snug",
 											children: item
 										})]
 									}, idx)), options.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", {
-										"data-uid": "src/pages/Produto.tsx:236:21",
+										"data-uid": "src/pages/Produto.tsx:271:21",
 										"data-prohibitions": "[]",
 										className: "text-sm text-muted-foreground font-light",
 										children: "Nenhum item informado."
@@ -41121,23 +41195,28 @@ function Produto() {
 							})]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							"data-uid": "src/pages/Produto.tsx:244:13",
-							"data-prohibitions": "[]",
+							"data-uid": "src/pages/Produto.tsx:279:13",
+							"data-prohibitions": "[editContent]",
 							className: "flex flex-col sm:flex-row gap-4 pt-8",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-								"data-uid": "src/pages/Produto.tsx:245:15",
-								"data-prohibitions": "[]",
+								"data-uid": "src/pages/Produto.tsx:280:15",
+								"data-prohibitions": "[editContent]",
 								onClick: handleQuoteRequest,
+								disabled: isRequesting,
 								className: "flex-1 bg-primary text-primary-foreground hover:bg-primary/90 rounded-none h-14 text-sm tracking-widest uppercase transition-all duration-300 active:scale-[0.98]",
-								children: "Solicitar Orçamento"
+								children: isRequesting ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LoaderCircle, {
+									"data-uid": "src/pages/Produto.tsx:286:19",
+									"data-prohibitions": "[editContent]",
+									className: "w-5 h-5 animate-spin"
+								}) : "Solicitar Orçamento"
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
-								"data-uid": "src/pages/Produto.tsx:251:15",
+								"data-uid": "src/pages/Produto.tsx:291:15",
 								"data-prohibitions": "[]",
 								onClick: handleWhatsAppShare,
 								variant: "outline",
 								className: "flex-1 border-white/20 text-white bg-transparent hover:bg-white/5 rounded-none h-14 text-sm tracking-widest uppercase transition-all duration-300",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Share2, {
-									"data-uid": "src/pages/Produto.tsx:256:17",
+									"data-uid": "src/pages/Produto.tsx:296:17",
 									"data-prohibitions": "[editContent]",
 									className: "w-4 h-4 mr-2"
 								}), " Compartilhar no WhatsApp"]
@@ -46738,82 +46817,82 @@ function Contato() {
 			setIsSubmitting(false);
 		}
 	};
-	const whatsappMessage = encodeURIComponent("Olá Vittorio Design, gostaria de saber mais sobre seus produtos.");
+	const whatsappMessage = encodeURIComponent("Olá! Gostaria de uma informação.");
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-		"data-uid": "src/pages/Contato.tsx:87:5",
+		"data-uid": "src/pages/Contato.tsx:85:5",
 		"data-prohibitions": "[editContent]",
 		className: "w-full pt-32 pb-24 bg-background min-h-screen",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			"data-uid": "src/pages/Contato.tsx:88:7",
+			"data-uid": "src/pages/Contato.tsx:86:7",
 			"data-prohibitions": "[editContent]",
 			className: "container",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				"data-uid": "src/pages/Contato.tsx:89:9",
+				"data-uid": "src/pages/Contato.tsx:87:9",
 				"data-prohibitions": "[]",
 				className: "max-w-2xl mb-16 opacity-0 animate-fade-in-up",
 				children: [
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-						"data-uid": "src/pages/Contato.tsx:90:11",
+						"data-uid": "src/pages/Contato.tsx:88:11",
 						"data-prohibitions": "[]",
 						className: "text-4xl md:text-6xl font-serif text-white mb-6",
 						children: "Fale Conosco"
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						"data-uid": "src/pages/Contato.tsx:91:11",
+						"data-uid": "src/pages/Contato.tsx:89:11",
 						"data-prohibitions": "[]",
 						className: "h-px w-24 bg-primary mb-6"
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-						"data-uid": "src/pages/Contato.tsx:92:11",
+						"data-uid": "src/pages/Contato.tsx:90:11",
 						"data-prohibitions": "[]",
 						className: "text-lg text-muted-foreground font-light",
 						children: "Estamos à disposição para discutir projetos exclusivos, parcerias comerciais e esclarecer dúvidas sobre nossas peças."
 					})
 				]
 			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				"data-uid": "src/pages/Contato.tsx:98:9",
+				"data-uid": "src/pages/Contato.tsx:96:9",
 				"data-prohibitions": "[editContent]",
 				className: "grid grid-cols-1 lg:grid-cols-12 gap-16",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					"data-uid": "src/pages/Contato.tsx:99:11",
+					"data-uid": "src/pages/Contato.tsx:97:11",
 					"data-prohibitions": "[editContent]",
 					className: "lg:col-span-7 opacity-0 animate-fade-in-up",
 					style: { animationDelay: "0.2s" },
 					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Form, {
-						"data-uid": "src/pages/Contato.tsx:103:13",
+						"data-uid": "src/pages/Contato.tsx:101:13",
 						"data-prohibitions": "[editContent]",
 						...form,
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
-							"data-uid": "src/pages/Contato.tsx:104:15",
+							"data-uid": "src/pages/Contato.tsx:102:15",
 							"data-prohibitions": "[editContent]",
 							className: "space-y-6",
 							onSubmit: form.handleSubmit(onSubmit),
 							children: [
 								/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									"data-uid": "src/pages/Contato.tsx:105:17",
+									"data-uid": "src/pages/Contato.tsx:103:17",
 									"data-prohibitions": "[]",
 									className: "grid grid-cols-1 md:grid-cols-2 gap-6",
 									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FormField, {
-										"data-uid": "src/pages/Contato.tsx:106:19",
+										"data-uid": "src/pages/Contato.tsx:104:19",
 										"data-prohibitions": "[editContent]",
 										control: form.control,
 										name: "nome",
 										render: ({ field }) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(FormItem, {
-											"data-uid": "src/pages/Contato.tsx:110:23",
+											"data-uid": "src/pages/Contato.tsx:108:23",
 											"data-prohibitions": "[]",
 											className: "space-y-2",
 											children: [
 												/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FormLabel, {
-													"data-uid": "src/pages/Contato.tsx:111:25",
+													"data-uid": "src/pages/Contato.tsx:109:25",
 													"data-prohibitions": "[]",
 													className: "text-muted-foreground",
 													children: "Nome Completo"
 												}),
 												/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FormControl, {
-													"data-uid": "src/pages/Contato.tsx:112:25",
+													"data-uid": "src/pages/Contato.tsx:110:25",
 													"data-prohibitions": "[]",
 													children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-														"data-uid": "src/pages/Contato.tsx:113:27",
+														"data-uid": "src/pages/Contato.tsx:111:27",
 														"data-prohibitions": "[editContent]",
 														placeholder: "Seu nome",
 														className: "bg-transparent border-input focus-visible:ring-primary focus-visible:border-primary text-white rounded-none h-12",
@@ -46821,32 +46900,32 @@ function Contato() {
 													})
 												}),
 												/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FormMessage, {
-													"data-uid": "src/pages/Contato.tsx:119:25",
+													"data-uid": "src/pages/Contato.tsx:117:25",
 													"data-prohibitions": "[editContent]"
 												})
 											]
 										})
 									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(FormField, {
-										"data-uid": "src/pages/Contato.tsx:123:19",
+										"data-uid": "src/pages/Contato.tsx:121:19",
 										"data-prohibitions": "[editContent]",
 										control: form.control,
 										name: "email",
 										render: ({ field }) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(FormItem, {
-											"data-uid": "src/pages/Contato.tsx:127:23",
+											"data-uid": "src/pages/Contato.tsx:125:23",
 											"data-prohibitions": "[]",
 											className: "space-y-2",
 											children: [
 												/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FormLabel, {
-													"data-uid": "src/pages/Contato.tsx:128:25",
+													"data-uid": "src/pages/Contato.tsx:126:25",
 													"data-prohibitions": "[]",
 													className: "text-muted-foreground",
 													children: "Email Profissional"
 												}),
 												/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FormControl, {
-													"data-uid": "src/pages/Contato.tsx:129:25",
+													"data-uid": "src/pages/Contato.tsx:127:25",
 													"data-prohibitions": "[]",
 													children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-														"data-uid": "src/pages/Contato.tsx:130:27",
+														"data-uid": "src/pages/Contato.tsx:128:27",
 														"data-prohibitions": "[editContent]",
 														type: "email",
 														placeholder: "seu@email.com",
@@ -46855,7 +46934,7 @@ function Contato() {
 													})
 												}),
 												/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FormMessage, {
-													"data-uid": "src/pages/Contato.tsx:137:25",
+													"data-uid": "src/pages/Contato.tsx:135:25",
 													"data-prohibitions": "[editContent]"
 												})
 											]
@@ -46863,26 +46942,26 @@ function Contato() {
 									})]
 								}),
 								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FormField, {
-									"data-uid": "src/pages/Contato.tsx:142:17",
+									"data-uid": "src/pages/Contato.tsx:140:17",
 									"data-prohibitions": "[editContent]",
 									control: form.control,
 									name: "telefone",
 									render: ({ field }) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(FormItem, {
-										"data-uid": "src/pages/Contato.tsx:146:21",
+										"data-uid": "src/pages/Contato.tsx:144:21",
 										"data-prohibitions": "[]",
 										className: "space-y-2",
 										children: [
 											/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FormLabel, {
-												"data-uid": "src/pages/Contato.tsx:147:23",
+												"data-uid": "src/pages/Contato.tsx:145:23",
 												"data-prohibitions": "[]",
 												className: "text-muted-foreground",
 												children: "Telefone / WhatsApp"
 											}),
 											/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FormControl, {
-												"data-uid": "src/pages/Contato.tsx:148:23",
+												"data-uid": "src/pages/Contato.tsx:146:23",
 												"data-prohibitions": "[]",
 												children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-													"data-uid": "src/pages/Contato.tsx:149:25",
+													"data-uid": "src/pages/Contato.tsx:147:25",
 													"data-prohibitions": "[editContent]",
 													type: "tel",
 													placeholder: "(11) 99999-9999",
@@ -46891,33 +46970,33 @@ function Contato() {
 												})
 											}),
 											/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FormMessage, {
-												"data-uid": "src/pages/Contato.tsx:156:23",
+												"data-uid": "src/pages/Contato.tsx:154:23",
 												"data-prohibitions": "[editContent]"
 											})
 										]
 									})
 								}),
 								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FormField, {
-									"data-uid": "src/pages/Contato.tsx:160:17",
+									"data-uid": "src/pages/Contato.tsx:158:17",
 									"data-prohibitions": "[editContent]",
 									control: form.control,
 									name: "mensagem",
 									render: ({ field }) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(FormItem, {
-										"data-uid": "src/pages/Contato.tsx:164:21",
+										"data-uid": "src/pages/Contato.tsx:162:21",
 										"data-prohibitions": "[]",
 										className: "space-y-2",
 										children: [
 											/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FormLabel, {
-												"data-uid": "src/pages/Contato.tsx:165:23",
+												"data-uid": "src/pages/Contato.tsx:163:23",
 												"data-prohibitions": "[]",
 												className: "text-muted-foreground",
 												children: "Mensagem"
 											}),
 											/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FormControl, {
-												"data-uid": "src/pages/Contato.tsx:166:23",
+												"data-uid": "src/pages/Contato.tsx:164:23",
 												"data-prohibitions": "[]",
 												children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Textarea, {
-													"data-uid": "src/pages/Contato.tsx:167:25",
+													"data-uid": "src/pages/Contato.tsx:165:25",
 													"data-prohibitions": "[editContent]",
 													placeholder: "Descreva seu projeto ou dúvida...",
 													className: "bg-transparent border-input focus-visible:ring-primary focus-visible:border-primary text-white rounded-none min-h-[160px] resize-none",
@@ -46925,20 +47004,20 @@ function Contato() {
 												})
 											}),
 											/* @__PURE__ */ (0, import_jsx_runtime.jsx)(FormMessage, {
-												"data-uid": "src/pages/Contato.tsx:173:23",
+												"data-uid": "src/pages/Contato.tsx:171:23",
 												"data-prohibitions": "[editContent]"
 											})
 										]
 									})
 								}),
 								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-									"data-uid": "src/pages/Contato.tsx:177:17",
+									"data-uid": "src/pages/Contato.tsx:175:17",
 									"data-prohibitions": "[editContent]",
 									type: "submit",
 									disabled: isSubmitting,
 									className: "w-full md:w-auto bg-primary text-primary-foreground hover:bg-primary/90 rounded-none px-10 py-6 text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-70",
 									children: isSubmitting ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(LoaderCircle, {
-										"data-uid": "src/pages/Contato.tsx:184:23",
+										"data-uid": "src/pages/Contato.tsx:182:23",
 										"data-prohibitions": "[editContent]",
 										className: "mr-2 h-4 w-4 animate-spin"
 									}), "Enviando..."] }) : "Enviar Mensagem"
@@ -46947,45 +47026,45 @@ function Contato() {
 						})
 					})
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/pages/Contato.tsx:195:11",
+					"data-uid": "src/pages/Contato.tsx:193:11",
 					"data-prohibitions": "[]",
 					className: "lg:col-span-5 space-y-6 opacity-0 animate-fade-in-up",
 					style: { animationDelay: "0.4s" },
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
-							"data-uid": "src/pages/Contato.tsx:199:13",
+							"data-uid": "src/pages/Contato.tsx:197:13",
 							"data-prohibitions": "[]",
-							href: `https://wa.me/5511999999999?text=${whatsappMessage}`,
+							href: `https://wa.me/5521990451568?text=${whatsappMessage}`,
 							target: "_blank",
 							rel: "noopener noreferrer",
 							className: "flex items-start gap-6 p-6 md:p-8 bg-card border border-white/5 hover:border-primary transition-colors group",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								"data-uid": "src/pages/Contato.tsx:205:15",
+								"data-uid": "src/pages/Contato.tsx:203:15",
 								"data-prohibitions": "[]",
 								className: "p-3 bg-primary/10 rounded-full text-primary group-hover:scale-110 transition-transform",
 								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MessageCircle, {
-									"data-uid": "src/pages/Contato.tsx:206:17",
+									"data-uid": "src/pages/Contato.tsx:204:17",
 									"data-prohibitions": "[editContent]",
 									className: "h-6 w-6"
 								})
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/Contato.tsx:208:15",
+								"data-uid": "src/pages/Contato.tsx:206:15",
 								"data-prohibitions": "[]",
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-										"data-uid": "src/pages/Contato.tsx:209:17",
+										"data-uid": "src/pages/Contato.tsx:207:17",
 										"data-prohibitions": "[]",
 										className: "text-lg font-serif text-white mb-1",
 										children: "WhatsApp"
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-										"data-uid": "src/pages/Contato.tsx:210:17",
+										"data-uid": "src/pages/Contato.tsx:208:17",
 										"data-prohibitions": "[]",
 										className: "text-sm text-muted-foreground mb-3 font-light",
 										children: "Atendimento direto e personalizado."
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										"data-uid": "src/pages/Contato.tsx:213:17",
+										"data-uid": "src/pages/Contato.tsx:211:17",
 										"data-prohibitions": "[]",
 										className: "text-primary text-sm tracking-widest uppercase flex items-center group-hover:translate-x-1 transition-transform",
 										children: "Iniciar Conversa"
@@ -46994,37 +47073,37 @@ function Contato() {
 							})]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
-							"data-uid": "src/pages/Contato.tsx:219:13",
+							"data-uid": "src/pages/Contato.tsx:217:13",
 							"data-prohibitions": "[]",
 							href: "mailto:contato@vittoriodesign.com",
 							className: "flex items-start gap-6 p-6 md:p-8 bg-card border border-white/5 hover:border-primary transition-colors group",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								"data-uid": "src/pages/Contato.tsx:223:15",
+								"data-uid": "src/pages/Contato.tsx:221:15",
 								"data-prohibitions": "[]",
 								className: "p-3 bg-primary/10 rounded-full text-primary group-hover:scale-110 transition-transform",
 								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Mail, {
-									"data-uid": "src/pages/Contato.tsx:224:17",
+									"data-uid": "src/pages/Contato.tsx:222:17",
 									"data-prohibitions": "[editContent]",
 									className: "h-6 w-6"
 								})
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/Contato.tsx:226:15",
+								"data-uid": "src/pages/Contato.tsx:224:15",
 								"data-prohibitions": "[]",
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-										"data-uid": "src/pages/Contato.tsx:227:17",
+										"data-uid": "src/pages/Contato.tsx:225:17",
 										"data-prohibitions": "[]",
 										className: "text-lg font-serif text-white mb-1",
 										children: "Email"
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-										"data-uid": "src/pages/Contato.tsx:228:17",
+										"data-uid": "src/pages/Contato.tsx:226:17",
 										"data-prohibitions": "[]",
 										className: "text-sm text-muted-foreground mb-3 font-light",
 										children: "Para projetos e especificações técnicas."
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										"data-uid": "src/pages/Contato.tsx:231:17",
+										"data-uid": "src/pages/Contato.tsx:229:17",
 										"data-prohibitions": "[]",
 										className: "text-primary text-sm tracking-widest uppercase flex items-center group-hover:translate-x-1 transition-transform",
 										children: "Enviar Email"
@@ -47033,39 +47112,39 @@ function Contato() {
 							})]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
-							"data-uid": "src/pages/Contato.tsx:237:13",
+							"data-uid": "src/pages/Contato.tsx:235:13",
 							"data-prohibitions": "[]",
 							href: "https://instagram.com",
 							target: "_blank",
 							rel: "noopener noreferrer",
 							className: "flex items-start gap-6 p-6 md:p-8 bg-card border border-white/5 hover:border-primary transition-colors group",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								"data-uid": "src/pages/Contato.tsx:243:15",
+								"data-uid": "src/pages/Contato.tsx:241:15",
 								"data-prohibitions": "[]",
 								className: "p-3 bg-primary/10 rounded-full text-primary group-hover:scale-110 transition-transform",
 								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Instagram, {
-									"data-uid": "src/pages/Contato.tsx:244:17",
+									"data-uid": "src/pages/Contato.tsx:242:17",
 									"data-prohibitions": "[editContent]",
 									className: "h-6 w-6"
 								})
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/Contato.tsx:246:15",
+								"data-uid": "src/pages/Contato.tsx:244:15",
 								"data-prohibitions": "[]",
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-										"data-uid": "src/pages/Contato.tsx:247:17",
+										"data-uid": "src/pages/Contato.tsx:245:17",
 										"data-prohibitions": "[]",
 										className: "text-lg font-serif text-white mb-1",
 										children: "Instagram"
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-										"data-uid": "src/pages/Contato.tsx:248:17",
+										"data-uid": "src/pages/Contato.tsx:246:17",
 										"data-prohibitions": "[]",
 										className: "text-sm text-muted-foreground mb-3 font-light",
 										children: "Acompanhe nosso portfólio e inspirações."
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										"data-uid": "src/pages/Contato.tsx:251:17",
+										"data-uid": "src/pages/Contato.tsx:249:17",
 										"data-prohibitions": "[]",
 										className: "text-primary text-sm tracking-widest uppercase flex items-center group-hover:translate-x-1 transition-transform",
 										children: "Seguir @vittoriodesign"
@@ -47074,48 +47153,48 @@ function Contato() {
 							})]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							"data-uid": "src/pages/Contato.tsx:257:13",
+							"data-uid": "src/pages/Contato.tsx:255:13",
 							"data-prohibitions": "[]",
 							className: "flex items-start gap-6 p-6 md:p-8 bg-card border border-white/5 group",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								"data-uid": "src/pages/Contato.tsx:258:15",
+								"data-uid": "src/pages/Contato.tsx:256:15",
 								"data-prohibitions": "[]",
 								className: "p-3 bg-primary/10 rounded-full text-primary",
 								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MapPin, {
-									"data-uid": "src/pages/Contato.tsx:259:17",
+									"data-uid": "src/pages/Contato.tsx:257:17",
 									"data-prohibitions": "[editContent]",
 									className: "h-6 w-6"
 								})
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/Contato.tsx:261:15",
+								"data-uid": "src/pages/Contato.tsx:259:15",
 								"data-prohibitions": "[]",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-									"data-uid": "src/pages/Contato.tsx:262:17",
+									"data-uid": "src/pages/Contato.tsx:260:17",
 									"data-prohibitions": "[]",
 									className: "text-lg font-serif text-white mb-1",
 									children: "Showroom"
 								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-									"data-uid": "src/pages/Contato.tsx:263:17",
+									"data-uid": "src/pages/Contato.tsx:261:17",
 									"data-prohibitions": "[]",
 									className: "text-sm text-muted-foreground font-light leading-relaxed",
 									children: [
 										"Av. Europa, 150",
 										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {
-											"data-uid": "src/pages/Contato.tsx:265:19",
+											"data-uid": "src/pages/Contato.tsx:263:19",
 											"data-prohibitions": "[editContent]"
 										}),
 										"Jardim Europa",
 										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {
-											"data-uid": "src/pages/Contato.tsx:267:19",
+											"data-uid": "src/pages/Contato.tsx:265:19",
 											"data-prohibitions": "[editContent]"
 										}),
 										"São Paulo, SP - 01449-000",
 										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {
-											"data-uid": "src/pages/Contato.tsx:269:19",
+											"data-uid": "src/pages/Contato.tsx:267:19",
 											"data-prohibitions": "[editContent]"
 										}),
 										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", {
-											"data-uid": "src/pages/Contato.tsx:270:19",
+											"data-uid": "src/pages/Contato.tsx:268:19",
 											"data-prohibitions": "[]",
 											className: "text-xs text-primary mt-2 block",
 											children: "Visitas com hora marcada"
@@ -47561,39 +47640,39 @@ function Layout() {
 			path: "/contato"
 		}
 	];
-	const whatsappUrl = `https://wa.me/5511999999999?text=${encodeURIComponent("Olá Vittorio Design, gostaria de saber mais sobre seus produtos.")}`;
+	const whatsappUrl = `https://wa.me/5521990451568?text=${encodeURIComponent("Olá! Gostaria de uma informação.")}`;
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		"data-uid": "src/components/Layout.tsx:42:5",
+		"data-uid": "src/components/Layout.tsx:40:5",
 		"data-prohibitions": "[editContent]",
 		className: "flex flex-col min-h-screen selection:bg-primary selection:text-primary-foreground relative",
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("header", {
-				"data-uid": "src/components/Layout.tsx:43:7",
+				"data-uid": "src/components/Layout.tsx:41:7",
 				"data-prohibitions": "[editContent]",
 				className: cn$1("fixed top-0 w-full z-40 transition-all duration-300 glass-header", scrolled ? "py-3 bg-background/80 backdrop-blur-md border-b border-white/5" : "py-6"),
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/components/Layout.tsx:49:9",
+					"data-uid": "src/components/Layout.tsx:47:9",
 					"data-prohibitions": "[editContent]",
 					className: "container flex items-center justify-between",
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
-							"data-uid": "src/components/Layout.tsx:50:11",
+							"data-uid": "src/components/Layout.tsx:48:11",
 							"data-prohibitions": "[]",
 							to: "/",
 							className: "text-2xl font-serif font-bold text-white tracking-wider",
 							children: ["VITTORIO ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								"data-uid": "src/components/Layout.tsx:51:22",
+								"data-uid": "src/components/Layout.tsx:49:22",
 								"data-prohibitions": "[]",
 								className: "text-primary font-normal text-xl",
 								children: "Design"
 							})]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("nav", {
-							"data-uid": "src/components/Layout.tsx:54:11",
+							"data-uid": "src/components/Layout.tsx:52:11",
 							"data-prohibitions": "[editContent]",
 							className: "hidden md:flex gap-8",
 							children: navLinks.map((link) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
-								"data-uid": "src/components/Layout.tsx:56:15",
+								"data-uid": "src/components/Layout.tsx:54:15",
 								"data-prohibitions": "[editContent]",
 								to: link.path,
 								className: cn$1("text-sm font-medium uppercase tracking-widest nav-link-hover pb-1 transition-colors", location.pathname === link.path ? "text-primary" : "text-foreground hover:text-white"),
@@ -47601,56 +47680,56 @@ function Layout() {
 							}, link.name))
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Sheet, {
-							"data-uid": "src/components/Layout.tsx:71:11",
+							"data-uid": "src/components/Layout.tsx:69:11",
 							"data-prohibitions": "[editContent]",
 							open: isOpen,
 							onOpenChange: setIsOpen,
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SheetTrigger, {
-								"data-uid": "src/components/Layout.tsx:72:13",
+								"data-uid": "src/components/Layout.tsx:70:13",
 								"data-prohibitions": "[]",
 								asChild: true,
 								className: "md:hidden",
 								children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
-									"data-uid": "src/components/Layout.tsx:73:15",
+									"data-uid": "src/components/Layout.tsx:71:15",
 									"data-prohibitions": "[]",
 									variant: "ghost",
 									size: "icon",
 									className: "text-white hover:text-primary",
 									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Menu, {
-										"data-uid": "src/components/Layout.tsx:74:17",
+										"data-uid": "src/components/Layout.tsx:72:17",
 										"data-prohibitions": "[editContent]",
 										className: "h-6 w-6"
 									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										"data-uid": "src/components/Layout.tsx:75:17",
+										"data-uid": "src/components/Layout.tsx:73:17",
 										"data-prohibitions": "[]",
 										className: "sr-only",
 										children: "Menu"
 									})]
 								})
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SheetContent, {
-								"data-uid": "src/components/Layout.tsx:78:13",
+								"data-uid": "src/components/Layout.tsx:76:13",
 								"data-prohibitions": "[editContent]",
 								side: "right",
 								className: "bg-background border-l-border/50 flex flex-col pt-16 z-50",
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SheetTitle, {
-										"data-uid": "src/components/Layout.tsx:82:15",
+										"data-uid": "src/components/Layout.tsx:80:15",
 										"data-prohibitions": "[]",
 										className: "sr-only",
 										children: "Menu de Navegação"
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SheetDescription, {
-										"data-uid": "src/components/Layout.tsx:83:15",
+										"data-uid": "src/components/Layout.tsx:81:15",
 										"data-prohibitions": "[]",
 										className: "sr-only",
 										children: "Acesse as páginas da Vittorio Design"
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("nav", {
-										"data-uid": "src/components/Layout.tsx:86:15",
+										"data-uid": "src/components/Layout.tsx:84:15",
 										"data-prohibitions": "[editContent]",
 										className: "flex flex-col gap-6 mt-8",
 										children: navLinks.map((link) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
-											"data-uid": "src/components/Layout.tsx:88:19",
+											"data-uid": "src/components/Layout.tsx:86:19",
 											"data-prohibitions": "[editContent]",
 											to: link.path,
 											className: cn$1("text-2xl font-serif tracking-wide transition-colors", location.pathname === link.path ? "text-primary" : "text-foreground hover:text-white"),
@@ -47658,30 +47737,30 @@ function Layout() {
 										}, link.name))
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										"data-uid": "src/components/Layout.tsx:102:15",
+										"data-uid": "src/components/Layout.tsx:100:15",
 										"data-prohibitions": "[]",
 										className: "mt-auto pb-8 flex gap-4",
 										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
-											"data-uid": "src/components/Layout.tsx:103:17",
+											"data-uid": "src/components/Layout.tsx:101:17",
 											"data-prohibitions": "[]",
 											href: "https://instagram.com",
 											target: "_blank",
 											rel: "noopener noreferrer",
 											className: "p-2 border border-border rounded-full hover:border-primary hover:text-primary transition-colors",
 											children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Instagram, {
-												"data-uid": "src/components/Layout.tsx:109:19",
+												"data-uid": "src/components/Layout.tsx:107:19",
 												"data-prohibitions": "[editContent]",
 												className: "h-5 w-5"
 											})
 										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
-											"data-uid": "src/components/Layout.tsx:111:17",
+											"data-uid": "src/components/Layout.tsx:109:17",
 											"data-prohibitions": "[]",
 											href: whatsappUrl,
 											target: "_blank",
 											rel: "noopener noreferrer",
 											className: "p-2 border border-border rounded-full hover:border-primary hover:text-primary transition-colors",
 											children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MessageCircle, {
-												"data-uid": "src/components/Layout.tsx:117:19",
+												"data-uid": "src/components/Layout.tsx:115:19",
 												"data-prohibitions": "[editContent]",
 												className: "h-5 w-5"
 											})
@@ -47694,55 +47773,55 @@ function Layout() {
 				})
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("main", {
-				"data-uid": "src/components/Layout.tsx:125:7",
+				"data-uid": "src/components/Layout.tsx:123:7",
 				"data-prohibitions": "[]",
 				className: "flex-1",
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {
-					"data-uid": "src/components/Layout.tsx:126:9",
+					"data-uid": "src/components/Layout.tsx:124:9",
 					"data-prohibitions": "[editContent]"
 				})
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("footer", {
-				"data-uid": "src/components/Layout.tsx:129:7",
+				"data-uid": "src/components/Layout.tsx:127:7",
 				"data-prohibitions": "[editContent]",
 				className: "bg-card border-t border-white/5 pt-16 pb-8",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/components/Layout.tsx:130:9",
+					"data-uid": "src/components/Layout.tsx:128:9",
 					"data-prohibitions": "[editContent]",
 					className: "container grid grid-cols-1 md:grid-cols-3 gap-12 mb-12",
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							"data-uid": "src/components/Layout.tsx:131:11",
+							"data-uid": "src/components/Layout.tsx:129:11",
 							"data-prohibitions": "[]",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-								"data-uid": "src/components/Layout.tsx:132:13",
+								"data-uid": "src/components/Layout.tsx:130:13",
 								"data-prohibitions": "[]",
 								className: "text-2xl font-serif text-white mb-4",
 								children: "VITTORIO"
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-								"data-uid": "src/components/Layout.tsx:133:13",
+								"data-uid": "src/components/Layout.tsx:131:13",
 								"data-prohibitions": "[]",
 								className: "text-muted-foreground leading-relaxed text-sm max-w-xs",
 								children: "Mobiliário exclusivo e design de interiores sofisticado. Transformamos ambientes através da excelência do inox e acabamentos premium."
 							})]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							"data-uid": "src/components/Layout.tsx:138:11",
+							"data-uid": "src/components/Layout.tsx:136:11",
 							"data-prohibitions": "[editContent]",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
-								"data-uid": "src/components/Layout.tsx:139:13",
+								"data-uid": "src/components/Layout.tsx:137:13",
 								"data-prohibitions": "[]",
 								className: "text-lg font-serif text-white mb-4 uppercase tracking-wider",
 								children: "Links Rápidos"
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
-								"data-uid": "src/components/Layout.tsx:142:13",
+								"data-uid": "src/components/Layout.tsx:140:13",
 								"data-prohibitions": "[editContent]",
 								className: "space-y-3",
 								children: navLinks.map((link) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", {
-									"data-uid": "src/components/Layout.tsx:144:17",
+									"data-uid": "src/components/Layout.tsx:142:17",
 									"data-prohibitions": "[editContent]",
 									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
-										"data-uid": "src/components/Layout.tsx:145:19",
+										"data-uid": "src/components/Layout.tsx:143:19",
 										"data-prohibitions": "[editContent]",
 										to: link.path,
 										className: "text-muted-foreground hover:text-primary transition-colors text-sm",
@@ -47752,68 +47831,68 @@ function Layout() {
 							})]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							"data-uid": "src/components/Layout.tsx:155:11",
+							"data-uid": "src/components/Layout.tsx:153:11",
 							"data-prohibitions": "[]",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
-								"data-uid": "src/components/Layout.tsx:156:13",
+								"data-uid": "src/components/Layout.tsx:154:13",
 								"data-prohibitions": "[]",
 								className: "text-lg font-serif text-white mb-4 uppercase tracking-wider",
 								children: "Contato"
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("ul", {
-								"data-uid": "src/components/Layout.tsx:157:13",
+								"data-uid": "src/components/Layout.tsx:155:13",
 								"data-prohibitions": "[]",
 								className: "space-y-4",
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", {
-										"data-uid": "src/components/Layout.tsx:158:15",
+										"data-uid": "src/components/Layout.tsx:156:15",
 										"data-prohibitions": "[]",
 										children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
-											"data-uid": "src/components/Layout.tsx:159:17",
+											"data-uid": "src/components/Layout.tsx:157:17",
 											"data-prohibitions": "[]",
 											href: whatsappUrl,
 											target: "_blank",
 											rel: "noopener noreferrer",
 											className: "flex items-center gap-3 text-muted-foreground text-sm hover:text-primary transition-colors",
 											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Phone, {
-												"data-uid": "src/components/Layout.tsx:165:19",
+												"data-uid": "src/components/Layout.tsx:163:19",
 												"data-prohibitions": "[editContent]",
 												className: "h-4 w-4 text-primary"
 											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-												"data-uid": "src/components/Layout.tsx:166:19",
+												"data-uid": "src/components/Layout.tsx:164:19",
 												"data-prohibitions": "[]",
-												children: "+55 (11) 99999-9999"
+												children: "+55 (21) 99045-1568"
 											})]
 										})
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", {
-										"data-uid": "src/components/Layout.tsx:169:15",
+										"data-uid": "src/components/Layout.tsx:167:15",
 										"data-prohibitions": "[]",
 										children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
-											"data-uid": "src/components/Layout.tsx:170:17",
+											"data-uid": "src/components/Layout.tsx:168:17",
 											"data-prohibitions": "[]",
 											href: "mailto:contato@vittoriodesign.com",
 											className: "flex items-center gap-3 text-muted-foreground text-sm hover:text-primary transition-colors",
 											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Mail, {
-												"data-uid": "src/components/Layout.tsx:174:19",
+												"data-uid": "src/components/Layout.tsx:172:19",
 												"data-prohibitions": "[editContent]",
 												className: "h-4 w-4 text-primary"
 											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-												"data-uid": "src/components/Layout.tsx:175:19",
+												"data-uid": "src/components/Layout.tsx:173:19",
 												"data-prohibitions": "[]",
 												children: "contato@vittoriodesign.com"
 											})]
 										})
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
-										"data-uid": "src/components/Layout.tsx:178:15",
+										"data-uid": "src/components/Layout.tsx:176:15",
 										"data-prohibitions": "[]",
 										className: "flex items-center gap-3 text-muted-foreground text-sm",
 										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MapPin, {
-											"data-uid": "src/components/Layout.tsx:179:17",
+											"data-uid": "src/components/Layout.tsx:177:17",
 											"data-prohibitions": "[editContent]",
 											className: "h-4 w-4 text-primary"
 										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-											"data-uid": "src/components/Layout.tsx:180:17",
+											"data-uid": "src/components/Layout.tsx:178:17",
 											"data-prohibitions": "[]",
 											children: "Av. Europa, 150 - São Paulo, SP"
 										})]
@@ -47823,11 +47902,11 @@ function Layout() {
 						})
 					]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/components/Layout.tsx:185:9",
+					"data-uid": "src/components/Layout.tsx:183:9",
 					"data-prohibitions": "[editContent]",
 					className: "container pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between text-xs text-muted-foreground",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-						"data-uid": "src/components/Layout.tsx:186:11",
+						"data-uid": "src/components/Layout.tsx:184:11",
 						"data-prohibitions": "[editContent]",
 						children: [
 							"© ",
@@ -47835,30 +47914,30 @@ function Layout() {
 							" Vittorio Design. Todos os direitos reservados."
 						]
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						"data-uid": "src/components/Layout.tsx:187:11",
+						"data-uid": "src/components/Layout.tsx:185:11",
 						"data-prohibitions": "[]",
 						className: "flex gap-6 mt-4 md:mt-0",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
-							"data-uid": "src/components/Layout.tsx:188:13",
+							"data-uid": "src/components/Layout.tsx:186:13",
 							"data-prohibitions": "[]",
 							href: "https://instagram.com",
 							target: "_blank",
 							rel: "noopener noreferrer",
 							className: "hover:text-primary transition-colors flex items-center gap-2",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Instagram, {
-								"data-uid": "src/components/Layout.tsx:194:15",
+								"data-uid": "src/components/Layout.tsx:192:15",
 								"data-prohibitions": "[editContent]",
 								className: "h-4 w-4"
 							}), " Instagram"]
 						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
-							"data-uid": "src/components/Layout.tsx:196:13",
+							"data-uid": "src/components/Layout.tsx:194:13",
 							"data-prohibitions": "[]",
 							href: whatsappUrl,
 							target: "_blank",
 							rel: "noopener noreferrer",
 							className: "hover:text-primary transition-colors flex items-center gap-2",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MessageCircle, {
-								"data-uid": "src/components/Layout.tsx:202:15",
+								"data-uid": "src/components/Layout.tsx:200:15",
 								"data-prohibitions": "[editContent]",
 								className: "h-4 w-4"
 							}), " WhatsApp"]
@@ -47867,7 +47946,7 @@ function Layout() {
 				})]
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
-				"data-uid": "src/components/Layout.tsx:209:7",
+				"data-uid": "src/components/Layout.tsx:207:7",
 				"data-prohibitions": "[]",
 				href: whatsappUrl,
 				target: "_blank",
@@ -47875,11 +47954,11 @@ function Layout() {
 				className: "fixed bottom-6 right-6 z-50 p-4 bg-primary text-primary-foreground rounded-full shadow-[0_4px_20px_rgba(201,162,107,0.3)] hover:bg-primary/90 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center group",
 				"aria-label": "Fale conosco no WhatsApp",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MessageCircle, {
-					"data-uid": "src/components/Layout.tsx:216:9",
+					"data-uid": "src/components/Layout.tsx:214:9",
 					"data-prohibitions": "[editContent]",
 					className: "w-7 h-7"
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-					"data-uid": "src/components/Layout.tsx:217:9",
+					"data-uid": "src/components/Layout.tsx:215:9",
 					"data-prohibitions": "[]",
 					className: "absolute right-full mr-4 bg-card border border-white/10 text-white text-sm px-3 py-1.5 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-lg",
 					children: "Fale Conosco"
@@ -47978,4 +48057,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 }));
 //#endregion
 
-//# sourceMappingURL=index-n_rdVeUO.js.map
+//# sourceMappingURL=index-Dw_9_3PK.js.map

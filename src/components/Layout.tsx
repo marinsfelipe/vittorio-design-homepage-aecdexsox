@@ -33,10 +33,8 @@ export default function Layout() {
     { name: 'Contato', path: '/contato' },
   ]
 
-  const whatsappMessage = encodeURIComponent(
-    'Olá Vittorio Design, gostaria de saber mais sobre seus produtos.',
-  )
-  const whatsappUrl = `https://wa.me/5511999999999?text=${whatsappMessage}`
+  const whatsappMessage = encodeURIComponent('Olá! Gostaria de uma informação.')
+  const whatsappUrl = `https://wa.me/5521990451568?text=${whatsappMessage}`
 
   return (
     <div className="flex flex-col min-h-screen selection:bg-primary selection:text-primary-foreground relative">
@@ -163,7 +161,7 @@ export default function Layout() {
                   className="flex items-center gap-3 text-muted-foreground text-sm hover:text-primary transition-colors"
                 >
                   <Phone className="h-4 w-4 text-primary" />
-                  <span>+55 (11) 99999-9999</span>
+                  <span>+55 (21) 99045-1568</span>
                 </a>
               </li>
               <li>

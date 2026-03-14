@@ -1,6 +1,6 @@
 import { useState, useEffect, useMemo } from 'react'
-import { ArrowRight, Expand } from 'lucide-react'
-import { Link } from 'react-router-dom'
+import { ArrowRight, Expand, Loader2 } from 'lucide-react'
+import { useNavigate } from 'react-router-dom'
 import {
   Select,
   SelectContent,
@@ -14,6 +14,7 @@ import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
 import { cn } from '@/lib/utils'
 import { supabase } from '@/lib/supabase'
+import { useToast } from '@/hooks/use-toast'
 
 type Familia = {
   id: string
@@ -33,11 +34,14 @@ type Produto = {
 }
 
 export default function Catalogo() {
+  const navigate = useNavigate()
+  const { toast } = useToast()
   const [familias, setFamilias] = useState<Familia[]>([])
   const [produtos, setProdutos] = useState<Produto[]>([])
   const [selectedFamilyId, setSelectedFamilyId] = useState<string>('All')
   const [sortBy, setSortBy] = useState<string>('name-asc')
   const [isLoading, setIsLoading] = useState(true)
+  const [requestingId, setRequestingId] = useState<string | null>(null)
 
   useEffect(() => {
     async function fetchData() {
@@ -47,7 +51,6 @@ export default function Catalogo() {
           supabase.from('familias').select('id, nome').order('nome'),
           supabase.from('produtos').select('*, familias(id, nome)'),
         ])
-
         if (familiasRes.data) setFamilias(familiasRes.data)
         if (produtosRes.data) setProdutos(produtosRes.data)
       } catch (err) {
@@ -56,20 +59,15 @@ export default function Catalogo() {
         setIsLoading(false)
       }
     }
-
     fetchData()
   }, [])
 
   const sortedAndFiltered = useMemo(() => {
     let result = [...produtos]
-    if (selectedFamilyId !== 'All') {
-      result = result.filter((p) => p.familia_id === selectedFamilyId)
-    }
-
+    if (selectedFamilyId !== 'All') result = result.filter((p) => p.familia_id === selectedFamilyId)
     result.sort((a, b) => {
       const volA = (a.dimensoes_l || 0) * (a.dimensoes_p || 0) * (a.dimensoes_a || 0)
       const volB = (b.dimensoes_l || 0) * (b.dimensoes_p || 0) * (b.dimensoes_a || 0)
-
       switch (sortBy) {
         case 'name-asc':
           return a.nome.localeCompare(b.nome)
@@ -83,9 +81,40 @@ export default function Catalogo() {
           return 0
       }
     })
-
     return result
   }, [produtos, selectedFamilyId, sortBy])
+
+  const handleQuoteRequest = async (e: React.MouseEvent, product: Produto) => {
+    e.preventDefault()
+    e.stopPropagation()
+    const l = product.dimensoes_l || 0
+    const p = product.dimensoes_p || 0
+    const a = product.dimensoes_a || 0
+    const dimensoesStr = `${l}x${p}x${a}mm`
+    setRequestingId(product.id)
+    try {
+      const { error } = await supabase.functions.invoke('request-quote', {
+        body: {
+          product: { nome: product.nome, codigo: product.codigo, dimensoes: dimensoesStr },
+          target_phone: '+5521990451568',
+          message: `Olá! Gostaria de um orçamento para o produto: ${product.nome} (Código: ${product.codigo}). Dimensões: ${dimensoesStr}.`,
+        },
+      })
+      if (error) throw error
+      toast({
+        title: 'Solicitação enviada!',
+        description: 'Sua solicitação de orçamento foi enviada com sucesso.',
+      })
+    } catch (err) {
+      toast({
+        variant: 'destructive',
+        title: 'Erro ao enviar',
+        description: 'Ocorreu um erro ao enviar sua solicitação. Por favor, tente novamente.',
+      })
+    } finally {
+      setRequestingId(null)
+    }
+  }
 
   return (
     <div className="w-full pt-32 pb-24 bg-background min-h-screen">
@@ -136,7 +165,6 @@ export default function Catalogo() {
                   </Button>
                 ))}
           </div>
-
           <div className="w-full lg:w-72">
             <Select value={sortBy} onValueChange={setSortBy}>
               <SelectTrigger className="rounded-none border-white/20 text-white bg-transparent focus:ring-primary focus:ring-offset-0 h-12">
@@ -169,64 +197,74 @@ export default function Catalogo() {
             ))}
           </div>
         ) : (
-          <>
-            <div
-              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 opacity-0 animate-fade-in-up"
-              style={{ animationDelay: '0.3s' }}
-            >
-              {sortedAndFiltered.map((product) => (
-                <Link key={product.id} to={`/produto/${product.id}`} className="group block h-full">
-                  <Card className="h-full bg-card border-white/5 overflow-hidden group-hover:border-primary/50 transition-colors duration-500 rounded-none cursor-pointer flex flex-col">
-                    <div className="relative aspect-[4/5] overflow-hidden bg-muted/20">
-                      <img
-                        src={
-                          product.imagem_url ||
-                          'https://img.usecurling.com/p/800/1000?q=product&color=black'
-                        }
-                        alt={product.nome}
-                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
-                      />
-                      {product.familias && (
-                        <div className="absolute top-4 left-4">
-                          <Badge
-                            variant="outline"
-                            className="bg-black/80 text-primary border-primary/50 uppercase tracking-widest text-[10px] rounded-none px-3 py-1 backdrop-blur-md"
-                          >
-                            {product.familias.nome}
-                          </Badge>
-                        </div>
-                      )}
-                    </div>
-                    <CardContent className="p-6 relative flex-1 flex flex-col">
-                      <h3 className="text-xl font-serif text-white mb-1 group-hover:text-primary transition-colors">
-                        {product.nome}
-                      </h3>
-                      <p className="text-xs text-muted-foreground font-mono mb-3 uppercase tracking-wider">
-                        {product.codigo}
-                      </p>
-                      <p className="text-sm text-muted-foreground flex items-center gap-2 font-light mt-auto">
-                        <Expand className="w-4 h-4 text-primary/70" />
-                        {product.dimensoes_l}cm x {product.dimensoes_p}cm x {product.dimensoes_a}cm
-                      </p>
-
-                      <div className="mt-6 flex items-center text-xs font-medium text-primary uppercase tracking-widest group-hover:translate-x-2 transition-transform duration-300">
+          <div
+            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 opacity-0 animate-fade-in-up"
+            style={{ animationDelay: '0.3s' }}
+          >
+            {sortedAndFiltered.map((product) => (
+              <div
+                key={product.id}
+                onClick={() => navigate(`/produto/${product.id}`)}
+                className="group block h-full cursor-pointer"
+              >
+                <Card className="h-full bg-card border-white/5 overflow-hidden group-hover:border-primary/50 transition-colors duration-500 rounded-none flex flex-col">
+                  <div className="relative aspect-[4/5] overflow-hidden bg-muted/20">
+                    <img
+                      src={
+                        product.imagem_url ||
+                        'https://img.usecurling.com/p/800/1000?q=product&color=black'
+                      }
+                      alt={product.nome}
+                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
+                    />
+                    {product.familias && (
+                      <div className="absolute top-4 left-4">
+                        <Badge
+                          variant="outline"
+                          className="bg-black/80 text-primary border-primary/50 uppercase tracking-widest text-[10px] rounded-none px-3 py-1 backdrop-blur-md"
+                        >
+                          {product.familias.nome}
+                        </Badge>
+                      </div>
+                    )}
+                  </div>
+                  <CardContent className="p-6 relative flex-1 flex flex-col">
+                    <h3 className="text-xl font-serif text-white mb-1 group-hover:text-primary transition-colors">
+                      {product.nome}
+                    </h3>
+                    <p className="text-xs text-muted-foreground font-mono mb-3 uppercase tracking-wider">
+                      {product.codigo}
+                    </p>
+                    <p className="text-sm text-muted-foreground flex items-center gap-2 font-light mt-auto">
+                      <Expand className="w-4 h-4 text-primary/70" />
+                      {product.dimensoes_l}cm x {product.dimensoes_p}cm x {product.dimensoes_a}cm
+                    </p>
+                    <div className="mt-6 flex flex-col gap-4 relative z-10">
+                      <div className="flex items-center text-xs font-medium text-primary uppercase tracking-widest group-hover:translate-x-2 transition-transform duration-300">
                         Ver Detalhes <ArrowRight className="ml-2 h-4 w-4" />
                       </div>
-                    </CardContent>
-                  </Card>
-                </Link>
-              ))}
-            </div>
-
+                      <Button
+                        onClick={(e) => handleQuoteRequest(e, product)}
+                        disabled={requestingId === product.id}
+                        className="w-full bg-transparent border border-white/10 text-white hover:bg-primary hover:border-primary hover:text-primary-foreground rounded-none text-xs tracking-widest uppercase transition-all duration-300"
+                      >
+                        {requestingId === product.id ? (
+                          <Loader2 className="w-4 h-4 animate-spin" />
+                        ) : (
+                          'Solicitar Orçamento'
+                        )}
+                      </Button>
+                    </div>
+                  </CardContent>
+                </Card>
+              </div>
+            ))}
             {sortedAndFiltered.length === 0 && (
-              <div
-                className="text-center py-20 text-muted-foreground opacity-0 animate-fade-in-up"
-                style={{ animationDelay: '0.3s' }}
-              >
-                Nenhum produto encontrado para o filtro selecionado.
+              <div className="col-span-full text-center py-20 text-muted-foreground">
+                Nenhum produto encontrado.
               </div>
             )}
-          </>
+          </div>
         )}
       </div>
     </div>

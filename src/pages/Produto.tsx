@@ -14,6 +14,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
 import { supabase } from '@/lib/supabase'
+import { useToast } from '@/hooks/use-toast'
 
 const fallbackProductDetails = {
   id: 'p1000000-0000-0000-0000-000000000002',
@@ -47,8 +48,10 @@ const fallbackProductDetails = {
 
 export default function Produto() {
   const { id } = useParams()
+  const { toast } = useToast()
   const [product, setProduct] = useState<any>(null)
   const [isLoading, setIsLoading] = useState(true)
+  const [isRequesting, setIsRequesting] = useState(false)
 
   useEffect(() => {
     async function fetchProduct() {
@@ -99,9 +102,41 @@ export default function Produto() {
     window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank')
   }
 
-  const handleQuoteRequest = () => {
-    const text = `Olá, gostaria de solicitar um orçamento para o produto: ${product.nome} (Código: ${product.codigo}).`
-    window.open(`https://wa.me/5511999999999?text=${encodeURIComponent(text)}`, '_blank')
+  const handleQuoteRequest = async () => {
+    const l = product.dimensoes_l || 0
+    const p = product.dimensoes_p || 0
+    const a = product.dimensoes_a || 0
+    const dimensoesStr = `${l}x${p}x${a}mm`
+
+    setIsRequesting(true)
+    try {
+      const { error } = await supabase.functions.invoke('request-quote', {
+        body: {
+          product: {
+            nome: product.nome,
+            codigo: product.codigo,
+            dimensoes: dimensoesStr,
+          },
+          target_phone: '+5521990451568',
+          message: `Olá! Gostaria de um orçamento para o produto: ${product.nome} (Código: ${product.codigo}). Dimensões: ${dimensoesStr}.`,
+        },
+      })
+
+      if (error) throw error
+
+      toast({
+        title: 'Solicitação enviada!',
+        description: 'Sua solicitação de orçamento foi enviada com sucesso.',
+      })
+    } catch (err) {
+      toast({
+        variant: 'destructive',
+        title: 'Erro ao enviar',
+        description: 'Ocorreu um erro ao enviar sua solicitação. Por favor, tente novamente.',
+      })
+    } finally {
+      setIsRequesting(false)
+    }
   }
 
   const specs = product.especificacoes_json || {}
@@ -244,9 +279,14 @@ export default function Produto() {
             <div className="flex flex-col sm:flex-row gap-4 pt-8">
               <Button
                 onClick={handleQuoteRequest}
+                disabled={isRequesting}
                 className="flex-1 bg-primary text-primary-foreground hover:bg-primary/90 rounded-none h-14 text-sm tracking-widest uppercase transition-all duration-300 active:scale-[0.98]"
               >
-                Solicitar Orçamento
+                {isRequesting ? (
+                  <Loader2 className="w-5 h-5 animate-spin" />
+                ) : (
+                  'Solicitar Orçamento'
+                )}
               </Button>
               <Button
                 onClick={handleWhatsAppShare}

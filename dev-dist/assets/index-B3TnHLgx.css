@@ -822,6 +822,10 @@ section[aria-label='Notifications alt+T'] {
   z-index: 1;
 }
 
+.col-span-full{
+  grid-column: 1 / -1;
+}
+
 .-mx-1{
   margin-left: -0.25rem;
   margin-right: -0.25rem;

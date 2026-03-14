@@ -79,9 +79,7 @@ export default function Contato() {
     }
   }
 
-  const whatsappMessage = encodeURIComponent(
-    'Olá Vittorio Design, gostaria de saber mais sobre seus produtos.',
-  )
+  const whatsappMessage = encodeURIComponent('Olá! Gostaria de uma informação.')
 
   return (
     <div className="w-full pt-32 pb-24 bg-background min-h-screen">
@@ -197,7 +195,7 @@ export default function Contato() {
             style={{ animationDelay: '0.4s' }}
           >
             <a
-              href={`https://wa.me/5511999999999?text=${whatsappMessage}`}
+              href={`https://wa.me/5521990451568?text=${whatsappMessage}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-start gap-6 p-6 md:p-8 bg-card border border-white/5 hover:border-primary transition-colors group"
