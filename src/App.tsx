@@ -23,6 +23,9 @@ import BlogPost from './pages/BlogPost'
 import FAQ from './pages/FAQ'
 import NotFound from './pages/NotFound'
 import Layout from './components/Layout'
+import AdminLayout from './components/admin/AdminLayout'
+import AdminLogin from './pages/admin/Login'
+import AdminDashboard from './pages/admin/Dashboard'
 import { initGA, trackPageView } from './lib/analytics'
 
 initGA()
@@ -64,6 +67,13 @@ const App = () => (
           <Route path="/blog" element={<Blog />} />
           <Route path="/blog/:id" element={<BlogPost />} />
         </Route>
+
+        {/* Admin Routes */}
+        <Route path="/admin" element={<AdminLayout />}>
+          <Route index element={<AdminDashboard />} />
+          <Route path="login" element={<AdminLogin />} />
+        </Route>
+
         <Route path="*" element={<NotFound />} />
       </Routes>
     </TooltipProvider>

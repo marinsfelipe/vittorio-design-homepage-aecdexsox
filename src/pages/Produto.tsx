@@ -73,6 +73,8 @@ export default function Produto() {
 
         if (error || !data) throw new Error('Fallback')
         setProduct(data)
+
+        await supabase.rpc('increment_product_view', { product_id: id }).catch(() => {})
       } catch (err) {
         setProduct({ ...fallbackProductDetails, id: id || fallbackProductDetails.id })
       } finally {

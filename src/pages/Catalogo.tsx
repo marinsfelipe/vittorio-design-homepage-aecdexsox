@@ -13,9 +13,15 @@ export default function Catalogo() {
   const [isDownloading, setIsDownloading] = useState(false)
   const [isSending, setIsSending] = useState(false)
 
-  const handleDownload = () => {
+  const handleDownload = async () => {
     setIsDownloading(true)
     trackEvent('download_catalog', { method: 'print_pdf' })
+
+    try {
+      await supabase.from('analytics_events').insert({ event_name: 'catalog_download' })
+    } catch (e) {
+      console.warn('Analytics tracking failed', e)
+    }
 
     toast({
       title: 'Gerando PDF',
@@ -59,7 +65,6 @@ Linhas Comerciais:
 Produtos em destaque:
 ${produtosText}`
 
-      // Simulando chamada de Edge Function
       await new Promise((resolve) => setTimeout(resolve, 1500))
 
       const { error: dbError } = await supabase.from('whatsapp_envios').insert({
