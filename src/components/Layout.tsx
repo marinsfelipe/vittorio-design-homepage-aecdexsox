@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
-import { Menu, Instagram, Mail, Phone, MapPin } from 'lucide-react'
+import { Menu, Instagram, Mail, Phone, MapPin, MessageCircle } from 'lucide-react'
 import {
   Sheet,
   SheetContent,
@@ -33,12 +33,17 @@ export default function Layout() {
     { name: 'Contato', path: '/contato' },
   ]
 
+  const whatsappMessage = encodeURIComponent(
+    'Olá Vittorio Design, gostaria de saber mais sobre seus produtos.',
+  )
+  const whatsappUrl = `https://wa.me/5511999999999?text=${whatsappMessage}`
+
   return (
-    <div className="flex flex-col min-h-screen selection:bg-primary selection:text-primary-foreground">
+    <div className="flex flex-col min-h-screen selection:bg-primary selection:text-primary-foreground relative">
       <header
         className={cn(
-          'fixed top-0 w-full z-50 transition-all duration-300 glass-header',
-          scrolled ? 'py-3' : 'py-6',
+          'fixed top-0 w-full z-40 transition-all duration-300 glass-header',
+          scrolled ? 'py-3 bg-background/80 backdrop-blur-md border-b border-white/5' : 'py-6',
         )}
       >
         <div className="container flex items-center justify-between">
@@ -72,7 +77,7 @@ export default function Layout() {
             </SheetTrigger>
             <SheetContent
               side="right"
-              className="bg-background border-l-border/50 flex flex-col pt-16"
+              className="bg-background border-l-border/50 flex flex-col pt-16 z-50"
             >
               <SheetTitle className="sr-only">Menu de Navegação</SheetTitle>
               <SheetDescription className="sr-only">
@@ -96,16 +101,20 @@ export default function Layout() {
               </nav>
               <div className="mt-auto pb-8 flex gap-4">
                 <a
-                  href="#"
+                  href="https://instagram.com"
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="p-2 border border-border rounded-full hover:border-primary hover:text-primary transition-colors"
                 >
                   <Instagram className="h-5 w-5" />
                 </a>
                 <a
-                  href="#"
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
                   className="p-2 border border-border rounded-full hover:border-primary hover:text-primary transition-colors"
                 >
-                  <Mail className="h-5 w-5" />
+                  <MessageCircle className="h-5 w-5" />
                 </a>
               </div>
             </SheetContent>
@@ -146,13 +155,25 @@ export default function Layout() {
           <div>
             <h4 className="text-lg font-serif text-white mb-4 uppercase tracking-wider">Contato</h4>
             <ul className="space-y-4">
-              <li className="flex items-center gap-3 text-muted-foreground text-sm">
-                <Phone className="h-4 w-4 text-primary" />
-                <span>+55 (11) 99999-9999</span>
+              <li>
+                <a
+                  href={whatsappUrl}
+                  target="_blank"
+                  rel="noopener noreferrer"
+                  className="flex items-center gap-3 text-muted-foreground text-sm hover:text-primary transition-colors"
+                >
+                  <Phone className="h-4 w-4 text-primary" />
+                  <span>+55 (11) 99999-9999</span>
+                </a>
               </li>
-              <li className="flex items-center gap-3 text-muted-foreground text-sm">
-                <Mail className="h-4 w-4 text-primary" />
-                <span>contato@vittoriodesign.com</span>
+              <li>
+                <a
+                  href="mailto:contato@vittoriodesign.com"
+                  className="flex items-center gap-3 text-muted-foreground text-sm hover:text-primary transition-colors"
+                >
+                  <Mail className="h-4 w-4 text-primary" />
+                  <span>contato@vittoriodesign.com</span>
+                </a>
               </li>
               <li className="flex items-center gap-3 text-muted-foreground text-sm">
                 <MapPin className="h-4 w-4 text-primary" />
@@ -163,16 +184,40 @@ export default function Layout() {
         </div>
         <div className="container pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between text-xs text-muted-foreground">
           <p>&copy; {new Date().getFullYear()} Vittorio Design. Todos os direitos reservados.</p>
-          <div className="flex gap-4 mt-4 md:mt-0">
-            <a href="#" className="hover:text-primary transition-colors">
-              Instagram
+          <div className="flex gap-6 mt-4 md:mt-0">
+            <a
+              href="https://instagram.com"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-primary transition-colors flex items-center gap-2"
+            >
+              <Instagram className="h-4 w-4" /> Instagram
             </a>
-            <a href="#" className="hover:text-primary transition-colors">
-              LinkedIn
+            <a
+              href={whatsappUrl}
+              target="_blank"
+              rel="noopener noreferrer"
+              className="hover:text-primary transition-colors flex items-center gap-2"
+            >
+              <MessageCircle className="h-4 w-4" /> WhatsApp
             </a>
           </div>
         </div>
       </footer>
+
+      {/* Floating WhatsApp Button */}
+      <a
+        href={whatsappUrl}
+        target="_blank"
+        rel="noopener noreferrer"
+        className="fixed bottom-6 right-6 z-50 p-4 bg-primary text-primary-foreground rounded-full shadow-[0_4px_20px_rgba(201,162,107,0.3)] hover:bg-primary/90 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center group"
+        aria-label="Fale conosco no WhatsApp"
+      >
+        <MessageCircle className="w-7 h-7" />
+        <span className="absolute right-full mr-4 bg-card border border-white/10 text-white text-sm px-3 py-1.5 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-lg">
+          Fale Conosco
+        </span>
+      </a>
     </div>
   )
 }

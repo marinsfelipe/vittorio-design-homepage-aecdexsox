@@ -19133,6 +19133,10 @@ var Instagram = createLucideIcon("instagram", [
 		key: "r4j83e"
 	}]
 ]);
+var LoaderCircle = createLucideIcon("loader-circle", [["path", {
+	d: "M21 12a9 9 0 1 1-6.219-8.56",
+	key: "13zald"
+}]]);
 var Mail = createLucideIcon("mail", [["path", {
 	d: "m22 7-8.991 5.727a2 2 0 0 1-2.009 0L2 7",
 	key: "132q7q"
@@ -27553,178 +27557,229 @@ Label.displayName = Root$1.displayName;
 //#endregion
 //#region src/pages/Contato.tsx
 function Contato() {
+	const { toast } = useToast();
+	const [isSubmitting, setIsSubmitting] = (0, import_react.useState)(false);
+	const [formData, setFormData] = (0, import_react.useState)({
+		nome: "",
+		email: "",
+		telefone: "",
+		mensagem: ""
+	});
+	const handleSubmit = (e) => {
+		e.preventDefault();
+		setIsSubmitting(true);
+		setTimeout(() => {
+			setIsSubmitting(false);
+			setFormData({
+				nome: "",
+				email: "",
+				telefone: "",
+				mensagem: ""
+			});
+			toast({
+				title: "Mensagem enviada com sucesso!",
+				description: "Recebemos seu contato. Nossa equipe retornará em breve."
+			});
+		}, 1500);
+	};
+	const handleChange = (e) => {
+		const { id, value } = e.target;
+		setFormData((prev) => ({
+			...prev,
+			[id]: value
+		}));
+	};
+	const whatsappMessage = encodeURIComponent("Olá Vittorio Design, gostaria de saber mais sobre seus produtos.");
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-		"data-uid": "src/pages/Contato.tsx:9:5",
+		"data-uid": "src/pages/Contato.tsx:44:5",
 		"data-prohibitions": "[editContent]",
 		className: "w-full pt-32 pb-24 bg-background min-h-screen",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			"data-uid": "src/pages/Contato.tsx:10:7",
+			"data-uid": "src/pages/Contato.tsx:45:7",
 			"data-prohibitions": "[editContent]",
 			className: "container",
 			children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				"data-uid": "src/pages/Contato.tsx:11:9",
+				"data-uid": "src/pages/Contato.tsx:46:9",
 				"data-prohibitions": "[]",
 				className: "max-w-2xl mb-16 opacity-0 animate-fade-in-up",
 				children: [
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-						"data-uid": "src/pages/Contato.tsx:12:11",
+						"data-uid": "src/pages/Contato.tsx:47:11",
 						"data-prohibitions": "[]",
 						className: "text-4xl md:text-6xl font-serif text-white mb-6",
 						children: "Fale Conosco"
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						"data-uid": "src/pages/Contato.tsx:13:11",
+						"data-uid": "src/pages/Contato.tsx:48:11",
 						"data-prohibitions": "[]",
 						className: "h-px w-24 bg-primary mb-6"
 					}),
 					/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-						"data-uid": "src/pages/Contato.tsx:14:11",
+						"data-uid": "src/pages/Contato.tsx:49:11",
 						"data-prohibitions": "[]",
 						className: "text-lg text-muted-foreground font-light",
 						children: "Estamos à disposição para discutir projetos exclusivos, parcerias comerciais e esclarecer dúvidas sobre nossas peças."
 					})
 				]
 			}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-				"data-uid": "src/pages/Contato.tsx:20:9",
+				"data-uid": "src/pages/Contato.tsx:55:9",
 				"data-prohibitions": "[editContent]",
 				className: "grid grid-cols-1 lg:grid-cols-12 gap-16",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					"data-uid": "src/pages/Contato.tsx:22:11",
-					"data-prohibitions": "[]",
+					"data-uid": "src/pages/Contato.tsx:57:11",
+					"data-prohibitions": "[editContent]",
 					className: "lg:col-span-7 opacity-0 animate-fade-in-up",
 					style: { animationDelay: "0.2s" },
 					children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("form", {
-						"data-uid": "src/pages/Contato.tsx:26:13",
-						"data-prohibitions": "[]",
+						"data-uid": "src/pages/Contato.tsx:61:13",
+						"data-prohibitions": "[editContent]",
 						className: "space-y-6",
-						onSubmit: (e) => e.preventDefault(),
+						onSubmit: handleSubmit,
 						children: [
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/Contato.tsx:27:15",
+								"data-uid": "src/pages/Contato.tsx:62:15",
 								"data-prohibitions": "[]",
 								className: "grid grid-cols-1 md:grid-cols-2 gap-6",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									"data-uid": "src/pages/Contato.tsx:28:17",
+									"data-uid": "src/pages/Contato.tsx:63:17",
 									"data-prohibitions": "[]",
 									className: "space-y-2",
 									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-										"data-uid": "src/pages/Contato.tsx:29:19",
+										"data-uid": "src/pages/Contato.tsx:64:19",
 										"data-prohibitions": "[]",
 										htmlFor: "nome",
 										className: "text-muted-foreground",
 										children: "Nome Completo"
 									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-										"data-uid": "src/pages/Contato.tsx:32:19",
+										"data-uid": "src/pages/Contato.tsx:67:19",
 										"data-prohibitions": "[editContent]",
 										id: "nome",
+										required: true,
+										value: formData.nome,
+										onChange: handleChange,
 										placeholder: "Seu nome",
 										className: "bg-transparent border-input focus-visible:ring-primary focus-visible:border-primary text-white rounded-none h-12"
 									})]
 								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-									"data-uid": "src/pages/Contato.tsx:38:17",
+									"data-uid": "src/pages/Contato.tsx:76:17",
 									"data-prohibitions": "[]",
 									className: "space-y-2",
 									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-										"data-uid": "src/pages/Contato.tsx:39:19",
+										"data-uid": "src/pages/Contato.tsx:77:19",
 										"data-prohibitions": "[]",
 										htmlFor: "email",
 										className: "text-muted-foreground",
 										children: "Email Profissional"
 									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-										"data-uid": "src/pages/Contato.tsx:42:19",
+										"data-uid": "src/pages/Contato.tsx:80:19",
 										"data-prohibitions": "[editContent]",
 										id: "email",
 										type: "email",
+										required: true,
+										value: formData.email,
+										onChange: handleChange,
 										placeholder: "seu@email.com",
 										className: "bg-transparent border-input focus-visible:ring-primary focus-visible:border-primary text-white rounded-none h-12"
 									})]
 								})]
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/Contato.tsx:50:15",
+								"data-uid": "src/pages/Contato.tsx:91:15",
 								"data-prohibitions": "[]",
 								className: "space-y-2",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-									"data-uid": "src/pages/Contato.tsx:51:17",
+									"data-uid": "src/pages/Contato.tsx:92:17",
 									"data-prohibitions": "[]",
-									htmlFor: "assunto",
+									htmlFor: "telefone",
 									className: "text-muted-foreground",
-									children: "Assunto"
+									children: "Telefone / WhatsApp"
 								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Input, {
-									"data-uid": "src/pages/Contato.tsx:54:17",
+									"data-uid": "src/pages/Contato.tsx:95:17",
 									"data-prohibitions": "[editContent]",
-									id: "assunto",
-									placeholder: "Motivo do contato",
+									id: "telefone",
+									type: "tel",
+									required: true,
+									value: formData.telefone,
+									onChange: handleChange,
+									placeholder: "(11) 99999-9999",
 									className: "bg-transparent border-input focus-visible:ring-primary focus-visible:border-primary text-white rounded-none h-12"
 								})]
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/Contato.tsx:60:15",
+								"data-uid": "src/pages/Contato.tsx:105:15",
 								"data-prohibitions": "[]",
 								className: "space-y-2",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Label, {
-									"data-uid": "src/pages/Contato.tsx:61:17",
+									"data-uid": "src/pages/Contato.tsx:106:17",
 									"data-prohibitions": "[]",
 									htmlFor: "mensagem",
 									className: "text-muted-foreground",
 									children: "Mensagem"
 								}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Textarea, {
-									"data-uid": "src/pages/Contato.tsx:64:17",
+									"data-uid": "src/pages/Contato.tsx:109:17",
 									"data-prohibitions": "[editContent]",
 									id: "mensagem",
+									required: true,
+									value: formData.mensagem,
+									onChange: handleChange,
 									placeholder: "Descreva seu projeto ou dúvida...",
 									className: "bg-transparent border-input focus-visible:ring-primary focus-visible:border-primary text-white rounded-none min-h-[160px] resize-none"
 								})]
 							}),
 							/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-								"data-uid": "src/pages/Contato.tsx:70:15",
-								"data-prohibitions": "[]",
+								"data-uid": "src/pages/Contato.tsx:118:15",
+								"data-prohibitions": "[editContent]",
 								type: "submit",
-								className: "w-full md:w-auto bg-primary text-primary-foreground hover:bg-primary/90 rounded-none px-10 py-6 text-sm tracking-widest uppercase transition-all duration-300",
-								children: "Enviar Mensagem"
+								disabled: isSubmitting,
+								className: "w-full md:w-auto bg-primary text-primary-foreground hover:bg-primary/90 rounded-none px-10 py-6 text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-70",
+								children: isSubmitting ? /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(LoaderCircle, {
+									"data-uid": "src/pages/Contato.tsx:125:21",
+									"data-prohibitions": "[editContent]",
+									className: "mr-2 h-4 w-4 animate-spin"
+								}), "Enviando..."] }) : "Enviar Mensagem"
 							})
 						]
 					})
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/pages/Contato.tsx:80:11",
+					"data-uid": "src/pages/Contato.tsx:136:11",
 					"data-prohibitions": "[]",
 					className: "lg:col-span-5 space-y-6 opacity-0 animate-fade-in-up",
 					style: { animationDelay: "0.4s" },
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
-							"data-uid": "src/pages/Contato.tsx:84:13",
+							"data-uid": "src/pages/Contato.tsx:140:13",
 							"data-prohibitions": "[]",
-							href: "https://wa.me/5511999999999",
+							href: `https://wa.me/5511999999999?text=${whatsappMessage}`,
 							target: "_blank",
 							rel: "noopener noreferrer",
 							className: "flex items-start gap-6 p-6 md:p-8 bg-card border border-white/5 hover:border-primary transition-colors group",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								"data-uid": "src/pages/Contato.tsx:90:15",
+								"data-uid": "src/pages/Contato.tsx:146:15",
 								"data-prohibitions": "[]",
 								className: "p-3 bg-primary/10 rounded-full text-primary group-hover:scale-110 transition-transform",
 								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MessageCircle, {
-									"data-uid": "src/pages/Contato.tsx:91:17",
+									"data-uid": "src/pages/Contato.tsx:147:17",
 									"data-prohibitions": "[editContent]",
 									className: "h-6 w-6"
 								})
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/Contato.tsx:93:15",
+								"data-uid": "src/pages/Contato.tsx:149:15",
 								"data-prohibitions": "[]",
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-										"data-uid": "src/pages/Contato.tsx:94:17",
+										"data-uid": "src/pages/Contato.tsx:150:17",
 										"data-prohibitions": "[]",
 										className: "text-lg font-serif text-white mb-1",
 										children: "WhatsApp"
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-										"data-uid": "src/pages/Contato.tsx:95:17",
+										"data-uid": "src/pages/Contato.tsx:151:17",
 										"data-prohibitions": "[]",
 										className: "text-sm text-muted-foreground mb-3 font-light",
 										children: "Atendimento direto e personalizado."
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										"data-uid": "src/pages/Contato.tsx:98:17",
+										"data-uid": "src/pages/Contato.tsx:154:17",
 										"data-prohibitions": "[]",
 										className: "text-primary text-sm tracking-widest uppercase flex items-center group-hover:translate-x-1 transition-transform",
 										children: "Iniciar Conversa"
@@ -27733,37 +27788,37 @@ function Contato() {
 							})]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
-							"data-uid": "src/pages/Contato.tsx:104:13",
+							"data-uid": "src/pages/Contato.tsx:160:13",
 							"data-prohibitions": "[]",
 							href: "mailto:contato@vittoriodesign.com",
 							className: "flex items-start gap-6 p-6 md:p-8 bg-card border border-white/5 hover:border-primary transition-colors group",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								"data-uid": "src/pages/Contato.tsx:108:15",
+								"data-uid": "src/pages/Contato.tsx:164:15",
 								"data-prohibitions": "[]",
 								className: "p-3 bg-primary/10 rounded-full text-primary group-hover:scale-110 transition-transform",
 								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Mail, {
-									"data-uid": "src/pages/Contato.tsx:109:17",
+									"data-uid": "src/pages/Contato.tsx:165:17",
 									"data-prohibitions": "[editContent]",
 									className: "h-6 w-6"
 								})
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/Contato.tsx:111:15",
+								"data-uid": "src/pages/Contato.tsx:167:15",
 								"data-prohibitions": "[]",
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-										"data-uid": "src/pages/Contato.tsx:112:17",
+										"data-uid": "src/pages/Contato.tsx:168:17",
 										"data-prohibitions": "[]",
 										className: "text-lg font-serif text-white mb-1",
 										children: "Email"
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-										"data-uid": "src/pages/Contato.tsx:113:17",
+										"data-uid": "src/pages/Contato.tsx:169:17",
 										"data-prohibitions": "[]",
 										className: "text-sm text-muted-foreground mb-3 font-light",
 										children: "Para projetos e especificações técnicas."
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										"data-uid": "src/pages/Contato.tsx:116:17",
+										"data-uid": "src/pages/Contato.tsx:172:17",
 										"data-prohibitions": "[]",
 										className: "text-primary text-sm tracking-widest uppercase flex items-center group-hover:translate-x-1 transition-transform",
 										children: "Enviar Email"
@@ -27772,39 +27827,39 @@ function Contato() {
 							})]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
-							"data-uid": "src/pages/Contato.tsx:122:13",
+							"data-uid": "src/pages/Contato.tsx:178:13",
 							"data-prohibitions": "[]",
 							href: "https://instagram.com",
 							target: "_blank",
 							rel: "noopener noreferrer",
 							className: "flex items-start gap-6 p-6 md:p-8 bg-card border border-white/5 hover:border-primary transition-colors group",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								"data-uid": "src/pages/Contato.tsx:128:15",
+								"data-uid": "src/pages/Contato.tsx:184:15",
 								"data-prohibitions": "[]",
 								className: "p-3 bg-primary/10 rounded-full text-primary group-hover:scale-110 transition-transform",
 								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Instagram, {
-									"data-uid": "src/pages/Contato.tsx:129:17",
+									"data-uid": "src/pages/Contato.tsx:185:17",
 									"data-prohibitions": "[editContent]",
 									className: "h-6 w-6"
 								})
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/Contato.tsx:131:15",
+								"data-uid": "src/pages/Contato.tsx:187:15",
 								"data-prohibitions": "[]",
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-										"data-uid": "src/pages/Contato.tsx:132:17",
+										"data-uid": "src/pages/Contato.tsx:188:17",
 										"data-prohibitions": "[]",
 										className: "text-lg font-serif text-white mb-1",
 										children: "Instagram"
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-										"data-uid": "src/pages/Contato.tsx:133:17",
+										"data-uid": "src/pages/Contato.tsx:189:17",
 										"data-prohibitions": "[]",
 										className: "text-sm text-muted-foreground mb-3 font-light",
 										children: "Acompanhe nosso portfólio e inspirações."
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										"data-uid": "src/pages/Contato.tsx:136:17",
+										"data-uid": "src/pages/Contato.tsx:192:17",
 										"data-prohibitions": "[]",
 										className: "text-primary text-sm tracking-widest uppercase flex items-center group-hover:translate-x-1 transition-transform",
 										children: "Seguir @vittoriodesign"
@@ -27813,48 +27868,48 @@ function Contato() {
 							})]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							"data-uid": "src/pages/Contato.tsx:142:13",
+							"data-uid": "src/pages/Contato.tsx:198:13",
 							"data-prohibitions": "[]",
 							className: "flex items-start gap-6 p-6 md:p-8 bg-card border border-white/5 group",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-								"data-uid": "src/pages/Contato.tsx:143:15",
+								"data-uid": "src/pages/Contato.tsx:199:15",
 								"data-prohibitions": "[]",
 								className: "p-3 bg-primary/10 rounded-full text-primary",
 								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MapPin, {
-									"data-uid": "src/pages/Contato.tsx:144:17",
+									"data-uid": "src/pages/Contato.tsx:200:17",
 									"data-prohibitions": "[editContent]",
 									className: "h-6 w-6"
 								})
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/Contato.tsx:146:15",
+								"data-uid": "src/pages/Contato.tsx:202:15",
 								"data-prohibitions": "[]",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-									"data-uid": "src/pages/Contato.tsx:147:17",
+									"data-uid": "src/pages/Contato.tsx:203:17",
 									"data-prohibitions": "[]",
 									className: "text-lg font-serif text-white mb-1",
 									children: "Showroom"
 								}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-									"data-uid": "src/pages/Contato.tsx:148:17",
+									"data-uid": "src/pages/Contato.tsx:204:17",
 									"data-prohibitions": "[]",
 									className: "text-sm text-muted-foreground font-light leading-relaxed",
 									children: [
 										"Av. Europa, 150",
 										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {
-											"data-uid": "src/pages/Contato.tsx:150:19",
+											"data-uid": "src/pages/Contato.tsx:206:19",
 											"data-prohibitions": "[editContent]"
 										}),
 										"Jardim Europa",
 										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {
-											"data-uid": "src/pages/Contato.tsx:152:19",
+											"data-uid": "src/pages/Contato.tsx:208:19",
 											"data-prohibitions": "[editContent]"
 										}),
 										"São Paulo, SP - 01449-000",
 										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("br", {
-											"data-uid": "src/pages/Contato.tsx:154:19",
+											"data-uid": "src/pages/Contato.tsx:210:19",
 											"data-prohibitions": "[editContent]"
 										}),
 										/* @__PURE__ */ (0, import_jsx_runtime.jsx)("em", {
-											"data-uid": "src/pages/Contato.tsx:155:19",
+											"data-uid": "src/pages/Contato.tsx:211:19",
 											"data-prohibitions": "[]",
 											className: "text-xs text-primary mt-2 block",
 											children: "Visitas com hora marcada"
@@ -28300,38 +28355,39 @@ function Layout() {
 			path: "/contato"
 		}
 	];
+	const whatsappUrl = `https://wa.me/5511999999999?text=${encodeURIComponent("Olá Vittorio Design, gostaria de saber mais sobre seus produtos.")}`;
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-		"data-uid": "src/components/Layout.tsx:37:5",
+		"data-uid": "src/components/Layout.tsx:42:5",
 		"data-prohibitions": "[editContent]",
-		className: "flex flex-col min-h-screen selection:bg-primary selection:text-primary-foreground",
+		className: "flex flex-col min-h-screen selection:bg-primary selection:text-primary-foreground relative",
 		children: [
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("header", {
-				"data-uid": "src/components/Layout.tsx:38:7",
+				"data-uid": "src/components/Layout.tsx:43:7",
 				"data-prohibitions": "[editContent]",
-				className: cn$1("fixed top-0 w-full z-50 transition-all duration-300 glass-header", scrolled ? "py-3" : "py-6"),
+				className: cn$1("fixed top-0 w-full z-40 transition-all duration-300 glass-header", scrolled ? "py-3 bg-background/80 backdrop-blur-md border-b border-white/5" : "py-6"),
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/components/Layout.tsx:44:9",
+					"data-uid": "src/components/Layout.tsx:49:9",
 					"data-prohibitions": "[editContent]",
 					className: "container flex items-center justify-between",
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Link, {
-							"data-uid": "src/components/Layout.tsx:45:11",
+							"data-uid": "src/components/Layout.tsx:50:11",
 							"data-prohibitions": "[]",
 							to: "/",
 							className: "text-2xl font-serif font-bold text-white tracking-wider",
 							children: ["VITTORIO ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-								"data-uid": "src/components/Layout.tsx:46:22",
+								"data-uid": "src/components/Layout.tsx:51:22",
 								"data-prohibitions": "[]",
 								className: "text-primary font-normal text-xl",
 								children: "Design"
 							})]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("nav", {
-							"data-uid": "src/components/Layout.tsx:49:11",
+							"data-uid": "src/components/Layout.tsx:54:11",
 							"data-prohibitions": "[editContent]",
 							className: "hidden md:flex gap-8",
 							children: navLinks.map((link) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
-								"data-uid": "src/components/Layout.tsx:51:15",
+								"data-uid": "src/components/Layout.tsx:56:15",
 								"data-prohibitions": "[editContent]",
 								to: link.path,
 								className: cn$1("text-sm font-medium uppercase tracking-widest nav-link-hover pb-1 transition-colors", location.pathname === link.path ? "text-primary" : "text-foreground hover:text-white"),
@@ -28339,56 +28395,56 @@ function Layout() {
 							}, link.name))
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Sheet, {
-							"data-uid": "src/components/Layout.tsx:66:11",
+							"data-uid": "src/components/Layout.tsx:71:11",
 							"data-prohibitions": "[editContent]",
 							open: isOpen,
 							onOpenChange: setIsOpen,
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SheetTrigger, {
-								"data-uid": "src/components/Layout.tsx:67:13",
+								"data-uid": "src/components/Layout.tsx:72:13",
 								"data-prohibitions": "[]",
 								asChild: true,
 								className: "md:hidden",
 								children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Button, {
-									"data-uid": "src/components/Layout.tsx:68:15",
+									"data-uid": "src/components/Layout.tsx:73:15",
 									"data-prohibitions": "[]",
 									variant: "ghost",
 									size: "icon",
 									className: "text-white hover:text-primary",
 									children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Menu, {
-										"data-uid": "src/components/Layout.tsx:69:17",
+										"data-uid": "src/components/Layout.tsx:74:17",
 										"data-prohibitions": "[editContent]",
 										className: "h-6 w-6"
 									}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-										"data-uid": "src/components/Layout.tsx:70:17",
+										"data-uid": "src/components/Layout.tsx:75:17",
 										"data-prohibitions": "[]",
 										className: "sr-only",
 										children: "Menu"
 									})]
 								})
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SheetContent, {
-								"data-uid": "src/components/Layout.tsx:73:13",
+								"data-uid": "src/components/Layout.tsx:78:13",
 								"data-prohibitions": "[editContent]",
 								side: "right",
-								className: "bg-background border-l-border/50 flex flex-col pt-16",
+								className: "bg-background border-l-border/50 flex flex-col pt-16 z-50",
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SheetTitle, {
-										"data-uid": "src/components/Layout.tsx:77:15",
+										"data-uid": "src/components/Layout.tsx:82:15",
 										"data-prohibitions": "[]",
 										className: "sr-only",
 										children: "Menu de Navegação"
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SheetDescription, {
-										"data-uid": "src/components/Layout.tsx:78:15",
+										"data-uid": "src/components/Layout.tsx:83:15",
 										"data-prohibitions": "[]",
 										className: "sr-only",
 										children: "Acesse as páginas da Vittorio Design"
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("nav", {
-										"data-uid": "src/components/Layout.tsx:81:15",
+										"data-uid": "src/components/Layout.tsx:86:15",
 										"data-prohibitions": "[editContent]",
 										className: "flex flex-col gap-6 mt-8",
 										children: navLinks.map((link) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
-											"data-uid": "src/components/Layout.tsx:83:19",
+											"data-uid": "src/components/Layout.tsx:88:19",
 											"data-prohibitions": "[editContent]",
 											to: link.path,
 											className: cn$1("text-2xl font-serif tracking-wide transition-colors", location.pathname === link.path ? "text-primary" : "text-foreground hover:text-white"),
@@ -28396,26 +28452,30 @@ function Layout() {
 										}, link.name))
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										"data-uid": "src/components/Layout.tsx:97:15",
+										"data-uid": "src/components/Layout.tsx:102:15",
 										"data-prohibitions": "[]",
 										className: "mt-auto pb-8 flex gap-4",
 										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
-											"data-uid": "src/components/Layout.tsx:98:17",
+											"data-uid": "src/components/Layout.tsx:103:17",
 											"data-prohibitions": "[]",
-											href: "#",
+											href: "https://instagram.com",
+											target: "_blank",
+											rel: "noopener noreferrer",
 											className: "p-2 border border-border rounded-full hover:border-primary hover:text-primary transition-colors",
 											children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Instagram, {
-												"data-uid": "src/components/Layout.tsx:102:19",
+												"data-uid": "src/components/Layout.tsx:109:19",
 												"data-prohibitions": "[editContent]",
 												className: "h-5 w-5"
 											})
 										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
-											"data-uid": "src/components/Layout.tsx:104:17",
+											"data-uid": "src/components/Layout.tsx:111:17",
 											"data-prohibitions": "[]",
-											href: "#",
+											href: whatsappUrl,
+											target: "_blank",
+											rel: "noopener noreferrer",
 											className: "p-2 border border-border rounded-full hover:border-primary hover:text-primary transition-colors",
-											children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Mail, {
-												"data-uid": "src/components/Layout.tsx:108:19",
+											children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(MessageCircle, {
+												"data-uid": "src/components/Layout.tsx:117:19",
 												"data-prohibitions": "[editContent]",
 												className: "h-5 w-5"
 											})
@@ -28428,55 +28488,55 @@ function Layout() {
 				})
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsx)("main", {
-				"data-uid": "src/components/Layout.tsx:116:7",
+				"data-uid": "src/components/Layout.tsx:125:7",
 				"data-prohibitions": "[]",
 				className: "flex-1",
 				children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Outlet, {
-					"data-uid": "src/components/Layout.tsx:117:9",
+					"data-uid": "src/components/Layout.tsx:126:9",
 					"data-prohibitions": "[editContent]"
 				})
 			}),
 			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("footer", {
-				"data-uid": "src/components/Layout.tsx:120:7",
+				"data-uid": "src/components/Layout.tsx:129:7",
 				"data-prohibitions": "[editContent]",
 				className: "bg-card border-t border-white/5 pt-16 pb-8",
 				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/components/Layout.tsx:121:9",
+					"data-uid": "src/components/Layout.tsx:130:9",
 					"data-prohibitions": "[editContent]",
 					className: "container grid grid-cols-1 md:grid-cols-3 gap-12 mb-12",
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							"data-uid": "src/components/Layout.tsx:122:11",
+							"data-uid": "src/components/Layout.tsx:131:11",
 							"data-prohibitions": "[]",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-								"data-uid": "src/components/Layout.tsx:123:13",
+								"data-uid": "src/components/Layout.tsx:132:13",
 								"data-prohibitions": "[]",
 								className: "text-2xl font-serif text-white mb-4",
 								children: "VITTORIO"
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-								"data-uid": "src/components/Layout.tsx:124:13",
+								"data-uid": "src/components/Layout.tsx:133:13",
 								"data-prohibitions": "[]",
 								className: "text-muted-foreground leading-relaxed text-sm max-w-xs",
 								children: "Mobiliário exclusivo e design de interiores sofisticado. Transformamos ambientes através da excelência do inox e acabamentos premium."
 							})]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							"data-uid": "src/components/Layout.tsx:129:11",
+							"data-uid": "src/components/Layout.tsx:138:11",
 							"data-prohibitions": "[editContent]",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
-								"data-uid": "src/components/Layout.tsx:130:13",
+								"data-uid": "src/components/Layout.tsx:139:13",
 								"data-prohibitions": "[]",
 								className: "text-lg font-serif text-white mb-4 uppercase tracking-wider",
 								children: "Links Rápidos"
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("ul", {
-								"data-uid": "src/components/Layout.tsx:133:13",
+								"data-uid": "src/components/Layout.tsx:142:13",
 								"data-prohibitions": "[editContent]",
 								className: "space-y-3",
 								children: navLinks.map((link) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", {
-									"data-uid": "src/components/Layout.tsx:135:17",
+									"data-uid": "src/components/Layout.tsx:144:17",
 									"data-prohibitions": "[editContent]",
 									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
-										"data-uid": "src/components/Layout.tsx:136:19",
+										"data-uid": "src/components/Layout.tsx:145:19",
 										"data-prohibitions": "[editContent]",
 										to: link.path,
 										className: "text-muted-foreground hover:text-primary transition-colors text-sm",
@@ -28486,56 +28546,68 @@ function Layout() {
 							})]
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-							"data-uid": "src/components/Layout.tsx:146:11",
+							"data-uid": "src/components/Layout.tsx:155:11",
 							"data-prohibitions": "[]",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h4", {
-								"data-uid": "src/components/Layout.tsx:147:13",
+								"data-uid": "src/components/Layout.tsx:156:13",
 								"data-prohibitions": "[]",
 								className: "text-lg font-serif text-white mb-4 uppercase tracking-wider",
 								children: "Contato"
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("ul", {
-								"data-uid": "src/components/Layout.tsx:148:13",
+								"data-uid": "src/components/Layout.tsx:157:13",
 								"data-prohibitions": "[]",
 								className: "space-y-4",
 								children: [
-									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
-										"data-uid": "src/components/Layout.tsx:149:15",
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", {
+										"data-uid": "src/components/Layout.tsx:158:15",
 										"data-prohibitions": "[]",
-										className: "flex items-center gap-3 text-muted-foreground text-sm",
-										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Phone, {
-											"data-uid": "src/components/Layout.tsx:150:17",
-											"data-prohibitions": "[editContent]",
-											className: "h-4 w-4 text-primary"
-										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-											"data-uid": "src/components/Layout.tsx:151:17",
+										children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
+											"data-uid": "src/components/Layout.tsx:159:17",
 											"data-prohibitions": "[]",
-											children: "+55 (11) 99999-9999"
-										})]
+											href: whatsappUrl,
+											target: "_blank",
+											rel: "noopener noreferrer",
+											className: "flex items-center gap-3 text-muted-foreground text-sm hover:text-primary transition-colors",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Phone, {
+												"data-uid": "src/components/Layout.tsx:165:19",
+												"data-prohibitions": "[editContent]",
+												className: "h-4 w-4 text-primary"
+											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+												"data-uid": "src/components/Layout.tsx:166:19",
+												"data-prohibitions": "[]",
+												children: "+55 (11) 99999-9999"
+											})]
+										})
+									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("li", {
+										"data-uid": "src/components/Layout.tsx:169:15",
+										"data-prohibitions": "[]",
+										children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
+											"data-uid": "src/components/Layout.tsx:170:17",
+											"data-prohibitions": "[]",
+											href: "mailto:contato@vittoriodesign.com",
+											className: "flex items-center gap-3 text-muted-foreground text-sm hover:text-primary transition-colors",
+											children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Mail, {
+												"data-uid": "src/components/Layout.tsx:174:19",
+												"data-prohibitions": "[editContent]",
+												className: "h-4 w-4 text-primary"
+											}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+												"data-uid": "src/components/Layout.tsx:175:19",
+												"data-prohibitions": "[]",
+												children: "contato@vittoriodesign.com"
+											})]
+										})
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
-										"data-uid": "src/components/Layout.tsx:153:15",
-										"data-prohibitions": "[]",
-										className: "flex items-center gap-3 text-muted-foreground text-sm",
-										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Mail, {
-											"data-uid": "src/components/Layout.tsx:154:17",
-											"data-prohibitions": "[editContent]",
-											className: "h-4 w-4 text-primary"
-										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-											"data-uid": "src/components/Layout.tsx:155:17",
-											"data-prohibitions": "[]",
-											children: "contato@vittoriodesign.com"
-										})]
-									}),
-									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("li", {
-										"data-uid": "src/components/Layout.tsx:157:15",
+										"data-uid": "src/components/Layout.tsx:178:15",
 										"data-prohibitions": "[]",
 										className: "flex items-center gap-3 text-muted-foreground text-sm",
 										children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MapPin, {
-											"data-uid": "src/components/Layout.tsx:158:17",
+											"data-uid": "src/components/Layout.tsx:179:17",
 											"data-prohibitions": "[editContent]",
 											className: "h-4 w-4 text-primary"
 										}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
-											"data-uid": "src/components/Layout.tsx:159:17",
+											"data-uid": "src/components/Layout.tsx:180:17",
 											"data-prohibitions": "[]",
 											children: "Av. Europa, 150 - São Paulo, SP"
 										})]
@@ -28545,11 +28617,11 @@ function Layout() {
 						})
 					]
 				}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/components/Layout.tsx:164:9",
+					"data-uid": "src/components/Layout.tsx:185:9",
 					"data-prohibitions": "[editContent]",
 					className: "container pt-8 border-t border-white/5 flex flex-col md:flex-row items-center justify-between text-xs text-muted-foreground",
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-						"data-uid": "src/components/Layout.tsx:165:11",
+						"data-uid": "src/components/Layout.tsx:186:11",
 						"data-prohibitions": "[editContent]",
 						children: [
 							"© ",
@@ -28557,23 +28629,54 @@ function Layout() {
 							" Vittorio Design. Todos os direitos reservados."
 						]
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						"data-uid": "src/components/Layout.tsx:166:11",
+						"data-uid": "src/components/Layout.tsx:187:11",
 						"data-prohibitions": "[]",
-						className: "flex gap-4 mt-4 md:mt-0",
-						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
-							"data-uid": "src/components/Layout.tsx:167:13",
+						className: "flex gap-6 mt-4 md:mt-0",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
+							"data-uid": "src/components/Layout.tsx:188:13",
 							"data-prohibitions": "[]",
-							href: "#",
-							className: "hover:text-primary transition-colors",
-							children: "Instagram"
-						}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("a", {
-							"data-uid": "src/components/Layout.tsx:170:13",
+							href: "https://instagram.com",
+							target: "_blank",
+							rel: "noopener noreferrer",
+							className: "hover:text-primary transition-colors flex items-center gap-2",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Instagram, {
+								"data-uid": "src/components/Layout.tsx:194:15",
+								"data-prohibitions": "[editContent]",
+								className: "h-4 w-4"
+							}), " Instagram"]
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
+							"data-uid": "src/components/Layout.tsx:196:13",
 							"data-prohibitions": "[]",
-							href: "#",
-							className: "hover:text-primary transition-colors",
-							children: "LinkedIn"
+							href: whatsappUrl,
+							target: "_blank",
+							rel: "noopener noreferrer",
+							className: "hover:text-primary transition-colors flex items-center gap-2",
+							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MessageCircle, {
+								"data-uid": "src/components/Layout.tsx:202:15",
+								"data-prohibitions": "[editContent]",
+								className: "h-4 w-4"
+							}), " WhatsApp"]
 						})]
 					})]
+				})]
+			}),
+			/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("a", {
+				"data-uid": "src/components/Layout.tsx:209:7",
+				"data-prohibitions": "[]",
+				href: whatsappUrl,
+				target: "_blank",
+				rel: "noopener noreferrer",
+				className: "fixed bottom-6 right-6 z-50 p-4 bg-primary text-primary-foreground rounded-full shadow-[0_4px_20px_rgba(201,162,107,0.3)] hover:bg-primary/90 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center group",
+				"aria-label": "Fale conosco no WhatsApp",
+				children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(MessageCircle, {
+					"data-uid": "src/components/Layout.tsx:216:9",
+					"data-prohibitions": "[editContent]",
+					className: "w-7 h-7"
+				}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("span", {
+					"data-uid": "src/components/Layout.tsx:217:9",
+					"data-prohibitions": "[]",
+					className: "absolute right-full mr-4 bg-card border border-white/10 text-white text-sm px-3 py-1.5 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-lg",
+					children: "Fale Conosco"
 				})]
 			})
 		]
@@ -28669,4 +28772,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 }));
 //#endregion
 
-//# sourceMappingURL=index-RntVCQsB.js.map
+//# sourceMappingURL=index-DxZzbmoh.js.map

@@ -1,10 +1,45 @@
-import { Instagram, Mail, MessageCircle, MapPin } from 'lucide-react'
+import { useState } from 'react'
+import { Instagram, Mail, MessageCircle, MapPin, Loader2 } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
+import { useToast } from '@/hooks/use-toast'
 
 export default function Contato() {
+  const { toast } = useToast()
+  const [isSubmitting, setIsSubmitting] = useState(false)
+  const [formData, setFormData] = useState({
+    nome: '',
+    email: '',
+    telefone: '',
+    mensagem: '',
+  })
+
+  const handleSubmit = (e: React.FormEvent) => {
+    e.preventDefault()
+    setIsSubmitting(true)
+
+    // Simulate API call for form submission
+    setTimeout(() => {
+      setIsSubmitting(false)
+      setFormData({ nome: '', email: '', telefone: '', mensagem: '' })
+      toast({
+        title: 'Mensagem enviada com sucesso!',
+        description: 'Recebemos seu contato. Nossa equipe retornará em breve.',
+      })
+    }, 1500)
+  }
+
+  const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
+    const { id, value } = e.target
+    setFormData((prev) => ({ ...prev, [id]: value }))
+  }
+
+  const whatsappMessage = encodeURIComponent(
+    'Olá Vittorio Design, gostaria de saber mais sobre seus produtos.',
+  )
+
   return (
     <div className="w-full pt-32 pb-24 bg-background min-h-screen">
       <div className="container">
@@ -23,7 +58,7 @@ export default function Contato() {
             className="lg:col-span-7 opacity-0 animate-fade-in-up"
             style={{ animationDelay: '0.2s' }}
           >
-            <form className="space-y-6" onSubmit={(e) => e.preventDefault()}>
+            <form className="space-y-6" onSubmit={handleSubmit}>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                 <div className="space-y-2">
                   <Label htmlFor="nome" className="text-muted-foreground">
@@ -31,6 +66,9 @@ export default function Contato() {
                   </Label>
                   <Input
                     id="nome"
+                    required
+                    value={formData.nome}
+                    onChange={handleChange}
                     placeholder="Seu nome"
                     className="bg-transparent border-input focus-visible:ring-primary focus-visible:border-primary text-white rounded-none h-12"
                   />
@@ -42,18 +80,25 @@ export default function Contato() {
                   <Input
                     id="email"
                     type="email"
+                    required
+                    value={formData.email}
+                    onChange={handleChange}
                     placeholder="seu@email.com"
                     className="bg-transparent border-input focus-visible:ring-primary focus-visible:border-primary text-white rounded-none h-12"
                   />
                 </div>
               </div>
               <div className="space-y-2">
-                <Label htmlFor="assunto" className="text-muted-foreground">
-                  Assunto
+                <Label htmlFor="telefone" className="text-muted-foreground">
+                  Telefone / WhatsApp
                 </Label>
                 <Input
-                  id="assunto"
-                  placeholder="Motivo do contato"
+                  id="telefone"
+                  type="tel"
+                  required
+                  value={formData.telefone}
+                  onChange={handleChange}
+                  placeholder="(11) 99999-9999"
                   className="bg-transparent border-input focus-visible:ring-primary focus-visible:border-primary text-white rounded-none h-12"
                 />
               </div>
@@ -63,15 +108,26 @@ export default function Contato() {
                 </Label>
                 <Textarea
                   id="mensagem"
+                  required
+                  value={formData.mensagem}
+                  onChange={handleChange}
                   placeholder="Descreva seu projeto ou dúvida..."
                   className="bg-transparent border-input focus-visible:ring-primary focus-visible:border-primary text-white rounded-none min-h-[160px] resize-none"
                 />
               </div>
               <Button
                 type="submit"
-                className="w-full md:w-auto bg-primary text-primary-foreground hover:bg-primary/90 rounded-none px-10 py-6 text-sm tracking-widest uppercase transition-all duration-300"
+                disabled={isSubmitting}
+                className="w-full md:w-auto bg-primary text-primary-foreground hover:bg-primary/90 rounded-none px-10 py-6 text-sm tracking-widest uppercase transition-all duration-300 disabled:opacity-70"
               >
-                Enviar Mensagem
+                {isSubmitting ? (
+                  <>
+                    <Loader2 className="mr-2 h-4 w-4 animate-spin" />
+                    Enviando...
+                  </>
+                ) : (
+                  'Enviar Mensagem'
+                )}
               </Button>
             </form>
           </div>
@@ -82,7 +138,7 @@ export default function Contato() {
             style={{ animationDelay: '0.4s' }}
           >
             <a
-              href="https://wa.me/5511999999999"
+              href={`https://wa.me/5511999999999?text=${whatsappMessage}`}
               target="_blank"
               rel="noopener noreferrer"
               className="flex items-start gap-6 p-6 md:p-8 bg-card border border-white/5 hover:border-primary transition-colors group"
