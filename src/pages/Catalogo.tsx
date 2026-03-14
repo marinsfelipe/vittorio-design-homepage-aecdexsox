@@ -1,5 +1,5 @@
 import { useState, useEffect, useMemo } from 'react'
-import { ArrowRight, Expand, Loader2 } from 'lucide-react'
+import { ArrowRight, Expand } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import {
   Select,
@@ -11,6 +11,7 @@ import {
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
+import { Skeleton } from '@/components/ui/skeleton'
 import { cn } from '@/lib/utils'
 import { supabase } from '@/lib/supabase'
 
@@ -31,49 +32,6 @@ type Produto = {
   familias?: Familia
 }
 
-const fallbackFamilias: Familia[] = [
-  { id: 'f1000000-0000-0000-0000-000000000001', nome: 'Balcões' },
-  { id: 'f2000000-0000-0000-0000-000000000002', nome: 'Vitrines' },
-  { id: 'f3000000-0000-0000-0000-000000000003', nome: 'Expositores' },
-]
-
-const fallbackProdutos: Produto[] = [
-  {
-    id: 'p1000000-0000-0000-0000-000000000001',
-    nome: 'Balcão Premium Ouro',
-    codigo: 'VD.EX.BAL.001',
-    familia_id: 'f1000000-0000-0000-0000-000000000001',
-    dimensoes_l: 120,
-    dimensoes_p: 60,
-    dimensoes_a: 90,
-    imagem_url: 'https://img.usecurling.com/p/800/1000?q=luxury%20reception%20desk&color=black',
-    familias: { id: 'f1000000-0000-0000-0000-000000000001', nome: 'Balcões' },
-  },
-  {
-    id: 'p2000000-0000-0000-0000-000000000002',
-    nome: 'Vitrine Torre Cristal',
-    codigo: 'VD.EX.VTR.001',
-    familia_id: 'f2000000-0000-0000-0000-000000000002',
-    dimensoes_l: 60,
-    dimensoes_p: 60,
-    dimensoes_a: 180,
-    imagem_url:
-      'https://img.usecurling.com/p/1200/1600?q=luxury%20glass%20display%20cabinet&color=black',
-    familias: { id: 'f2000000-0000-0000-0000-000000000002', nome: 'Vitrines' },
-  },
-  {
-    id: 'p3000000-0000-0000-0000-000000000003',
-    nome: 'Expositor Central Prisma',
-    codigo: 'VD.EX.EXP.001',
-    familia_id: 'f3000000-0000-0000-0000-000000000003',
-    dimensoes_l: 100,
-    dimensoes_p: 100,
-    dimensoes_a: 120,
-    imagem_url: 'https://img.usecurling.com/p/800/1000?q=retail%20display%20stand&color=black',
-    familias: { id: 'f3000000-0000-0000-0000-000000000003', nome: 'Expositores' },
-  },
-]
-
 export default function Catalogo() {
   const [familias, setFamilias] = useState<Familia[]>([])
   const [produtos, setProdutos] = useState<Produto[]>([])
@@ -86,19 +44,14 @@ export default function Catalogo() {
       setIsLoading(true)
       try {
         const [familiasRes, produtosRes] = await Promise.all([
-          supabase.from('familias').select('*').order('nome'),
+          supabase.from('familias').select('id, nome').order('nome'),
           supabase.from('produtos').select('*, familias(id, nome)'),
         ])
 
-        if (familiasRes.error || produtosRes.error || !familiasRes.data?.length) {
-          throw new Error('Fallback to mock')
-        }
-
-        setFamilias(familiasRes.data)
-        setProdutos(produtosRes.data)
+        if (familiasRes.data) setFamilias(familiasRes.data)
+        if (produtosRes.data) setProdutos(produtosRes.data)
       } catch (err) {
-        setFamilias(fallbackFamilias)
-        setProdutos(fallbackProdutos)
+        console.error('Error fetching catalog data:', err)
       } finally {
         setIsLoading(false)
       }
@@ -163,21 +116,25 @@ export default function Catalogo() {
             >
               Todos os Produtos
             </Button>
-            {familias.map((fam) => (
-              <Button
-                key={fam.id}
-                variant={selectedFamilyId === fam.id ? 'default' : 'outline'}
-                onClick={() => setSelectedFamilyId(fam.id)}
-                className={cn(
-                  'rounded-none uppercase tracking-widest text-xs px-6 py-5 transition-all duration-300',
-                  selectedFamilyId === fam.id
-                    ? 'bg-primary text-primary-foreground hover:bg-primary/90 border-transparent'
-                    : 'border-white/20 text-white hover:bg-white/10 hover:border-white/40',
-                )}
-              >
-                {fam.nome}
-              </Button>
-            ))}
+            {isLoading
+              ? Array.from({ length: 3 }).map((_, i) => (
+                  <Skeleton key={i} className="h-[42px] w-[120px] rounded-none bg-white/10" />
+                ))
+              : familias.map((fam) => (
+                  <Button
+                    key={fam.id}
+                    variant={selectedFamilyId === fam.id ? 'default' : 'outline'}
+                    onClick={() => setSelectedFamilyId(fam.id)}
+                    className={cn(
+                      'rounded-none uppercase tracking-widest text-xs px-6 py-5 transition-all duration-300',
+                      selectedFamilyId === fam.id
+                        ? 'bg-primary text-primary-foreground hover:bg-primary/90 border-transparent'
+                        : 'border-white/20 text-white hover:bg-white/10 hover:border-white/40',
+                    )}
+                  >
+                    {fam.nome}
+                  </Button>
+                ))}
           </div>
 
           <div className="w-full lg:w-72">
@@ -196,8 +153,20 @@ export default function Catalogo() {
         </div>
 
         {isLoading ? (
-          <div className="flex justify-center items-center py-20">
-            <Loader2 className="w-8 h-8 animate-spin text-primary" />
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+            {Array.from({ length: 8 }).map((_, i) => (
+              <Card
+                key={i}
+                className="h-full bg-card border-white/5 overflow-hidden rounded-none flex flex-col"
+              >
+                <Skeleton className="relative aspect-[4/5] bg-white/10 rounded-none" />
+                <CardContent className="p-6 flex flex-col gap-3">
+                  <Skeleton className="h-6 w-3/4 bg-white/10" />
+                  <Skeleton className="h-4 w-1/2 bg-white/10" />
+                  <Skeleton className="h-4 w-2/3 bg-white/10 mt-auto" />
+                </CardContent>
+              </Card>
+            ))}
           </div>
         ) : (
           <>
@@ -229,9 +198,12 @@ export default function Catalogo() {
                       )}
                     </div>
                     <CardContent className="p-6 relative flex-1 flex flex-col">
-                      <h3 className="text-xl font-serif text-white mb-3 group-hover:text-primary transition-colors">
+                      <h3 className="text-xl font-serif text-white mb-1 group-hover:text-primary transition-colors">
                         {product.nome}
                       </h3>
+                      <p className="text-xs text-muted-foreground font-mono mb-3 uppercase tracking-wider">
+                        {product.codigo}
+                      </p>
                       <p className="text-sm text-muted-foreground flex items-center gap-2 font-light mt-auto">
                         <Expand className="w-4 h-4 text-primary/70" />
                         {product.dimensoes_l}cm x {product.dimensoes_p}cm x {product.dimensoes_a}cm

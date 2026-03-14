@@ -26857,6 +26857,16 @@ function Badge({ className, variant, ...props }) {
 	});
 }
 //#endregion
+//#region src/components/ui/skeleton.tsx
+function Skeleton({ className, ...props }) {
+	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
+		"data-uid": "src/components/ui/skeleton.tsx:5:10",
+		"data-prohibitions": "[editContent]",
+		className: cn$1("animate-pulse rounded-md bg-muted", className),
+		...props
+	});
+}
+//#endregion
 //#region ../../cache/modules/vittorio-design-homepage-9d5d3/node_modules/.pnpm/@supabase+functions-js@2.99.1/node_modules/@supabase/functions-js/dist/module/helper.js
 var resolveFetch$3 = (customFetch) => {
 	if (customFetch) return (...args) => customFetch(...args);
@@ -40464,64 +40474,6 @@ if (shouldShowDeprecationWarning()) console.warn("⚠️  Node.js 18 and below a
 var supabase = createClient("https://placeholder-url.supabase.co", "placeholder-key");
 //#endregion
 //#region src/pages/Catalogo.tsx
-var fallbackFamilias = [
-	{
-		id: "f1000000-0000-0000-0000-000000000001",
-		nome: "Balcões"
-	},
-	{
-		id: "f2000000-0000-0000-0000-000000000002",
-		nome: "Vitrines"
-	},
-	{
-		id: "f3000000-0000-0000-0000-000000000003",
-		nome: "Expositores"
-	}
-];
-var fallbackProdutos = [
-	{
-		id: "p1000000-0000-0000-0000-000000000001",
-		nome: "Balcão Premium Ouro",
-		codigo: "VD.EX.BAL.001",
-		familia_id: "f1000000-0000-0000-0000-000000000001",
-		dimensoes_l: 120,
-		dimensoes_p: 60,
-		dimensoes_a: 90,
-		imagem_url: "https://img.usecurling.com/p/800/1000?q=luxury%20reception%20desk&color=black",
-		familias: {
-			id: "f1000000-0000-0000-0000-000000000001",
-			nome: "Balcões"
-		}
-	},
-	{
-		id: "p2000000-0000-0000-0000-000000000002",
-		nome: "Vitrine Torre Cristal",
-		codigo: "VD.EX.VTR.001",
-		familia_id: "f2000000-0000-0000-0000-000000000002",
-		dimensoes_l: 60,
-		dimensoes_p: 60,
-		dimensoes_a: 180,
-		imagem_url: "https://img.usecurling.com/p/1200/1600?q=luxury%20glass%20display%20cabinet&color=black",
-		familias: {
-			id: "f2000000-0000-0000-0000-000000000002",
-			nome: "Vitrines"
-		}
-	},
-	{
-		id: "p3000000-0000-0000-0000-000000000003",
-		nome: "Expositor Central Prisma",
-		codigo: "VD.EX.EXP.001",
-		familia_id: "f3000000-0000-0000-0000-000000000003",
-		dimensoes_l: 100,
-		dimensoes_p: 100,
-		dimensoes_a: 120,
-		imagem_url: "https://img.usecurling.com/p/800/1000?q=retail%20display%20stand&color=black",
-		familias: {
-			id: "f3000000-0000-0000-0000-000000000003",
-			nome: "Expositores"
-		}
-	}
-];
 function Catalogo() {
 	const [familias, setFamilias] = (0, import_react.useState)([]);
 	const [produtos, setProdutos] = (0, import_react.useState)([]);
@@ -40532,13 +40484,11 @@ function Catalogo() {
 		async function fetchData() {
 			setIsLoading(true);
 			try {
-				const [familiasRes, produtosRes] = await Promise.all([supabase.from("familias").select("*").order("nome"), supabase.from("produtos").select("*, familias(id, nome)")]);
-				if (familiasRes.error || produtosRes.error || !familiasRes.data?.length) throw new Error("Fallback to mock");
-				setFamilias(familiasRes.data);
-				setProdutos(produtosRes.data);
+				const [familiasRes, produtosRes] = await Promise.all([supabase.from("familias").select("id, nome").order("nome"), supabase.from("produtos").select("*, familias(id, nome)")]);
+				if (familiasRes.data) setFamilias(familiasRes.data);
+				if (produtosRes.data) setProdutos(produtosRes.data);
 			} catch (err) {
-				setFamilias(fallbackFamilias);
-				setProdutos(fallbackProdutos);
+				console.error("Error fetching catalog data:", err);
 			} finally {
 				setIsLoading(false);
 			}
@@ -40566,32 +40516,32 @@ function Catalogo() {
 		sortBy
 	]);
 	return /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-		"data-uid": "src/pages/Catalogo.tsx:138:5",
+		"data-uid": "src/pages/Catalogo.tsx:91:5",
 		"data-prohibitions": "[editContent]",
 		className: "w-full pt-32 pb-24 bg-background min-h-screen",
 		children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-			"data-uid": "src/pages/Catalogo.tsx:139:7",
+			"data-uid": "src/pages/Catalogo.tsx:92:7",
 			"data-prohibitions": "[editContent]",
 			className: "container",
 			children: [
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/pages/Catalogo.tsx:140:9",
+					"data-uid": "src/pages/Catalogo.tsx:93:9",
 					"data-prohibitions": "[]",
 					className: "mb-12 max-w-2xl opacity-0 animate-fade-in-up",
 					children: [
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h1", {
-							"data-uid": "src/pages/Catalogo.tsx:141:11",
+							"data-uid": "src/pages/Catalogo.tsx:94:11",
 							"data-prohibitions": "[]",
 							className: "text-4xl md:text-6xl font-serif text-white mb-6",
 							children: "Nosso Catálogo"
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-							"data-uid": "src/pages/Catalogo.tsx:142:11",
+							"data-uid": "src/pages/Catalogo.tsx:95:11",
 							"data-prohibitions": "[]",
 							className: "h-px w-24 bg-primary mb-6"
 						}),
 						/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
-							"data-uid": "src/pages/Catalogo.tsx:143:11",
+							"data-uid": "src/pages/Catalogo.tsx:96:11",
 							"data-prohibitions": "[]",
 							className: "text-lg text-muted-foreground font-light",
 							children: "Explore nossa coleção de peças exclusivas. Balcões, Vitrines e Expositores desenvolvidos com a precisão do inox e detalhes em ouro para transformar seu ambiente."
@@ -40599,23 +40549,27 @@ function Catalogo() {
 					]
 				}),
 				/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-					"data-uid": "src/pages/Catalogo.tsx:149:9",
+					"data-uid": "src/pages/Catalogo.tsx:102:9",
 					"data-prohibitions": "[editContent]",
 					className: "flex flex-col lg:flex-row justify-between items-start lg:items-center mb-10 gap-6 opacity-0 animate-fade-in-up",
 					style: { animationDelay: "0.2s" },
 					children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-						"data-uid": "src/pages/Catalogo.tsx:153:11",
+						"data-uid": "src/pages/Catalogo.tsx:106:11",
 						"data-prohibitions": "[editContent]",
 						className: "flex flex-wrap gap-3",
 						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-							"data-uid": "src/pages/Catalogo.tsx:154:13",
+							"data-uid": "src/pages/Catalogo.tsx:107:13",
 							"data-prohibitions": "[editContent]",
 							variant: selectedFamilyId === "All" ? "default" : "outline",
 							onClick: () => setSelectedFamilyId("All"),
 							className: cn$1("rounded-none uppercase tracking-widest text-xs px-6 py-5 transition-all duration-300", selectedFamilyId === "All" ? "bg-primary text-primary-foreground hover:bg-primary/90 border-transparent" : "border-white/20 text-white hover:bg-white/10 hover:border-white/40"),
 							children: "Todos os Produtos"
-						}), familias.map((fam) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
-							"data-uid": "src/pages/Catalogo.tsx:167:15",
+						}), isLoading ? Array.from({ length: 3 }).map((_, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Skeleton, {
+							"data-uid": "src/pages/Catalogo.tsx:121:19",
+							"data-prohibitions": "[editContent]",
+							className: "h-[42px] w-[120px] rounded-none bg-white/10"
+						}, i)) : familias.map((fam) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Button, {
+							"data-uid": "src/pages/Catalogo.tsx:124:19",
 							"data-prohibitions": "[editContent]",
 							variant: selectedFamilyId === fam.id ? "default" : "outline",
 							onClick: () => setSelectedFamilyId(fam.id),
@@ -40623,48 +40577,48 @@ function Catalogo() {
 							children: fam.nome
 						}, fam.id))]
 					}), /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-						"data-uid": "src/pages/Catalogo.tsx:183:11",
+						"data-uid": "src/pages/Catalogo.tsx:140:11",
 						"data-prohibitions": "[]",
 						className: "w-full lg:w-72",
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Select, {
-							"data-uid": "src/pages/Catalogo.tsx:184:13",
+							"data-uid": "src/pages/Catalogo.tsx:141:13",
 							"data-prohibitions": "[]",
 							value: sortBy,
 							onValueChange: setSortBy,
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectTrigger, {
-								"data-uid": "src/pages/Catalogo.tsx:185:15",
+								"data-uid": "src/pages/Catalogo.tsx:142:15",
 								"data-prohibitions": "[]",
 								className: "rounded-none border-white/20 text-white bg-transparent focus:ring-primary focus:ring-offset-0 h-12",
 								children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectValue, {
-									"data-uid": "src/pages/Catalogo.tsx:186:17",
+									"data-uid": "src/pages/Catalogo.tsx:143:17",
 									"data-prohibitions": "[editContent]",
 									placeholder: "Ordenar por..."
 								})
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(SelectContent, {
-								"data-uid": "src/pages/Catalogo.tsx:188:15",
+								"data-uid": "src/pages/Catalogo.tsx:145:15",
 								"data-prohibitions": "[]",
 								className: "rounded-none bg-[#111] border-white/10 text-white",
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
-										"data-uid": "src/pages/Catalogo.tsx:189:17",
+										"data-uid": "src/pages/Catalogo.tsx:146:17",
 										"data-prohibitions": "[]",
 										value: "name-asc",
 										children: "Nome (A-Z)"
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
-										"data-uid": "src/pages/Catalogo.tsx:190:17",
+										"data-uid": "src/pages/Catalogo.tsx:147:17",
 										"data-prohibitions": "[]",
 										value: "name-desc",
 										children: "Nome (Z-A)"
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
-										"data-uid": "src/pages/Catalogo.tsx:191:17",
+										"data-uid": "src/pages/Catalogo.tsx:148:17",
 										"data-prohibitions": "[]",
 										value: "size-asc",
 										children: "Tamanho (Menor - Maior)"
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)(SelectItem, {
-										"data-uid": "src/pages/Catalogo.tsx:192:17",
+										"data-uid": "src/pages/Catalogo.tsx:149:17",
 										"data-prohibitions": "[]",
 										value: "size-desc",
 										children: "Tamanho (Maior - Menor)"
@@ -40675,44 +40629,70 @@ function Catalogo() {
 					})]
 				}),
 				isLoading ? /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					"data-uid": "src/pages/Catalogo.tsx:199:11",
-					"data-prohibitions": "[]",
-					className: "flex justify-center items-center py-20",
-					children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(LoaderCircle, {
-						"data-uid": "src/pages/Catalogo.tsx:200:13",
-						"data-prohibitions": "[editContent]",
-						className: "w-8 h-8 animate-spin text-primary"
-					})
+					"data-uid": "src/pages/Catalogo.tsx:156:11",
+					"data-prohibitions": "[editContent]",
+					className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8",
+					children: Array.from({ length: 8 }).map((_, i) => /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, {
+						"data-uid": "src/pages/Catalogo.tsx:158:15",
+						"data-prohibitions": "[]",
+						className: "h-full bg-card border-white/5 overflow-hidden rounded-none flex flex-col",
+						children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Skeleton, {
+							"data-uid": "src/pages/Catalogo.tsx:162:17",
+							"data-prohibitions": "[editContent]",
+							className: "relative aspect-[4/5] bg-white/10 rounded-none"
+						}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
+							"data-uid": "src/pages/Catalogo.tsx:163:17",
+							"data-prohibitions": "[]",
+							className: "p-6 flex flex-col gap-3",
+							children: [
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Skeleton, {
+									"data-uid": "src/pages/Catalogo.tsx:164:19",
+									"data-prohibitions": "[editContent]",
+									className: "h-6 w-3/4 bg-white/10"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Skeleton, {
+									"data-uid": "src/pages/Catalogo.tsx:165:19",
+									"data-prohibitions": "[editContent]",
+									className: "h-4 w-1/2 bg-white/10"
+								}),
+								/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Skeleton, {
+									"data-uid": "src/pages/Catalogo.tsx:166:19",
+									"data-prohibitions": "[editContent]",
+									className: "h-4 w-2/3 bg-white/10 mt-auto"
+								})
+							]
+						})]
+					}, i))
 				}) : /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(import_jsx_runtime.Fragment, { children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					"data-uid": "src/pages/Catalogo.tsx:204:13",
+					"data-uid": "src/pages/Catalogo.tsx:173:13",
 					"data-prohibitions": "[editContent]",
 					className: "grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 opacity-0 animate-fade-in-up",
 					style: { animationDelay: "0.3s" },
 					children: sortedAndFiltered.map((product) => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Link, {
-						"data-uid": "src/pages/Catalogo.tsx:209:17",
+						"data-uid": "src/pages/Catalogo.tsx:178:17",
 						"data-prohibitions": "[editContent]",
 						to: `/produto/${product.id}`,
 						className: "group block h-full",
 						children: /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(Card, {
-							"data-uid": "src/pages/Catalogo.tsx:210:19",
+							"data-uid": "src/pages/Catalogo.tsx:179:19",
 							"data-prohibitions": "[editContent]",
 							className: "h-full bg-card border-white/5 overflow-hidden group-hover:border-primary/50 transition-colors duration-500 rounded-none cursor-pointer flex flex-col",
 							children: [/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-								"data-uid": "src/pages/Catalogo.tsx:211:21",
+								"data-uid": "src/pages/Catalogo.tsx:180:21",
 								"data-prohibitions": "[editContent]",
 								className: "relative aspect-[4/5] overflow-hidden bg-muted/20",
 								children: [/* @__PURE__ */ (0, import_jsx_runtime.jsx)("img", {
-									"data-uid": "src/pages/Catalogo.tsx:212:23",
+									"data-uid": "src/pages/Catalogo.tsx:181:23",
 									"data-prohibitions": "[editContent]",
 									src: product.imagem_url || "https://img.usecurling.com/p/800/1000?q=product&color=black",
 									alt: product.nome,
 									className: "w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
 								}), product.familias && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-									"data-uid": "src/pages/Catalogo.tsx:221:25",
+									"data-uid": "src/pages/Catalogo.tsx:190:25",
 									"data-prohibitions": "[editContent]",
 									className: "absolute top-4 left-4",
 									children: /* @__PURE__ */ (0, import_jsx_runtime.jsx)(Badge, {
-										"data-uid": "src/pages/Catalogo.tsx:222:27",
+										"data-uid": "src/pages/Catalogo.tsx:191:27",
 										"data-prohibitions": "[editContent]",
 										variant: "outline",
 										className: "bg-black/80 text-primary border-primary/50 uppercase tracking-widest text-[10px] rounded-none px-3 py-1 backdrop-blur-md",
@@ -40720,23 +40700,29 @@ function Catalogo() {
 									})
 								})]
 							}), /* @__PURE__ */ (0, import_jsx_runtime.jsxs)(CardContent, {
-								"data-uid": "src/pages/Catalogo.tsx:231:21",
+								"data-uid": "src/pages/Catalogo.tsx:200:21",
 								"data-prohibitions": "[editContent]",
 								className: "p-6 relative flex-1 flex flex-col",
 								children: [
 									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("h3", {
-										"data-uid": "src/pages/Catalogo.tsx:232:23",
+										"data-uid": "src/pages/Catalogo.tsx:201:23",
 										"data-prohibitions": "[editContent]",
-										className: "text-xl font-serif text-white mb-3 group-hover:text-primary transition-colors",
+										className: "text-xl font-serif text-white mb-1 group-hover:text-primary transition-colors",
 										children: product.nome
 									}),
+									/* @__PURE__ */ (0, import_jsx_runtime.jsx)("p", {
+										"data-uid": "src/pages/Catalogo.tsx:204:23",
+										"data-prohibitions": "[editContent]",
+										className: "text-xs text-muted-foreground font-mono mb-3 uppercase tracking-wider",
+										children: product.codigo
+									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("p", {
-										"data-uid": "src/pages/Catalogo.tsx:235:23",
+										"data-uid": "src/pages/Catalogo.tsx:207:23",
 										"data-prohibitions": "[editContent]",
 										className: "text-sm text-muted-foreground flex items-center gap-2 font-light mt-auto",
 										children: [
 											/* @__PURE__ */ (0, import_jsx_runtime.jsx)(Expand, {
-												"data-uid": "src/pages/Catalogo.tsx:236:25",
+												"data-uid": "src/pages/Catalogo.tsx:208:25",
 												"data-prohibitions": "[editContent]",
 												className: "w-4 h-4 text-primary/70"
 											}),
@@ -40749,11 +40735,11 @@ function Catalogo() {
 										]
 									}),
 									/* @__PURE__ */ (0, import_jsx_runtime.jsxs)("div", {
-										"data-uid": "src/pages/Catalogo.tsx:240:23",
+										"data-uid": "src/pages/Catalogo.tsx:212:23",
 										"data-prohibitions": "[]",
 										className: "mt-6 flex items-center text-xs font-medium text-primary uppercase tracking-widest group-hover:translate-x-2 transition-transform duration-300",
 										children: ["Ver Detalhes ", /* @__PURE__ */ (0, import_jsx_runtime.jsx)(ArrowRight, {
-											"data-uid": "src/pages/Catalogo.tsx:241:38",
+											"data-uid": "src/pages/Catalogo.tsx:213:38",
 											"data-prohibitions": "[editContent]",
 											className: "ml-2 h-4 w-4"
 										})]
@@ -40763,7 +40749,7 @@ function Catalogo() {
 						})
 					}, product.id))
 				}), sortedAndFiltered.length === 0 && /* @__PURE__ */ (0, import_jsx_runtime.jsx)("div", {
-					"data-uid": "src/pages/Catalogo.tsx:250:15",
+					"data-uid": "src/pages/Catalogo.tsx:222:15",
 					"data-prohibitions": "[]",
 					className: "text-center py-20 text-muted-foreground opacity-0 animate-fade-in-up",
 					style: { animationDelay: "0.3s" },
@@ -42490,4 +42476,4 @@ var App = () => /* @__PURE__ */ (0, import_jsx_runtime.jsx)(BrowserRouter, {
 }));
 //#endregion
 
-//# sourceMappingURL=index-B5s_CvJ2.js.map
+//# sourceMappingURL=index-BtlhGJ0L.js.map
