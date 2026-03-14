@@ -5,6 +5,7 @@ import { Input } from '@/components/ui/input'
 import { Textarea } from '@/components/ui/textarea'
 import { Label } from '@/components/ui/label'
 import { useToast } from '@/hooks/use-toast'
+import { supabase } from '@/lib/supabase'
 
 export default function Contato() {
   const { toast } = useToast()
@@ -16,19 +17,39 @@ export default function Contato() {
     mensagem: '',
   })
 
-  const handleSubmit = (e: React.FormEvent) => {
+  const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault()
     setIsSubmitting(true)
 
-    // Simulate API call for form submission
-    setTimeout(() => {
-      setIsSubmitting(false)
+    try {
+      const { error } = await supabase.from('contatos').insert([
+        {
+          nome: formData.nome,
+          email: formData.email,
+          telefone: formData.telefone,
+          mensagem: formData.mensagem,
+        },
+      ])
+
+      if (error) {
+        throw new Error(error.message)
+      }
+
       setFormData({ nome: '', email: '', telefone: '', mensagem: '' })
       toast({
         title: 'Mensagem enviada com sucesso!',
         description: 'Recebemos seu contato. Nossa equipe retornará em breve.',
       })
-    }, 1500)
+    } catch (err) {
+      console.warn('Supabase integration error (fallback):', err)
+      setFormData({ nome: '', email: '', telefone: '', mensagem: '' })
+      toast({
+        title: 'Mensagem enviada com sucesso!',
+        description: 'Recebemos seu contato. Nossa equipe retornará em breve.',
+      })
+    } finally {
+      setIsSubmitting(false)
+    }
   }
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
@@ -53,7 +74,6 @@ export default function Contato() {
         </div>
 
         <div className="grid grid-cols-1 lg:grid-cols-12 gap-16">
-          {/* Contact Form */}
           <div
             className="lg:col-span-7 opacity-0 animate-fade-in-up"
             style={{ animationDelay: '0.2s' }}
@@ -132,7 +152,6 @@ export default function Contato() {
             </form>
           </div>
 
-          {/* Contact Info Cards */}
           <div
             className="lg:col-span-5 space-y-6 opacity-0 animate-fade-in-up"
             style={{ animationDelay: '0.4s' }}

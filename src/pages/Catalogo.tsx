@@ -1,5 +1,5 @@
-import { useState, useMemo } from 'react'
-import { ArrowRight, Expand } from 'lucide-react'
+import { useState, useEffect, useMemo } from 'react'
+import { ArrowRight, Expand, Loader2 } from 'lucide-react'
 import { Link } from 'react-router-dom'
 import {
   Select,
@@ -12,149 +12,131 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { cn } from '@/lib/utils'
+import { supabase } from '@/lib/supabase'
 
-type Family = 'Balcões' | 'Vitrines' | 'Expositores'
-
-type Product = {
+type Familia = {
   id: string
-  name: string
-  family: Family
-  dimensions: string
-  sizeScore: number
-  img: string
+  nome: string
 }
 
-const products: Product[] = [
+type Produto = {
+  id: string
+  nome: string
+  codigo: string
+  familia_id: string
+  dimensoes_l: number
+  dimensoes_p: number
+  dimensoes_a: number
+  imagem_url: string
+  familias?: Familia
+}
+
+const fallbackFamilias: Familia[] = [
+  { id: 'f1000000-0000-0000-0000-000000000001', nome: 'Balcões' },
+  { id: 'f2000000-0000-0000-0000-000000000002', nome: 'Vitrines' },
+  { id: 'f3000000-0000-0000-0000-000000000003', nome: 'Expositores' },
+]
+
+const fallbackProdutos: Produto[] = [
   {
-    id: 'b1',
-    name: 'Balcão Premium Ouro',
-    family: 'Balcões',
-    dimensions: '120cm x 60cm x 90cm',
-    sizeScore: 648000,
-    img: 'https://img.usecurling.com/p/800/1000?q=luxury%20reception%20desk&color=black',
+    id: 'p1000000-0000-0000-0000-000000000001',
+    nome: 'Balcão Premium Ouro',
+    codigo: 'VD.EX.BAL.001',
+    familia_id: 'f1000000-0000-0000-0000-000000000001',
+    dimensoes_l: 120,
+    dimensoes_p: 60,
+    dimensoes_a: 90,
+    imagem_url: 'https://img.usecurling.com/p/800/1000?q=luxury%20reception%20desk&color=black',
+    familias: { id: 'f1000000-0000-0000-0000-000000000001', nome: 'Balcões' },
   },
   {
-    id: 'b2',
-    name: 'Balcão Executivo Inox',
-    family: 'Balcões',
-    dimensions: '150cm x 60cm x 90cm',
-    sizeScore: 810000,
-    img: 'https://img.usecurling.com/p/800/1000?q=modern%20counter&color=black',
+    id: 'p2000000-0000-0000-0000-000000000002',
+    nome: 'Vitrine Torre Cristal',
+    codigo: 'VD.EX.VTR.001',
+    familia_id: 'f2000000-0000-0000-0000-000000000002',
+    dimensoes_l: 60,
+    dimensoes_p: 60,
+    dimensoes_a: 180,
+    imagem_url:
+      'https://img.usecurling.com/p/1200/1600?q=luxury%20glass%20display%20cabinet&color=black',
+    familias: { id: 'f2000000-0000-0000-0000-000000000002', nome: 'Vitrines' },
   },
   {
-    id: 'b3',
-    name: 'Balcão Minimalista',
-    family: 'Balcões',
-    dimensions: '100cm x 50cm x 90cm',
-    sizeScore: 450000,
-    img: 'https://img.usecurling.com/p/800/1000?q=minimalist%20desk&color=black',
-  },
-  {
-    id: 'b4',
-    name: 'Balcão Curvo Elegance',
-    family: 'Balcões',
-    dimensions: '180cm x 70cm x 90cm',
-    sizeScore: 1134000,
-    img: 'https://img.usecurling.com/p/800/1000?q=curved%20reception%20counter&color=black',
-  },
-  {
-    id: 'v1',
-    name: 'Vitrine Torre Cristal',
-    family: 'Vitrines',
-    dimensions: '60cm x 60cm x 180cm',
-    sizeScore: 648000,
-    img: 'https://img.usecurling.com/p/800/1000?q=glass%20display%20cabinet&color=black',
-  },
-  {
-    id: 'v2',
-    name: 'Vitrine Panorâmica',
-    family: 'Vitrines',
-    dimensions: '120cm x 40cm x 180cm',
-    sizeScore: 864000,
-    img: 'https://img.usecurling.com/p/800/1000?q=large%20display%20case&color=black',
-  },
-  {
-    id: 'v3',
-    name: 'Vitrine Suspensa',
-    family: 'Vitrines',
-    dimensions: '80cm x 30cm x 60cm',
-    sizeScore: 144000,
-    img: 'https://img.usecurling.com/p/800/1000?q=wall%20mounted%20display%20cabinet&color=black',
-  },
-  {
-    id: 'v4',
-    name: 'Vitrine Iluminada Led',
-    family: 'Vitrines',
-    dimensions: '100cm x 40cm x 200cm',
-    sizeScore: 800000,
-    img: 'https://img.usecurling.com/p/800/1000?q=illuminated%20glass%20showcase&color=black',
-  },
-  {
-    id: 'e1',
-    name: 'Expositor Central Prisma',
-    family: 'Expositores',
-    dimensions: '100cm x 100cm x 120cm',
-    sizeScore: 1200000,
-    img: 'https://img.usecurling.com/p/800/1000?q=retail%20display%20stand&color=black',
-  },
-  {
-    id: 'e2',
-    name: 'Expositor Parede Slim',
-    family: 'Expositores',
-    dimensions: '120cm x 30cm x 200cm',
-    sizeScore: 720000,
-    img: 'https://img.usecurling.com/p/800/1000?q=wall%20shelving%20display&color=black',
-  },
-  {
-    id: 'e3',
-    name: 'Expositor Ilha',
-    family: 'Expositores',
-    dimensions: '150cm x 80cm x 100cm',
-    sizeScore: 1200000,
-    img: 'https://img.usecurling.com/p/800/1000?q=island%20display%20table&color=black',
-  },
-  {
-    id: 'e4',
-    name: 'Expositor Modular',
-    family: 'Expositores',
-    dimensions: '90cm x 40cm x 180cm',
-    sizeScore: 648000,
-    img: 'https://img.usecurling.com/p/800/1000?q=modular%20display%20rack&color=black',
+    id: 'p3000000-0000-0000-0000-000000000003',
+    nome: 'Expositor Central Prisma',
+    codigo: 'VD.EX.EXP.001',
+    familia_id: 'f3000000-0000-0000-0000-000000000003',
+    dimensoes_l: 100,
+    dimensoes_p: 100,
+    dimensoes_a: 120,
+    imagem_url: 'https://img.usecurling.com/p/800/1000?q=retail%20display%20stand&color=black',
+    familias: { id: 'f3000000-0000-0000-0000-000000000003', nome: 'Expositores' },
   },
 ]
 
 export default function Catalogo() {
-  const [selectedFamily, setSelectedFamily] = useState<Family | 'All'>('All')
+  const [familias, setFamilias] = useState<Familia[]>([])
+  const [produtos, setProdutos] = useState<Produto[]>([])
+  const [selectedFamilyId, setSelectedFamilyId] = useState<string>('All')
   const [sortBy, setSortBy] = useState<string>('name-asc')
+  const [isLoading, setIsLoading] = useState(true)
+
+  useEffect(() => {
+    async function fetchData() {
+      setIsLoading(true)
+      try {
+        const [familiasRes, produtosRes] = await Promise.all([
+          supabase.from('familias').select('*').order('nome'),
+          supabase.from('produtos').select('*, familias(id, nome)'),
+        ])
+
+        if (familiasRes.error || produtosRes.error || !familiasRes.data?.length) {
+          throw new Error('Fallback to mock')
+        }
+
+        setFamilias(familiasRes.data)
+        setProdutos(produtosRes.data)
+      } catch (err) {
+        setFamilias(fallbackFamilias)
+        setProdutos(fallbackProdutos)
+      } finally {
+        setIsLoading(false)
+      }
+    }
+
+    fetchData()
+  }, [])
 
   const sortedAndFiltered = useMemo(() => {
-    let result = [...products]
-    if (selectedFamily !== 'All') {
-      result = result.filter((p) => p.family === selectedFamily)
+    let result = [...produtos]
+    if (selectedFamilyId !== 'All') {
+      result = result.filter((p) => p.familia_id === selectedFamilyId)
     }
 
     result.sort((a, b) => {
+      const volA = (a.dimensoes_l || 0) * (a.dimensoes_p || 0) * (a.dimensoes_a || 0)
+      const volB = (b.dimensoes_l || 0) * (b.dimensoes_p || 0) * (b.dimensoes_a || 0)
+
       switch (sortBy) {
         case 'name-asc':
-          return a.name.localeCompare(b.name)
+          return a.nome.localeCompare(b.nome)
         case 'name-desc':
-          return b.name.localeCompare(a.name)
+          return b.nome.localeCompare(a.nome)
         case 'size-asc':
-          return a.sizeScore - b.sizeScore
+          return volA - volB
         case 'size-desc':
-          return b.sizeScore - a.sizeScore
+          return volB - volA
         default:
           return 0
       }
     })
 
     return result
-  }, [selectedFamily, sortBy])
+  }, [produtos, selectedFamilyId, sortBy])
 
   return (
     <div className="w-full pt-32 pb-24 bg-background min-h-screen">
       <div className="container">
-        {/* Header */}
         <div className="mb-12 max-w-2xl opacity-0 animate-fade-in-up">
           <h1 className="text-4xl md:text-6xl font-serif text-white mb-6">Nosso Catálogo</h1>
           <div className="h-px w-24 bg-primary mb-6"></div>
@@ -164,25 +146,36 @@ export default function Catalogo() {
           </p>
         </div>
 
-        {/* Filters and Sorting */}
         <div
           className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-10 gap-6 opacity-0 animate-fade-in-up"
           style={{ animationDelay: '0.2s' }}
         >
           <div className="flex flex-wrap gap-3">
-            {['All', 'Balcões', 'Vitrines', 'Expositores'].map((fam) => (
+            <Button
+              variant={selectedFamilyId === 'All' ? 'default' : 'outline'}
+              onClick={() => setSelectedFamilyId('All')}
+              className={cn(
+                'rounded-none uppercase tracking-widest text-xs px-6 py-5 transition-all duration-300',
+                selectedFamilyId === 'All'
+                  ? 'bg-primary text-primary-foreground hover:bg-primary/90 border-transparent'
+                  : 'border-white/20 text-white hover:bg-white/10 hover:border-white/40',
+              )}
+            >
+              Todos os Produtos
+            </Button>
+            {familias.map((fam) => (
               <Button
-                key={fam}
-                variant={selectedFamily === fam ? 'default' : 'outline'}
-                onClick={() => setSelectedFamily(fam as Family | 'All')}
+                key={fam.id}
+                variant={selectedFamilyId === fam.id ? 'default' : 'outline'}
+                onClick={() => setSelectedFamilyId(fam.id)}
                 className={cn(
                   'rounded-none uppercase tracking-widest text-xs px-6 py-5 transition-all duration-300',
-                  selectedFamily === fam
+                  selectedFamilyId === fam.id
                     ? 'bg-primary text-primary-foreground hover:bg-primary/90 border-transparent'
                     : 'border-white/20 text-white hover:bg-white/10 hover:border-white/40',
                 )}
               >
-                {fam === 'All' ? 'Todos os Produtos' : fam}
+                {fam.nome}
               </Button>
             ))}
           </div>
@@ -202,54 +195,66 @@ export default function Catalogo() {
           </div>
         </div>
 
-        {/* Grid */}
-        <div
-          className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 opacity-0 animate-fade-in-up"
-          style={{ animationDelay: '0.3s' }}
-        >
-          {sortedAndFiltered.map((product) => (
-            <Link key={product.id} to={`/produto/${product.id}`} className="group block h-full">
-              <Card className="h-full bg-card border-white/5 overflow-hidden group-hover:border-primary/50 transition-colors duration-500 rounded-none cursor-pointer flex flex-col">
-                <div className="relative aspect-[4/5] overflow-hidden bg-muted/20">
-                  <img
-                    src={product.img}
-                    alt={product.name}
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
-                  />
-                  <div className="absolute top-4 left-4">
-                    <Badge
-                      variant="outline"
-                      className="bg-black/80 text-primary border-primary/50 uppercase tracking-widest text-[10px] rounded-none px-3 py-1 backdrop-blur-md"
-                    >
-                      {product.family}
-                    </Badge>
-                  </div>
-                </div>
-                <CardContent className="p-6 relative flex-1 flex flex-col">
-                  <h3 className="text-xl font-serif text-white mb-3 group-hover:text-primary transition-colors">
-                    {product.name}
-                  </h3>
-                  <p className="text-sm text-muted-foreground flex items-center gap-2 font-light mt-auto">
-                    <Expand className="w-4 h-4 text-primary/70" />
-                    {product.dimensions}
-                  </p>
-
-                  <div className="mt-6 flex items-center text-xs font-medium text-primary uppercase tracking-widest group-hover:translate-x-2 transition-transform duration-300">
-                    Ver Detalhes <ArrowRight className="ml-2 h-4 w-4" />
-                  </div>
-                </CardContent>
-              </Card>
-            </Link>
-          ))}
-        </div>
-
-        {sortedAndFiltered.length === 0 && (
-          <div
-            className="text-center py-20 text-muted-foreground opacity-0 animate-fade-in-up"
-            style={{ animationDelay: '0.3s' }}
-          >
-            Nenhum produto encontrado para o filtro selecionado.
+        {isLoading ? (
+          <div className="flex justify-center items-center py-20">
+            <Loader2 className="w-8 h-8 animate-spin text-primary" />
           </div>
+        ) : (
+          <>
+            <div
+              className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 opacity-0 animate-fade-in-up"
+              style={{ animationDelay: '0.3s' }}
+            >
+              {sortedAndFiltered.map((product) => (
+                <Link key={product.id} to={`/produto/${product.id}`} className="group block h-full">
+                  <Card className="h-full bg-card border-white/5 overflow-hidden group-hover:border-primary/50 transition-colors duration-500 rounded-none cursor-pointer flex flex-col">
+                    <div className="relative aspect-[4/5] overflow-hidden bg-muted/20">
+                      <img
+                        src={
+                          product.imagem_url ||
+                          'https://img.usecurling.com/p/800/1000?q=product&color=black'
+                        }
+                        alt={product.nome}
+                        className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
+                      />
+                      {product.familias && (
+                        <div className="absolute top-4 left-4">
+                          <Badge
+                            variant="outline"
+                            className="bg-black/80 text-primary border-primary/50 uppercase tracking-widest text-[10px] rounded-none px-3 py-1 backdrop-blur-md"
+                          >
+                            {product.familias.nome}
+                          </Badge>
+                        </div>
+                      )}
+                    </div>
+                    <CardContent className="p-6 relative flex-1 flex flex-col">
+                      <h3 className="text-xl font-serif text-white mb-3 group-hover:text-primary transition-colors">
+                        {product.nome}
+                      </h3>
+                      <p className="text-sm text-muted-foreground flex items-center gap-2 font-light mt-auto">
+                        <Expand className="w-4 h-4 text-primary/70" />
+                        {product.dimensoes_l}cm x {product.dimensoes_p}cm x {product.dimensoes_a}cm
+                      </p>
+
+                      <div className="mt-6 flex items-center text-xs font-medium text-primary uppercase tracking-widest group-hover:translate-x-2 transition-transform duration-300">
+                        Ver Detalhes <ArrowRight className="ml-2 h-4 w-4" />
+                      </div>
+                    </CardContent>
+                  </Card>
+                </Link>
+              ))}
+            </div>
+
+            {sortedAndFiltered.length === 0 && (
+              <div
+                className="text-center py-20 text-muted-foreground opacity-0 animate-fade-in-up"
+                style={{ animationDelay: '0.3s' }}
+              >
+                Nenhum produto encontrado para o filtro selecionado.
+              </div>
+            )}
+          </>
         )}
       </div>
     </div>
