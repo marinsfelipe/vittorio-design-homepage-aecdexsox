@@ -1,166 +1,122 @@
-import { useState, useEffect } from 'react'
-import { Card, CardContent } from '@/components/ui/card'
-import { Skeleton } from '@/components/ui/skeleton'
-import { Camera, Image as ImageIcon } from 'lucide-react'
-import { supabase } from '@/lib/supabase'
-import { optimizeImage } from '@/lib/utils'
-import { fallbackProductDetails } from '@/lib/mock-data'
-
-interface Product {
-  id: string
-  nome: string
-  codigo: string
-  produto_imagens: {
-    imagem_url: string
-    tipo_imagem: string
-  }[]
-}
+import { useState } from 'react'
+import { products, categories, Product } from '@/lib/mock-data'
+import {
+  Card,
+  CardContent,
+  CardDescription,
+  CardFooter,
+  CardHeader,
+  CardTitle,
+} from '@/components/ui/card'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Camera, ChevronRight } from 'lucide-react'
+import { cn } from '@/lib/utils'
 
 export function CatalogProducts() {
-  const [products, setProducts] = useState<Product[]>([])
-  const [loading, setLoading] = useState(true)
+  const [activeCategory, setActiveCategory] = useState<string>('Todos')
 
-  useEffect(() => {
-    async function fetchProducts() {
-      try {
-        const { data, error } = await supabase
-          .from('produtos')
-          .select(`
-            id,
-            nome,
-            codigo,
-            produto_imagens (
-              imagem_url,
-              tipo_imagem
-            )
-          `)
-          .limit(12)
-
-        if (error) throw error
-
-        if (!data || data.length === 0) {
-          throw new Error('Nenhum produto encontrado')
-        }
-
-        setProducts(data)
-      } catch (err) {
-        console.warn('Utilizando dados simulados para o catálogo:', err)
-        setProducts([
-          {
-            id: '1',
-            nome: 'Vitrine Torre Cristal',
-            codigo: 'VD.EX.VTR.001',
-            produto_imagens: fallbackProductDetails.produto_imagens,
-          },
-          {
-            id: '2',
-            nome: 'Balcão Neutro Classic',
-            codigo: 'VD.EX.BAL.002',
-            produto_imagens: [],
-          },
-          {
-            id: '3',
-            nome: 'Expositor Vertical Fredda',
-            codigo: 'VD.EX.EXP.003',
-            produto_imagens: [
-              {
-                imagem_url: 'https://img.usecurling.com/p/1200/1600?q=black%20fridge&color=black',
-                tipo_imagem: 'principal',
-              },
-            ],
-          },
-          {
-            id: '4',
-            nome: 'Vitrine Aquecida Speciale',
-            codigo: 'VD.EX.AQC.004',
-            produto_imagens: [
-              {
-                imagem_url: 'https://img.usecurling.com/p/1200/1600?q=bakery%20display&color=black',
-                tipo_imagem: 'principal',
-              },
-            ],
-          },
-        ])
-      } finally {
-        setLoading(false)
-      }
-    }
-
-    fetchProducts()
-  }, [])
-
-  if (loading) {
-    return (
-      <div className="mt-20">
-        <div className="flex items-center gap-3 mb-8 border-b border-white/10 pb-4">
-          <ImageIcon className="w-5 h-5 text-primary" />
-          <h2 className="text-xl font-serif text-white uppercase tracking-wider">
-            Catálogo de Produtos
-          </h2>
-        </div>
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6 animate-fade-in-up">
-          {[1, 2, 3, 4].map((i) => (
-            <Skeleton key={i} className="h-80 w-full bg-white/5 rounded-none" />
-          ))}
-        </div>
-      </div>
-    )
-  }
-
-  if (products.length === 0) return null
+  const filteredProducts =
+    activeCategory === 'Todos' ? products : products.filter((p) => p.category === activeCategory)
 
   return (
-    <div className="mt-20 opacity-0 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-      <div className="flex items-center gap-3 mb-8 border-b border-white/10 pb-4">
-        <ImageIcon className="w-5 h-5 text-primary" />
-        <h2 className="text-xl font-serif text-white uppercase tracking-wider">
-          Catálogo de Produtos
-        </h2>
+    <div className="w-full max-w-7xl mx-auto px-4 py-12">
+      <div className="flex flex-wrap gap-2 mb-10 justify-center">
+        <Button
+          variant={activeCategory === 'Todos' ? 'default' : 'outline'}
+          onClick={() => setActiveCategory('Todos')}
+          className="rounded-full px-6 transition-all duration-300"
+        >
+          Todos
+        </Button>
+        {categories.map((cat) => (
+          <Button
+            key={cat}
+            variant={activeCategory === cat ? 'default' : 'outline'}
+            onClick={() => setActiveCategory(cat)}
+            className="rounded-full px-6 transition-all duration-300"
+          >
+            {cat}
+          </Button>
+        ))}
       </div>
-      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-        {products.map((product) => {
-          const principalImage = product.produto_imagens?.find(
-            (img) => img.tipo_imagem === 'principal',
-          )
 
-          let imageUrl = principalImage?.imagem_url
-
-          if (imageUrl && !imageUrl.startsWith('http')) {
-            imageUrl = supabase.storage.from('Imagens Vittorio Design').getPublicUrl(imageUrl)
-              .data.publicUrl
-          }
-
-          return (
-            <Card
-              key={product.id}
-              className="bg-zinc-950 border-white/5 hover:border-primary/50 transition-colors duration-500 rounded-none overflow-hidden group"
-            >
-              <div className="aspect-[4/5] bg-zinc-900 relative overflow-hidden">
-                {imageUrl ? (
-                  <img
-                    src={optimizeImage(imageUrl)}
-                    alt={product.nome}
-                    loading="lazy"
-                    className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
-                  />
-                ) : (
-                  <div className="w-full h-full flex flex-col items-center justify-center text-zinc-500 bg-zinc-900/50">
-                    <Camera className="w-10 h-10 mb-2 opacity-20" />
-                    <span className="text-xs uppercase tracking-widest opacity-50">Sem Imagem</span>
-                  </div>
-                )}
-                <div className="absolute inset-0 bg-gradient-to-t from-black/80 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-500" />
-              </div>
-              <CardContent className="p-5 border-t border-white/5 relative z-10 bg-zinc-950">
-                <h3 className="text-base font-serif text-white mb-1 line-clamp-1">
-                  {product.nome}
-                </h3>
-                <p className="text-xs text-primary font-mono tracking-wider">{product.codigo}</p>
-              </CardContent>
-            </Card>
-          )
-        })}
+      <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-8">
+        {filteredProducts.map((product) => (
+          <ProductCard key={product.id} product={product} />
+        ))}
       </div>
     </div>
+  )
+}
+
+function ProductCard({ product }: { product: Product }) {
+  const [imageError, setImageError] = useState(false)
+
+  return (
+    <Card className="overflow-hidden flex flex-col group transition-all duration-300 hover:shadow-xl hover:-translate-y-1 border-border/60 bg-card">
+      <div className="relative aspect-[4/3] bg-muted/30 overflow-hidden border-b border-border/40">
+        {!imageError && product.imageUrl ? (
+          <img
+            src={product.imageUrl}
+            alt={product.name}
+            loading="lazy"
+            onError={() => setImageError(true)}
+            className="object-cover w-full h-full transition-transform duration-700 ease-out group-hover:scale-105"
+          />
+        ) : (
+          <div className="w-full h-full flex flex-col items-center justify-center text-muted-foreground bg-secondary/20">
+            <Camera className="w-12 h-12 mb-3 opacity-40" />
+            <span className="text-sm font-medium opacity-70">Imagem indisponível</span>
+          </div>
+        )}
+        <Badge className="absolute top-4 right-4 bg-background/90 backdrop-blur-md text-foreground hover:bg-background shadow-sm border-border/50">
+          {product.category}
+        </Badge>
+      </div>
+
+      <CardHeader className="p-6 pb-4">
+        <CardTitle className="text-xl font-semibold leading-tight line-clamp-1 group-hover:text-primary transition-colors">
+          {product.name}
+        </CardTitle>
+        <CardDescription className="line-clamp-2 mt-2 text-sm text-muted-foreground/80 leading-relaxed">
+          {product.description}
+        </CardDescription>
+      </CardHeader>
+
+      <CardContent className="p-6 pt-0 flex-grow">
+        {product.features && product.features.length > 0 && (
+          <ul className="text-sm text-muted-foreground space-y-2 mt-2">
+            {product.features.slice(0, 3).map((feature, idx) => (
+              <li key={idx} className="flex items-start gap-2.5">
+                <div className="w-1.5 h-1.5 rounded-full bg-primary/60 mt-1.5 shrink-0" />
+                <span className="line-clamp-1">{feature}</span>
+              </li>
+            ))}
+          </ul>
+        )}
+      </CardContent>
+
+      <CardFooter className="p-6 pt-4 border-t border-border/50 bg-muted/5 mt-auto flex justify-between items-center">
+        <div className="flex flex-col">
+          {product.dimensions && (
+            <>
+              <span className="text-[10px] uppercase font-bold tracking-wider text-muted-foreground/70 mb-0.5">
+                Dimensões
+              </span>
+              <span className="text-xs font-medium text-foreground/80">{product.dimensions}</span>
+            </>
+          )}
+        </div>
+        <Button
+          size="sm"
+          variant="ghost"
+          className="group/btn text-primary hover:text-primary hover:bg-primary/10 -mr-2"
+        >
+          Ver detalhes
+          <ChevronRight className="w-4 h-4 ml-1 transition-transform group-hover/btn:translate-x-1" />
+        </Button>
+      </CardFooter>
+    </Card>
   )
 }
