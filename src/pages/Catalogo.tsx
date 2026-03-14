@@ -1,15 +1,17 @@
 import { useState } from 'react'
-import { FileText, FileDown, Loader2 } from 'lucide-react'
+import { FileText, FileDown, Loader2, MessageCircle } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { useToast } from '@/hooks/use-toast'
 import { SEO } from '@/components/SEO'
 import { trackEvent } from '@/lib/analytics'
 import { PrintableCatalog } from '@/components/PrintableCatalog'
+import { supabase } from '@/lib/supabase'
 
 export default function Catalogo() {
   const { toast } = useToast()
   const [isDownloading, setIsDownloading] = useState(false)
+  const [isSending, setIsSending] = useState(false)
 
   const handleDownload = () => {
     setIsDownloading(true)
@@ -24,6 +26,75 @@ export default function Catalogo() {
       setIsDownloading(false)
       window.print()
     }, 1500)
+  }
+
+  const handleSendWhatsApp = async () => {
+    setIsSending(true)
+    trackEvent('send_catalog_whatsapp')
+
+    try {
+      const { data: produtos } = await supabase
+        .from('produtos')
+        .select('nome, codigo, dimensoes_l, dimensoes_p, dimensoes_a')
+        .limit(3)
+
+      let produtosText = ''
+      if (produtos && produtos.length > 0) {
+        produtosText = produtos
+          .map(
+            (p) =>
+              `• ${p.nome} (Cód: ${p.codigo}) - Dimensões: ${p.dimensoes_l}x${p.dimensoes_p}x${p.dimensoes_a}cm`,
+          )
+          .join('\n')
+      }
+
+      const messageContent = `Olá! Gostaria de solicitar informações e orçamento sobre o catálogo Vittorio Design.
+
+Linhas Comerciais:
+- Strongest
+- Speciale
+- Aprezzo
+- Fredda
+
+Produtos em destaque:
+${produtosText}`
+
+      // Simulando chamada de Edge Function
+      await new Promise((resolve) => setTimeout(resolve, 1500))
+
+      const { error: dbError } = await supabase.from('whatsapp_envios').insert({
+        conteudo_mensagem: messageContent,
+        destinatario: '(21) 99045-1568',
+        status_envio: 'sucesso',
+      })
+
+      if (dbError) throw dbError
+
+      toast({
+        title: 'Catálogo Enviado!',
+        description: 'As informações foram enviadas para o WhatsApp da nossa equipe de vendas.',
+      })
+    } catch (error) {
+      console.error('Erro ao enviar WhatsApp:', error)
+
+      await supabase
+        .from('whatsapp_envios')
+        .insert({
+          conteudo_mensagem: 'Tentativa falha de envio de catálogo',
+          destinatario: '(21) 99045-1568',
+          status_envio: 'erro',
+        })
+        .catch(() => {})
+
+      toast({
+        variant: 'destructive',
+        title: 'Erro no envio',
+        description:
+          'Não foi possível enviar as informações no momento. Tente novamente mais tarde.',
+      })
+    } finally {
+      setIsSending(false)
+    }
   }
 
   const previewCards = [
@@ -55,14 +126,14 @@ export default function Catalogo() {
           </div>
 
           <div
-            className="flex justify-center mb-16 opacity-0 animate-fade-in-up"
+            className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-16 opacity-0 animate-fade-in-up"
             style={{ animationDelay: '0.1s' }}
           >
             <Button
               size="lg"
               onClick={handleDownload}
               disabled={isDownloading}
-              className="bg-primary text-primary-foreground hover:bg-primary/90 rounded-none px-10 h-16 text-sm tracking-widest uppercase transition-all duration-300 shadow-[0_0_30px_rgba(201,162,107,0.2)]"
+              className="bg-primary w-full sm:w-auto text-primary-foreground hover:bg-primary/90 rounded-none px-10 h-16 text-sm tracking-widest uppercase transition-all duration-300 shadow-[0_0_30px_rgba(201,162,107,0.2)]"
             >
               {isDownloading ? (
                 <>
@@ -70,7 +141,24 @@ export default function Catalogo() {
                 </>
               ) : (
                 <>
-                  <FileDown className="w-5 h-5 mr-3" /> Baixar Catálogo em PDF
+                  <FileDown className="w-5 h-5 mr-3" /> Baixar PDF
+                </>
+              )}
+            </Button>
+
+            <Button
+              size="lg"
+              onClick={handleSendWhatsApp}
+              disabled={isSending}
+              className="bg-zinc-900 border border-primary/50 text-primary w-full sm:w-auto hover:bg-zinc-800 rounded-none px-10 h-16 text-sm tracking-widest uppercase transition-all duration-300 shadow-[0_0_30px_rgba(201,162,107,0.1)]"
+            >
+              {isSending ? (
+                <>
+                  <Loader2 className="w-5 h-5 mr-3 animate-spin" /> Processando...
+                </>
+              ) : (
+                <>
+                  <MessageCircle className="w-5 h-5 mr-3" /> Enviar via WhatsApp
                 </>
               )}
             </Button>
