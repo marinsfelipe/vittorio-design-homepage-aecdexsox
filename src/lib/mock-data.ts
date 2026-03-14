@@ -99,3 +99,18 @@ export const products: Product[] = [
     price: 3400,
   },
 ]
+
+export const fallbackProductDetails: Product = {
+  id: 'fallback',
+  name: 'Produto Vittorio Design',
+  description:
+    'Detalhes completos sobre este produto estarão disponíveis em breve. Entre em contato com nossos especialistas para mais informações ou para solicitar um orçamento.',
+  category: 'Equipamentos',
+  imageUrl: 'https://img.usecurling.com/p/800/600?q=stainless%20steel%20kitchen',
+  features: [
+    'Acabamento em aço inox de alta qualidade',
+    'Design ergonômico e funcional',
+    'Fácil higienização e manutenção',
+    'Alta durabilidade para uso profissional',
+  ],
+}
