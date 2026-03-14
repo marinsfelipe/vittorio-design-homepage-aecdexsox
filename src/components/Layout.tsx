@@ -1,6 +1,6 @@
 import { useState, useEffect } from 'react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
-import { Menu, Instagram, Mail, Phone, MapPin, MessageCircle } from 'lucide-react'
+import { Menu, Instagram, Mail, Phone, MapPin, MessageCircle, ShoppingCart } from 'lucide-react'
 import {
   Sheet,
   SheetContent,
@@ -29,6 +29,7 @@ export default function Layout() {
 
   const navLinks = [
     { name: 'Home', path: '/' },
+    { name: 'Loja', path: '/loja' },
     { name: 'Catálogo', path: '/catalogo' },
     { name: 'Contato', path: '/contato' },
   ]
@@ -49,7 +50,7 @@ export default function Layout() {
             VITTORIO <span className="text-primary font-normal text-xl">Design</span>
           </Link>
 
-          <nav className="hidden md:flex gap-8">
+          <nav className="hidden md:flex gap-8 items-center">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -64,6 +65,18 @@ export default function Layout() {
                 {link.name}
               </Link>
             ))}
+            <Link
+              to="/carrinho"
+              className={cn(
+                'text-sm font-medium uppercase tracking-widest nav-link-hover pb-1 transition-colors flex items-center gap-2',
+                location.pathname === '/carrinho'
+                  ? 'text-primary'
+                  : 'text-foreground hover:text-white',
+              )}
+              aria-label="Carrinho de Compras"
+            >
+              <ShoppingCart className="w-5 h-5" />
+            </Link>
           </nav>
 
           <Sheet open={isOpen} onOpenChange={setIsOpen}>
@@ -96,6 +109,17 @@ export default function Layout() {
                     {link.name}
                   </Link>
                 ))}
+                <Link
+                  to="/carrinho"
+                  className={cn(
+                    'text-2xl font-serif tracking-wide transition-colors flex items-center gap-3',
+                    location.pathname === '/carrinho'
+                      ? 'text-primary'
+                      : 'text-foreground hover:text-white',
+                  )}
+                >
+                  <ShoppingCart className="w-6 h-6" /> Carrinho
+                </Link>
               </nav>
               <div className="mt-auto pb-8 flex gap-4">
                 <a

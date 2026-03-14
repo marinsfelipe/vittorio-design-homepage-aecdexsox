@@ -1018,6 +1018,10 @@ section[aria-label='Notifications alt+T'] {
   height: 3.5rem;
 }
 
+.h-16{
+  height: 4rem;
+}
+
 .h-2{
   height: 0.5rem;
 }
@@ -1038,6 +1042,10 @@ section[aria-label='Notifications alt+T'] {
   height: 1rem;
 }
 
+.h-40{
+  height: 10rem;
+}
+
 .h-5{
   height: 1.25rem;
 }
@@ -1052,6 +1060,10 @@ section[aria-label='Notifications alt+T'] {
 
 .h-8{
   height: 2rem;
+}
+
+.h-80{
+  height: 20rem;
 }
 
 .h-9{
@@ -1156,6 +1168,14 @@ section[aria-label='Notifications alt+T'] {
 
 .w-11{
   width: 2.75rem;
+}
+
+.w-12{
+  width: 3rem;
+}
+
+.w-16{
+  width: 4rem;
 }
 
 .w-2{
@@ -1302,6 +1322,10 @@ section[aria-label='Notifications alt+T'] {
 
 .max-w-3xl{
   max-width: 48rem;
+}
+
+.max-w-6xl{
+  max-width: 72rem;
 }
 
 .max-w-\[--skeleton-width\]{
@@ -2177,6 +2201,10 @@ section[aria-label='Notifications alt+T'] {
   padding-top: 1rem;
 }
 
+.pt-6{
+  padding-top: 1.5rem;
+}
+
 .pt-8{
   padding-top: 2rem;
 }
@@ -2937,6 +2965,10 @@ section[aria-label='Notifications alt+T'] {
 .hover\:text-blue-700:hover{
   --tw-text-opacity: 1;
   color: rgb(29 78 216 / var(--tw-text-opacity, 1));
+}
+
+.hover\:text-destructive:hover{
+  color: hsl(var(--destructive));
 }
 
 .hover\:text-foreground:hover{
@@ -3863,6 +3895,10 @@ section[aria-label='Notifications alt+T'] {
     display: flex;
   }
 
+  .sm\:w-32{
+    width: 8rem;
+  }
+
   .sm\:max-w-sm{
     max-width: 24rem;
   }
@@ -4028,6 +4064,14 @@ section[aria-label='Notifications alt+T'] {
 }
 
 @media (min-width: 1024px){
+
+  .lg\:col-span-1{
+    grid-column: span 1 / span 1;
+  }
+
+  .lg\:col-span-2{
+    grid-column: span 2 / span 2;
+  }
 
   .lg\:col-span-5{
     grid-column: span 5 / span 5;
