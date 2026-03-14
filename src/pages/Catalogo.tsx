@@ -15,7 +15,7 @@ export default function Catalogo() {
 
   const handleDownload = async () => {
     setIsDownloading(true)
-    trackEvent('download_catalog', { method: 'print_pdf' })
+    trackEvent('catalog_download', { method: 'print_pdf' })
 
     try {
       await supabase.from('analytics_events').insert({ event_name: 'catalog_download' })
@@ -36,7 +36,7 @@ export default function Catalogo() {
 
   const handleSendWhatsApp = async () => {
     setIsSending(true)
-    trackEvent('send_catalog_whatsapp')
+    trackEvent('whatsapp_click', { context: 'catalog_request' })
 
     try {
       const { data: produtos } = await supabase

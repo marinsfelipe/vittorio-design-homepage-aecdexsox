@@ -85,7 +85,7 @@ export default function Orcamento() {
       })
       if (emailError) throw new Error('Falha no serviço de email automatizado.')
 
-      trackEvent('generate_lead', { form_name: 'quote_advanced' })
+      trackEvent('quote_request', { form_name: 'quote_advanced' })
       toast({
         title: 'Orçamento Solicitado!',
         description: 'Sua solicitação foi enviada com sucesso. Verifique seu email.',

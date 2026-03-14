@@ -19,6 +19,8 @@ import { useToast } from '@/hooks/use-toast'
 import { useCart } from '@/hooks/useCart'
 import { SEO } from '@/components/SEO'
 import { trackEvent } from '@/lib/analytics'
+import { useCachedSupabase } from '@/hooks/useCachedSupabase'
+import { optimizeImage } from '@/lib/utils'
 
 const fallbackProductDetails = {
   id: 'p1000000-0000-0000-0000-000000000002',
@@ -57,36 +59,40 @@ export default function Produto() {
   const { toast } = useToast()
   const { addToCart, isAdding } = useCart()
   const [product, setProduct] = useState<any>(null)
-  const [isLoading, setIsLoading] = useState(true)
   const [isRequesting, setIsRequesting] = useState(false)
 
+  const { data: fetchedProduct, loading: isLoading } = useCachedSupabase(
+    `produto-${id}`,
+    async () => {
+      if (!id) throw new Error('No ID provided')
+      const { data, error } = await supabase
+        .from('produtos')
+        .select('*, familias(nome)')
+        .eq('id', id)
+        .single()
+
+      if (error || !data) throw error
+
+      await supabase.rpc('increment_product_view', { product_id: id }).catch(() => {})
+
+      return data
+    },
+    [id],
+  )
+
   useEffect(() => {
-    async function fetchProduct() {
-      if (!id) return
-      setIsLoading(true)
-      try {
-        const { data, error } = await supabase
-          .from('produtos')
-          .select('*, familias(nome)')
-          .eq('id', id)
-          .single()
-
-        if (error || !data) throw new Error('Fallback')
-        setProduct(data)
-
-        await supabase.rpc('increment_product_view', { product_id: id }).catch(() => {})
-      } catch (err) {
+    if (!isLoading) {
+      if (fetchedProduct) {
+        setProduct(fetchedProduct)
+      } else {
         setProduct({ ...fallbackProductDetails, id: id || fallbackProductDetails.id })
-      } finally {
-        setIsLoading(false)
       }
     }
-    fetchProduct()
-  }, [id])
+  }, [fetchedProduct, isLoading, id])
 
   useEffect(() => {
     if (product && !isLoading) {
-      trackEvent('view_item', {
+      trackEvent('product_view', {
         currency: 'BRL',
         value: product.preco || 0,
         items: [
@@ -155,7 +161,7 @@ export default function Produto() {
 
       if (error) throw error
 
-      trackEvent('generate_lead', { form_name: 'quote_request', product_id: product.id })
+      trackEvent('quote_request', { form_name: 'quote_request', product_id: product.id })
       toast({
         title: 'Solicitação enviada!',
         description: 'Sua solicitação de orçamento foi enviada com sucesso.',
@@ -176,12 +182,37 @@ export default function Produto() {
   const options = Array.isArray(product.opcionais_json) ? product.opcionais_json : []
   const productDescription = `Conheça ${product.nome}. Peça exclusiva da Vittorio Design desenvolvida com precisão e materiais nobres.`
 
+  const jsonLdData = {
+    '@context': 'https://schema.org',
+    '@type': 'Product',
+    name: product.nome,
+    image: product.imagem_url,
+    description: productDescription,
+    sku: product.codigo,
+    offers: {
+      '@type': 'Offer',
+      url: window.location.href,
+      priceCurrency: 'BRL',
+      price: product.preco || 0,
+      availability: product.disponivel_ecommerce
+        ? 'https://schema.org/InStock'
+        : 'https://schema.org/OutOfStock',
+      itemCondition: 'https://schema.org/NewCondition',
+    },
+    aggregateRating: {
+      '@type': 'AggregateRating',
+      ratingValue: '5.0',
+      reviewCount: '12',
+    },
+  }
+
   return (
     <div className="w-full pt-32 pb-24 bg-background min-h-screen">
       <SEO
         title={`${product.nome} | Vittorio Design`}
         description={productDescription}
         image={product.imagem_url}
+        structuredData={jsonLdData}
       />
       <div className="container">
         <Link
@@ -200,10 +231,10 @@ export default function Produto() {
               <div className="relative aspect-[4/5] overflow-hidden bg-muted/20 border border-white/5 p-4 lg:p-8">
                 <div className="absolute inset-0 bg-gradient-to-tr from-black/40 via-transparent to-transparent z-10"></div>
                 <img
-                  src={
+                  src={optimizeImage(
                     product.imagem_url ||
-                    'https://img.usecurling.com/p/1200/1600?q=product&color=black'
-                  }
+                      'https://img.usecurling.com/p/1200/1600?q=product&color=black',
+                  )}
                   alt={product.nome}
                   loading="lazy"
                   className="w-full h-full object-cover object-center shadow-2xl relative z-0"

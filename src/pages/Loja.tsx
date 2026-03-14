@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useMemo, useEffect } from 'react'
 import { ArrowRight, Expand, Loader2, ShoppingCart } from 'lucide-react'
 import { useNavigate } from 'react-router-dom'
 import {
@@ -12,11 +12,12 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
-import { cn } from '@/lib/utils'
+import { cn, optimizeImage } from '@/lib/utils'
 import { supabase } from '@/lib/supabase'
 import { useCart } from '@/hooks/useCart'
 import { SEO } from '@/components/SEO'
 import { trackEvent } from '@/lib/analytics'
+import { useCachedSupabase } from '@/hooks/useCachedSupabase'
 
 type Familia = { id: string; nome: string }
 
@@ -37,33 +38,22 @@ type Produto = {
 export default function Loja() {
   const navigate = useNavigate()
   const { addToCart, isAdding } = useCart()
-  const [familias, setFamilias] = useState<Familia[]>([])
-  const [produtos, setProdutos] = useState<Produto[]>([])
   const [selectedFamilyId, setSelectedFamilyId] = useState<string>('All')
   const [sortBy, setSortBy] = useState<string>('name-asc')
-  const [isLoading, setIsLoading] = useState(true)
 
-  useEffect(() => {
-    async function fetchData() {
-      setIsLoading(true)
-      try {
-        const [familiasRes, produtosRes] = await Promise.all([
-          supabase.from('familias').select('id, nome').order('nome'),
-          supabase
-            .from('produtos')
-            .select('*, familias(id, nome)')
-            .eq('disponivel_ecommerce', true),
-        ])
-        if (familiasRes.data) setFamilias(familiasRes.data)
-        if (produtosRes.data) setProdutos(produtosRes.data)
-      } catch (err) {
-        console.error('Error fetching store data:', err)
-      } finally {
-        setIsLoading(false)
-      }
+  const { data: storeData, loading: isLoading } = useCachedSupabase('loja-data', async () => {
+    const [familiasRes, produtosRes] = await Promise.all([
+      supabase.from('familias').select('id, nome').order('nome'),
+      supabase.from('produtos').select('*, familias(id, nome)').eq('disponivel_ecommerce', true),
+    ])
+    return {
+      familias: (familiasRes.data || []) as Familia[],
+      produtos: (produtosRes.data || []) as Produto[],
     }
-    fetchData()
-  }, [])
+  })
+
+  const familias = storeData?.familias || []
+  const produtos = storeData?.produtos || []
 
   const sortedAndFiltered = useMemo(() => {
     let result = [...produtos]
@@ -204,10 +194,10 @@ export default function Loja() {
                 <Card className="h-full bg-card border-white/5 overflow-hidden group-hover:border-primary/50 transition-colors duration-500 rounded-none flex flex-col">
                   <div className="relative aspect-[4/5] overflow-hidden bg-muted/20">
                     <img
-                      src={
+                      src={optimizeImage(
                         product.imagem_url ||
-                        'https://img.usecurling.com/p/800/1000?q=product&color=black'
-                      }
+                          'https://img.usecurling.com/p/800/1000?q=product&color=black',
+                      )}
                       alt={product.nome}
                       loading="lazy"
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"

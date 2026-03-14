@@ -6,9 +6,9 @@
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://vittorio-design-homepage-9d5d3.goskip.app/catalogo</loc>
-    <changefreq>daily</changefreq>
-    <priority>0.9</priority>
+    <loc>https://vittorio-design-homepage-9d5d3.goskip.app/sobre</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
   </url>
   <url>
     <loc>https://vittorio-design-homepage-9d5d3.goskip.app/loja</loc>
@@ -16,14 +16,59 @@
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://vittorio-design-homepage-9d5d3.goskip.app/contato</loc>
+    <loc>https://vittorio-design-homepage-9d5d3.goskip.app/catalogo</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.9</priority>
+  </url>
+  <url>
+    <loc>https://vittorio-design-homepage-9d5d3.goskip.app/galeria</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vittorio-design-homepage-9d5d3.goskip.app/clientes</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://vittorio-design-homepage-9d5d3.goskip.app/orcamento</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vittorio-design-homepage-9d5d3.goskip.app/documentacao</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://vittorio-design-homepage-9d5d3.goskip.app/assistencia-tecnica</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
+  </url>
+  <url>
+    <loc>https://vittorio-design-homepage-9d5d3.goskip.app/faq</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.6</priority>
+  </url>
+  <url>
+    <loc>https://vittorio-design-homepage-9d5d3.goskip.app/blog</loc>
+    <changefreq>weekly</changefreq>
+    <priority>0.8</priority>
+  </url>
+  <url>
+    <loc>https://vittorio-design-homepage-9d5d3.goskip.app/rastreio</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
+  </url>
+  <url>
+    <loc>https://vittorio-design-homepage-9d5d3.goskip.app/contato</loc>
+    <changefreq>monthly</changefreq>
+    <priority>0.7</priority>
   </url>
   <!-- Example dynamic product route included for reference -->
   <url>
     <loc>https://vittorio-design-homepage-9d5d3.goskip.app/produto/p1000000-0000-0000-0000-000000000002</loc>
     <changefreq>weekly</changefreq>
-    <priority>0.7</priority>
+    <priority>0.8</priority>
   </url>
 </urlset>

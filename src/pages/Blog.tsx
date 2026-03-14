@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import { Link } from 'react-router-dom'
 import { format } from 'date-fns'
 import { ptBR } from 'date-fns/locale'
@@ -9,7 +9,8 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
-import { cn } from '@/lib/utils'
+import { cn, optimizeImage } from '@/lib/utils'
+import { useCachedSupabase } from '@/hooks/useCachedSupabase'
 
 export type Article = {
   id: string
@@ -59,30 +60,22 @@ const MOCK_ARTICLES: Article[] = [
 ]
 
 export default function Blog() {
-  const [articles, setArticles] = useState<Article[]>([])
-  const [loading, setLoading] = useState(true)
   const [activeCategory, setActiveCategory] = useState<string>('Todos')
-
   const categories = ['Todos', 'Técnico', 'Comercial', 'Tendências']
 
-  useEffect(() => {
-    async function fetchArticles() {
-      try {
-        const { data, error } = await supabase
-          .from('artigos')
-          .select('*')
-          .order('data_publicacao', { ascending: false })
+  const { data: cachedArticles, loading } = useCachedSupabase('blog-articles', async () => {
+    const { data, error } = await supabase
+      .from('artigos')
+      .select('*')
+      .order('data_publicacao', { ascending: false })
 
-        if (error || !data || data.length === 0) throw new Error('Use fallback')
-        setArticles(data)
-      } catch (err) {
-        setArticles(MOCK_ARTICLES)
-      } finally {
-        setLoading(false)
-      }
+    if (error || !data || data.length === 0) {
+      throw new Error('Use fallback')
     }
-    fetchArticles()
-  }, [])
+    return data as Article[]
+  })
+
+  const articles = cachedArticles || (!loading ? MOCK_ARTICLES : [])
 
   const filteredArticles = useMemo(() => {
     if (activeCategory === 'Todos') return articles
@@ -154,10 +147,10 @@ export default function Blog() {
                 <Card className="h-full bg-card border-white/5 overflow-hidden group-hover:border-primary/50 transition-colors duration-500 rounded-none flex flex-col relative">
                   <div className="relative aspect-video overflow-hidden bg-muted/20 shrink-0">
                     <img
-                      src={
+                      src={optimizeImage(
                         article.imagem_url ||
-                        'https://img.usecurling.com/p/800/600?q=article&color=black'
-                      }
+                          'https://img.usecurling.com/p/800/600?q=article&color=black',
+                      )}
                       alt={article.titulo}
                       loading="lazy"
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"

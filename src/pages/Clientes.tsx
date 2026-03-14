@@ -1,4 +1,4 @@
-import { useState, useEffect, useMemo } from 'react'
+import { useState, useMemo } from 'react'
 import { Quote, Loader2 } from 'lucide-react'
 import { supabase } from '@/lib/supabase'
 import { SEO } from '@/components/SEO'
@@ -6,7 +6,8 @@ import { Button } from '@/components/ui/button'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
 import { Skeleton } from '@/components/ui/skeleton'
-import { cn } from '@/lib/utils'
+import { cn, optimizeImage } from '@/lib/utils'
+import { useCachedSupabase } from '@/hooks/useCachedSupabase'
 
 export type Cliente = {
   id: string
@@ -62,28 +63,19 @@ const MOCK_CLIENTES: Cliente[] = [
 ]
 
 export default function Clientes() {
-  const [clientes, setClientes] = useState<Cliente[]>([])
-  const [loading, setLoading] = useState(true)
   const [activeCategory, setActiveCategory] = useState<string>('Todos')
 
-  useEffect(() => {
-    async function fetchClientes() {
-      try {
-        const { data, error } = await supabase
-          .from('clientes')
-          .select('*')
-          .order('data_parceria', { ascending: false })
+  const { data: fetchedClientes, loading } = useCachedSupabase('clientes-list', async () => {
+    const { data, error } = await supabase
+      .from('clientes')
+      .select('*')
+      .order('data_parceria', { ascending: false })
 
-        if (error || !data || data.length === 0) throw new Error('Use fallback')
-        setClientes(data)
-      } catch (err) {
-        setClientes(MOCK_CLIENTES)
-      } finally {
-        setLoading(false)
-      }
-    }
-    fetchClientes()
-  }, [])
+    if (error || !data || data.length === 0) throw new Error('Use fallback')
+    return data as Cliente[]
+  })
+
+  const clientes = fetchedClientes || (!loading ? MOCK_CLIENTES : [])
 
   const categories = useMemo(() => {
     const uniqueCategories = Array.from(new Set(clientes.map((c) => c.tipo)))
@@ -163,7 +155,7 @@ export default function Clientes() {
               >
                 <div className="relative aspect-video overflow-hidden bg-muted/20 shrink-0">
                   <img
-                    src={cliente.foto_equipamento_url}
+                    src={optimizeImage(cliente.foto_equipamento_url)}
                     alt={`Equipamento na ${cliente.nome}`}
                     loading="lazy"
                     className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
@@ -182,8 +174,9 @@ export default function Clientes() {
                   <div className="flex items-center gap-5 mb-6">
                     <div className="w-14 h-14 rounded-full border border-white/10 bg-black/40 flex items-center justify-center p-2.5 overflow-hidden shrink-0 shadow-lg">
                       <img
-                        src={cliente.logo_url}
+                        src={optimizeImage(cliente.logo_url)}
                         alt={`Logo ${cliente.nome}`}
+                        loading="lazy"
                         className="w-full h-full object-contain opacity-90 group-hover:opacity-100 transition-opacity"
                       />
                     </div>

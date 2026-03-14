@@ -3,7 +3,7 @@ import { ZoomIn, X, ChevronLeft, ChevronRight, MapPin } from 'lucide-react'
 import { SEO } from '@/components/SEO'
 import { Button } from '@/components/ui/button'
 import { Badge } from '@/components/ui/badge'
-import { cn } from '@/lib/utils'
+import { cn, optimizeImage } from '@/lib/utils'
 
 type Family = 'Balcões' | 'Vitrines' | 'Expositores'
 type Line = 'Strongest' | 'Speciale' | 'Aprezzo' | 'Fredda'
@@ -178,7 +178,7 @@ export default function Galeria() {
             >
               <div className="aspect-[4/3] overflow-hidden bg-muted/20 relative">
                 <img
-                  src={item.image}
+                  src={optimizeImage(item.image)}
                   alt={item.productName}
                   loading="lazy"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105"
@@ -259,8 +259,9 @@ export default function Galeria() {
             >
               <div className="relative max-h-full max-w-full flex-shrink overflow-hidden shadow-2xl">
                 <img
-                  src={filteredItems[lightboxIndex].image}
+                  src={optimizeImage(filteredItems[lightboxIndex].image)}
                   alt={filteredItems[lightboxIndex].productName}
+                  loading="lazy"
                   className="max-h-[70vh] object-contain mx-auto"
                 />
               </div>
