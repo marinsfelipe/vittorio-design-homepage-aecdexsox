@@ -1,283 +1,215 @@
-import { useState, useEffect } from 'react'
 import { Link, Outlet, useLocation } from 'react-router-dom'
-import { Menu, Instagram, Mail, Phone, MapPin, MessageCircle, ShoppingCart } from 'lucide-react'
-import {
-  Sheet,
-  SheetContent,
-  SheetTrigger,
-  SheetTitle,
-  SheetDescription,
-} from '@/components/ui/sheet'
+import { useState, useEffect } from 'react'
+import { MapPin, Phone, Mail, Instagram, Menu, X, ChevronRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
-import { trackEvent } from '@/lib/analytics'
+import logoPrimary from '../assets/logo-png-ade0b.png'
+import logoBoxed from '../assets/logotipo-vittorio-2d1d7.jpg'
 
-export default function Layout() {
-  const [scrolled, setScrolled] = useState(false)
+export function Layout() {
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [mobileMenuOpen, setMobileMenuOpen] = useState(false)
   const location = useLocation()
-  const [isOpen, setIsOpen] = useState(false)
 
   useEffect(() => {
-    const handleScroll = () => setScrolled(window.scrollY > 20)
+    const handleScroll = () => setIsScrolled(window.scrollY > 20)
     window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
   useEffect(() => {
-    setIsOpen(false)
-    window.scrollTo({ top: 0, behavior: 'smooth' })
+    setMobileMenuOpen(false)
+    window.scrollTo(0, 0)
   }, [location.pathname])
 
   const navLinks = [
-    { name: 'Home', path: '/' },
-    { name: 'A Vittorio', path: '/sobre' },
-    { name: 'Loja', path: '/loja' },
+    { name: 'Início', path: '/' },
+    { name: 'Sobre', path: '/sobre' },
     { name: 'Catálogo', path: '/catalogo' },
-    { name: 'Galeria', path: '/galeria' },
-    { name: 'Clientes', path: '/clientes' },
-    { name: 'Orçamento', path: '/orcamento' },
-    { name: 'Docs', path: '/documentacao' },
-    { name: 'Assistência', path: '/assistencia-tecnica' },
-    { name: 'FAQ', path: '/faq' },
-    { name: 'Blog', path: '/blog' },
-    { name: 'Rastreio', path: '/rastreio' },
+    { name: 'Projetos', path: '/galeria' },
     { name: 'Contato', path: '/contato' },
   ]
 
-  const whatsappMessage = encodeURIComponent('Olá! Gostaria de uma informação.')
-  const whatsappUrl = `https://wa.me/5521990451568?text=${whatsappMessage}`
-
   return (
-    <div className="flex flex-col min-h-screen selection:bg-primary selection:text-primary-foreground relative">
+    <div className="flex min-h-screen flex-col bg-zinc-950 font-sans text-zinc-300">
       <header
         className={cn(
-          'fixed top-0 w-full z-40 transition-all duration-300 glass-header',
-          scrolled ? 'py-3 bg-background/80 backdrop-blur-md border-b border-white/5' : 'py-6',
+          'fixed top-0 z-50 w-full transition-all duration-300 border-b',
+          isScrolled
+            ? 'bg-zinc-950/90 backdrop-blur-md border-zinc-800 shadow-sm shadow-black/50'
+            : 'bg-transparent border-transparent',
         )}
       >
-        <div className="container flex items-center justify-between">
-          <Link
-            to="/"
-            className="text-xl md:text-2xl font-serif font-bold text-white tracking-wider"
-          >
-            VITTORIO <span className="text-primary font-normal text-lg md:text-xl">Design</span>
+        <div className="container mx-auto px-4 h-24 flex items-center justify-between">
+          <Link to="/" className="flex items-center gap-3 group">
+            <img
+              src={logoPrimary}
+              alt="Vittorio"
+              className="h-14 w-auto object-contain transition-transform duration-500 group-hover:scale-105"
+            />
           </Link>
 
-          <nav className="hidden xl:flex gap-4 2xl:gap-6 items-center">
+          <nav className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <Link
-                key={link.name}
+                key={link.path}
                 to={link.path}
-                className={cn(
-                  'text-[11px] 2xl:text-xs font-medium uppercase tracking-widest nav-link-hover pb-1 transition-colors whitespace-nowrap',
-                  location.pathname === link.path ||
-                    (link.path === '/blog' && location.pathname.startsWith('/blog/'))
-                    ? 'text-primary'
-                    : 'text-foreground hover:text-white',
-                )}
+                className="text-sm font-medium tracking-wide text-zinc-300 hover:text-[#D4AF37] transition-colors uppercase"
               >
                 {link.name}
               </Link>
             ))}
-            <Link
-              to="/carrinho"
-              className={cn(
-                'text-sm font-medium uppercase tracking-widest nav-link-hover pb-1 transition-colors flex items-center gap-2 ml-2',
-                location.pathname === '/carrinho'
-                  ? 'text-primary'
-                  : 'text-foreground hover:text-white',
-              )}
-              aria-label="Carrinho de Compras"
-            >
-              <ShoppingCart className="w-5 h-5" />
-            </Link>
           </nav>
 
-          <Sheet open={isOpen} onOpenChange={setIsOpen}>
-            <SheetTrigger asChild className="xl:hidden">
-              <Button variant="ghost" size="icon" className="text-white hover:text-primary">
-                <Menu className="h-6 w-6" />
-                <span className="sr-only">Menu</span>
-              </Button>
-            </SheetTrigger>
-            <SheetContent
-              side="right"
-              className="bg-background border-l-border/50 flex flex-col pt-16 z-50 w-4/5 sm:w-80"
+          <div className="hidden md:flex items-center gap-4">
+            <Button
+              asChild
+              className="bg-[#D4AF37] hover:bg-[#B8860B] text-zinc-950 rounded-none font-semibold uppercase tracking-wider text-xs px-6"
             >
-              <SheetTitle className="sr-only">Menu de Navegação</SheetTitle>
-              <SheetDescription className="sr-only">
-                Acesse as páginas da Vittorio Design
-              </SheetDescription>
-              <nav className="flex flex-col gap-6 mt-8 overflow-y-auto pr-2 pb-8">
-                {navLinks.map((link) => (
-                  <Link
-                    key={link.name}
-                    to={link.path}
-                    className={cn(
-                      'text-xl font-serif tracking-wide transition-colors',
-                      location.pathname === link.path ||
-                        (link.path === '/blog' && location.pathname.startsWith('/blog/'))
-                        ? 'text-primary'
-                        : 'text-foreground hover:text-white',
-                    )}
-                  >
-                    {link.name === 'Docs' ? 'Documentação Técnica' : link.name}
-                  </Link>
-                ))}
-                <Link
-                  to="/carrinho"
-                  className={cn(
-                    'text-xl font-serif tracking-wide transition-colors flex items-center gap-3',
-                    location.pathname === '/carrinho'
-                      ? 'text-primary'
-                      : 'text-foreground hover:text-white',
-                  )}
-                >
-                  <ShoppingCart className="w-5 h-5" /> Carrinho
-                </Link>
-              </nav>
-              <div className="mt-auto pb-8 flex gap-4 pt-4 border-t border-white/5">
-                <a
-                  href="https://instagram.com"
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="p-2 border border-border rounded-full hover:border-primary hover:text-primary transition-colors"
-                >
-                  <Instagram className="h-5 w-5" />
-                </a>
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  onClick={() => trackEvent('whatsapp_click', { context: 'layout_mobile_menu' })}
-                  className="p-2 border border-border rounded-full hover:border-primary hover:text-primary transition-colors"
-                >
-                  <MessageCircle className="h-5 w-5" />
-                </a>
-              </div>
-            </SheetContent>
-          </Sheet>
+              <Link to="/orcamento">Orçamento</Link>
+            </Button>
+          </div>
+
+          <button
+            className="md:hidden p-2 text-zinc-300 hover:text-[#D4AF37] transition-colors"
+            onClick={() => setMobileMenuOpen(!mobileMenuOpen)}
+          >
+            {mobileMenuOpen ? <X size={28} /> : <Menu size={28} />}
+          </button>
         </div>
+
+        {mobileMenuOpen && (
+          <div className="md:hidden absolute top-24 left-0 w-full bg-zinc-950 border-b border-zinc-800 shadow-xl py-4 flex flex-col px-6 animate-in slide-in-from-top-2">
+            {navLinks.map((link) => (
+              <Link
+                key={link.path}
+                to={link.path}
+                className="py-4 text-zinc-300 hover:text-[#D4AF37] border-b border-zinc-900 last:border-0 uppercase text-sm tracking-widest font-medium"
+              >
+                {link.name}
+              </Link>
+            ))}
+            <div className="pt-6 pb-2">
+              <Button
+                asChild
+                className="w-full bg-[#D4AF37] hover:bg-[#B8860B] text-zinc-950 rounded-none uppercase tracking-wider h-12"
+              >
+                <Link to="/orcamento">Solicitar Orçamento</Link>
+              </Button>
+            </div>
+          </div>
+        )}
       </header>
 
-      <main className="flex-1">
+      <main className="flex-grow flex flex-col w-full min-h-[calc(100vh-6rem)]">
         <Outlet />
       </main>
 
-      <footer className="bg-card border-t border-white/5 pt-16 pb-8">
-        <div className="container grid grid-cols-1 md:grid-cols-3 gap-12 mb-12">
-          <div>
-            <h3 className="text-2xl font-serif text-white mb-4">VITTORIO</h3>
-            <p className="text-muted-foreground leading-relaxed text-sm max-w-xs mb-4">
-              Mobiliário exclusivo e design de interiores sofisticado. Transformamos ambientes
-              através da excelência do inox e acabamentos premium.
-            </p>
-            <p className="text-xs text-muted-foreground/70 font-mono">CNPJ: 24.810.002/0001-04</p>
-          </div>
-          <div>
-            <h4 className="text-lg font-serif text-white mb-4 uppercase tracking-wider">
-              Links Rápidos
-            </h4>
-            <ul className="space-y-3 grid grid-cols-2 gap-x-4">
-              {navLinks.map((link) => (
-                <li key={link.name}>
-                  <Link
-                    to={link.path}
-                    className="text-muted-foreground hover:text-primary transition-colors text-sm"
-                  >
-                    {link.name === 'Docs' ? 'Documentação Técnica' : link.name}
-                  </Link>
+      <footer className="bg-[#050505] border-t border-zinc-900 pt-20 pb-8 text-zinc-400">
+        <div className="container mx-auto px-4">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 lg:gap-8 mb-16">
+            <div className="flex flex-col items-start lg:pr-8">
+              <div className="bg-zinc-950 p-3 rounded-sm mb-6 border border-zinc-800 shadow-lg">
+                <img
+                  src={logoBoxed}
+                  alt="Vittorio"
+                  className="h-24 w-auto object-cover rounded-sm"
+                />
+              </div>
+              <p className="text-sm text-zinc-500 mb-6 leading-relaxed font-light">
+                Criar ambientes funcionais e elegantes para aumento de vendas. Soluções premium em
+                refrigeração e montagem comercial.
+              </p>
+              <p className="text-xs text-zinc-600 font-mono tracking-wider">
+                CNPJ: 24.810.002/0001-04
+              </p>
+            </div>
+
+            <div>
+              <h4 className="text-[#D4AF37] text-sm font-bold uppercase tracking-[0.15em] mb-8">
+                Navegação
+              </h4>
+              <ul className="space-y-4 text-sm">
+                {navLinks.map((link) => (
+                  <li key={link.path}>
+                    <Link
+                      to={link.path}
+                      className="hover:text-[#D4AF37] transition-colors flex items-center gap-3 group font-light"
+                    >
+                      <ChevronRight className="h-4 w-4 text-zinc-700 group-hover:text-[#D4AF37] transition-colors" />
+                      {link.name}
+                    </Link>
+                  </li>
+                ))}
+              </ul>
+            </div>
+
+            <div className="lg:col-span-2">
+              <h4 className="text-[#D4AF37] text-sm font-bold uppercase tracking-[0.15em] mb-8">
+                Contato Oficial
+              </h4>
+              <ul className="space-y-6 text-sm">
+                <li className="flex items-start gap-4">
+                  <div className="bg-zinc-900 p-2 rounded-full border border-zinc-800 shrink-0">
+                    <MapPin className="h-4 w-4 text-[#D4AF37]" />
+                  </div>
+                  <span className="leading-relaxed text-zinc-300 font-light mt-1">
+                    Avenida Virginia Paula dos Santos Alves, 1840
+                    <br />
+                    Itaboraí - RJ, CEP 24.867-512
+                  </span>
                 </li>
-              ))}
-            </ul>
-          </div>
-          <div>
-            <h4 className="text-lg font-serif text-white mb-4 uppercase tracking-wider">Contato</h4>
-            <ul className="space-y-4">
-              <li>
+                <li className="flex items-center gap-4">
+                  <div className="bg-zinc-900 p-2 rounded-full border border-zinc-800 shrink-0">
+                    <Phone className="h-4 w-4 text-[#D4AF37]" />
+                  </div>
+                  <a
+                    href="https://wa.me/5521990451568"
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="text-zinc-300 hover:text-[#D4AF37] transition-colors font-light text-base"
+                  >
+                    (21) 99045-1568
+                  </a>
+                </li>
+                <li className="flex items-center gap-4">
+                  <div className="bg-zinc-900 p-2 rounded-full border border-zinc-800 shrink-0">
+                    <Mail className="h-4 w-4 text-[#D4AF37]" />
+                  </div>
+                  <a
+                    href="mailto:contato@vittoriodesign.com.br"
+                    className="text-zinc-300 hover:text-[#D4AF37] transition-colors font-light"
+                  >
+                    contato@vittoriodesign.com.br
+                  </a>
+                </li>
+              </ul>
+              <div className="mt-10 flex gap-4">
                 <a
-                  href={whatsappUrl}
+                  href="https://instagram.com/VittorioDesignOficial"
                   target="_blank"
                   rel="noopener noreferrer"
-                  onClick={() => trackEvent('whatsapp_click', { context: 'layout_footer_contact' })}
-                  className="flex items-center gap-3 text-muted-foreground text-sm hover:text-primary transition-colors"
+                  className="h-12 w-12 rounded-full border border-zinc-800 bg-zinc-900 flex items-center justify-center text-zinc-400 hover:text-[#D4AF37] hover:border-[#D4AF37] transition-all group"
                 >
-                  <Phone className="h-4 w-4 text-primary" />
-                  <span>+55 (21) 99045-1568</span>
+                  <Instagram className="h-5 w-5 group-hover:scale-110 transition-transform" />
                 </a>
-              </li>
-              <li>
-                <a
-                  href="mailto:contato@vittoriodesign.com"
-                  className="flex items-center gap-3 text-muted-foreground text-sm hover:text-primary transition-colors"
-                >
-                  <Mail className="h-4 w-4 text-primary" />
-                  <span>contato@vittoriodesign.com</span>
-                </a>
-              </li>
-              <li className="flex items-center gap-3 text-muted-foreground text-sm">
-                <MapPin className="h-4 w-4 text-primary" />
-                <span>Av. Europa, 150 - São Paulo, SP</span>
-              </li>
-            </ul>
+              </div>
+            </div>
           </div>
-        </div>
 
-        <div className="container pt-8 border-t border-white/5 flex flex-col lg:flex-row items-center justify-between text-xs text-muted-foreground gap-6">
-          <div className="flex flex-col md:flex-row items-center gap-4 md:gap-6 text-center md:text-left">
-            <p>&copy; {new Date().getFullYear()} Vittorio Design. Todos os direitos reservados.</p>
-            <div className="hidden md:block w-px h-3 bg-white/20"></div>
-            <div className="flex flex-wrap justify-center items-center gap-4">
-              <Link
-                to="/politica-de-privacidade"
-                className="hover:text-primary transition-colors underline-offset-4 hover:underline"
-              >
+          <div className="border-t border-zinc-900 pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-zinc-600 font-light">
+            <p>&copy; {new Date().getFullYear()} Vittorio. Todos os direitos reservados.</p>
+            <div className="flex gap-6 mt-4 md:mt-0 uppercase tracking-widest text-[10px]">
+              <Link to="/privacidade" className="hover:text-[#D4AF37] transition-colors">
                 Política de Privacidade
               </Link>
-              <Link
-                to="/termos-de-servico"
-                className="hover:text-primary transition-colors underline-offset-4 hover:underline"
-              >
+              <Link to="/termos" className="hover:text-[#D4AF37] transition-colors">
                 Termos de Serviço
               </Link>
             </div>
           </div>
-          <div className="flex gap-6">
-            <a
-              href="https://instagram.com"
-              target="_blank"
-              rel="noopener noreferrer"
-              className="hover:text-primary transition-colors flex items-center gap-2"
-            >
-              <Instagram className="h-4 w-4" /> Instagram
-            </a>
-            <a
-              href={whatsappUrl}
-              target="_blank"
-              rel="noopener noreferrer"
-              onClick={() => trackEvent('whatsapp_click', { context: 'layout_footer_social' })}
-              className="hover:text-primary transition-colors flex items-center gap-2"
-            >
-              <MessageCircle className="h-4 w-4" /> WhatsApp
-            </a>
-          </div>
         </div>
       </footer>
-
-      {/* Floating WhatsApp Button */}
-      <a
-        href={whatsappUrl}
-        target="_blank"
-        rel="noopener noreferrer"
-        onClick={() => trackEvent('whatsapp_click', { context: 'layout_floating_button' })}
-        className="fixed bottom-6 right-6 z-50 p-4 bg-primary text-primary-foreground rounded-full shadow-[0_4px_20px_rgba(201,162,107,0.3)] hover:bg-primary/90 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center group"
-        aria-label="Fale conosco no WhatsApp"
-      >
-        <MessageCircle className="w-7 h-7" />
-        <span className="absolute right-full mr-4 bg-card border border-white/10 text-white text-sm px-3 py-1.5 rounded whitespace-nowrap opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none shadow-lg">
-          Fale Conosco
-        </span>
-      </a>
     </div>
   )
 }
