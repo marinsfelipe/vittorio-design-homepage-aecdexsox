@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://vittorio-design-homepage-9d5d3.goskip.app/sitemap.xml

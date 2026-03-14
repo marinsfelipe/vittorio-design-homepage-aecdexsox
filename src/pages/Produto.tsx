@@ -17,6 +17,7 @@ import { Badge } from '@/components/ui/badge'
 import { supabase } from '@/lib/supabase'
 import { useToast } from '@/hooks/use-toast'
 import { useCart } from '@/hooks/useCart'
+import { SEO } from '@/components/SEO'
 
 const fallbackProductDetails = {
   id: 'p1000000-0000-0000-0000-000000000002',
@@ -147,9 +148,15 @@ export default function Produto() {
   const specs = product.especificacoes_json || {}
   const items = Array.isArray(product.itens_serie_json) ? product.itens_serie_json : []
   const options = Array.isArray(product.opcionais_json) ? product.opcionais_json : []
+  const productDescription = `Conheça ${product.nome}. Peça exclusiva da Vittorio Design desenvolvida com precisão e materiais nobres.`
 
   return (
     <div className="w-full pt-32 pb-24 bg-background min-h-screen">
+      <SEO
+        title={`${product.nome} | Vittorio Design`}
+        description={productDescription}
+        image={product.imagem_url}
+      />
       <div className="container">
         <Link
           to="/catalogo"
@@ -172,6 +179,7 @@ export default function Produto() {
                     'https://img.usecurling.com/p/1200/1600?q=product&color=black'
                   }
                   alt={product.nome}
+                  loading="lazy"
                   className="w-full h-full object-cover object-center shadow-2xl relative z-0"
                 />
               </div>

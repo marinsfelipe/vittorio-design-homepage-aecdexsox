@@ -49,6 +49,7 @@ export function FeaturedPreview() {
                 <img
                   src={item.img}
                   alt={item.name}
+                  loading="lazy"
                   className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
                 />
               </div>

@@ -3,10 +3,15 @@ import { Button } from '@/components/ui/button'
 import { ArrowRight } from 'lucide-react'
 import { FeaturedPreview } from '@/components/FeaturedPreview'
 import { InstagramFeed } from '@/components/InstagramFeed'
+import { SEO } from '@/components/SEO'
 
 export default function Index() {
   return (
     <div className="w-full">
+      <SEO
+        title="Vittorio Design | Design que Transforma"
+        description="A Vittorio Design nasceu da paixão por formas puras e materiais nobres. Cada peça é um manifesto de luxo silencioso, projetada para transcender tendências e estabelecer-se como atemporal."
+      />
       {/* Hero Section */}
       <section className="relative h-screen flex items-center justify-center overflow-hidden">
         <div className="absolute inset-0 z-0">
@@ -53,6 +58,7 @@ export default function Index() {
               <img
                 src="https://img.usecurling.com/p/800/1000?q=stainless%20steel%20texture&color=black"
                 alt="Detalhe de Material"
+                loading="lazy"
                 className="w-full aspect-[4/5] object-cover grayscale opacity-90 transition-all duration-700 group-hover:grayscale-0 group-hover:opacity-100"
               />
             </div>

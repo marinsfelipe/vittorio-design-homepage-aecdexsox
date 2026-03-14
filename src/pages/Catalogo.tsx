@@ -16,6 +16,7 @@ import { cn } from '@/lib/utils'
 import { supabase } from '@/lib/supabase'
 import { useToast } from '@/hooks/use-toast'
 import { useCart } from '@/hooks/useCart'
+import { SEO } from '@/components/SEO'
 
 type Familia = {
   id: string
@@ -122,6 +123,10 @@ export default function Catalogo() {
 
   return (
     <div className="w-full pt-32 pb-24 bg-background min-h-screen">
+      <SEO
+        title="Catálogo de Produtos | Vittorio Design"
+        description="Explore nossa coleção de peças exclusivas. Balcões, Vitrines e Expositores desenvolvidos com a precisão do inox e detalhes em ouro para transformar seu ambiente."
+      />
       <div className="container">
         <div className="mb-12 max-w-2xl opacity-0 animate-fade-in-up">
           <h1 className="text-4xl md:text-6xl font-serif text-white mb-6">Nosso Catálogo</h1>
@@ -219,6 +224,7 @@ export default function Catalogo() {
                         'https://img.usecurling.com/p/800/1000?q=product&color=black'
                       }
                       alt={product.nome}
+                      loading="lazy"
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
                     />
                     {product.familias && (

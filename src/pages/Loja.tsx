@@ -15,6 +15,7 @@ import { Skeleton } from '@/components/ui/skeleton'
 import { cn } from '@/lib/utils'
 import { supabase } from '@/lib/supabase'
 import { useCart } from '@/hooks/useCart'
+import { SEO } from '@/components/SEO'
 
 type Familia = { id: string; nome: string }
 
@@ -91,6 +92,10 @@ export default function Loja() {
 
   return (
     <div className="w-full pt-32 pb-24 bg-background min-h-screen">
+      <SEO
+        title="Loja Online | Vittorio Design"
+        description="Adquira peças exclusivas diretamente pelo nosso e-commerce. Seleção especial com disponibilidade imediata e entrega para todo o Brasil."
+      />
       <div className="container">
         <div className="mb-12 max-w-2xl opacity-0 animate-fade-in-up">
           <h1 className="text-4xl md:text-6xl font-serif text-white mb-6">Loja Online</h1>
@@ -188,6 +193,7 @@ export default function Loja() {
                         'https://img.usecurling.com/p/800/1000?q=product&color=black'
                       }
                       alt={product.nome}
+                      loading="lazy"
                       className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
                     />
                     {product.familias && (

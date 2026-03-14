@@ -260,6 +260,7 @@ export default function Checkout() {
                           'https://img.usecurling.com/p/200/200?q=product&color=black'
                         }
                         alt={item.produtos.nome}
+                        loading="lazy"
                         className="w-full h-full object-cover grayscale"
                       />
                     </div>
