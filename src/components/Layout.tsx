@@ -34,6 +34,7 @@ export default function Layout() {
     { name: 'Loja', path: '/loja' },
     { name: 'Catálogo', path: '/catalogo' },
     { name: 'Galeria', path: '/galeria' },
+    { name: 'Docs', path: '/documentacao' },
     { name: 'Rastreio', path: '/rastreio' },
     { name: 'Contato', path: '/contato' },
   ]
@@ -54,7 +55,7 @@ export default function Layout() {
             VITTORIO <span className="text-primary font-normal text-xl">Design</span>
           </Link>
 
-          <nav className="hidden md:flex gap-6 lg:gap-8 items-center">
+          <nav className="hidden md:flex gap-4 lg:gap-6 items-center">
             {navLinks.map((link) => (
               <Link
                 key={link.name}
@@ -110,7 +111,7 @@ export default function Layout() {
                         : 'text-foreground hover:text-white',
                     )}
                   >
-                    {link.name}
+                    {link.name === 'Docs' ? 'Documentação Técnica' : link.name}
                   </Link>
                 ))}
                 <Link
@@ -174,7 +175,7 @@ export default function Layout() {
                     to={link.path}
                     className="text-muted-foreground hover:text-primary transition-colors text-sm"
                   >
-                    {link.name}
+                    {link.name === 'Docs' ? 'Documentação Técnica' : link.name}
                   </Link>
                 </li>
               ))}
