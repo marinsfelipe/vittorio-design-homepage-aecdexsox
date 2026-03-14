@@ -124,14 +124,18 @@ export default function Checkout() {
         preco_unitario: item.produtos.preco,
       }))
 
-      const { error: insertError } = await supabase.from('pedidos').insert({
-        cliente_nome: values.cliente_nome,
-        cliente_email: values.cliente_email,
-        cliente_telefone: values.cliente_telefone,
-        itens_json: itemsJson,
-        total: totalAmount,
-        status_pagamento: 'paid',
-      })
+      const { data: orderData, error: insertError } = await supabase
+        .from('pedidos')
+        .insert({
+          cliente_nome: values.cliente_nome,
+          cliente_email: values.cliente_email,
+          cliente_telefone: values.cliente_telefone,
+          itens_json: itemsJson,
+          total: totalAmount,
+          status_pagamento: 'paid',
+        })
+        .select('id')
+        .single()
 
       if (insertError) {
         toast({
@@ -144,7 +148,19 @@ export default function Checkout() {
       }
 
       await supabase.from('carrinho').delete().eq('sessao_id', getSessionId())
-      navigate('/success')
+
+      navigate('/success', {
+        state: {
+          orderId: orderData?.id || `sim-${Date.now()}`,
+          total: totalAmount,
+          items: items.map((item) => ({
+            item_id: item.produtos.id,
+            item_name: item.produtos.nome,
+            price: item.produtos.preco,
+            quantity: item.quantidade,
+          })),
+        },
+      })
     }
   }
 

@@ -17,6 +17,7 @@ import { supabase } from '@/lib/supabase'
 import { useToast } from '@/hooks/use-toast'
 import { useCart } from '@/hooks/useCart'
 import { SEO } from '@/components/SEO'
+import { trackEvent } from '@/lib/analytics'
 
 type Familia = {
   id: string
@@ -88,6 +89,21 @@ export default function Catalogo() {
     })
     return result
   }, [produtos, selectedFamilyId, sortBy])
+
+  useEffect(() => {
+    if (!isLoading && sortedAndFiltered.length > 0) {
+      trackEvent('view_item_list', {
+        item_list_id: 'catalogo',
+        item_list_name: 'Catálogo de Produtos',
+        items: sortedAndFiltered.map((p) => ({
+          item_id: p.id,
+          item_name: p.nome,
+          price: p.preco || 0,
+          item_category: p.familias?.nome || '',
+        })),
+      })
+    }
+  }, [isLoading, sortedAndFiltered])
 
   const handleQuoteRequest = async (e: React.MouseEvent, product: Produto) => {
     e.preventDefault()

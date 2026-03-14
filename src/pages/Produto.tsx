@@ -18,6 +18,7 @@ import { supabase } from '@/lib/supabase'
 import { useToast } from '@/hooks/use-toast'
 import { useCart } from '@/hooks/useCart'
 import { SEO } from '@/components/SEO'
+import { trackEvent } from '@/lib/analytics'
 
 const fallbackProductDetails = {
   id: 'p1000000-0000-0000-0000-000000000002',
@@ -81,6 +82,23 @@ export default function Produto() {
     fetchProduct()
   }, [id])
 
+  useEffect(() => {
+    if (product && !isLoading) {
+      trackEvent('view_item', {
+        currency: 'BRL',
+        value: product.preco || 0,
+        items: [
+          {
+            item_id: product.id,
+            item_name: product.nome,
+            price: product.preco || 0,
+            item_category: product.familias?.nome || '',
+          },
+        ],
+      })
+    }
+  }, [product, isLoading])
+
   if (isLoading) {
     return (
       <div className="w-full pt-32 pb-24 bg-background min-h-screen flex items-center justify-center">
@@ -103,6 +121,11 @@ export default function Produto() {
   }
 
   const handleWhatsAppShare = () => {
+    trackEvent('whatsapp_click', {
+      context: 'product_page',
+      product_id: product.id,
+      product_name: product.nome,
+    })
     const url = window.location.href
     const text = `Confira este produto incrível da Vittorio Design: ${product.nome} - ${url}`
     window.open(`https://wa.me/?text=${encodeURIComponent(text)}`, '_blank')
@@ -130,6 +153,7 @@ export default function Produto() {
 
       if (error) throw error
 
+      trackEvent('generate_lead', { form_name: 'quote_request', product_id: product.id })
       toast({
         title: 'Solicitação enviada!',
         description: 'Sua solicitação de orçamento foi enviada com sucesso.',

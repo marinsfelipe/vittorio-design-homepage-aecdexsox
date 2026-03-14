@@ -1,8 +1,26 @@
-import { Link } from 'react-router-dom'
+import { useEffect, useRef } from 'react'
+import { Link, useLocation } from 'react-router-dom'
 import { CheckCircle2, ArrowRight } from 'lucide-react'
 import { Button } from '@/components/ui/button'
+import { trackEvent } from '@/lib/analytics'
 
 export default function Success() {
+  const location = useLocation()
+  const tracked = useRef(false)
+
+  useEffect(() => {
+    if (location.state && !tracked.current) {
+      const { orderId, total, items } = location.state
+      trackEvent('purchase', {
+        transaction_id: orderId,
+        value: total,
+        currency: 'BRL',
+        items: items,
+      })
+      tracked.current = true
+    }
+  }, [location])
+
   return (
     <div className="w-full pt-32 pb-24 bg-background min-h-[80vh] flex items-center justify-center">
       <div className="container max-w-lg text-center">

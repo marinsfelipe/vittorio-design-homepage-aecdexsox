@@ -17,6 +17,7 @@ import {
 } from '@/components/ui/form'
 import { useToast } from '@/hooks/use-toast'
 import { supabase } from '@/lib/supabase'
+import { trackEvent } from '@/lib/analytics'
 
 const formSchema = z.object({
   nome: z.string().min(2, 'O nome deve ter pelo menos 2 caracteres.'),
@@ -62,6 +63,7 @@ export default function Contato() {
         throw new Error(error.message)
       }
 
+      trackEvent('generate_lead', { form_name: 'contact' })
       form.reset()
       toast({
         title: 'Mensagem enviada com sucesso!',
@@ -198,6 +200,7 @@ export default function Contato() {
               href={`https://wa.me/5521990451568?text=${whatsappMessage}`}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackEvent('whatsapp_click', { context: 'contact_page' })}
               className="flex items-start gap-6 p-6 md:p-8 bg-card border border-white/5 hover:border-primary transition-colors group"
             >
               <div className="p-3 bg-primary/10 rounded-full text-primary group-hover:scale-110 transition-transform">

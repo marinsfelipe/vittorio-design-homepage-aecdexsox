@@ -10,6 +10,7 @@ import {
 } from '@/components/ui/sheet'
 import { Button } from '@/components/ui/button'
 import { cn } from '@/lib/utils'
+import { trackEvent } from '@/lib/analytics'
 
 export default function Layout() {
   const [scrolled, setScrolled] = useState(false)
@@ -135,6 +136,7 @@ export default function Layout() {
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackEvent('whatsapp_click', { context: 'layout_mobile_menu' })}
                   className="p-2 border border-border rounded-full hover:border-primary hover:text-primary transition-colors"
                 >
                   <MessageCircle className="h-5 w-5" />
@@ -183,6 +185,7 @@ export default function Layout() {
                   href={whatsappUrl}
                   target="_blank"
                   rel="noopener noreferrer"
+                  onClick={() => trackEvent('whatsapp_click', { context: 'layout_footer_contact' })}
                   className="flex items-center gap-3 text-muted-foreground text-sm hover:text-primary transition-colors"
                 >
                   <Phone className="h-4 w-4 text-primary" />
@@ -220,6 +223,7 @@ export default function Layout() {
               href={whatsappUrl}
               target="_blank"
               rel="noopener noreferrer"
+              onClick={() => trackEvent('whatsapp_click', { context: 'layout_footer_social' })}
               className="hover:text-primary transition-colors flex items-center gap-2"
             >
               <MessageCircle className="h-4 w-4" /> WhatsApp
@@ -233,6 +237,7 @@ export default function Layout() {
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
+        onClick={() => trackEvent('whatsapp_click', { context: 'layout_floating_button' })}
         className="fixed bottom-6 right-6 z-50 p-4 bg-primary text-primary-foreground rounded-full shadow-[0_4px_20px_rgba(201,162,107,0.3)] hover:bg-primary/90 hover:-translate-y-1 transition-all duration-300 flex items-center justify-center group"
         aria-label="Fale conosco no WhatsApp"
       >

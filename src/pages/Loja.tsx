@@ -16,6 +16,7 @@ import { cn } from '@/lib/utils'
 import { supabase } from '@/lib/supabase'
 import { useCart } from '@/hooks/useCart'
 import { SEO } from '@/components/SEO'
+import { trackEvent } from '@/lib/analytics'
 
 type Familia = { id: string; nome: string }
 
@@ -85,6 +86,21 @@ export default function Loja() {
     })
     return result
   }, [produtos, selectedFamilyId, sortBy])
+
+  useEffect(() => {
+    if (!isLoading && sortedAndFiltered.length > 0) {
+      trackEvent('view_item_list', {
+        item_list_id: 'loja',
+        item_list_name: 'Loja Online',
+        items: sortedAndFiltered.map((p) => ({
+          item_id: p.id,
+          item_name: p.nome,
+          price: p.preco || 0,
+          item_category: p.familias?.nome || '',
+        })),
+      })
+    }
+  }, [isLoading, sortedAndFiltered])
 
   const formatPrice = (price: number) => {
     return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(price)
