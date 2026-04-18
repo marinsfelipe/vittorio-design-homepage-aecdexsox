@@ -1,271 +1,97 @@
-import { useState, useMemo, useEffect } from 'react'
-import { ArrowRight, Expand, Loader2, ShoppingCart } from 'lucide-react'
-import { useNavigate } from 'react-router-dom'
-import {
-  Select,
-  SelectContent,
-  SelectItem,
-  SelectTrigger,
-  SelectValue,
-} from '@/components/ui/select'
-import { Button } from '@/components/ui/button'
+import { useState, useEffect } from 'react'
+import pb from '@/lib/pocketbase/client'
 import { Card, CardContent } from '@/components/ui/card'
 import { Badge } from '@/components/ui/badge'
-import { Skeleton } from '@/components/ui/skeleton'
-import { cn, optimizeImage } from '@/lib/utils'
-import { supabase } from '@/lib/supabase'
-import { useCart } from '@/hooks/useCart'
-import { SEO } from '@/components/SEO'
-import { trackEvent } from '@/lib/analytics'
-import { useCachedSupabase } from '@/hooks/useCachedSupabase'
+import { Button } from '@/components/ui/button'
+import { Loader2, ShoppingBag } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
-type Familia = { id: string; nome: string }
-
-type Produto = {
-  id: string
-  nome: string
-  codigo: string
-  familia_id: string
-  dimensoes_l: number
-  dimensoes_p: number
-  dimensoes_a: number
-  imagem_url: string
-  familias?: Familia
-  preco?: number
-  disponivel_ecommerce?: boolean
-}
-
-export default function Loja() {
-  const navigate = useNavigate()
-  const { addToCart, isAdding } = useCart()
-  const [selectedFamilyId, setSelectedFamilyId] = useState<string>('All')
-  const [sortBy, setSortBy] = useState<string>('name-asc')
-
-  const { data: storeData, loading: isLoading } = useCachedSupabase('loja-data', async () => {
-    const [familiasRes, produtosRes] = await Promise.all([
-      supabase.from('familias').select('id, nome').order('nome'),
-      supabase.from('produtos').select('*, familias(id, nome)').eq('disponivel_ecommerce', true),
-    ])
-    return {
-      familias: (familiasRes.data || []) as Familia[],
-      produtos: (produtosRes.data || []) as Produto[],
-    }
-  })
-
-  const familias = storeData?.familias || []
-  const produtos = storeData?.produtos || []
-
-  const sortedAndFiltered = useMemo(() => {
-    let result = [...produtos]
-    if (selectedFamilyId !== 'All') result = result.filter((p) => p.familia_id === selectedFamilyId)
-    result.sort((a, b) => {
-      const volA = (a.dimensoes_l || 0) * (a.dimensoes_p || 0) * (a.dimensoes_a || 0)
-      const volB = (b.dimensoes_l || 0) * (b.dimensoes_p || 0) * (b.dimensoes_a || 0)
-      switch (sortBy) {
-        case 'name-asc':
-          return a.nome.localeCompare(b.nome)
-        case 'name-desc':
-          return b.nome.localeCompare(a.nome)
-        case 'size-asc':
-          return volA - volB
-        case 'size-desc':
-          return volB - volA
-        default:
-          return 0
-      }
-    })
-    return result
-  }, [produtos, selectedFamilyId, sortBy])
+export default function LojaPage() {
+  const [products, setProducts] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    if (!isLoading && sortedAndFiltered.length > 0) {
-      trackEvent('view_item_list', {
-        item_list_id: 'loja',
-        item_list_name: 'Loja Online',
-        items: sortedAndFiltered.map((p) => ({
-          item_id: p.id,
-          item_name: p.nome,
-          price: p.preco || 0,
-          item_category: p.familias?.nome || '',
-        })),
-      })
+    async function fetchProducts() {
+      try {
+        const res = await pb.send('/backend/v1/public/products', { method: 'GET' })
+        setProducts(res.items || [])
+      } catch (error) {
+        console.error('Error fetching products', error)
+      } finally {
+        setLoading(false)
+      }
     }
-  }, [isLoading, sortedAndFiltered])
+    fetchProducts()
+  }, [])
 
-  const formatPrice = (price: number) => {
-    return new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(price)
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    )
   }
 
   return (
-    <div className="w-full pt-32 pb-24 bg-background min-h-screen">
-      <SEO
-        title="Loja Online | Vittorio Design"
-        description="Adquira peças exclusivas diretamente pelo nosso e-commerce. Seleção especial com disponibilidade imediata e entrega para todo o Brasil."
-      />
-      <div className="container">
-        <div className="mb-12 max-w-2xl opacity-0 animate-fade-in-up">
-          <h1 className="text-4xl md:text-6xl font-serif text-white mb-6">Loja Online</h1>
-          <div className="h-px w-24 bg-primary mb-6"></div>
-          <p className="text-lg text-muted-foreground font-light">
-            Adquira peças exclusivas diretamente pelo nosso e-commerce. Seleção especial com
-            disponibilidade imediata e entrega para todo o Brasil.
-          </p>
-        </div>
-
-        <div
-          className="flex flex-col lg:flex-row justify-between items-start lg:items-center mb-10 gap-6 opacity-0 animate-fade-in-up"
-          style={{ animationDelay: '0.2s' }}
-        >
-          <div className="flex flex-wrap gap-3">
-            <Button
-              variant={selectedFamilyId === 'All' ? 'default' : 'outline'}
-              onClick={() => setSelectedFamilyId('All')}
-              className={cn(
-                'rounded-none uppercase tracking-widest text-xs px-6 py-5 transition-all duration-300',
-                selectedFamilyId === 'All'
-                  ? 'bg-primary text-primary-foreground border-transparent'
-                  : 'border-white/20 text-white hover:bg-white/10 hover:border-white/40',
-              )}
-            >
-              Todos
-            </Button>
-            {isLoading
-              ? Array.from({ length: 3 }).map((_, i) => (
-                  <Skeleton key={i} className="h-[42px] w-[120px] rounded-none bg-white/10" />
-                ))
-              : familias.map((fam) => (
-                  <Button
-                    key={fam.id}
-                    variant={selectedFamilyId === fam.id ? 'default' : 'outline'}
-                    onClick={() => setSelectedFamilyId(fam.id)}
-                    className={cn(
-                      'rounded-none uppercase tracking-widest text-xs px-6 py-5 transition-all duration-300',
-                      selectedFamilyId === fam.id
-                        ? 'bg-primary text-primary-foreground border-transparent'
-                        : 'border-white/20 text-white hover:bg-white/10 hover:border-white/40',
-                    )}
-                  >
-                    {fam.nome}
-                  </Button>
-                ))}
-          </div>
-          <div className="w-full lg:w-72">
-            <Select value={sortBy} onValueChange={setSortBy}>
-              <SelectTrigger className="rounded-none border-white/20 text-white bg-transparent h-12">
-                <SelectValue placeholder="Ordenar por..." />
-              </SelectTrigger>
-              <SelectContent className="rounded-none bg-[#111] border-white/10 text-white">
-                <SelectItem value="name-asc">Nome (A-Z)</SelectItem>
-                <SelectItem value="name-desc">Nome (Z-A)</SelectItem>
-                <SelectItem value="size-asc">Tamanho (Menor - Maior)</SelectItem>
-                <SelectItem value="size-desc">Tamanho (Maior - Menor)</SelectItem>
-              </SelectContent>
-            </Select>
-          </div>
-        </div>
-
-        {isLoading ? (
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
-            {Array.from({ length: 8 }).map((_, i) => (
-              <Card
-                key={i}
-                className="h-full bg-card border-white/5 overflow-hidden rounded-none flex flex-col"
-              >
-                <Skeleton className="relative aspect-[4/5] bg-white/10 rounded-none" />
-                <CardContent className="p-6 flex flex-col gap-3">
-                  <Skeleton className="h-6 w-3/4 bg-white/10" />
-                  <Skeleton className="h-4 w-1/2 bg-white/10" />
-                  <Skeleton className="h-4 w-2/3 bg-white/10 mt-auto" />
-                </CardContent>
-              </Card>
-            ))}
-          </div>
-        ) : (
-          <div
-            className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8 opacity-0 animate-fade-in-up"
-            style={{ animationDelay: '0.3s' }}
-          >
-            {sortedAndFiltered.map((product) => (
-              <div
-                key={product.id}
-                onClick={() => navigate(`/produto/${product.id}`)}
-                className="group block h-full cursor-pointer"
-              >
-                <Card className="h-full bg-card border-white/5 overflow-hidden group-hover:border-primary/50 transition-colors duration-500 rounded-none flex flex-col">
-                  <div className="relative aspect-[4/5] overflow-hidden bg-muted/20">
-                    <img
-                      src={optimizeImage(
-                        product.imagem_url ||
-                          'https://img.usecurling.com/p/800/1000?q=product&color=black',
-                      )}
-                      alt={product.nome}
-                      loading="lazy"
-                      className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-105 grayscale group-hover:grayscale-0"
-                    />
-                    {product.familias && (
-                      <div className="absolute top-4 left-4">
-                        <Badge
-                          variant="outline"
-                          className="bg-black/80 text-primary border-primary/50 uppercase tracking-widest text-[10px] rounded-none px-3 py-1 backdrop-blur-md"
-                        >
-                          {product.familias.nome}
-                        </Badge>
-                      </div>
-                    )}
-                  </div>
-                  <CardContent className="p-6 relative flex-1 flex flex-col">
-                    <h3 className="text-xl font-serif text-white mb-1 group-hover:text-primary transition-colors">
-                      {product.nome}
-                    </h3>
-                    <p className="text-xs text-muted-foreground font-mono mb-3 uppercase tracking-wider">
-                      {product.codigo}
-                    </p>
-                    <p className="text-sm text-muted-foreground flex items-center gap-2 font-light mt-auto">
-                      <Expand className="w-4 h-4 text-primary/70" />
-                      {product.dimensoes_l}cm x {product.dimensoes_p}cm x {product.dimensoes_a}cm
-                    </p>
-
-                    {product.preco != null && (
-                      <p className="text-xl text-white font-serif mt-4">
-                        {formatPrice(product.preco)}
-                      </p>
-                    )}
-
-                    <div className="mt-6 flex flex-col gap-4 relative z-10">
-                      <div className="flex items-center text-xs font-medium text-primary uppercase tracking-widest group-hover:translate-x-2 transition-transform duration-300">
-                        Ver Detalhes <ArrowRight className="ml-2 h-4 w-4" />
-                      </div>
-
-                      <Button
-                        onClick={(e) => {
-                          e.preventDefault()
-                          e.stopPropagation()
-                          addToCart(product.id)
-                        }}
-                        disabled={isAdding === product.id}
-                        className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-none text-xs tracking-widest uppercase transition-all duration-300"
-                      >
-                        {isAdding === product.id ? (
-                          <Loader2 className="w-4 h-4 animate-spin" />
-                        ) : (
-                          <>
-                            <ShoppingCart className="w-4 h-4 mr-2" /> Adicionar ao Carrinho
-                          </>
-                        )}
-                      </Button>
-                    </div>
-                  </CardContent>
-                </Card>
-              </div>
-            ))}
-            {sortedAndFiltered.length === 0 && (
-              <div className="col-span-full text-center py-20 text-muted-foreground">
-                Nenhum produto disponível no momento.
-              </div>
-            )}
-          </div>
-        )}
+    <div className="container py-24 animate-fade-in-up min-h-screen">
+      <div className="text-center mb-16">
+        <h1 className="text-4xl md:text-5xl font-serif text-white mb-4">Nossa Loja</h1>
+        <p className="text-muted-foreground font-light max-w-2xl mx-auto">
+          Explore nossa coleção exclusiva de produtos de design.
+        </p>
       </div>
+
+      {products.length === 0 ? (
+        <div className="text-center py-24">
+          <ShoppingBag className="w-12 h-12 text-muted-foreground mx-auto mb-4 opacity-50" />
+          <h2 className="text-xl font-serif text-white mb-2">Nenhum produto encontrado</h2>
+          <p className="text-muted-foreground">Em breve teremos novidades.</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          {products.map((product) => (
+            <Card
+              key={product.id}
+              className="bg-card border-white/5 rounded-none overflow-hidden group hover:border-primary/30 transition-colors duration-300 flex flex-col"
+            >
+              <div className="aspect-[4/5] bg-muted/20 relative overflow-hidden">
+                <img
+                  src={`https://img.usecurling.com/p/400/500?q=${encodeURIComponent(product.line || 'design furniture')}&color=black`}
+                  alt={product.description || product.code}
+                  className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700"
+                />
+                {product.line && (
+                  <Badge className="absolute top-4 left-4 bg-background/80 backdrop-blur-sm text-foreground rounded-none border-none uppercase tracking-widest text-[10px]">
+                    {product.line}
+                  </Badge>
+                )}
+              </div>
+              <CardContent className="p-6 flex flex-col flex-grow justify-between">
+                <div>
+                  <h3 className="text-lg font-serif text-white mb-2">{product.code}</h3>
+                  <p className="text-sm text-muted-foreground line-clamp-2 mb-4 font-light">
+                    {product.description || 'Produto exclusivo Vittorio Design.'}
+                  </p>
+                </div>
+                <div className="flex items-center justify-between mt-auto">
+                  <span className="text-lg font-medium text-white">
+                    {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(
+                      product.price || 0,
+                    )}
+                  </span>
+                  <Button
+                    variant="ghost"
+                    className="text-primary hover:text-primary hover:bg-primary/10 rounded-none h-9 px-4 text-xs tracking-widest uppercase transition-colors"
+                    asChild
+                  >
+                    <Link to={`/loja/${product.id}`}>Detalhes</Link>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
     </div>
   )
 }
