@@ -1,39 +1,41 @@
 import { useState } from 'react'
-import { supabase } from '@/lib/supabase'
+import { useNavigate } from 'react-router-dom'
+import pb from '@/lib/pocketbase/client'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import { useToast } from '@/hooks/use-toast'
 import { Loader2, ShieldCheck } from 'lucide-react'
+import { extractFieldErrors } from '@/lib/pocketbase/errors'
 
 export default function AdminLogin() {
+  const navigate = useNavigate()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [loading, setLoading] = useState(false)
-  const [isSignUp, setIsSignUp] = useState(false)
   const { toast } = useToast()
 
   const handleAuth = async (e: React.FormEvent) => {
     e.preventDefault()
     setLoading(true)
     try {
-      if (isSignUp) {
-        const { error } = await supabase.auth.signUp({ email, password })
-        if (error) throw error
-        toast({
-          title: 'Conta criada!',
-          description: 'Verifique seu email ou tente fazer login.',
-        })
-        setIsSignUp(false)
-      } else {
-        const { error } = await supabase.auth.signInWithPassword({ email, password })
-        if (error) throw error
-      }
+      const res = await pb.send('/backend/v1/auth/login', {
+        method: 'POST',
+        body: JSON.stringify({ email, password }),
+      })
+
+      pb.authStore.save(res.token, res.record)
+
+      toast({
+        title: 'Login realizado com sucesso',
+        description: 'Bem-vindo ao painel administrativo.',
+      })
+      navigate('/admin')
     } catch (error: any) {
       toast({
         variant: 'destructive',
         title: 'Erro de autenticação',
-        description: error.message || 'Falha ao processar solicitação.',
+        description: error.message || 'Credenciais inválidas ou acesso restrito.',
       })
     } finally {
       setLoading(false)
@@ -62,7 +64,7 @@ export default function AdminLogin() {
               </label>
               <Input
                 type="email"
-                placeholder="felipe@vittoriodesign.com"
+                placeholder="contato@vittoriodesign.com.br"
                 value={email}
                 onChange={(e) => setEmail(e.target.value)}
                 required
@@ -87,23 +89,8 @@ export default function AdminLogin() {
               disabled={loading}
               className="w-full bg-primary text-primary-foreground hover:bg-primary/90 rounded-none h-12 uppercase tracking-widest text-sm transition-all"
             >
-              {loading ? (
-                <Loader2 className="w-5 h-5 animate-spin" />
-              ) : isSignUp ? (
-                'Criar Conta'
-              ) : (
-                'Entrar no Dashboard'
-              )}
+              {loading ? <Loader2 className="w-5 h-5 animate-spin" /> : 'Entrar no Dashboard'}
             </Button>
-            <div className="text-center mt-4">
-              <button
-                type="button"
-                onClick={() => setIsSignUp(!isSignUp)}
-                className="text-xs text-muted-foreground hover:text-primary transition-colors underline-offset-4 hover:underline"
-              >
-                {isSignUp ? 'Já tenho uma conta. Fazer Login.' : 'Não tem conta? Solicitar Acesso'}
-              </button>
-            </div>
           </form>
         </CardContent>
       </Card>
