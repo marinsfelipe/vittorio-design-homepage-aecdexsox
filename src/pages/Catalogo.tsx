@@ -1,190 +1,97 @@
-import { useState } from 'react'
-import { FileText, FileDown, Loader2, MessageCircle } from 'lucide-react'
-import { Button } from '@/components/ui/button'
+import { useState, useEffect } from 'react'
+import pb from '@/lib/pocketbase/client'
 import { Card, CardContent } from '@/components/ui/card'
-import { useToast } from '@/hooks/use-toast'
-import { SEO } from '@/components/SEO'
-import { trackEvent } from '@/lib/analytics'
-import { PrintableCatalog } from '@/components/PrintableCatalog'
-import { CatalogProducts } from '@/components/CatalogProducts'
-import { supabase } from '@/lib/supabase'
+import { Badge } from '@/components/ui/badge'
+import { Button } from '@/components/ui/button'
+import { Loader2, ShoppingBag } from 'lucide-react'
+import { Link } from 'react-router-dom'
 
-export default function Catalogo() {
-  const { toast } = useToast()
-  const [isDownloading, setIsDownloading] = useState(false)
-  const [isSending, setIsSending] = useState(false)
+export default function CatalogoPage() {
+  const [products, setProducts] = useState<any[]>([])
+  const [loading, setLoading] = useState(true)
 
-  const handleDownload = async () => {
-    setIsDownloading(true)
-    trackEvent('catalog_download', { method: 'print_pdf' })
-
-    try {
-      await supabase.from('analytics_events').insert({ event_name: 'catalog_download' })
-    } catch (e) {
-      console.warn('Analytics tracking failed', e)
-    }
-
-    toast({
-      title: 'Gerando PDF',
-      description: 'Preparando o catálogo para impressão ou salvamento.',
-    })
-
-    setTimeout(() => {
-      setIsDownloading(false)
-      window.print()
-    }, 1500)
-  }
-
-  const handleSendWhatsApp = async () => {
-    setIsSending(true)
-    trackEvent('whatsapp_click', { context: 'catalog_request' })
-
-    try {
-      const { data: produtos } = await supabase
-        .from('produtos')
-        .select('nome, codigo, dimensoes_l, dimensoes_p, dimensoes_a')
-        .limit(3)
-
-      let produtosText = ''
-      if (produtos && produtos.length > 0) {
-        produtosText = produtos
-          .map(
-            (p) =>
-              `• ${p.nome} (Cód: ${p.codigo}) - Dimensões: ${p.dimensoes_l}x${p.dimensoes_p}x${p.dimensoes_a}cm`,
-          )
-          .join('\n')
+  useEffect(() => {
+    async function fetchProducts() {
+      try {
+        const res = await pb.send('/backend/v1/public/products', { method: 'GET' })
+        setProducts(res.items || [])
+      } catch (error) {
+        console.error('Error fetching products', error)
+      } finally {
+        setLoading(false)
       }
-
-      const messageContent = `Olá! Gostaria de solicitar informações e orçamento sobre o catálogo Vittorio Design.\n\nProdutos em destaque:\n${produtosText}`
-
-      await new Promise((resolve) => setTimeout(resolve, 1500))
-
-      const { error: dbError } = await supabase.from('whatsapp_envios').insert({
-        conteudo_mensagem: messageContent,
-        destinatario: '(21) 99045-1568',
-        status_envio: 'sucesso',
-      })
-
-      if (dbError) throw dbError
-
-      toast({
-        title: 'Catálogo Enviado!',
-        description: 'As informações foram enviadas para o WhatsApp da nossa equipe de vendas.',
-      })
-    } catch (error) {
-      console.error('Erro ao enviar WhatsApp:', error)
-
-      await supabase
-        .from('whatsapp_envios')
-        .insert({
-          conteudo_mensagem: 'Tentativa falha de envio de catálogo',
-          destinatario: '(21) 99045-1568',
-          status_envio: 'erro',
-        })
-        .catch(() => {})
-
-      toast({
-        variant: 'destructive',
-        title: 'Erro no envio',
-        description: 'Não foi possível enviar as informações no momento.',
-      })
-    } finally {
-      setIsSending(false)
     }
-  }
+    fetchProducts()
+  }, [])
 
-  const previewCards = [
-    { id: 1, title: '1. Capa', desc: 'Missão e essência da marca.' },
-    { id: 2, title: '2. Apresentação', desc: 'História, fundadores e dados legais.' },
-    { id: 3, title: '3. Balcões', desc: 'Soluções em atendimento e exposição neutra.' },
-    { id: 4, title: '4. Vitrines', desc: 'Conservação refrigerada, aquecida e neutra.' },
-  ]
+  if (loading) {
+    return (
+      <div className="min-h-screen flex items-center justify-center">
+        <Loader2 className="w-8 h-8 animate-spin text-primary" />
+      </div>
+    )
+  }
 
   return (
-    <>
-      <div className="print:hidden w-full pt-32 pb-24 bg-background min-h-screen">
-        <SEO
-          title="Catálogo Oficial | Vittorio Design"
-          description="Baixe o catálogo completo da Vittorio Design em PDF. Tenha acesso a todas as informações técnicas."
-        />
-        <div className="container max-w-5xl">
-          <div className="mb-12 text-center opacity-0 animate-fade-in-up">
-            <h1 className="text-4xl md:text-5xl font-serif text-white mb-6">Catálogo Oficial</h1>
-            <div className="h-px w-24 bg-primary mx-auto mb-6"></div>
-            <p className="text-lg text-muted-foreground font-light max-w-2xl mx-auto">
-              Consulte offline todas as informações técnicas e detalhes institucionais da Vittorio
-              Design em um documento completo.
-            </p>
-          </div>
-
-          <div
-            className="flex flex-col sm:flex-row justify-center items-center gap-4 mb-16 opacity-0 animate-fade-in-up"
-            style={{ animationDelay: '0.1s' }}
-          >
-            <Button
-              size="lg"
-              onClick={handleDownload}
-              disabled={isDownloading}
-              className="bg-primary w-full sm:w-auto text-primary-foreground hover:bg-primary/90 rounded-none px-10 h-16 text-sm tracking-widest uppercase transition-all duration-300 shadow-[0_0_30px_rgba(201,162,107,0.2)]"
-            >
-              {isDownloading ? (
-                <>
-                  <Loader2 className="w-5 h-5 mr-3 animate-spin" /> Gerando Documento...
-                </>
-              ) : (
-                <>
-                  <FileDown className="w-5 h-5 mr-3" /> Baixar PDF
-                </>
-              )}
-            </Button>
-
-            <Button
-              size="lg"
-              onClick={handleSendWhatsApp}
-              disabled={isSending}
-              className="bg-zinc-900 border border-primary/50 text-primary w-full sm:w-auto hover:bg-zinc-800 rounded-none px-10 h-16 text-sm tracking-widest uppercase transition-all duration-300 shadow-[0_0_30px_rgba(201,162,107,0.1)]"
-            >
-              {isSending ? (
-                <>
-                  <Loader2 className="w-5 h-5 mr-3 animate-spin" /> Processando...
-                </>
-              ) : (
-                <>
-                  <MessageCircle className="w-5 h-5 mr-3" /> Enviar via WhatsApp
-                </>
-              )}
-            </Button>
-          </div>
-
-          <div className="opacity-0 animate-fade-in-up" style={{ animationDelay: '0.2s' }}>
-            <div className="flex items-center gap-3 mb-8 border-b border-white/10 pb-4">
-              <FileText className="w-5 h-5 text-primary" />
-              <h2 className="text-xl font-serif text-white uppercase tracking-wider">
-                Conteúdo do Documento
-              </h2>
-            </div>
-
-            <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-              {previewCards.map((card) => (
-                <Card
-                  key={card.id}
-                  className="bg-card border-white/5 hover:border-primary/30 transition-colors duration-500 rounded-none h-full"
-                >
-                  <CardContent className="p-6">
-                    <h3 className="text-lg font-serif text-white mb-3">{card.title}</h3>
-                    <p className="text-sm text-muted-foreground font-light leading-relaxed">
-                      {card.desc}
-                    </p>
-                  </CardContent>
-                </Card>
-              ))}
-            </div>
-          </div>
-
-          <CatalogProducts />
-        </div>
+    <div className="container py-24 animate-fade-in-up min-h-screen">
+      <div className="text-center mb-16">
+        <h1 className="text-4xl md:text-5xl font-serif text-white mb-4">Catálogo</h1>
+        <p className="text-muted-foreground font-light max-w-2xl mx-auto">
+          Explore nossas linhas completas de design.
+        </p>
       </div>
-      <PrintableCatalog />
-    </>
+
+      {products.length === 0 ? (
+        <div className="text-center py-24">
+          <ShoppingBag className="w-12 h-12 text-muted-foreground mx-auto mb-4 opacity-50" />
+          <h2 className="text-xl font-serif text-white mb-2">Nenhum produto encontrado</h2>
+          <p className="text-muted-foreground">Em breve teremos novidades.</p>
+        </div>
+      ) : (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-8">
+          {products.map((product) => (
+            <Card
+              key={product.id}
+              className="bg-card border-white/5 rounded-none overflow-hidden group hover:border-primary/30 transition-colors duration-300 flex flex-col"
+            >
+              <div className="aspect-[4/5] bg-muted/20 relative overflow-hidden">
+                <img
+                  src={`https://img.usecurling.com/p/400/500?q=${encodeURIComponent(product.line || 'design furniture')}&color=black`}
+                  alt={product.description || product.code}
+                  className="object-cover w-full h-full group-hover:scale-105 transition-transform duration-700"
+                />
+                {product.line && (
+                  <Badge className="absolute top-4 left-4 bg-background/80 backdrop-blur-sm text-foreground rounded-none border-none uppercase tracking-widest text-[10px]">
+                    {product.line}
+                  </Badge>
+                )}
+              </div>
+              <CardContent className="p-6 flex flex-col flex-grow justify-between">
+                <div>
+                  <h3 className="text-lg font-serif text-white mb-2">{product.code}</h3>
+                  <p className="text-sm text-muted-foreground line-clamp-2 mb-4 font-light">
+                    {product.description || 'Produto exclusivo Vittorio Design.'}
+                  </p>
+                </div>
+                <div className="flex items-center justify-between mt-auto">
+                  <span className="text-lg font-medium text-white">
+                    {new Intl.NumberFormat('pt-BR', { style: 'currency', currency: 'BRL' }).format(
+                      product.price || 0,
+                    )}
+                  </span>
+                  <Button
+                    variant="ghost"
+                    className="text-primary hover:text-primary hover:bg-primary/10 rounded-none h-9 px-4 text-xs tracking-widest uppercase transition-colors"
+                    asChild
+                  >
+                    <Link to={`/catalogo/${product.id}`}>Detalhes</Link>
+                  </Button>
+                </div>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      )}
+    </div>
   )
 }
